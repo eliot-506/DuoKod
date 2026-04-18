@@ -1,0 +1,67 @@
+.radar-chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    background: radial-gradient(circle, rgba(0, 255, 204, 0.05) 0%, transparent 60%);
+    border-radius: 50%;
+}
+
+.empty-radar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 50%;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.empty-radar i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.3;
+}
+
+/* Background Polygon Rings */
+.radar-grid-polygon {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.15);
+    stroke-width: 1px;
+}
+
+/* Base Spokes from center */
+.radar-grid-spoke {
+    stroke: rgba(255, 255, 255, 0.15);
+    stroke-width: 1px;
+    stroke-dasharray: 4;
+}
+
+/* The actual user skill level */
+.radar-data-polygon {
+    stroke-width: 2px;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.5));
+    transition: all 0.5s ease-in-out;
+}
+
+.radar-data-point {
+    cursor: pointer;
+    transition: transform 0.2s, r 0.2s;
+    filter: drop-shadow(0 0 8px rgba(0, 255, 204, 0.8));
+}
+
+.radar-data-point:hover {
+    r: 6px;
+}
+
+/* Text Overlays */
+.radar-label {
+    fill: #ffffff;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5));
+    pointer-events: none;
+}

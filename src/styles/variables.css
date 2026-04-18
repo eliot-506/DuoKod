@@ -1,0 +1,68 @@
+:root {
+  /* Cyberpunk Neon Aesthetics (Default Hacker Theme) */
+  --primary: #00ffcc;
+  --primary-transparent: rgba(0, 255, 204, 0.15);
+  --primary-glow: 0 0 15px rgba(0, 255, 204, 0.5), 0 0 30px rgba(0, 255, 204, 0.3);
+
+  --secondary: #ff00ff;
+  --secondary-transparent: rgba(255, 0, 255, 0.15);
+  --secondary-glow: 0 0 15px rgba(255, 0, 255, 0.5), 0 0 30px rgba(255, 0, 255, 0.3);
+
+  --accent-pink: #ff4b4b;
+  --accent-pink-transparent: rgba(255, 75, 75, 0.15);
+  --accent-pink-glow: 0 0 15px rgba(255, 75, 75, 0.5);
+
+  --accent-yellow: #ffc800;
+  --accent-yellow-glow: 0 0 15px rgba(255, 200, 0, 0.5);
+
+  --background: #0a0a0f;
+  --surface: rgba(20, 20, 30, 0.85);
+  --surface-hover: rgba(30, 30, 45, 0.95);
+
+  /* Matn ranglari */
+  --text-dark: #ffffff;
+  --text-gray: #a0a0b0;
+  --text-light: #57606a;
+  --text-white: #ffffff;
+  --text-inverse: #0a0a0f;
+
+  /* Chegaralar */
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-width: 2px;
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+  --border-radius-full: 9999px;
+
+  --glass-border: rgba(255, 255, 255, 0.05);
+
+  /* Shriftlar */
+  --font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Fira Code', 'Courier New', Courier, monospace;
+}
+
+/* Optional Dark Mode / Pro Mode */
+body.pro-mode {
+  --background: #111b21;
+  --surface: #202f36;
+  --surface-hover: #2a3942;
+
+  --text-dark: #ffffff;
+  --text-gray: #8b949e;
+  --text-light: #57606a;
+
+  --border-color: #37464f;
+  --glass-border: rgba(255, 255, 255, 0.05);
+
+  --primary: #ffd700;
+  --primary-glow: 0 0 10px rgba(255, 215, 0, 0.3);
+
+  --secondary: #1cb0f6;
+  --secondary-glow: 0 0 10px rgba(28, 176, 246, 0.3);
+
+  --accent-pink: #ff4b4b;
+  --accent-pink-glow: 0 0 10px rgba(234, 43, 43, 0.3);
+
+  --accent-yellow: #ffc800;
+  --accent-yellow-glow: 0 0 10px rgba(212, 166, 0, 0.3);
+}

@@ -1,0 +1,431 @@
+.lesson-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--background);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+}
+
+.lesson-header {
+    display: flex;
+    align-items: center;
+    padding: 20px 24px;
+    gap: 16px;
+    background-color: var(--surface);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+}
+
+.lesson-exit-btn {
+    background: none;
+    font-size: 1.5rem;
+    color: var(--text-gray);
+    cursor: pointer;
+    padding: 8px;
+    transition: all 0.3s ease;
+}
+
+.lesson-exit-btn:hover {
+    color: var(--accent-pink);
+    text-shadow: var(--accent-pink-glow);
+}
+
+.lesson-progress-bar {
+    flex: 1;
+    height: 16px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-full);
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.lesson-progress-fill {
+    height: 100%;
+    background-color: var(--primary);
+    border-radius: var(--border-radius-full);
+    transition: width 0.4s ease;
+    position: relative;
+    box-shadow: 0 0 10px currentColor;
+}
+
+.lesson-progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    right: 8px;
+    bottom: auto;
+    height: 30%;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.lesson-hearts {
+    font-weight: 800;
+    color: var(--accent-pink);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-shadow: 0 0 10px rgba(255, 75, 75, 0.5);
+}
+
+.lesson-content {
+    flex: 1;
+    padding: 15px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.lesson-prompt {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    text-align: left;
+    color: var(--text-dark);
+    font-weight: 800;
+}
+
+.lesson-options {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.option-btn {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    background-color: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+    color: var(--text-dark);
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: left;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.option-number {
+    color: var(--text-gray);
+    margin-right: 16px;
+    font-weight: 800;
+    width: 24px;
+    font-family: var(--font-mono);
+}
+
+.option-btn:not(:disabled):hover {
+    background-color: var(--surface-hover);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+.option-btn:not(:disabled):active {
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
+.option-btn.selected {
+    border-color: var(--secondary);
+    background-color: var(--secondary-transparent);
+    box-shadow: inset 0 0 15px rgba(255, 0, 255, 0.1);
+}
+
+.option-btn.selected .option-number {
+    color: var(--secondary);
+    text-shadow: var(--secondary-glow);
+}
+
+.option-btn.correct {
+    border-color: var(--primary);
+    background-color: var(--primary-transparent);
+    box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.1);
+    color: var(--primary);
+}
+
+.option-btn.correct .option-number {
+    color: var(--primary);
+    text-shadow: var(--primary-glow);
+}
+
+.option-btn.incorrect {
+    border-color: var(--accent-pink);
+    background-color: var(--accent-pink-transparent);
+    box-shadow: inset 0 0 15px rgba(255, 75, 75, 0.1);
+    color: var(--accent-pink);
+    animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+}
+
+.option-btn.incorrect .option-number {
+    color: var(--accent-pink);
+    text-shadow: var(--accent-pink-glow);
+}
+
+/* Footer Section */
+.lesson-footer {
+    padding: 15px 30px;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--surface);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+}
+
+.footer-correct {
+    background-color: rgba(0, 255, 204, 0.1);
+    border-top-color: var(--primary);
+    box-shadow: 0 -10px 30px rgba(0, 255, 204, 0.1);
+}
+
+.footer-incorrect {
+    background-color: rgba(255, 75, 75, 0.1);
+    border-top-color: var(--accent-pink);
+    box-shadow: 0 -10px 30px rgba(255, 75, 75, 0.1);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.feedback-message h3 {
+    font-size: 1.5rem;
+    margin-bottom: 2px;
+    font-weight: 800;
+}
+
+.footer-correct .feedback-message {
+    color: var(--primary);
+    text-shadow: var(--primary-glow);
+}
+
+.footer-incorrect .feedback-message {
+    color: var(--accent-pink);
+    text-shadow: var(--accent-pink-glow);
+}
+
+.footer-incorrect p,
+.footer-correct p {
+    color: var(--text-dark);
+    opacity: 0.8;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.check-btn {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    min-width: 150px;
+}
+
+.check-btn.disabled {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--border-color);
+    color: var(--text-gray);
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Theory and Mascot Styles */
+.theory-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 100%;
+}
+
+.theory-card {
+    background: rgba(20, 20, 30, 0.8);
+    border: 1px solid var(--primary);
+    border-radius: var(--border-radius-lg);
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 255, 204, 0.1), inset 0 0 20px rgba(0, 255, 204, 0.05);
+    max-width: 600px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    animation: slideUp 0.5s ease-out;
+}
+
+.theory-card h3 {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-weight: 800;
+    text-shadow: var(--primary-glow);
+}
+
+.theory-card p {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+.mascot-quiz-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding-top: 20px;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Boss Arena Styles */
+.boss-arena-mode {
+    border: 2px solid rgba(255, 23, 68, 0.4);
+    box-shadow: inset 0 0 50px rgba(255, 23, 68, 0.1);
+    border-radius: var(--border-radius-lg);
+    padding: 25px;
+    background: radial-gradient(circle at top, rgba(255, 23, 68, 0.05) 0%, transparent 60%);
+    position: relative;
+    animation: pulseDanger 3s infinite alternate;
+}
+
+@keyframes pulseDanger {
+    from { box-shadow: inset 0 0 30px rgba(255, 23, 68, 0.05); }
+    to { box-shadow: inset 0 0 60px rgba(255, 23, 68, 0.2); }
+}
+
+.boss-fight-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    background: rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: var(--border-radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.fighter-card {
+    text-align: center;
+    width: 40%;
+}
+
+.fighter-name {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text-color);
+    margin-bottom: 10px;
+    display: block;
+    text-transform: uppercase;
+}
+
+.user-fighter .fighter-name {
+    color: #00e5ff;
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+}
+
+.boss-fighter .fighter-name {
+    color: #ff1744;
+    text-shadow: 0 0 12px rgba(255, 23, 68, 0.8);
+}
+
+.hp-bar-bg {
+    width: 100%;
+    height: 14px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.hp-bar-fill {
+    height: 100%;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.user-hp {
+    box-shadow: 0 0 10px #00e5ff;
+}
+
+.boss-hp {
+    box-shadow: 0 0 15px #ff1744;
+}
+
+.vs-badge {
+    font-size: 2.5rem;
+    font-weight: 900;
+    font-style: italic;
+    color: #fff;
+    opacity: 0.8;
+    text-align: center;
+    text-shadow: 0 0 20px rgba(255,255,255,0.5);
+}
+
+.boss-avatar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,23,68,0.3);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 15px 40px rgba(255,23,68,0.15);
+}
+
+.boss-avatar.boss-hurt .boss-icon {
+    animation: bossDamage 0.4s ease-in-out infinite;
+}
+
+@keyframes bossDamage {
+    0% { transform: translateX(0) scale(1.1); filter: drop-shadow(0 0 30px #ff1744); }
+    25% { transform: translateX(-15px) rotate(-15deg); filter: grayscale(1) invert(0.2); }
+    75% { transform: translateX(15px) rotate(15deg); filter: invert(0.8) hue-rotate(90deg); }
+    100% { transform: translateX(0); }
+}
+
+.boss-dialogue {
+    background: #111;
+    padding: 15px 25px;
+    border-radius: 12px;
+    border-left: 4px solid #ff1744;
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    color: #e6edf3;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.boss-dialogue::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #ff1744 transparent transparent;
+}

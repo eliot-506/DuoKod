@@ -1,0 +1,315 @@
+.dashboard-container {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(22, 27, 34, 0.4);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--border-color);
+}
+
+.dashboard-header h2 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+.highlight-text {
+    color: var(--primary);
+    text-shadow: 0 0 10px var(--primary-glow);
+}
+
+.dashboard-welcome-info {
+    flex: 1;
+}
+
+/* Level UI Dashboard */
+.user-level-info {
+    margin-top: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px 15px;
+    border-radius: var(--border-radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    max-width: 400px;
+}
+
+.level-texts {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.level-badge {
+    color: var(--accent-yellow);
+    font-weight: bold;
+    font-size: 0.95rem;
+    text-shadow: 0 0 5px rgba(255, 200, 0, 0.3);
+}
+
+.level-xp {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+}
+
+.xp-progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.xp-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ffbd2e, #ff5f56);
+    box-shadow: 0 0 10px #ffbd2e;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+}
+
+.mascot-greeting {
+    width: 150px;
+    height: 150px;
+    flex-shrink: 0;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.dash-card {
+    background: rgba(22, 27, 34, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.dash-card h3 {
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+/* Stats */
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.stat-box {
+    flex: 1;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    border-radius: var(--border-radius-md);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.3s;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+    border-color: var(--secondary);
+    box-shadow: var(--secondary-glow);
+}
+
+.stat-box i {
+    font-size: 2rem;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-info span {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.stat-info small {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* Current Course Resume */
+.resume-box {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--surface-color);
+    padding: 20px;
+    border-radius: var(--border-radius-md);
+    border-left: 4px solid var(--primary);
+}
+
+.course-big-icon {
+    font-size: 3rem;
+    filter: drop-shadow(0 0 10px currentColor);
+}
+
+.resume-info {
+    flex: 1;
+}
+
+.resume-info h4 {
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+}
+
+.course-progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.course-progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    box-shadow: 0 0 10px currentColor;
+}
+
+.resume-info span {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.play-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+}
+
+/* Daily Quests */
+.daily-quests {
+    grid-column: span 2;
+}
+
+.quests-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.quest-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    gap: 15px;
+    transition: all 0.3s;
+}
+
+.quest-item:hover {
+    border-color: var(--primary);
+}
+
+.quest-item.completed {
+    opacity: 0.7;
+    border-color: rgba(0, 255, 106, 0.3);
+}
+
+.quest-icon {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+}
+
+.quest-item.completed .quest-icon {
+    color: var(--primary);
+    text-shadow: var(--primary-glow);
+}
+
+.quest-details {
+    flex: 1;
+}
+
+.quest-details h4 {
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.quest-progress-bar {
+    width: 100%;
+    max-width: 300px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    margin-bottom: 4px;
+}
+
+.quest-progress-fill {
+    height: 100%;
+    background-color: var(--secondary);
+    box-shadow: 0 0 5px var(--secondary);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.quest-details span {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.quest-reward {
+    font-weight: bold;
+    color: #e3a92b;
+    /* Gold/XP Color */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1.2rem;
+    background: rgba(227, 169, 43, 0.1);
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 1px solid rgba(227, 169, 43, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-header {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .daily-quests {
+        grid-column: span 1;
+    }
+
+    .resume-box {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .stats-row {
+        flex-direction: column;
+    }
+}

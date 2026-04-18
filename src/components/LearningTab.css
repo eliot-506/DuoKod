@@ -1,0 +1,142 @@
+/* LearningTab.css */
+.course-selector-container,
+.mode-selector-container {
+    padding: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+    color: var(--text-color);
+    animation: fadeIn 0.5s ease;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.header-title h2 {
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-family: 'Outfit', sans-serif;
+}
+
+.header-title p {
+    font-size: 1.2rem;
+    color: #aaa;
+    margin-bottom: 40px;
+}
+
+.courses-grid,
+.modes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+}
+
+.course-card {
+    background: var(--surface);
+    border: 2px solid var(--card-color, #fff);
+    border-radius: 20px;
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.course-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+.course-icon {
+    font-size: 5rem;
+    font-weight: 900;
+    color: var(--card-color);
+    margin-bottom: 15px;
+    font-family: 'Fira Code', monospace;
+    text-shadow: 0 0 20px var(--card-color);
+}
+
+.course-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.start-btn {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.start-btn:hover {
+    filter: brightness(1.2);
+}
+
+/* Modes */
+.back-btn-top {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--accent);
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.back-btn-top:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.mode-header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    font-family: 'Outfit', sans-serif;
+}
+
+.mode-header p {
+    font-size: 1.2rem;
+    color: #ccc;
+    margin-bottom: 40px;
+}
+
+.mode-card {
+    background: var(--surface);
+    border: 2px solid var(--border-color);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.mode-card:hover {
+    background: #2a2d3e;
+    border-color: var(--accent);
+    transform: scale(1.05);
+}
+
+.mode-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+}
+
+.mode-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.mode-card p {
+    color: #aaa;
+    line-height: 1.5;
+    font-size: 1.1rem;
+}

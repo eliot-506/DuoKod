@@ -1,0 +1,215 @@
+.certificate-page {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.back-btn {
+    align-self: flex-start;
+    background: transparent;
+    border: none;
+    color: var(--text-gray);
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.back-btn:hover {
+    color: var(--primary);
+    text-shadow: var(--primary-glow);
+}
+
+.cert-container {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    justify-content: center;
+}
+
+.cert-form-box {
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
+    padding: 50px;
+    border-radius: var(--border-radius-lg);
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 255, 204, 0.1);
+    animation: slideUp 0.5s ease-out;
+    backdrop-filter: blur(10px);
+}
+
+.cert-icon {
+    font-size: 5rem;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.5));
+}
+
+.cert-form-box h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+    font-weight: 800;
+    text-shadow: var(--primary-glow);
+}
+
+.cert-form-box p {
+    color: var(--text-gray);
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.name-input-group {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.name-input-group label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.name-input-group input {
+    width: 100%;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-dark);
+    border-radius: var(--border-radius-md);
+    font-size: 1.2rem;
+    outline: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.name-input-group input:focus {
+    border-color: var(--primary);
+    background-color: rgba(0, 255, 204, 0.05);
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+}
+
+.generate-btn {
+    width: 100%;
+    padding: 16px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    background-color: var(--primary-transparent);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
+}
+
+.generate-btn:hover:not(:disabled) {
+    background-color: var(--primary);
+    color: var(--background);
+    box-shadow: var(--primary-glow);
+    transform: translateY(-2px);
+}
+
+.generate-btn:active:not(:disabled) {
+    box-shadow: none;
+    transform: translateY(2px);
+}
+
+.generate-btn:disabled {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-gray) !important;
+    cursor: not-allowed;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+.cert-preview-box {
+    width: 100%;
+    animation: fadeIn 0.8s ease-out;
+    text-align: center;
+}
+
+.cert-preview-box h3 {
+    color: var(--primary);
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+    text-shadow: var(--primary-glow);
+}
+
+.canvas-wrapper {
+    width: 100%;
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+    border: 1px solid var(--primary);
+    margin-bottom: 30px;
+}
+
+.cert-canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.cert-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.download-btn {
+    background-color: var(--primary-transparent);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    border-radius: var(--border-radius-full);
+    cursor: pointer;
+    font-weight: 800;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
+}
+
+.download-btn:hover {
+    background-color: var(--primary);
+    color: var(--background);
+    box-shadow: var(--primary-glow);
+    transform: translateY(-2px);
+}
+
+.download-btn:active {
+    box-shadow: none;
+    transform: translateY(2px);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
