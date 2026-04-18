@@ -19,22 +19,22 @@ const BADGE_LIST = [
 
 function Profile() {
     const { stats, changeAvatar, buyPremiumAvatar, logoutUser, deleteAccount, currentLevel, currentLevelXp, nextLevelXp } = useUser()
-    const [isProMode, setIsProMode] = useState(() => document.body.classList.contains('pro-mode'))
+    const [isLightMode, setIsLightMode] = useState(() => document.body.classList.contains('light-mode'))
     const [selectedSkillTab, setSelectedSkillTab] = useState(stats.currentCourse || 'python');
 
     useEffect(() => {
-        if (isProMode) {
-            document.body.classList.add('pro-mode')
-            localStorage.setItem('duokod_theme', 'pro')
+        if (isLightMode) {
+            document.body.classList.add('light-mode')
+            localStorage.setItem('duokod_theme', 'light')
         } else {
-            document.body.classList.remove('pro-mode')
+            document.body.classList.remove('light-mode')
             localStorage.setItem('duokod_theme', 'neon')
         }
-    }, [isProMode])
+    }, [isLightMode])
 
     useEffect(() => {
         const savedTheme = localStorage.getItem('duokod_theme')
-        if (savedTheme === 'pro') setIsProMode(true)
+        if (savedTheme === 'light') setIsLightMode(true)
     }, [])
 
     const handleBuyPremium = () => {
@@ -187,14 +187,14 @@ function Profile() {
                 <h3 className="settings-title">Sozlamalar</h3>
                 <div className="setting-item">
                     <div className="setting-info">
-                        <span className="setting-name">Professional Mavzu</span>
-                        <span className="setting-desc">Jiddiy va qat'iy dasturchilar uchun sariq/qora dizayn</span>
+                        <span className="setting-name">Kunduzgi (Oq) Mavzu ☀️</span>
+                        <span className="setting-desc">Oq fonli, yorqin va jonli dasturlash dizayni</span>
                     </div>
                     <label className="theme-switch">
                         <input
                             type="checkbox"
-                            checked={isProMode}
-                            onChange={() => setIsProMode(!isProMode)}
+                            checked={isLightMode}
+                            onChange={() => setIsLightMode(!isLightMode)}
                         />
                         <span className="slider round"></span>
                     </label>

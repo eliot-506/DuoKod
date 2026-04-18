@@ -41,28 +41,34 @@
   --font-mono: 'Fira Code', 'Courier New', Courier, monospace;
 }
 
-/* Optional Dark Mode / Pro Mode */
-body.pro-mode {
-  --background: #111b21;
-  --surface: #202f36;
-  --surface-hover: #2a3942;
+/* Oq (Kunduzgi) Mavzu */
+body.light-mode {
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --surface-hover: #f1f5f9;
 
-  --text-dark: #ffffff;
-  --text-gray: #8b949e;
-  --text-light: #57606a;
+  --text-dark: #0f172a; /* Qora matn */
+  --text-gray: #475569;
+  --text-light: #64748b;
+  --text-white: #ffffff;
+  --text-inverse: #ffffff; /* Oq fonda inverse uchu oppoq  */
 
-  --border-color: #37464f;
-  --glass-border: rgba(255, 255, 255, 0.05);
+  --border-color: #e2e8f0;
+  --glass-border: rgba(0, 0, 0, 0.08);
 
-  --primary: #ffd700;
-  --primary-glow: 0 0 10px rgba(255, 215, 0, 0.3);
+  /* Neon Glow effektlarini kunduzgi rejimga moslash */
+  --primary: #0284c7; 
+  --primary-glow: 0 0 15px rgba(2, 132, 199, 0.4);
+  --primary-transparent: rgba(2, 132, 199, 0.1);
 
-  --secondary: #1cb0f6;
-  --secondary-glow: 0 0 10px rgba(28, 176, 246, 0.3);
+  --secondary: #7c3aed;
+  --secondary-glow: 0 0 15px rgba(124, 58, 237, 0.4);
+  --secondary-transparent: rgba(124, 58, 237, 0.1);
 
-  --accent-pink: #ff4b4b;
-  --accent-pink-glow: 0 0 10px rgba(234, 43, 43, 0.3);
+  --accent-pink: #e11d48;
+  --accent-pink-glow: 0 0 15px rgba(225, 29, 72, 0.4);
+  --accent-pink-transparent: rgba(225, 29, 72, 0.1);
 
-  --accent-yellow: #ffc800;
-  --accent-yellow-glow: 0 0 10px rgba(212, 166, 0, 0.3);
+  --accent-yellow: #d97706;
+  --accent-yellow-glow: 0 0 15px rgba(217, 119, 6, 0.4);
 }
