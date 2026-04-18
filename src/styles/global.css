@@ -155,31 +155,36 @@ button {
    LIGHT MODE PROFESSOR TWEAKS (No-Glow, Soft Shadows)
    ======================================================== */
 body.light-mode .btn-primary {
-    background-color: var(--primary) !important; /* Solid blue fill o'rneytiladi */
+    background-color: #2563EB !important; /* Premium Blue */
     color: #ffffff !important;
-    border-color: var(--primary) !important;
-    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.25) !important; 
+    border: none !important; /* Outline olib tashlandi */
+    border-radius: 14px !important;
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.22) !important;
+    padding: 12px 24px !important; /* Tiniq padding */
 }
 
 body.light-mode .btn-primary:hover {
-    background-color: #2563EB !important; /* Hover */
+    background-color: #1D4ED8 !important; /* Deeper blue hover */
     transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.25) !important;
 }
 
 body.light-mode .mascot-bubble {
-    background-color: #ffffff !important; /* Soft white card o'rniga qora kabi to'q ko'k yo'qotiladi */
+    background-color: #ffffff !important; 
     color: var(--text-dark) !important;
     border: 1px solid var(--border-color) !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
+    box-shadow: 0 8px 24px rgba(31, 41, 55, 0.06) !important;
+    font-weight: 500 !important; /* Kichikroq o'rta vazn */
 }
 
 body.light-mode .mascot-bubble::after {
-    border-top-color: #ffffff !important; /* Quyidagi ushlagich foni */
+    border-top-color: #ffffff !important; 
 }
 
-/* Robot va heart glow 50% ga chaqamiz */
+/* Robot va heart glow 70% ga qisqartirildi (Deyarli sezilmaydi) */
 body.light-mode .robot-mascot-image {
-    filter: drop-shadow(0 4px 12px rgba(59, 130, 246, 0.2)) !important;
+    filter: drop-shadow(0 4px 8px rgba(37, 99, 235, 0.1)) !important;
+    transform: scale(1.2); /* Sal kichikroq */
 }
 
 /* Progress-barnii gradient emas, bitta soft success/amber qoldiramiz */
@@ -189,13 +194,14 @@ body.light-mode .course-progress-fill {
     box-shadow: none !important;
 }
 
-/* PREMIUM TAILWIND UI KARTALARI (Soft Shadow, 1px Border) */
+/* PREMIUM TAILWIND UI KARTALARI (Floating Cards) */
 body.light-mode .dash-card, 
 body.light-mode .dashboard-header {
-    background-color: var(--surface) !important;
+    background-color: #ffffff !important;
     border: 1px solid var(--border-color) !important;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06) !important;
+    box-shadow: 0 8px 24px rgba(31, 41, 55, 0.06) !important;
     border-radius: var(--border-radius-lg);
+    padding: 24px !important; /* 24px card padding per feedback */
 }
 
 body.light-mode .stat-box, 
@@ -204,26 +210,46 @@ body.light-mode .quest-item,
 body.light-mode .user-level-info {
     background-color: #ffffff !important;
     border: 1px solid var(--border-color) !important;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
+    box-shadow: 0 4px 12px rgba(31, 41, 55, 0.04) !important;
 }
 
 body.light-mode .stat-item {
-    background-color: var(--surface-hover) !important;
+    background-color: #ffffff !important;
     border: 1px solid var(--border-color) !important;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
+    box-shadow: 0 2px 6px rgba(31, 41, 55, 0.04) !important;
 }
 
 body.light-mode .top-bar-logo {
-    border: none !important; /* TopBar Logo ga qalin chegara kerak emas */
+    border: none !important; 
     box-shadow: none !important;
     background: transparent !important;
 }
 
 body.light-mode .top-bar {
     border-bottom: 1px solid var(--border-color) !important;
+    background-color: rgba(255, 255, 255, 0.8) !important; /* Sal xiralashgan oq */
 }
 
 body.light-mode .bottom-nav {
     border-top: 1px solid var(--border-color) !important;
+    background-color: #ffffff !important; /* Sof oq fon */
+    box-shadow: 0 -4px 16px rgba(31, 41, 55, 0.03) !important; /* Nozik tepadagi soya */
+}
+
+/* Premium Tailwind Navbar Active holati */
+body.light-mode .nav-item.active {
+    background-color: #EFF6FF !important; /* Soft blue tint */
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+body.light-mode .nav-item.active .nav-label {
+    text-shadow: none !important;
+    color: #2563EB !important;
+}
+
+body.light-mode .nav-item.active .nav-icon {
+    filter: none !important; /* Hech qanday glow yoki drop shadow yo'q */
+    transform: translateY(-2px) !important;
 }
 

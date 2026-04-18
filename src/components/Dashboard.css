@@ -109,7 +109,7 @@
 .stats-row {
     display: flex;
     justify-content: space-between;
-    gap: 15px;
+    gap: 20px; /* 15px o'rniga 20px - Premium layout nafas olishi orasi */
 }
 
 .stat-box {
