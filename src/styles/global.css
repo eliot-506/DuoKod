@@ -155,12 +155,14 @@ button {
    LIGHT MODE PROFESSOR TWEAKS (No-Glow, Soft Shadows)
    ======================================================== */
 body.light-mode .btn-primary {
-    background-color: #2563EB !important; /* Premium Blue */
+    background: linear-gradient(180deg, #3B82F6 0%, #2563EB 100%) !important; /* Premium Blue Gradient */
     color: #ffffff !important;
-    border: none !important; /* Outline olib tashlandi */
-    border-radius: 14px !important;
-    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.22) !important;
-    padding: 12px 24px !important; /* Tiniq padding */
+    border: none !important; 
+    border-radius: 12px !important; /* Sal nafisroq */
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.1), 0 4px 14px rgba(37, 99, 235, 0.15) !important;
+    padding: 12px 28px !important; 
+    text-transform: none !important; /* Bosh harflar qotib qolmasligi uchun */
+    letter-spacing: 0.5px !important;
 }
 
 body.light-mode .btn-primary:hover {
@@ -198,25 +200,29 @@ body.light-mode .course-progress-fill {
 body.light-mode .dash-card, 
 body.light-mode .dashboard-header {
     background-color: #ffffff !important;
-    border: 1px solid var(--border-color) !important;
-    box-shadow: 0 8px 24px rgba(31, 41, 55, 0.06) !important;
+    border: 1px solid rgba(0, 0, 0, 0.04) !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03) !important;
     border-radius: var(--border-radius-lg);
     padding: 24px !important; /* 24px card padding per feedback */
 }
 
+/* Boxing syndrome'ni oldini olish: Ichki qutilar faqat fon bo'ladi (chegarasiz) */
 body.light-mode .stat-box, 
 body.light-mode .resume-box,
 body.light-mode .quest-item,
 body.light-mode .user-level-info {
-    background-color: #ffffff !important;
-    border: 1px solid var(--border-color) !important;
-    box-shadow: 0 4px 12px rgba(31, 41, 55, 0.04) !important;
+    background-color: var(--surface-hover) !important; /* #F1F5F9 (slate-100 kabi) */
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: var(--border-radius-md) !important;
 }
 
+/* Topbardagi statistikalar dumaloq ramkalarsiz, mutlaqo ochiq/clean */
 body.light-mode .stat-item {
-    background-color: #ffffff !important;
-    border: 1px solid var(--border-color) !important;
-    box-shadow: 0 2px 6px rgba(31, 41, 55, 0.04) !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 4px 8px !important;
 }
 
 body.light-mode .top-bar-logo {
@@ -226,14 +232,16 @@ body.light-mode .top-bar-logo {
 }
 
 body.light-mode .top-bar {
-    border-bottom: 1px solid var(--border-color) !important;
-    background-color: rgba(255, 255, 255, 0.8) !important; /* Sal xiralashgan oq */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+    background-color: rgba(255, 255, 255, 0.95) !important; /* Sal xiralashgan oq */
+    backdrop-filter: blur(10px) !important;
 }
 
 body.light-mode .bottom-nav {
-    border-top: 1px solid var(--border-color) !important;
-    background-color: #ffffff !important; /* Sof oq fon */
-    box-shadow: 0 -4px 16px rgba(31, 41, 55, 0.03) !important; /* Nozik tepadagi soya */
+    border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+    background-color: rgba(255, 255, 255, 0.95) !important; /* Sof oq fon */
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.02) !important; /* Nozik tepadagi soya */
+    backdrop-filter: blur(10px) !important;
 }
 
 /* Premium Tailwind Navbar Active holati */
