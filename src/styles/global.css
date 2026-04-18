@@ -232,9 +232,12 @@ body.light-mode .top-bar-logo {
 }
 
 body.light-mode .top-bar {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
-    background-color: rgba(255, 255, 255, 0.95) !important; /* Sal xiralashgan oq */
+    border: 1px solid rgba(0, 0, 0, 0.05) !important; /* Barcha qismlarda hoshiyalar */
+    background-color: rgba(255, 255, 255, 0.95) !important;
     backdrop-filter: blur(10px) !important;
+    border-radius: 20px !important; /* Mukammal dumaloqlik */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02) !important;
+    margin-bottom: 10px !important; /* Pastdagi elementlardan ozgina uzoqlashtirish */
 }
 
 body.light-mode .bottom-nav {
