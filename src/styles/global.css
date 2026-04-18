@@ -189,12 +189,12 @@ body.light-mode .course-progress-fill {
     box-shadow: none !important;
 }
 
-/* Katta kartalarga Light grey #EEF2F7, ichki kartalarga sof oq #FFFFFF */
+/* PREMIUM TAILWIND UI KARTALARI (Soft Shadow, 1px Border) */
 body.light-mode .dash-card, 
 body.light-mode .dashboard-header {
     background-color: var(--surface) !important;
-    border: 2px solid var(--border-color) !important;
-    box-shadow: 0 4px 15px var(--glass-border) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06) !important;
     border-radius: var(--border-radius-lg);
 }
 
@@ -203,24 +203,27 @@ body.light-mode .resume-box,
 body.light-mode .quest-item,
 body.light-mode .user-level-info {
     background-color: #ffffff !important;
-    border: 2px solid var(--border-color) !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
 }
 
 body.light-mode .stat-item {
-    background-color: #f1f5f9 !important;
-    border: 2px solid var(--border-color) !important;
+    background-color: var(--surface-hover) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
 }
 
 body.light-mode .top-bar-logo {
-    border: 2px solid var(--border-color) !important;
+    border: none !important; /* TopBar Logo ga qalin chegara kerak emas */
+    box-shadow: none !important;
+    background: transparent !important;
 }
 
 body.light-mode .top-bar {
-    border-bottom: 2px solid var(--border-color) !important;
+    border-bottom: 1px solid var(--border-color) !important;
 }
 
 body.light-mode .bottom-nav {
-    border-top: 2px solid var(--border-color) !important;
+    border-top: 1px solid var(--border-color) !important;
 }
 

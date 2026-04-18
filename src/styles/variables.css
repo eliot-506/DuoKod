@@ -41,20 +41,20 @@
   --font-mono: 'Fira Code', 'Courier New', Courier, monospace;
 }
 
-/* Oq (Kunduzgi) Mavzu - Professorlar Tavsiyasi */
+/* Oq (Kunduzgi) Mavzu - Premium Tailwind UI Uslubi */
 body.light-mode {
-  --background: #f0f4f8; /* Ochiqroq fon (kartalarni ajratib ko'rsatish ustunligi) */
-  --surface: #ffffff; /* Asosiy kartalar foni */
-  --surface-hover: #f8fafc;
+  --background: #f1f5f9; /* Slate-100 fon */
+  --surface: #ffffff; /* Sof oq kartalar */
+  --surface-hover: #f8fafc; /* Hover qilinganda sal ochroq */
 
-  --text-dark: #1e2a4a; /* Asosiy Quyuq Matn */
-  --text-gray: #475569; /* Ikkinchi Matn */
-  --text-light: #64748b; 
+  --text-dark: #0f172a; /* Slate-900 (Quyuq matn) */
+  --text-gray: #64748b; /* Slate-500 */
+  --text-light: #94a3b8; /* Slate-400 */
   --text-white: #ffffff;
   --text-inverse: #ffffff;
 
-  --border-color: #64748b; /* Qalin va to'q chegara (Slate-500) */
-  --glass-border: rgba(0, 0, 0, 0.15); /* Qalinroq soyalar */
+  --border-color: #e2e8f0; /* Slate-200 yumshoq chegara */
+  --glass-border: rgba(0, 0, 0, 0.05); /* Yumshoq ko'lankalar uchun */
 
   /* Glow o'rniga soft-shadow (Yumshoq ko'lanka) effektlari */
   --primary: #2563eb; /* Chuqurroq ko'k, tugmalar aniq ko'rinishi uchun */
