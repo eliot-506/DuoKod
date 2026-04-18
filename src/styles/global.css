@@ -192,16 +192,23 @@ body.light-mode .course-progress-fill {
 /* Katta kartalarga Light grey #EEF2F7, ichki kartalarga sof oq #FFFFFF */
 body.light-mode .dash-card, 
 body.light-mode .dashboard-header {
-    background-color: #EEF2F7 !important;
-    border-color: var(--border-color) !important;
-    box-shadow: none !important;
+    background-color: var(--surface) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 4px 15px var(--glass-border) !important;
+    border-radius: var(--border-radius-lg);
 }
 
 body.light-mode .stat-box, 
 body.light-mode .resume-box,
 body.light-mode .quest-item,
 body.light-mode .user-level-info {
-    background-color: #FFFFFF !important;
+    background-color: var(--surface) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
+}
+
+body.light-mode .stat-item {
+    background-color: var(--surface-hover) !important;
     border-color: var(--border-color) !important;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.03) !important;
-}
+}
+

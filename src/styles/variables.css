@@ -43,32 +43,32 @@
 
 /* Oq (Kunduzgi) Mavzu - Professorlar Tavsiyasi */
 body.light-mode {
-  --background: #f8fafc;
-  --surface: #ffffff;
-  --surface-hover: #f1f5f9;
+  --background: #f0f4f8; /* Ochiqroq fon (kartalarni ajratib ko'rsatish ustunligi) */
+  --surface: #ffffff; /* Asosiy kartalar foni */
+  --surface-hover: #f8fafc;
 
   --text-dark: #1e2a4a; /* Asosiy Quyuq Matn */
-  --text-gray: #6b7a90; /* Ikkinchi Matn */
-  --text-light: #94a3b8; 
+  --text-gray: #475569; /* Ikkinchi Matn */
+  --text-light: #64748b; 
   --text-white: #ffffff;
   --text-inverse: #ffffff;
 
-  --border-color: #e6ecf5; /* Yengil chegara */
-  --glass-border: rgba(0, 0, 0, 0.05); /* Glow o'rniga ishlatiladi */
+  --border-color: #cbd5e1; /* Kartalar chegara rangi ko'rinadigan qilib ochildi */
+  --glass-border: rgba(0, 0, 0, 0.08); /* Yumshoq soyalar va elementlar chegarsi */
 
   /* Glow o'rniga soft-shadow (Yumshoq ko'lanka) effektlari */
-  --primary: #3b82f6; /* Primary rang */
-  --primary-glow: 0 4px 15px rgba(59, 130, 246, 0.25); /* Yumshoq Soya */
-  --primary-transparent: rgba(59, 130, 246, 0.1);
+  --primary: #2563eb; /* Chuqurroq ko'k, tugmalar aniq ko'rinishi uchun */
+  --primary-glow: 0 4px 15px rgba(37, 99, 235, 0.25);
+  --primary-transparent: rgba(37, 99, 235, 0.12);
 
-  --secondary: #22c7e8; /* Soft accent */
-  --secondary-glow: 0 4px 15px rgba(34, 199, 232, 0.25);
-  --secondary-transparent: rgba(34, 199, 232, 0.1);
+  --secondary: #0284c7; /* Soft accent ko'k */
+  --secondary-glow: 0 4px 15px rgba(2, 132, 199, 0.2);
+  --secondary-transparent: rgba(2, 132, 199, 0.1);
 
-  --accent-pink: #f59e0b; /* Warm accent (qizil o'rniga energiya uchun sariq-to'qsariq) */
-  --accent-pink-glow: 0 4px 15px rgba(245, 158, 11, 0.25);
-  --accent-pink-transparent: rgba(245, 158, 11, 0.1);
+  --accent-pink: #d97706; /* Issiq sariq/zarg'aldoq */
+  --accent-pink-glow: 0 4px 12px rgba(217, 119, 6, 0.2);
+  --accent-pink-transparent: rgba(217, 119, 6, 0.1);
 
-  --accent-yellow: #22c55e; /* Success / Progress */
-  --accent-yellow-glow: 0 4px 15px rgba(34, 197, 94, 0.25);
+  --accent-yellow: #16a34a; /* Success / Progress - to'qroq yashil */
+  --accent-yellow-glow: 0 4px 12px rgba(22, 163, 74, 0.2);
 }
