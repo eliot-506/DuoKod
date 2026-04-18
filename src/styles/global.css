@@ -150,3 +150,58 @@ button {
         transform: translate(0)
     }
 }
+
+/* ========================================================
+   LIGHT MODE PROFESSOR TWEAKS (No-Glow, Soft Shadows)
+   ======================================================== */
+body.light-mode .btn-primary {
+    background-color: var(--primary) !important; /* Solid blue fill o'rneytiladi */
+    color: #ffffff !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.25) !important; 
+}
+
+body.light-mode .btn-primary:hover {
+    background-color: #2563EB !important; /* Hover */
+    transform: translateY(-2px);
+}
+
+body.light-mode .mascot-bubble {
+    background-color: #ffffff !important; /* Soft white card o'rniga qora kabi to'q ko'k yo'qotiladi */
+    color: var(--text-dark) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
+}
+
+body.light-mode .mascot-bubble::after {
+    border-top-color: #ffffff !important; /* Quyidagi ushlagich foni */
+}
+
+/* Robot va heart glow 50% ga chaqamiz */
+body.light-mode .robot-mascot-image {
+    filter: drop-shadow(0 4px 12px rgba(59, 130, 246, 0.2)) !important;
+}
+
+/* Progress-barnii gradient emas, bitta soft success/amber qoldiramiz */
+body.light-mode .xp-progress-fill,
+body.light-mode .course-progress-fill {
+    background: var(--accent-yellow) !important;
+    box-shadow: none !important;
+}
+
+/* Katta kartalarga Light grey #EEF2F7, ichki kartalarga sof oq #FFFFFF */
+body.light-mode .dash-card, 
+body.light-mode .dashboard-header {
+    background-color: #EEF2F7 !important;
+    border-color: var(--border-color) !important;
+    box-shadow: none !important;
+}
+
+body.light-mode .stat-box, 
+body.light-mode .resume-box,
+body.light-mode .quest-item,
+body.light-mode .user-level-info {
+    background-color: #FFFFFF !important;
+    border-color: var(--border-color) !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03) !important;
+}
