@@ -5,7 +5,7 @@ import { COURSES } from '../data/lessons';
 import './FastLearn.css';
 
 function FastLearn({ courseId, onBack }) {
-    const { addXp } = useUser();
+    const { addXp, addHeart } = useUser();
     const course = COURSES[courseId];
     const [phase, setPhase] = useState('reading'); // reading, quiz, result
     const [timeLeft, setTimeLeft] = useState(180);
@@ -60,15 +60,24 @@ function FastLearn({ courseId, onBack }) {
     const handleAnswer = (index) => {
         if (selectedOption !== null) return;
         setSelectedOption(index);
-        setTimeout(() => {
-            if (index === questions[currentQuestion].a) setScore(s => s + 1);
+        
+        const isCorrect = index === questions[currentQuestion].a;
+        if (isCorrect) setScore(s => s + 1);
 
+        const finalScore = isCorrect ? score + 1 : score;
+
+        setTimeout(() => {
             if (currentQuestion < questions.length - 1) {
                 setCurrentQuestion(prev => prev + 1);
                 setSelectedOption(null);
             } else {
                 setPhase('result');
-                addXp(30); // 30 XP for fast learn
+                const earnedXp = finalScore * 10;
+                if (earnedXp > 0) addXp(earnedXp);
+                // Mukammal ishlaganiga 5 tanga beramiz
+                if (finalScore === questions.length && addHeart) {
+                    addHeart(5);
+                }
             }
         }, 1000);
     };
@@ -135,8 +144,8 @@ function FastLearn({ courseId, onBack }) {
                     Sizning Natija: <strong style={{ color: score === questions.length ? 'var(--accent)' : '#ff4b4b' }}>{score} / {questions.length}</strong>
                 </div>
                 <Mascot 
-                    state={score === questions.length ? "happy" : "sad"} 
-                    message={score === questions.length ? "Ajoyib xotira! +30 XP sizniki!" : "Afsus, natijasi pastroq! Ko'proq diqqatli bo'ling."} 
+                    state={score === questions.length ? "happy" : score > 0 ? "idle" : "sad"} 
+                    message={score === questions.length ? "Ajoyib xotira! +30 XP va +5 Tanga yutdingiz!" : score > 0 ? `Yomon emas! +${score * 10} XP yutdingiz.` : "Afsus, umuman to'g'ri topolmadingiz! Ko'proq o'qib yana urining."} 
                 />
                 <button className="btn btn-primary" onClick={onBack} style={{ marginTop: '40px', padding: '15px 40px', fontSize: '1.2rem' }}>Menyuga Qaytish</button>
             </div>

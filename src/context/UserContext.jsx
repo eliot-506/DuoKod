@@ -240,7 +240,8 @@ export const UserProvider = ({ children }) => {
     };
 
     const addXp = (amount) => setStats(prev => ({ ...prev, xp: prev.xp + amount }));
-    const useHeart = () => setStats(prev => ({ ...prev, hearts: Math.max(0, prev.hearts - 1) }));
+    const useHeart = (amount = 1) => setStats(prev => ({ ...prev, hearts: Math.max(0, prev.hearts - amount) }));
+    const addHeart = (amount) => setStats(prev => ({ ...prev, hearts: prev.hearts + amount }));
     const switchCourse = (courseId) => setStats(prev => ({ ...prev, currentCourse: courseId }));
 
     const changeAvatar = (avatarId) => {
@@ -329,7 +330,7 @@ export const UserProvider = ({ children }) => {
 
     return (
         <UserContext.Provider value={{
-            stats, setStats, addXp, useHeart, completeNode, switchCourse,
+            stats, setStats, addXp, useHeart, addHeart, completeNode, switchCourse,
             changeAvatar, unlockAvatar, buyPremiumAvatar, loginUser, logoutUser,
             deleteAccount, currentLevel, currentLevelXp, nextLevelXp, unlockBadge, updateStreak, updateSkill
         }}>
