@@ -21,8 +21,9 @@
 
   /* Matn ranglari */
   --text-dark: #ffffff;
-  --text-gray: #a0a0b0;
-  --text-light: #57606a;
+  --text-gray: #e2e8f0;
+  --text-light: #cbd5e1;
+  --text-muted: #94a3b8;
   --text-white: #ffffff;
   --text-inverse: #0a0a0f;
 
@@ -48,8 +49,9 @@ body.light-mode {
   --surface-hover: #f8fafc; /* Hover qilinganda sal ochroq */
 
   --text-dark: #0f172a; /* Slate-900 (Quyuq matn) */
-  --text-gray: #64748b; /* Slate-500 */
-  --text-light: #94a3b8; /* Slate-400 */
+  --text-gray: #334155; /* Slate-700 (O'rta matn) */
+  --text-light: #475569; /* Slate-600 (Kichik qatorlar) */
+  --text-muted: #64748b; /* Slate-500 (Eng ko'p ishlatilgan mayda yozuvlar) */
   --text-white: #ffffff;
   --text-inverse: #ffffff;
 
