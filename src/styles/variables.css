@@ -53,8 +53,8 @@ body.light-mode {
   --text-white: #ffffff;
   --text-inverse: #ffffff;
 
-  --border-color: #cbd5e1; /* Kartalar chegara rangi ko'rinadigan qilib ochildi */
-  --glass-border: rgba(0, 0, 0, 0.08); /* Yumshoq soyalar va elementlar chegarsi */
+  --border-color: #64748b; /* Qalin va to'q chegara (Slate-500) */
+  --glass-border: rgba(0, 0, 0, 0.15); /* Qalinroq soyalar */
 
   /* Glow o'rniga soft-shadow (Yumshoq ko'lanka) effektlari */
   --primary: #2563eb; /* Chuqurroq ko'k, tugmalar aniq ko'rinishi uchun */
