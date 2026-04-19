@@ -431,34 +431,48 @@
         min-width: 0; 
         flex-direction: column; /* Ikonka va matnni ustma-ust terish (eni tejash uchun) */
         gap: 3px;
-        justify-content: center;
+        padding: 8px;
+        flex: unset;
+        width: 100%;
+        min-width: 0;
+        flex-direction: row; /* Ikonka + matn yenma-yen */
+        gap: 8px;
+        justify-content: flex-start;
         align-items: center;
-        text-align: center;
+        text-align: left;
+        box-sizing: border-box;
     }
-    
-    .stat-box i, .dashboard-streak-emoji, .xp-emoji, .heart-emoji {
-        font-size: 1.2rem !important; /* Juda ham mitti ikonka */
+
+    /* Emojilарni to'g'ri o'lchamda ko'rsatish */
+    .dashboard-streak-emoji,
+    .xp-emoji,
+    .heart-emoji {
+        font-size: 1.8rem !important;
+        flex-shrink: 0;
     }
 
     .stat-info {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        min-width: 0;
     }
     
     .stat-info span {
-        font-size: 0.85rem;
-        line-height: 1;
-        white-space: nowrap; /* Matn sinmasligi uchun */
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1.1;
+        white-space: nowrap;
     }
     
     .stat-info small {
-        font-size: 0.6rem;
-        line-height: 1;
+        font-size: 0.7rem;
         opacity: 0.8;
         white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 100%; /* Agar sig'masa 3ta nuqta bilan kesiladi */
+    }
+
+    /* quest items — to'liq kenglik */
+    .quest-item {
+        padding: 10px;
+        gap: 10px;
     }
 }
