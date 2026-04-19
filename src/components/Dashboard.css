@@ -325,8 +325,8 @@
         max-width: 100%;
     }
 
-    .level-texts { flex-direction: row; white-space: nowrap; }
-    .level-badge, .level-xp { font-size: 0.75rem; }
+    .level-texts { flex-direction: row; white-space: nowrap; justify-content: space-between; gap: 5px; width: 100%; }
+    .level-badge, .level-xp { font-size: 0.75rem; text-overflow: ellipsis; overflow: hidden; }
 
     .mascot-greeting {
         width: 90px;
@@ -409,7 +409,9 @@
         padding: 6px 4px;
         font-size: 0.72rem;
         gap: 4px;
-        white-space: nowrap;
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
     }
 
     /* ===== Natijangiz kartasi — 3 ta stat ustma-ust, emoji + matn yonma-yon ===== */
