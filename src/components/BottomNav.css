@@ -3,20 +3,26 @@
     bottom: 0;
     left: 0;
     right: 0;
+    width: 100%;
     background-color: var(--surface);
     border-top: 1px solid var(--border-color);
     padding: 10px 0;
     z-index: 50;
     box-shadow: 0 -4px 20px var(--glass-border);
     backdrop-filter: blur(10px);
+    overflow-x: hidden; /* Qattiq qulflash */
+    box-sizing: border-box;
 }
 
 .nav-items-container {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    width: 100%;
     max-width: 600px;
     margin: 0 auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 .nav-item {
@@ -69,16 +75,27 @@
 }
 
 /* Kichik ekranlar (telefonlar) uchun menyu sig'ishini ta'minlash */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+    .bottom-nav {
+        padding: 5px 0;
+    }
+
     .nav-item {
-        padding: 5px 8px; /* Paddingni kamaytiramiz */
+        padding: 4px 2px; /* Juda qattiq siqish */
+        flex: 1; /* Teng bo'lishi */
+        min-width: 0; /* Shrink erkinligi */
     }
     
     .nav-icon {
-        font-size: 1.4rem; /* Ikonkalar biroz kichrayadi */
+        font-size: clamp(1.2rem, 5vw, 1.5rem);
     }
     
     .nav-label {
-        font-size: 0.70rem; /* Matn sig'ishi uchun */
+        font-size: clamp(0.55rem, 2.5vw, 0.75rem);
+        white-space: nowrap; /* Bitta qator */
+        overflow: hidden;
+        text-overflow: ellipsis; /* Judayam uzoq bo'lsa ... qo'yish */
+        width: 100%;
+        text-align: center;
     }
 }
