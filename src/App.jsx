@@ -17,7 +17,7 @@ import XpAnimation from './components/XpAnimation'
 import { useUser } from './context/UserContext'
 
 function App() {
-  const { stats, addXp, completeNode, useHeart, switchCourse } = useUser()
+  const { stats, addXp, completeNode, useHeart, switchCourse, updateStreak } = useUser()
   const [currentView, setCurrentView] = useState('dashboard') // 'dashboard', 'map', 'lesson', 'leaderboard', 'profile'
   const [activeLessonId, setActiveLessonId] = useState(null)
   const [showXpAnim, setShowXpAnim] = useState(false)
@@ -46,6 +46,7 @@ function App() {
     if (wasCorrect && activeLessonId) {
       addXp(15)
       completeNode(activeLessonId, activeLessonId + 1)
+      updateStreak() // BURADA CHAQIRILADI!
       setEarnedXp(15)
       setShowXpAnim(true)
     } else if (!wasCorrect) {
