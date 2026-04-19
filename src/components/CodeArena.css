@@ -5,8 +5,11 @@
     flex-direction: column;
     gap: 20px;
     animation: fadeIn 0.5s ease;
-    max-width: 1200px;
+    width: 100%;
+    max-width: 1000px;
     margin: 0 auto;
+    box-sizing: border-box;
+    overflow-x: hidden; /* Ekranni surilishdan qattiq himoya */
 }
 
 .arena-title {
@@ -33,11 +36,19 @@
     display: flex;
     background: rgba(0, 0, 0, 0.5);
     border-bottom: 1px solid var(--border-color);
+    width: 100%;
+    overflow-x: auto; /* Agar juda sig'masa o'zi aylansin, sahifani surmasin */
+    scrollbar-width: none; /* Firefox da skrollbarni yashirish */
+}
+
+.arena-tabs::-webkit-scrollbar {
+    display: none; /* Chrome da skrollbarni yashirish */
 }
 
 .tab-btn {
     flex: 1;
-    padding: 12px;
+    padding: 12px 8px; /* Ixchamlash */
+    min-width: 0; /* Tablar erkin kichiklashishi uchun zaxira */
     background: transparent;
     color: var(--text-color);
     border: none;
@@ -62,11 +73,11 @@
 }
 
 .run-btn {
-    padding: 12px 25px;
+    padding: 12px 15px; /* Kichikroq padding */
     background: #00e676 !important;
     color: #fff !important;
     border: none;
-    font-size: 1.1rem;
+    font-size: clamp(0.85rem, 3vw, 1.1rem); /* Dinamik font */
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s;
@@ -74,14 +85,16 @@
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 12px rgba(0, 230, 118, 0.7);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0px;
+    white-space: nowrap;
+    min-width: 0;
 }
 
 .run-btn:hover {
     background: #00ff8c !important;
     color: #000 !important;
     box-shadow: 0 0 25px rgba(0, 230, 118, 1);
-    transform: scale(1.05);
+    transform: none; /* Mobileda ekranni titratmasligi uchun sakrash olib tashlandi */
 }
 
 /* Tablar uchun individual HTML(Pink), CSS(Blue), JS(Yellow) ranglari */
