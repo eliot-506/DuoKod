@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabase';
 import './AdminDashboard.css';
 
 function AdminDashboard() {
+  const [activeTab, setActiveTab] = useState('overview'); // 'overview' yoki 'articles'
   const [stats, setStats] = useState({
     totalUsers: 0,
     averageXp: 0,
@@ -10,6 +11,9 @@ function AdminDashboard() {
     leaderboard: [],
     recentUsers: []
   });
+  const [articles, setArticles] = useState([]);
+  const [newArticle, setNewArticle] = useState({ title: '', content: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -42,6 +46,17 @@ function AdminDashboard() {
             recentUsers: []
           });
         }
+
+        // Maqolalarni ham yuklaymiz
+        const { data: articlesData, error: artError } = await supabase
+          .from('articles')
+          .select('*')
+          .order('created_at', { ascending: false });
+        
+        if (!artError && articlesData) {
+            setArticles(articlesData);
+        }
+
       } catch (err) {
         console.error("Admin dashboard load error:", err.message);
         setError("Foydalanuvchilarni yuklashda xatolik yuzaga keldi. RLS Policy ruxsat bermagan bo'lishi mumkin.");
@@ -62,6 +77,38 @@ function AdminDashboard() {
     );
   }
 
+  const handleAddArticle = async (e) => {
+    e.preventDefault();
+    if (!newArticle.title || !newArticle.content) return;
+    setIsSubmitting(true);
+    try {
+        const { data, error } = await supabase.from('articles').insert([
+            { title: newArticle.title, content: newArticle.content }
+        ]).select();
+        
+        if (error) throw error;
+        if (data) {
+            setArticles([data[0], ...articles]);
+            setNewArticle({ title: '', content: '' });
+        }
+    } catch (err) {
+        alert("Xatolik: " + err.message);
+    } finally {
+        setIsSubmitting(false);
+    }
+  };
+
+  const handleDeleteArticle = async (id) => {
+    if (!window.confirm("Rostdan ham bu adabiyotni o'chirmoqchimisiz?")) return;
+    try {
+        const { error } = await supabase.from('articles').delete().eq('id', id);
+        if (error) throw error;
+        setArticles(articles.filter(a => a.id !== id));
+    } catch (err) {
+        alert("O'chirishda xatolik: " + err.message);
+    }
+  };
+
   if (error) {
     return (
       <div className="admin-error-container">
@@ -79,7 +126,18 @@ function AdminDashboard() {
         <p>Tizimning umumiy nazorat va tahliliy markazi</p>
       </div>
 
-      <div className="admin-stats-grid">
+      <div className="admin-tabs">
+        <button className={`admin-tab-btn ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => setActiveTab('overview')}>
+          <i className="fa-solid fa-chart-pie"></i> Statistika & O'quvchilar
+        </button>
+        <button className={`admin-tab-btn ${activeTab === 'articles' ? 'active' : ''}`} onClick={() => setActiveTab('articles')}>
+          <i className="fa-solid fa-book"></i> Adabiyotlar Boshqaruvi
+        </button>
+      </div>
+
+      {activeTab === 'overview' && (
+        <>
+          <div className="admin-stats-grid">
         <div className="admin-stat-card">
           <div className="stat-icon users"><i className="fa-solid fa-users"></i></div>
           <div className="stat-info">
@@ -156,6 +214,73 @@ function AdminDashboard() {
           </table>
         </div>
       </div>
+        </>
+      )}
+
+      {activeTab === 'articles' && (
+        <div className="admin-articles-section">
+            <div className="article-form-card">
+                <h3><i className="fa-solid fa-plus-circle"></i> Yangi Adabiyot Qo'shish</h3>
+                <form onSubmit={handleAddArticle} className="article-form">
+                    <div className="form-group">
+                        <label>Sarlavha</label>
+                        <input 
+                            type="text" 
+                            placeholder="Adabiyot nomi (masalan: Python Dasturlash Asoslari)" 
+                            value={newArticle.title}
+                            onChange={(e) => setNewArticle({...newArticle, title: e.target.value})}
+                            required 
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Maqola matni</label>
+                        <textarea 
+                            placeholder="Bu yerga maqola/adabiyot matnini kiriting..." 
+                            rows="6"
+                            value={newArticle.content}
+                            onChange={(e) => setNewArticle({...newArticle, content: e.target.value})}
+                            required 
+                        ></textarea>
+                    </div>
+                    <button type="submit" className="btn btn-primary submit-article-btn" disabled={isSubmitting}>
+                        {isSubmitting ? 'Qo'shilmoqda...' : 'Maqolani Saqlash'}
+                    </button>
+                </form>
+            </div>
+
+            <div className="articles-list-container">
+                <h3>Barcha Adabiyotlar Tizimi</h3>
+                {articles.length === 0 ? (
+                    <div className="empty-state">Hali hech qanday adabiyot qo'shilmagan.</div>
+                ) : (
+                    <div className="articles-grid">
+                        {articles.map((article) => (
+                            <div key={article.id} className="admin-article-card">
+                                <div className="admin-article-header">
+                                    <h4>{article.title}</h4>
+                                    <button 
+                                        className="btn-delete-article" 
+                                        onClick={() => handleDeleteArticle(article.id)}
+                                        title="O'chirish"
+                                    >
+                                        <i className="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                                <p className="admin-article-preview">
+                                    {article.content.substring(0, 150)}...
+                                </p>
+                                <div className="admin-article-meta">
+                                    <span><i className="fa-solid fa-user-pen"></i> {article.author || 'Admin'}</span>
+                                    <span><i className="fa-solid fa-calendar"></i> {new Date(article.created_at).toLocaleDateString()}</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+        </div>
+      )}
+
     </div>
   );
 }
