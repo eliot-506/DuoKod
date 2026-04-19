@@ -54,16 +54,22 @@
 }
 
 .mascot-bubble {
+    /* Layout shift (sakrash) larni oldini olish uchun jismoniy joy egallamaslik */
+    position: absolute;
+    top: 100%; /* Avatarning roppa rosa tagida chiqadi */
+    left: 50%;
+    transform: translateX(-50%); /* O'z markaziga nisbatan tekislash */
     margin-top: 15px;
-    padding: 8px 12px; /* Kichraytirildi */
+    z-index: 20; /* Boshqa elementlar ustida turishi uchun */
+    
+    padding: 8px 12px; 
     background: #0f172a; 
     border: 1px solid var(--primary);
     border-radius: 12px;
-    position: relative;
     color: #ffffff;
     font-weight: 600;
-    font-size: clamp(0.7rem, 3.5vw, 1rem); /* Dinamik shrift razmer */
-    word-break: break-word; /* Sig'masa pastga tashlash */
+    font-size: clamp(0.7rem, 3.5vw, 1rem); 
+    word-break: break-word; 
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
     animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     text-align: center;
@@ -158,12 +164,12 @@
 
 @keyframes popIn {
     0% {
-        transform: scale(0.8);
+        transform: translate(-50%, 0) scale(0.8);
         opacity: 0;
     }
 
     100% {
-        transform: scale(1);
+        transform: translate(-50%, 0) scale(1);
         opacity: 1;
     }
 }
