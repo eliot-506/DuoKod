@@ -309,20 +309,44 @@ export const UserProvider = ({ children }) => {
 
     const updateStreak = () => {
         setStats(prev => {
-            const newStreak = prev.streak + 1;
+            const now = new Date();
+            // Vaqt zonasini hisobga olgan holda faqat "kun" ni solishtirish
+            const todayStr = now.toISOString().slice(0, 10); // "2026-04-19"
+            const lastStr = prev.lastPlayed ? prev.lastPlayed.slice(0, 10) : null;
+
+            // Bugun allaqachon o'ynagan — streak va lastPlayed o'zgarmaydi
+            if (lastStr === todayStr) return prev;
+
+            let newStreak;
+            if (lastStr) {
+                // Kecha o'ynagan bo'lsa → streak davom etadi
+                const lastDate = new Date(lastStr);
+                const diff = Math.round((now - lastDate) / (1000 * 60 * 60 * 24));
+                if (diff === 1) {
+                    newStreak = prev.streak + 1; // Kecha o'ynagan → davom etadi
+                } else {
+                    newStreak = 1; // 2+ kun o'tkazilgan → noldan boshlaydi
+                }
+            } else {
+                newStreak = 1; // Birinchi marta o'ynayapti
+            }
+
             let newBadges = [...prev.unlockedBadges];
             let bonusXp = 0;
 
-            // Nomi o'zgaradigan yirik etaplarda foydalanuvchiga Bonus beramiz!
+            // Yirik etaplarda bonus XP
             if ([3, 7, 14, 30].includes(newStreak)) {
-                bonusXp = 50; 
+                bonusXp = 50;
             }
 
-            if (newStreak >= 7 && !newBadges.includes('streak_7')) newBadges.push('streak_7');
-            
-            return { 
-                ...prev, 
-                streak: newStreak, 
+            if (newStreak >= 7 && !newBadges.includes('streak_7')) {
+                newBadges.push('streak_7');
+            }
+
+            return {
+                ...prev,
+                streak: newStreak,
+                lastPlayed: todayStr, // Bugunni saqlaymiz
                 unlockedBadges: newBadges,
                 xp: prev.xp + bonusXp
             };
