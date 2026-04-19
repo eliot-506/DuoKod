@@ -47,8 +47,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    padding: 20px 0;
+    gap: 0;           /* Gap SVG chiziq orqali boshqariladi */
+    padding: 10px 0 30px;
     width: 100%;
 }
 
@@ -57,7 +57,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: 12px;
 }
 
 .path-line {
@@ -67,86 +67,96 @@
     filter: drop-shadow(0 0 5px currentColor);
 }
 
+/* ===== DUOLINGO uslubida 3D raised tugun ===== */
 .node-btn {
-    width: 75px;
-    height: 75px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 32px;
+    font-size: 30px;
     position: relative;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    background-color: var(--surface);
-    border: 3px solid var(--border-color);
+    transition: transform 0.15s, box-shadow 0.15s;
+    background: var(--surface);
+    border: none;
+    cursor: pointer;
+    /* 3D raised effekt: pastki soya =  "qalinlik" */
+    box-shadow: 0 6px 0 rgba(0,0,0,0.4);
+}
+
+.node-btn:active:not(.status-locked) {
+    transform: translateY(3px);
+    box-shadow: 0 3px 0 rgba(0,0,0,0.4);
+}    border: 3px solid var(--border-color);
     z-index: 2;
     cursor: pointer;
 }
 
+/* Tugunlarning holati */
 .status-completed {
-    background-color: rgba(255, 215, 0, 0.15);
-    border-color: #ffd700;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4), inset 0 0 10px rgba(255, 215, 0, 0.2);
-    color: #ffd700;
-    animation: goldPulse 2.5s infinite ease-in-out;
+    background: linear-gradient(145deg, #ffd700, #ffb300);
+    box-shadow: 0 6px 0 #c47d00, 0 0 20px rgba(255,200,0,0.3);
+    color: #fff;
 }
 
+.status-completed:hover { 
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 #c47d00, 0 0 25px rgba(255,200,0,0.4);
+}
+
+/* Joriy (ochiq) tugun — Duolingo ko'k/yashil uslubida */
 .status-unlocked {
-    background-color: rgba(0, 242, 254, 0.05); /* Yumshovroq background */
-    border-color: var(--primary);
-    box-shadow: 0 0 15px rgba(0, 242, 254, 0.6); /* Pasroq shadow */
-    color: var(--primary);
-    transform: scale(1.0); /* Eskisi 1.1 edi */
-}
-
-.status-locked {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-color: var(--border-color);
-    color: var(--text-light);
-    cursor: not-allowed;
-}
-
-.status-locked .node-icon {
-    filter: grayscale(100%);
-    opacity: 0.3; /* Yopiqlikni bilintirish uchun */
-}
-
-.node-btn:hover:not(.status-locked) {
-    transform: scale(1.1);
-    filter: brightness(1.2);
+    background: linear-gradient(145deg, var(--primary), #00b894);
+    box-shadow: 0 6px 0 #007a5e, 0 0 20px rgba(0,255,150,0.4);
+    color: #fff;
+    animation: bouncePulse 2s ease-in-out infinite;
 }
 
 .status-unlocked:hover {
-    transform: scale(1.15); 
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 #007a5e;
 }
 
-.node-btn:active:not(.status-locked) {
-    transform: scale(0.95);
-    box-shadow: none;
+/* Qulflangan tugun */
+.status-locked {
+    background: #2a2d3e;
+    box-shadow: 0 5px 0 #1a1c29;
+    color: #555;
+    cursor: not-allowed;
+    filter: none;
 }
+
+.status-locked .node-icon svg {
+    opacity: 0.35;
+}
+
+.node-btn:hover:not(.status-locked) { filter: brightness(1.1); }
 
 .node-title {
-    margin-top: 15px;
-    font-weight: 800;
+    margin-top: 12px;
+    font-weight: 700;
     color: var(--text-dark);
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     text-align: center;
+    max-width: 100px;
+    line-height: 1.3;
 }
 
-.status-locked~.node-title {
+.status-locked ~ .node-title {
     color: var(--text-muted);
-    opacity: 0.7;
+    opacity: 0.55;
 }
 
-/* Animations */
+/* Animatsiyalar */
+@keyframes bouncePulse {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
 @keyframes goldPulse {
-    0%, 100% {
-        box-shadow: 0 0 15px rgba(255, 215, 0, 0.3), inset 0 0 10px rgba(255, 215, 0, 0.2);
-    }
-    50% {
-        box-shadow: 0 0 25px rgba(255, 215, 0, 0.8), inset 0 0 20px rgba(255, 215, 0, 0.4);
-        border-color: #ffe600;
-    }
+    0%, 100% { box-shadow: 0 6px 0 #c47d00; }
+    50% { box-shadow: 0 6px 0 #c47d00, 0 0 30px rgba(255,200,0,0.5); }
 }
 
 .flow-line {
