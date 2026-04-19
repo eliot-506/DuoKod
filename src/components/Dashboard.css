@@ -304,12 +304,12 @@
     }
 
     .dashboard-header {
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
-        justify-content: space-between;
-        padding: 12px;
-        gap: 10px;
-        margin-bottom: 80px;
+        text-align: center;
+        padding: 15px;
+        gap: 15px;
+        margin-bottom: 20px;
     }
 
     .dashboard-welcome-info {
@@ -325,8 +325,8 @@
         max-width: 100%;
     }
 
-    .level-texts { flex-direction: row; white-space: nowrap; justify-content: space-between; gap: 5px; width: 100%; }
-    .level-badge, .level-xp { font-size: 0.75rem; text-overflow: ellipsis; overflow: hidden; }
+    .level-texts { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 15px; width: 100%; }
+    .level-badge, .level-xp { font-size: 0.8rem; white-space: normal; }
 
     .mascot-greeting {
         width: 90px;
@@ -334,12 +334,11 @@
         flex-shrink: 0;
     }
 
-    /* ===== 2 ta teng ustun ===== */
+    /* ===== 1 ta to'liq ustun ===== */
     .dashboard-grid {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); /* min-width:0 kafolati */
-        gap: 8px;
-        align-items: stretch;
+        grid-template-columns: 1fr;
+        gap: 15px;
     }
 
     /* Barcha grid bolalari uchun asosiy cheklov */
@@ -366,7 +365,7 @@
 
     .current-course-resume { grid-column: span 1; }
     .stats-overview        { grid-column: span 1; }
-    .daily-quests          { grid-column: span 2; }
+    .daily-quests          { grid-column: span 1; }
 
     /* ===== Hozirgi kurs kartasi ===== */
     .resume-box {

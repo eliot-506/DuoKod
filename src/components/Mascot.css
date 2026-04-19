@@ -56,14 +56,13 @@
 .mascot-bubble {
     position: absolute;
     top: 100%; 
-    left: 0;   /* Chapga yo'naltirish — o'ng kartochkaga tegmaydi */
-    right: auto;
-    transform: none;
-    margin-top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 15px;
     z-index: 20; 
-    max-width: 180px; /* So'zlar sinmasligi uchun kengaytirish */
+    max-width: max-content;
     
-    padding: 8px 12px; 
+    padding: 10px 15px; 
     background: #0f172a; 
     border: 1px solid var(--primary);
     border-radius: 12px;
@@ -82,7 +81,8 @@
     content: '';
     position: absolute;
     top: -10px;
-    left: 30px; /* Okka chap tomonga siljitildi */
+    left: 50%;
+    transform: translateX(-50%);
     border-width: 0 10px 10px 10px;
     border-style: solid;
     border-color: transparent transparent var(--primary) transparent;
@@ -92,7 +92,8 @@
     content: '';
     position: absolute;
     top: -8px;
-    left: 31px; /* Ichki okka */
+    left: 50%;
+    transform: translateX(-50%);
     border-width: 0 9px 9px 9px;
     border-style: solid;
     border-color: transparent transparent #0f172a transparent;
