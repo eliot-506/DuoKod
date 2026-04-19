@@ -12,7 +12,7 @@ function AdminDashboard() {
     recentUsers: []
   });
   const [articles, setArticles] = useState([]);
-  const [newArticle, setNewArticle] = useState({ title: '', content: '' });
+  const [newArticle, setNewArticle] = useState({ title: '', content: '', file_url: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -83,13 +83,13 @@ function AdminDashboard() {
     setIsSubmitting(true);
     try {
         const { data, error } = await supabase.from('articles').insert([
-            { title: newArticle.title, content: newArticle.content }
+            { title: newArticle.title, content: newArticle.content, file_url: newArticle.file_url }
         ]).select();
         
         if (error) throw error;
         if (data) {
             setArticles([data[0], ...articles]);
-            setNewArticle({ title: '', content: '' });
+            setNewArticle({ title: '', content: '', file_url: '' });
         }
     } catch (err) {
         alert("Xatolik: " + err.message);
@@ -242,6 +242,15 @@ function AdminDashboard() {
                             required 
                         ></textarea>
                     </div>
+                    <div className="form-group">
+                        <label>Fayl manzili (PDF URL ixtiyoriy)</label>
+                        <input 
+                            type="text" 
+                            placeholder="Masalan: /books/uzb/kitob.pdf yoki http://..." 
+                            value={newArticle.file_url}
+                            onChange={(e) => setNewArticle({...newArticle, file_url: e.target.value})}
+                        />
+                    </div>
                     <button type="submit" className="btn btn-primary submit-article-btn" disabled={isSubmitting}>
                         {isSubmitting ? "Qo'shilmoqda..." : 'Maqolani Saqlash'}
                     </button>
@@ -273,6 +282,13 @@ function AdminDashboard() {
                                     <span><i className="fa-solid fa-user-pen"></i> {article.author || 'Admin'}</span>
                                     <span><i className="fa-solid fa-calendar"></i> {new Date(article.created_at).toLocaleDateString()}</span>
                                 </div>
+                                {article.file_url && (
+                                    <div style={{ marginTop: '15px' }}>
+                                        <a href={article.file_url} target="_blank" rel="noreferrer" className="btn btn-primary" style={{ fontSize: '0.8rem', padding: '8px 15px', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+                                            <i className="fa-solid fa-file-pdf"></i> PDF O'qish
+                                        </a>
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>
