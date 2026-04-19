@@ -294,6 +294,15 @@
     .dashboard-header {
         flex-direction: column-reverse;
         text-align: center;
+        gap: 30px; /* Mascot va matn orasida katta masofa qo'shamiz */
+    }
+    
+    .dashboard-header h2 {
+        font-size: 1.5rem; /* Matnni biroz kichraytiramiz */
+    }
+    
+    .dashboard-header p {
+        font-size: 0.95rem; /* Paragraf ham kichrayadi */
     }
 
     .dashboard-grid {
