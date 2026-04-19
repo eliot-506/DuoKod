@@ -29,35 +29,50 @@ function CourseSelector({ onSelectCourse }) {
                     const progress = calculateProgress(course.id);
                     const isCompleted = progress === 100;
                     const isActive = stats.currentCourse === course.id;
+                    const isLocked = course.id !== 'python';
 
                     return (
                         <div
                             key={course.id}
-                            className={`course-card ${isActive ? 'active-course' : ''} ${isCompleted ? 'completed-course' : ''}`}
-                            onClick={() => handleCourseClick(course.id)}
-                            style={{ '--course-color': course.color }}
+                            className={`course-card ${isActive ? 'active-course' : ''} ${isCompleted ? 'completed-course' : ''} ${isLocked ? 'locked-course' : ''}`}
+                            onClick={() => !isLocked && handleCourseClick(course.id)}
+                            style={{ 
+                                '--course-color': isLocked ? '#666' : course.color,
+                                opacity: isLocked ? 0.6 : 1,
+                                filter: isLocked ? 'grayscale(1)' : 'none',
+                                cursor: isLocked ? 'not-allowed' : 'pointer'
+                            }}
                         >
                             <div className="course-glow"></div>
                             <div className="course-icon">
                                 {course.id === 'html' && '🌐'}
                                 {course.id === 'css' && '🎨'}
                                 {course.id === 'js' && '⚡'}
+                                {course.id === 'python' && '🐍'}
                             </div>
                             <h3 className="course-title">{course.title}</h3>
 
-                            <div className="course-progress-container">
-                                <div className="course-progress-bar">
-                                    <div
-                                        className="course-progress-fill"
-                                        style={{ width: `${progress}%`, backgroundColor: course.color }}
-                                    ></div>
+                            {!isLocked && (
+                                <div className="course-progress-container">
+                                    <div className="course-progress-bar">
+                                        <div
+                                            className="course-progress-fill"
+                                            style={{ width: `${progress}%`, backgroundColor: course.color }}
+                                        ></div>
+                                    </div>
+                                    <span className="progress-text">{progress}% {isCompleted && '🏆'}</span>
                                 </div>
-                                <span className="progress-text">{progress}% {isCompleted && '🏆'}</span>
-                            </div>
+                            )}
 
-                            <button className="course-btn">
-                                {isActive ? 'Davom etish' : 'Boshlash'}
-                            </button>
+                            {isLocked ? (
+                                <div className="locked-badge" style={{ marginTop: '15px', color: '#888', fontWeight: 'bold', border: '1px dashed #888', padding: '8px', borderRadius: '8px', textAlign: 'center' }}>
+                                    🔒 Tez Kunda
+                                </div>
+                            ) : (
+                                <button className="course-btn">
+                                    {isActive ? 'Davom etish' : 'Boshlash'}
+                                </button>
+                            )}
                         </div>
                     )
                 })}

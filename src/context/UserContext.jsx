@@ -17,7 +17,7 @@ const defaultUserStats = {
     isSuperAdmin: false,
     isActive: true,
     lastPlayed: null,
-    currentCourse: 'html',
+    currentCourse: 'python',
     unlockedAvatars: ['default'],
     currentAvatar: 'default',
     unlockedBadges: [],
@@ -119,6 +119,7 @@ export const UserProvider = ({ children }) => {
                 if (parsed.hearts < 10) parsed.hearts = 50;
                 if (!parsed.courses) parsed.courses = defaultUserStats.courses;
                 if (!parsed.courses.python) parsed.courses.python = defaultUserStats.courses.python;
+                parsed.currentCourse = 'python'; // Hozircha faqat Python ochiq bo'lgani uchun barchani majburan Pythonga o'tkazamiz
                 if (!parsed.unlockedAvatars) parsed.unlockedAvatars = ['default'];
                 if (!parsed.currentAvatar) parsed.currentAvatar = 'default';
                 if (!parsed.unlockedBadges) parsed.unlockedBadges = [];
