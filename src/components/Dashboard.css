@@ -336,11 +336,22 @@
     }
 
     .dashboard-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .current-course-resume {
+        order: 1; /* Birinchi kelishi kerak xuddi asosiy e'tibor qaratiladigan oyna dek */
     }
 
     .daily-quests {
-        grid-column: span 1;
+        order: 2; /* Ikkinchi navbatda vazifalar */
+        grid-column: span 1; /* Eski logikani tozalash */
+    }
+
+    .stats-overview {
+        order: 3; /* Statistika eng pastda */
     }
 
     .resume-box {

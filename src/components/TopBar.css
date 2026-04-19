@@ -116,33 +116,40 @@
 /* Responsive Scaling for TopBar (Strictly One Row) */
 @media (max-width: 768px) {
     .top-bar {
-        padding: 8px 10px;
-        flex-direction: row; /* Bitta qatorda majburiy */
+        padding: 8px 5px; /* Minimum padding */
+        flex-direction: row; 
         flex-wrap: nowrap;
-        gap: 8px;
+        gap: 4px; /* Minimum gap */
+        width: 100vw;
+        max-width: 100vw;
+        box-sizing: border-box;
     }
     
     .top-bar-stats {
-        gap: 5px;
+        gap: 2px; /* Minimum oraliq */
         flex-wrap: nowrap;
+        flex: 1; /* Ortgan joyni to'ldirib surish uchun */
+        justify-content: flex-end; /* O'ngga taqash */
     }
     
     .stat-item {
-        padding: 4px 8px;
-        font-size: 0.85rem;
-        gap: 4px;
+        padding: 4px; /* Qattiq qisqartirish */
+        font-size: clamp(0.7rem, 3vw, 0.8rem); /* Katta shriftdan qochish */
+        gap: 2px;
+        min-width: 0; /* Shrink bo'lishi uchun erkinlik */
     }
     
     .stat-icon {
-        font-size: 0.95rem;
+        font-size: clamp(0.8rem, 3.5vw, 0.95rem);
     }
     
     .top-bar-logo {
-        padding: 4px 10px;
+        padding: 4px 8px;
+        flex-shrink: 1; /* Siqilish imkoni */
     }
     
     .top-bar-logo .logo-text {
-        font-size: 1.1rem;
-        letter-spacing: 1px;
+        font-size: clamp(0.9rem, 4vw, 1.1rem); /* Dinamik shrift razmeri */
+        letter-spacing: 0px; /* Joy tejash */
     }
 }
