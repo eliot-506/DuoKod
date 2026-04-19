@@ -67,3 +67,18 @@
     color: var(--primary);
     text-shadow: var(--primary-glow);
 }
+
+/* Kichik ekranlar (telefonlar) uchun menyu sig'ishini ta'minlash */
+@media (max-width: 600px) {
+    .nav-item {
+        padding: 5px 8px; /* Paddingni kamaytiramiz */
+    }
+    
+    .nav-icon {
+        font-size: 1.4rem; /* Ikonkalar biroz kichrayadi */
+    }
+    
+    .nav-label {
+        font-size: 0.70rem; /* Matn sig'ishi uchun */
+    }
+}
