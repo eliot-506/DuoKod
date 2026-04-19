@@ -113,30 +113,36 @@
     color: var(--accent-pink);
 }
 
-/* Responsive Scaling for TopBar */
+/* Responsive Scaling for TopBar (Strictly One Row) */
 @media (max-width: 768px) {
     .top-bar {
-        padding: 12px 10px;
-        flex-direction: column;
-        gap: 12px;
+        padding: 8px 10px;
+        flex-direction: row; /* Bitta qatorda majburiy */
+        flex-wrap: nowrap;
+        gap: 8px;
     }
     
     .top-bar-stats {
-        gap: 8px;
-        flex-wrap: wrap;
-        justify-content: center;
+        gap: 5px;
+        flex-wrap: nowrap;
     }
     
     .stat-item {
-        padding: 6px 12px;
+        padding: 4px 8px;
+        font-size: 0.85rem;
+        gap: 4px;
+    }
+    
+    .stat-icon {
         font-size: 0.95rem;
     }
     
     .top-bar-logo {
-        padding: 6px 20px;
+        padding: 4px 10px;
     }
     
     .top-bar-logo .logo-text {
-        font-size: 1.4rem;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
     }
 }

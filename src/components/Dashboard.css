@@ -292,17 +292,19 @@
 /* Responsive */
 @media (max-width: 768px) {
     .dashboard-header {
-        flex-direction: column-reverse;
-        text-align: center;
-        gap: 30px; /* Mascot va matn orasida katta masofa qo'shamiz */
+        flex-direction: row; /* Qat’iy bitta qatorda */
+        align-items: center;
+        text-align: left;
+        padding: 15px;
+        gap: 15px;
     }
     
     .dashboard-header h2 {
-        font-size: 1.5rem; /* Matnni biroz kichraytiramiz */
+        font-size: 1.3rem;
     }
     
     .dashboard-header p {
-        font-size: 0.95rem; /* Paragraf ham kichrayadi */
+        font-size: 0.85rem;
     }
 
     .dashboard-grid {
