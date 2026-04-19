@@ -1,7 +1,10 @@
 .dashboard-container {
     padding: 20px;
+    width: 100%;
     max-width: 1000px;
     margin: 0 auto;
+    box-sizing: border-box;
+    overflow-x: hidden; /* Ekranni surilishdan qattiq himoya (Arena usuli) */
     animation: fadeIn 0.5s ease-out;
 }
 
@@ -292,8 +295,7 @@
 /* Responsive */
 @media (max-width: 768px) {
     .dashboard-container {
-        /* Foydalanuvchining vizual talabiga binoan butun dashboardni chapga surish */
-        transform: translateX(-8px); 
+        padding: 10px; /* Mobil uchun chekka masofalarni moslashtirish */
     }
 
     .dashboard-header {
