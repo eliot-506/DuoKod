@@ -135,7 +135,7 @@ function Dashboard({ onNavigate }) {
                             <span>PDF Maqolalar & Kitoblar oynasi</span>
                         </div>
                         <button className="btn btn-primary play-btn" style={{ background: 'rgba(0,229,255,0.1)', color: '#00e5ff', borderColor: '#00e5ff' }} onClick={() => onNavigate('library')}>
-                            Kitoblarni O'qish <i className="fa-solid fa-arrow-right"></i>
+                            Kutubxona <i className="fa-solid fa-arrow-right"></i>
                         </button>
                     </div>
                 </div>
