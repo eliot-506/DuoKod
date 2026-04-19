@@ -357,6 +357,22 @@
     .resume-box {
         flex-direction: column;
         text-align: center;
+        align-items: center; /* Hamma elementni o'q bo'ylab markazlash */
+        padding: 15px; /* Mobil uchun to'lqinni biroz qisib, yonlarini ochamiz */
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .resume-info {
+        width: 100%; /* To'liq kenglik */
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Ichidagi Progress Bar markazga tushishi uchun */
+    }
+
+    .course-progress-bar {
+        width: 90%; /* Juda yopishib qolmasligi uchun */
+        margin: 5px auto 10px auto; /* O'ng-chap simmetriya kafolati */
     }
 
     .stats-row {
