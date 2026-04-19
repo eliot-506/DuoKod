@@ -489,3 +489,47 @@ input:checked+.slider:before {
     justify-content: center;
     align-items: center;
 }
+
+/* Responsive adjustments for Profile */
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 15px;
+    }
+    
+    .profile-stats-grid {
+        gap: 10px;
+    }
+    
+    .profile-stat-box {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding: 15px 10px;
+        gap: 8px;
+    }
+    
+    .profile-stat-box .stat-icon {
+        font-size: 1.8rem;
+    }
+    
+    .stat-info .stat-value {
+        font-size: 1.3rem;
+    }
+    
+    .stat-info .stat-label {
+        font-size: clamp(0.65rem, 3vw, 0.8rem);
+        max-width: 100%;
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    .skill-tabs {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .skill-tab-btn {
+        flex: 1 1 calc(50% - 10px);
+        text-align: center;
+    }
+}
