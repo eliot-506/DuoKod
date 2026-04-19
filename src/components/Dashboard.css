@@ -294,17 +294,45 @@
     .dashboard-header {
         flex-direction: row; /* Qat’iy bitta qatorda */
         align-items: center;
+        justify-content: space-between;
         text-align: left;
-        padding: 15px;
-        gap: 15px;
+        padding: 10px;
+        gap: 10px;
+        min-height: max-content;
     }
     
+    .dashboard-welcome-info {
+        flex: 1; /* Matn qismi joyni egallashi uchun */
+        min-width: 0; /* Shrink bo'lishini sug'urtalash */
+    }
+
     .dashboard-header h2 {
-        font-size: 1.3rem;
+        font-size: 1.15rem; /* Yanada ixcham */
+        line-height: 1.2;
     }
     
     .dashboard-header p {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
+        margin-bottom: 5px;
+    }
+    
+    .user-level-info {
+        padding: 8px;
+    }
+    
+    .level-texts {
+        flex-direction: row;
+        white-space: nowrap; /* Bitta qatorda saqlash uchun */
+    }
+    
+    .level-badge, .level-xp {
+        font-size: 0.75rem; 
+    }
+
+    .mascot-greeting {
+        width: 100px; /* Robot hajmini kichraytirish */
+        height: 100px;
+        flex-shrink: 0;
     }
 
     .dashboard-grid {
@@ -321,6 +349,22 @@
     }
 
     .stats-row {
-        flex-direction: column;
+        flex-direction: row; /* Streaklarni yuzma yuz bitta qatorda saqlash */
+        flex-wrap: wrap; /* Sig'masa pastga tushishga ruxsat */
+        gap: 10px;
+    }
+    
+    .stat-box {
+        padding: 10px;
+        flex: 1;
+        min-width: 30%; /* Uchta ustun qilish uchun */
+    }
+    
+    .stat-box span {
+        font-size: 1.5rem !important; /* Emotikion hajmini bosig'roq saqlash */
+    }
+    
+    .stat-info span {
+        font-size: 0.9rem;
     }
 }
