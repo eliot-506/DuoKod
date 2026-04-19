@@ -344,85 +344,89 @@
     }
 
     .dashboard-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 2 ustunni saqlash */
+        gap: 10px;
     }
 
     .dash-card {
-        padding: 15px; /* Standart holatga qaytarildi */
+        padding: 12px; /* Qutilar kichik telefon ekraniga sig'ishi uchun qisqaradi */
     }
 
     .dash-card h3 {
-        font-size: 1.15rem;
-        margin-bottom: 15px;
-        text-align: left; /* Matn markazda emas chapda tursin */
+        font-size: 1rem;
+        margin-bottom: 10px;
+        text-align: center;
     }
 
     .current-course-resume {
-        order: 1; /* Asosiy diqqat markazimiz */
+        grid-column: span 1;
+        order: unset;
     }
 
     .stats-overview {
-        order: 2; /* Hozirgi kurs ostida xronologik joylashuv */
+        grid-column: span 1;
+        order: unset;
     }
 
     .daily-quests {
-        order: 3; /* Eng pastdagi element */
+        grid-column: span 2; /* Kunlik vazifalar to'liq kenglikni oladi */
+        order: unset;
     }
 
     .resume-box {
         flex-direction: column;
         text-align: center;
         align-items: center; 
-        padding: 15px; 
+        padding: 10px; 
         width: 100%;
         box-sizing: border-box;
-        gap: 15px;
+        gap: 10px;
     }
 
     .course-big-icon {
-        font-size: 3rem; /* Original ikonka hajmi */
+        font-size: 2.5rem; /* Iconkani biroz maydalash */
     }
 
     .resume-info h4 {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .resume-info span {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
     }
 
     .play-btn {
-        width: 100%; 
+        width: 100%; /* Tugma 100% quti egnini oladi */
         justify-content: center;
+        padding: 8px 10px;
+        font-size: 0.8rem;
     }
 
     .stats-row {
-        flex-direction: row; /* Yuzma-yuz (yonma-yon) sig'adi chunki u full width */
-        flex-wrap: wrap;
-        gap: 10px;
+        flex-direction: column; /* Yonma-yon sig'masligi butkul aniq bo'lgani uchun ustun shaklida teriladi */
+        flex-wrap: nowrap;
+        gap: 8px;
     }
     
     .stat-box {
-        padding: 10px;
+        padding: 8px;
         flex: 1;
-        min-width: 30%; 
-        flex-direction: row; 
-        gap: 10px;
-        justify-content: flex-start;
-        text-align: left;
+        min-width: 100%; 
+        flex-direction: column; /* Ichkarisini ham ustun qilish */
+        gap: 5px;
+        text-align: center;
     }
     
     .stat-box i {
-        font-size: 2rem !important; 
+        font-size: 1.5rem !important; 
     }
     
     .stat-info span {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     
     .stat-info small {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
     }
 }
