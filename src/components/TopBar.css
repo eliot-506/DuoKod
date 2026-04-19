@@ -113,46 +113,83 @@
     color: var(--accent-pink);
 }
 
+/* Admin tugmasi */
+.admin-badge-btn {
+    background: linear-gradient(45deg, #FFD700, #FF8C00);
+    border: none;
+    padding: 6px 14px;
+    border-radius: 12px;
+    color: #000;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.admin-badge-btn:hover {
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
+    transform: translateY(-1px);
+}
+
 /* Responsive Scaling for TopBar (Strictly One Row) */
 @media (max-width: 768px) {
     .top-bar {
-        padding: 10px 15px; /* Dashboard qutisi bilan bir xil simmetriya uchun */
-        flex-direction: row; 
+        padding: 8px 12px;
+        flex-direction: row;
         flex-wrap: nowrap;
-        gap: 10px; 
+        gap: 6px;
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
-        overflow-x: hidden; 
-        justify-content: space-between; /* space-evenly emas, chetga teng yoyish */
+        overflow-x: hidden;
+        justify-content: space-between;
     }
-    
+
     .top-bar-stats {
         gap: 4px;
         flex-wrap: nowrap;
-        flex: 1; 
-        justify-content: flex-end; 
+        flex: 1;
+        justify-content: flex-end;
         min-width: 0;
     }
-    
+
     .stat-item {
-        padding: 4px 6px; 
-        font-size: clamp(0.7rem, 3vw, 0.85rem); 
+        padding: 4px 6px;
+        font-size: clamp(0.7rem, 3vw, 0.85rem);
         gap: 3px;
-        min-width: 0; 
+        min-width: 0;
     }
-    
+
     .stat-icon {
         font-size: clamp(0.8rem, 3.5vw, 0.95rem);
     }
-    
+
     .top-bar-logo {
         padding: 4px 8px;
-        flex-shrink: 1; /* Siqilish imkoni */
+        flex-shrink: 1;
     }
-    
+
     .top-bar-logo .logo-text {
-        font-size: clamp(0.9rem, 4vw, 1.1rem); /* Dinamik shrift razmeri */
-        letter-spacing: 0px; /* Joy tejash */
+        font-size: clamp(0.9rem, 4vw, 1.1rem);
+        letter-spacing: 0px;
+    }
+
+    /* Admin tugmasini mobilda ixchamlashtirish */
+    .admin-badge-btn {
+        padding: 5px 8px;
+        font-size: 0.75rem;
+        border-radius: 8px;
+        gap: 3px;
+    }
+
+    /* Kichik ekranlarda "Admin" yozuvini yashirib, faqat emoji qoldirish */
+    @media (max-width: 380px) {
+        .admin-btn-text { display: none; }
     }
 }

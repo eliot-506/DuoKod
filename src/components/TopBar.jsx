@@ -17,9 +17,8 @@ function TopBar({ onLogoClick, onNavigate }) {
                     <button 
                         onClick={() => onNavigate && onNavigate('admin')}
                         className="admin-badge-btn"
-                        style={{ background: 'linear-gradient(45deg, #FFD700, #FF8C00)', border: 'none', padding: '6px 12px', borderRadius: '12px', color: '#000', fontWeight: '800', cursor: 'pointer', marginRight: '15px', boxShadow: '0 0 15px rgba(255, 215, 0, 0.4)', display: 'flex', alignItems: 'center', gap: '5px' }}
                     >
-                        👑 Admin
+                        👑 <span className="admin-btn-text">Admin</span>
                     </button>
                 )}
                 <div className="stat-item streak-stat" title={`Pog'ona: ${tier.name}`}>

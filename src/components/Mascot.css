@@ -61,7 +61,7 @@
     transform: none;
     margin-top: 10px;
     z-index: 20; 
-    max-width: 150px;
+    max-width: 180px; /* So'zlar sinmasligi uchun kengaytirish */
     
     padding: 8px 12px; 
     background: #0f172a; 
