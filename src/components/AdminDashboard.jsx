@@ -243,7 +243,7 @@ function AdminDashboard() {
                         ></textarea>
                     </div>
                     <button type="submit" className="btn btn-primary submit-article-btn" disabled={isSubmitting}>
-                        {isSubmitting ? 'Qo'shilmoqda...' : 'Maqolani Saqlash'}
+                        {isSubmitting ? "Qo'shilmoqda..." : 'Maqolani Saqlash'}
                     </button>
                 </form>
             </div>
