@@ -54,15 +54,14 @@
 }
 
 .mascot-bubble {
-    /* Pufakchaning o'ng tomonga qarab ekrandan chiqib ketishini oldini olamiz */
     position: absolute;
     top: 100%; 
-    right: 0; /* O'ng burchakdan ushlash */
-    left: auto; /* Chapni erkin qo'yish */
-    transform: none; /* Markazlashni bekor qilish, faqat o'ngga yopishadi */
-    margin-top: 15px;
+    left: 0;   /* Chapga yo'naltirish — o'ng kartochkaga tegmaydi */
+    right: auto;
+    transform: none;
+    margin-top: 10px;
     z-index: 20; 
-    max-width: 80vw; /* Ekrandan katta bo'lib ketmasligi kafolati */
+    max-width: 150px;
     
     padding: 8px 12px; 
     background: #0f172a; 
@@ -70,19 +69,19 @@
     border-radius: 12px;
     color: #ffffff;
     font-weight: 600;
-    font-size: clamp(0.7rem, 3.5vw, 1rem); 
+    font-size: clamp(0.7rem, 3.5vw, 0.9rem); 
     word-break: break-word; 
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
     animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     text-align: center;
-    text-shadow: none; /* Yutilib ketishini oldini oladi */
+    text-shadow: none;
 }
 
 .mascot-bubble::before {
     content: '';
     position: absolute;
     top: -10px;
-    right: 40px; /* Okka o'ngroqqa surgaldilar */
+    left: 30px; /* Okka chap tomonga siljitildi */
     border-width: 0 10px 10px 10px;
     border-style: solid;
     border-color: transparent transparent var(--primary) transparent;
@@ -92,7 +91,7 @@
     content: '';
     position: absolute;
     top: -8px;
-    right: 41px; /* Tishning ichki qismi moslashuvi */
+    left: 31px; /* Ichki okka */
     border-width: 0 9px 9px 9px;
     border-style: solid;
     border-color: transparent transparent #0f172a transparent;
