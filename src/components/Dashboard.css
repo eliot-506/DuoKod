@@ -404,29 +404,45 @@
     }
 
     .stats-row {
-        flex-direction: column; /* Yonma-yon sig'masligi butkul aniq bo'lgani uchun ustun shaklida teriladi */
+        flex-direction: row; /* Foydalanuvchi talabi bilan 3 ta statistika bir qatorga teriladi */
         flex-wrap: nowrap;
-        gap: 8px;
+        gap: 4px; /* Judayam tor oraliq */
     }
     
     .stat-box {
-        padding: 8px;
+        padding: 5px 2px;
         flex: 1;
-        min-width: 100%; 
-        flex-direction: column; /* Ichkarisini ham ustun qilish */
-        gap: 5px;
+        min-width: 0; 
+        flex-direction: column; /* Ikonka va matnni ustma-ust terish (eni tejash uchun) */
+        gap: 3px;
+        justify-content: center;
+        align-items: center;
         text-align: center;
     }
     
-    .stat-box i {
-        font-size: 1.5rem !important; 
+    .stat-box i, .dashboard-streak-emoji, .xp-emoji, .heart-emoji {
+        font-size: 1.2rem !important; /* Juda ham mitti ikonka */
+    }
+
+    .stat-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     
     .stat-info span {
-        font-size: 1.1rem;
+        font-size: 0.85rem;
+        line-height: 1;
+        white-space: nowrap; /* Matn sinmasligi uchun */
     }
     
     .stat-info small {
-        font-size: 0.75rem;
+        font-size: 0.6rem;
+        line-height: 1;
+        opacity: 0.8;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%; /* Agar sig'masa 3ta nuqta bilan kesiladi */
     }
 }
