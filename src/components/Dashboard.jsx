@@ -127,6 +127,17 @@ function Dashboard({ onNavigate }) {
                             Davom Etish <i className="fa-solid fa-play"></i>
                         </button>
                     </div>
+
+                    <div className="resume-box library-promo-box" style={{ borderLeftColor: '#00e5ff', marginTop: '15px' }}>
+                        <i className="fa-solid fa-book-open course-big-icon" style={{ color: '#00e5ff' }}></i>
+                        <div className="resume-info">
+                            <h4>Kutubxona</h4>
+                            <span>PDF Maqolalar & Kitoblar oynasi</span>
+                        </div>
+                        <button className="btn btn-primary play-btn" style={{ background: 'rgba(0,229,255,0.1)', color: '#00e5ff', borderColor: '#00e5ff' }} onClick={() => onNavigate('library')}>
+                            Kitoblarni O'qish <i className="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
                 </div>
 
                 {/* Kunlik Vazifalar (Daily Quests) */}

@@ -14,6 +14,7 @@ import CodeArena from './components/CodeArena'
 import DuelMode from './components/DuelMode'
 import ProjectMode from './components/ProjectMode'
 import XpAnimation from './components/XpAnimation'
+import Library from './components/Library'
 import { useUser } from './context/UserContext'
 
 function App() {
@@ -59,7 +60,7 @@ function App() {
   return (
     <div className="page-container" style={{ paddingBottom: '80px' }}>
       <div className="global-wrapper"> 
-        {currentView !== 'lesson' && currentView !== 'certificate' && currentView !== 'project' && <TopBar onLogoClick={() => setCurrentView('dashboard')} onNavigate={setCurrentView} />}
+        {currentView !== 'lesson' && currentView !== 'certificate' && currentView !== 'project' && currentView !== 'library' && <TopBar onLogoClick={() => setCurrentView('dashboard')} onNavigate={setCurrentView} />}
 
         <main className="main-content">
           {currentView === 'dashboard' && <Dashboard onNavigate={setCurrentView} />}
@@ -71,6 +72,7 @@ function App() {
           {currentView === 'duel' && <DuelMode />}
           {currentView === 'project' && <ProjectMode onExit={() => setCurrentView('map')} />}
           {currentView === 'certificate' && <Certificate onBack={() => setCurrentView('map')} />}
+          {currentView === 'library' && <Library onBack={() => setCurrentView('dashboard')} />}
         </main>
       </div>
 
@@ -84,7 +86,7 @@ function App() {
 
       {showXpAnim && <XpAnimation xpAmount={earnedXp} onComplete={() => setShowXpAnim(false)} />}
 
-      {currentView !== 'lesson' && currentView !== 'courses' && currentView !== 'certificate' && currentView !== 'project' && (
+      {currentView !== 'lesson' && currentView !== 'courses' && currentView !== 'certificate' && currentView !== 'project' && currentView !== 'library' && (
         <BottomNav currentTab={currentView} onTabSwitch={setCurrentView} />
       )}
     </div>
