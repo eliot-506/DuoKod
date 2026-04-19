@@ -291,6 +291,11 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+    .dashboard-container {
+        /* Foydalanuvchining vizual talabiga binoan butun dashboardni chapga surish */
+        transform: translateX(-8px); 
+    }
+
     .dashboard-header {
         flex-direction: row; /* Qat’iy bitta qatorda */
         align-items: center;
