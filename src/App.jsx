@@ -57,19 +57,21 @@ function App() {
 
   return (
     <div className="page-container" style={{ paddingBottom: '80px' }}>
-      {currentView !== 'lesson' && currentView !== 'certificate' && currentView !== 'project' && <TopBar onLogoClick={() => setCurrentView('dashboard')} onNavigate={setCurrentView} />}
+      <div className="global-wrapper"> 
+        {currentView !== 'lesson' && currentView !== 'certificate' && currentView !== 'project' && <TopBar onLogoClick={() => setCurrentView('dashboard')} onNavigate={setCurrentView} />}
 
-      <main className="main-content">
-        {currentView === 'dashboard' && <Dashboard onNavigate={setCurrentView} />}
-        {currentView === 'admin' && stats.isAdmin && <AdminDashboard />}
-        {currentView === 'map' && <LearningTab onNodeClick={handleStartLesson} onClaimCertificate={() => setCurrentView('certificate')} onStartProject={() => setCurrentView('project')} />}
-        {currentView === 'leaderboard' && <Leaderboard />}
-        {currentView === 'profile' && <Profile />}
-        {currentView === 'arena' && <CodeArena />}
-        {currentView === 'duel' && <DuelMode />}
-        {currentView === 'project' && <ProjectMode onExit={() => setCurrentView('map')} />}
-        {currentView === 'certificate' && <Certificate onBack={() => setCurrentView('map')} />}
-      </main>
+        <main className="main-content">
+          {currentView === 'dashboard' && <Dashboard onNavigate={setCurrentView} />}
+          {currentView === 'admin' && stats.isAdmin && <AdminDashboard />}
+          {currentView === 'map' && <LearningTab onNodeClick={handleStartLesson} onClaimCertificate={() => setCurrentView('certificate')} onStartProject={() => setCurrentView('project')} />}
+          {currentView === 'leaderboard' && <Leaderboard />}
+          {currentView === 'profile' && <Profile />}
+          {currentView === 'arena' && <CodeArena />}
+          {currentView === 'duel' && <DuelMode />}
+          {currentView === 'project' && <ProjectMode onExit={() => setCurrentView('map')} />}
+          {currentView === 'certificate' && <Certificate onBack={() => setCurrentView('map')} />}
+        </main>
+      </div>
 
       {currentView === 'lesson' && (
         <LessonView

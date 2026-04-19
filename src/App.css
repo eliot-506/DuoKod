@@ -8,6 +8,20 @@
   overflow-x: hidden !important; /* Absolute elementlar teshishiga yo'l qo'ymang */
 }
 
+/* AI Yordamchisining maslahatiga binoan: Unified Container */
+.global-wrapper {
+  width: 100%;
+  max-width: 1000px; /* Desktop uchun */
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .global-wrapper {
+    max-width: 480px; /* Mobil uchun ideal o'lcham */
+  }
+}
+
 .main-content {
   display: flex;
   flex-direction: column;
