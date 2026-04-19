@@ -309,7 +309,7 @@
         justify-content: space-between;
         padding: 12px;
         gap: 10px;
-        margin-bottom: 80px;
+        margin-bottom: 20px; /* Reduced from 80px to save space */
     }
 
     .dashboard-welcome-info {
@@ -337,7 +337,7 @@
     /* ===== 2 ta teng ustun ===== */
     .dashboard-grid {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); /* min-width:0 kafolati */
+        grid-template-columns: 1fr 1fr !important; /* Force 2 columns */
         gap: 8px;
         align-items: stretch;
     }
@@ -425,12 +425,13 @@
         width: 100%;
         min-width: 0;
         box-sizing: border-box;
-        padding: 6px 8px;
-        flex-direction: row;      /* Emoji chap, matn o'ng */
+        padding: 8px 4px;
+        flex-direction: column;   /* Stack emoji and text vertically to save space */
         align-items: center;
-        gap: 8px;
-        justify-content: flex-start;
+        gap: 4px;
+        justify-content: center;
         flex: unset;
+        text-align: center;
     }
 
     /* Emoji ikonkalar — yetarlicha katta */
