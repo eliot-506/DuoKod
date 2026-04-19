@@ -39,7 +39,7 @@ export const playSuccessSound = () => {
     }
 };
 
-// Xato javob berilganda "Buzz" (pastga tushgan dag'al ohang) ovozi
+// Xato javob berilganda "Boop" (qisqa va aniq xato ovozi)
 export const playErrorSound = () => {
     try {
         const audioCtx = getAudioContext();
@@ -48,20 +48,21 @@ export const playErrorSound = () => {
         const osc = audioCtx.createOscillator();
         const gainNode = audioCtx.createGain();
 
-        osc.type = 'sawtooth'; // Kiber/Hacker vibe ga mos dag'al chertish
+        // Sawtooth emas, Triangle (nozikroq ohang, prrrr o'rniga tuut)
+        osc.type = 'triangle'; 
         osc.connect(gainNode);
         gainNode.connect(audioCtx.destination);
 
         const now = audioCtx.currentTime;
 
-        // Ovoz balandligi
+        // Ovoz balandligi (qisqaroq va silliqroq o'chish)
         gainNode.gain.setValueAtTime(0, now);
-        gainNode.gain.linearRampToValueAtTime(0.15, now + 0.05);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+        gainNode.gain.linearRampToValueAtTime(0.2, now + 0.02);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
 
-        // Chastota (Yuqoridan pastga - xato qilding xissi)
-        osc.frequency.setValueAtTime(200, now);
-        osc.frequency.exponentialRampToValueAtTime(100, now + 0.2);
+        // Chastota (350 dan pastga qisqa tushish: klassik xato ovozi)
+        osc.frequency.setValueAtTime(350, now);
+        osc.frequency.exponentialRampToValueAtTime(150, now + 0.2);
 
         osc.start(now);
         osc.stop(now + 0.3);
