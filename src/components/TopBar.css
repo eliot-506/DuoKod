@@ -116,30 +116,30 @@
 /* Responsive Scaling for TopBar (Strictly One Row) */
 @media (max-width: 768px) {
     .top-bar {
-        padding: 8px 5px; /* Minimum padding */
+        padding: 10px 15px; /* Dashboard qutisi bilan bir xil simmetriya uchun */
         flex-direction: row; 
         flex-wrap: nowrap;
-        gap: 4px; /* Minimum gap */
+        gap: 10px; 
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
-        overflow-x: hidden; /* Toshib ketishini qattiq bloklaydi */
-        justify-content: space-evenly;
+        overflow-x: hidden; 
+        justify-content: space-between; /* space-evenly emas, chetga teng yoyish */
     }
     
     .top-bar-stats {
-        gap: 2px; /* Minimum oraliq */
+        gap: 4px;
         flex-wrap: nowrap;
-        flex: 1; /* Ortgan joyni to'ldirib surish uchun */
-        justify-content: flex-end; /* O'ngga taqash */
+        flex: 1; 
+        justify-content: flex-end; 
         min-width: 0;
     }
     
     .stat-item {
-        padding: 4px; /* Qattiq qisqartirish */
-        font-size: clamp(0.7rem, 3vw, 0.8rem); /* Katta shriftdan qochish */
-        gap: 2px;
-        min-width: 0; /* Shrink bo'lishi uchun erkinlik */
+        padding: 4px 6px; 
+        font-size: clamp(0.7rem, 3vw, 0.85rem); 
+        gap: 3px;
+        min-width: 0; 
     }
     
     .stat-icon {
