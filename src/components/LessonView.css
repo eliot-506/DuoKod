@@ -286,7 +286,11 @@
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-    padding-top: 20px;
+    padding-top: 10px;
+    /* Pufakcha (absolute) pastdagi savol matnini yopmasligi uchun joy ajratamiz */
+    padding-bottom: 90px;
+    position: relative; /* Pufakcha shu konteyner ichida qoladi (chiqmaydi) */
+    overflow: visible;
 }
 
 @keyframes slideUp {
