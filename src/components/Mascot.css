@@ -54,13 +54,15 @@
 }
 
 .mascot-bubble {
-    /* Layout shift (sakrash) larni oldini olish uchun jismoniy joy egallamaslik */
+    /* Pufakchaning o'ng tomonga qarab ekrandan chiqib ketishini oldini olamiz */
     position: absolute;
-    top: 100%; /* Avatarning roppa rosa tagida chiqadi */
-    left: 50%;
-    transform: translateX(-50%); /* O'z markaziga nisbatan tekislash */
+    top: 100%; 
+    right: 0; /* O'ng burchakdan ushlash */
+    left: auto; /* Chapni erkin qo'yish */
+    transform: none; /* Markazlashni bekor qilish, faqat o'ngga yopishadi */
     margin-top: 15px;
-    z-index: 20; /* Boshqa elementlar ustida turishi uchun */
+    z-index: 20; 
+    max-width: 80vw; /* Ekrandan katta bo'lib ketmasligi kafolati */
     
     padding: 8px 12px; 
     background: #0f172a; 
@@ -80,8 +82,7 @@
     content: '';
     position: absolute;
     top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 40px; /* Okka o'ngroqqa surgaldilar */
     border-width: 0 10px 10px 10px;
     border-style: solid;
     border-color: transparent transparent var(--primary) transparent;
@@ -91,8 +92,7 @@
     content: '';
     position: absolute;
     top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 41px; /* Tishning ichki qismi moslashuvi */
     border-width: 0 9px 9px 9px;
     border-style: solid;
     border-color: transparent transparent #0f172a transparent;
@@ -164,12 +164,12 @@
 
 @keyframes popIn {
     0% {
-        transform: translate(-50%, 0) scale(0.8);
+        transform: scale(0.8);
         opacity: 0;
     }
 
     100% {
-        transform: translate(-50%, 0) scale(1);
+        transform: scale(1);
         opacity: 1;
     }
 }
