@@ -12,7 +12,7 @@ function AdminDashboard() {
     recentUsers: []
   });
   const [articles, setArticles] = useState([]);
-  const [newArticle, setNewArticle] = useState({ title: '', content: '', file_url: '' });
+  const [newArticle, setNewArticle] = useState({ title: '', content: '', file_url: '', category: 'Boshqa' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -83,13 +83,13 @@ function AdminDashboard() {
     setIsSubmitting(true);
     try {
         const { data, error } = await supabase.from('articles').insert([
-            { title: newArticle.title, content: newArticle.content, file_url: newArticle.file_url }
+            { title: newArticle.title, content: newArticle.content, file_url: newArticle.file_url, category: newArticle.category }
         ]).select();
         
         if (error) throw error;
         if (data) {
             setArticles([data[0], ...articles]);
-            setNewArticle({ title: '', content: '', file_url: '' });
+            setNewArticle({ title: '', content: '', file_url: '', category: 'Boshqa' });
         }
     } catch (err) {
         alert("Xatolik: " + err.message);
@@ -118,6 +118,9 @@ function AdminDashboard() {
       </div>
     );
   }
+
+  // Kategoriyalar ro'yxati
+  const CATEGORIES = ['HTML & CSS', 'JavaScript', 'Python', 'Web Texnologiyalari', 'Boshqa'];
 
   return (
     <div className="admin-dashboard-container">
@@ -243,6 +246,15 @@ function AdminDashboard() {
                         ></textarea>
                     </div>
                     <div className="form-group">
+                        <label>Bo'lim / Kategoriya</label>
+                        <select 
+                            value={newArticle.category || 'Boshqa'} 
+                            onChange={(e) => setNewArticle({...newArticle, category: e.target.value})}
+                        >
+                            {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                        </select>
+                    </div>
+                    <div className="form-group">
                         <label>Fayl manzili (PDF URL ixtiyoriy)</label>
                         <input 
                             type="text" 
@@ -262,35 +274,49 @@ function AdminDashboard() {
                 {articles.length === 0 ? (
                     <div className="empty-state">Hali hech qanday adabiyot qo'shilmagan.</div>
                 ) : (
-                    <div className="articles-grid">
-                        {articles.map((article) => (
-                            <div key={article.id} className="admin-article-card">
-                                <div className="admin-article-header">
-                                    <h4>{article.title}</h4>
-                                    <button 
-                                        className="btn-delete-article" 
-                                        onClick={() => handleDeleteArticle(article.id)}
-                                        title="O'chirish"
-                                    >
-                                        <i className="fa-solid fa-trash"></i>
-                                    </button>
-                                </div>
-                                <p className="admin-article-preview">
-                                    {article.content.substring(0, 150)}...
-                                </p>
-                                <div className="admin-article-meta">
-                                    <span><i className="fa-solid fa-user-pen"></i> {article.author || 'Admin'}</span>
-                                    <span><i className="fa-solid fa-calendar"></i> {new Date(article.created_at).toLocaleDateString()}</span>
-                                </div>
-                                {article.file_url && (
-                                    <div style={{ marginTop: '15px' }}>
-                                        <a href={article.file_url} target="_blank" rel="noreferrer" className="btn btn-primary" style={{ fontSize: '0.8rem', padding: '8px 15px', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-                                            <i className="fa-solid fa-file-pdf"></i> PDF O'qish
-                                        </a>
+                    <div className="categories-wrapper">
+                        {CATEGORIES.map(category => {
+                            const catArticles = articles.filter(a => (a.category || 'Boshqa') === category);
+                            if (catArticles.length === 0) return null;
+
+                            return (
+                                <div key={category} className="category-section" style={{ marginBottom: '40px' }}>
+                                    <h4 style={{ color: '#00e5ff', fontSize: '1.2rem', marginBottom: '15px', borderBottom: '1px solid rgba(0,229,255,0.2)', paddingBottom: '10px' }}>
+                                        <i className="fa-solid fa-folder-open"></i> {category} ({catArticles.length} ta)
+                                    </h4>
+                                    <div className="articles-grid">
+                                        {catArticles.map((article) => (
+                                            <div key={article.id} className="admin-article-card">
+                                                <div className="admin-article-header">
+                                                    <h4>{article.title}</h4>
+                                                    <button 
+                                                        className="btn-delete-article" 
+                                                        onClick={() => handleDeleteArticle(article.id)}
+                                                        title="O'chirish"
+                                                    >
+                                                        <i className="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                                <p className="admin-article-preview">
+                                                    {article.content.substring(0, 150)}...
+                                                </p>
+                                                <div className="admin-article-meta">
+                                                    <span><i className="fa-solid fa-user-pen"></i> {article.author || 'Admin'}</span>
+                                                    <span><i className="fa-solid fa-calendar"></i> {new Date(article.created_at).toLocaleDateString()}</span>
+                                                </div>
+                                                {article.file_url && (
+                                                    <div style={{ marginTop: '15px' }}>
+                                                        <a href={article.file_url} target="_blank" rel="noreferrer" className="btn btn-primary" style={{ fontSize: '0.8rem', padding: '8px 15px', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+                                                            <i className="fa-solid fa-file-pdf"></i> PDF O'qish
+                                                        </a>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
                                     </div>
-                                )}
-                            </div>
-                        ))}
+                                </div>
+                            )
+                        })}
                     </div>
                 )}
             </div>
