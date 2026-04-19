@@ -25,19 +25,13 @@ a:hover {
 body {
   margin: 0;
   padding: 0;
-  width: 100%;
-  overflow-x: hidden; /* Gorizontal scroll'ni o'ldirish */
   min-width: 320px;
   min-height: 100vh;
-  background-color: var(--background, #0f172a); /* Zaxira fon */
+  background-color: var(--background, #0f172a);
 }
 
 #root {
   width: 100%;
-  max-width: 100vw;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
 h1 {
