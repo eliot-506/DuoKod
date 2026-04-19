@@ -349,16 +349,16 @@
     }
 
     .current-course-resume {
-        order: 1; /* Birinchi kelishi kerak xuddi asosiy e'tibor qaratiladigan oyna dek */
-    }
-
-    .daily-quests {
-        order: 2; /* Ikkinchi navbatda vazifalar */
-        grid-column: span 1; /* Eski logikani tozalash */
+        order: 1; /* Asosiy diqqat markazimiz */
     }
 
     .stats-overview {
-        order: 3; /* Statistika eng pastda */
+        order: 2; /* Hozirgi kurs bilan yonma-yon/ostma-ost turishi uchun 2-o'rin */
+    }
+
+    .daily-quests {
+        order: 3; /* Vazifalar ro'yxati uzun bo'lgani uchun eng pastga */
+        grid-column: span 1; 
     }
 
     .resume-box {
