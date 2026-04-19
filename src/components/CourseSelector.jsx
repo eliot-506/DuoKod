@@ -36,12 +36,7 @@ function CourseSelector({ onSelectCourse }) {
                             key={course.id}
                             className={`course-card ${isActive ? 'active-course' : ''} ${isCompleted ? 'completed-course' : ''} ${isLocked ? 'locked-course' : ''}`}
                             onClick={() => !isLocked && handleCourseClick(course.id)}
-                            style={{ 
-                                '--course-color': isLocked ? '#666' : course.color,
-                                opacity: isLocked ? 0.6 : 1,
-                                filter: isLocked ? 'grayscale(1)' : 'none',
-                                cursor: isLocked ? 'not-allowed' : 'pointer'
-                            }}
+                            style={{ '--course-color': course.color }}
                         >
                             <div className="course-glow"></div>
                             <div className="course-icon">
@@ -64,9 +59,18 @@ function CourseSelector({ onSelectCourse }) {
                                 </div>
                             )}
 
+                            {isLocked && (
+                                <div className="coming-soon-overlay">
+                                    <div className="coming-soon-content">
+                                        <span className="lock-icon">🔒</span>
+                                        <span className="coming-soon-text">COMING SOON</span>
+                                    </div>
+                                </div>
+                            )}
+
                             {isLocked ? (
-                                <div className="locked-badge" style={{ marginTop: '15px', color: '#888', fontWeight: 'bold', border: '1px dashed #888', padding: '8px', borderRadius: '8px', textAlign: 'center' }}>
-                                    🔒 Tez Kunda
+                                <div className="locked-badge">
+                                    Tez Kunda Mavjud
                                 </div>
                             ) : (
                                 <button className="course-btn">
