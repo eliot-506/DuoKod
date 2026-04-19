@@ -343,62 +343,89 @@
     }
 
     .dashboard-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 2 ustunni saqlash */
+        gap: 10px;
+    }
+
+    .dash-card {
+        padding: 12px; /* Qutilar kichik telefon ekraniga sig'ishi uchun qisqaradi */
+    }
+
+    .dash-card h3 {
+        font-size: 1rem;
+        margin-bottom: 10px;
+        text-align: center;
     }
 
     .current-course-resume {
-        order: 1; /* Asosiy diqqat markazimiz */
+        grid-column: span 1;
+        order: unset;
     }
 
     .stats-overview {
-        order: 2; /* Hozirgi kurs bilan yonma-yon/ostma-ost turishi uchun 2-o'rin */
+        grid-column: span 1;
+        order: unset;
     }
 
     .daily-quests {
-        order: 3; /* Vazifalar ro'yxati uzun bo'lgani uchun eng pastga */
-        grid-column: span 1; 
+        grid-column: span 2; /* Kunlik vazifalar to'liq kenglikni oladi */
+        order: unset;
     }
 
     .resume-box {
         flex-direction: column;
         text-align: center;
-        align-items: center; /* Hamma elementni o'q bo'ylab markazlash */
-        padding: 15px; /* Mobil uchun to'lqinni biroz qisib, yonlarini ochamiz */
+        align-items: center; 
+        padding: 10px; 
         width: 100%;
         box-sizing: border-box;
+        gap: 10px;
     }
 
-    .resume-info {
-        width: 100%; /* To'liq kenglik */
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* Ichidagi Progress Bar markazga tushishi uchun */
+    .course-big-icon {
+        font-size: 2.5rem; /* Iconkani biroz maydalash */
     }
 
-    .course-progress-bar {
-        width: 90%; /* Juda yopishib qolmasligi uchun */
-        margin: 5px auto 10px auto; /* O'ng-chap simmetriya kafolati */
+    .resume-info h4 {
+        font-size: 1rem;
+    }
+
+    .resume-info span {
+        font-size: 0.75rem;
+    }
+
+    .play-btn {
+        width: 100%; /* Tugma 100% quti egnini oladi */
+        justify-content: center;
+        padding: 8px 10px;
+        font-size: 0.8rem;
     }
 
     .stats-row {
-        flex-direction: row; /* Streaklarni yuzma yuz bitta qatorda saqlash */
-        flex-wrap: wrap; /* Sig'masa pastga tushishga ruxsat */
-        gap: 10px;
+        flex-direction: column; /* Yonma-yon sig'masligi butkul aniq bo'lgani uchun ustun shaklida teriladi */
+        flex-wrap: nowrap;
+        gap: 8px;
     }
     
     .stat-box {
-        padding: 10px;
+        padding: 8px;
         flex: 1;
-        min-width: 30%; /* Uchta ustun qilish uchun */
+        min-width: 100%; 
+        flex-direction: column; /* Ichkarisini ham ustun qilish */
+        gap: 5px;
+        text-align: center;
     }
     
-    .stat-box span {
-        font-size: 1.5rem !important; /* Emotikion hajmini bosig'roq saqlash */
+    .stat-box i {
+        font-size: 1.5rem !important; 
     }
     
     .stat-info span {
-        font-size: 0.9rem;
+        font-size: 1.1rem;
+    }
+    
+    .stat-info small {
+        font-size: 0.75rem;
     }
 }
