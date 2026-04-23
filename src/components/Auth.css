@@ -36,6 +36,22 @@
     margin-bottom: 30px;
 }
 
+/* Robot uchun alohida wrapper — bubble chetga chiqmasin */
+.auth-mascot-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    /* Bubble uchun joy bo'lsin, lekin h2 ustiga chiqmasin */
+    overflow: visible;
+}
+
+/* Mascot bubbleni auth sahifasida o'chirish */
+.auth-mascot-wrap .mascot-bubble {
+    display: none;
+}
+
 .auth-header h2 {
     color: var(--text-color);
     font-size: 2rem;

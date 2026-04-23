@@ -94,7 +94,9 @@ function Auth({ onLoginSuccess }) {
         <div className="auth-container">
             <div className="auth-card">
                 <div className="auth-header">
-                    <Mascot state={isLogin ? "greeting" : "happy"} message={isLogin ? "Tizimga Kiring" : "Avtorizatsiyadan o'ting"} />
+                    <div className="auth-mascot-wrap">
+                        <Mascot state={isLogin ? "greeting" : "happy"} />
+                    </div>
                     <h2>{isLogin ? 'Xush Kelibsiz!' : 'Yangi Akkaunt'}</h2>
                     <p>{isLogin ? "Dasturlash sirlarini o'rganishni davom eting" : "DuoKod bilan dasturchiga aylaning"}</p>
                 </div>
