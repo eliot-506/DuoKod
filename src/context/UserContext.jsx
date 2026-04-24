@@ -119,7 +119,12 @@ export const UserProvider = ({ children }) => {
                 if (parsed.hearts < 10) parsed.hearts = 50;
                 if (!parsed.courses) parsed.courses = defaultUserStats.courses;
                 if (!parsed.courses.python) parsed.courses.python = defaultUserStats.courses.python;
-                parsed.currentCourse = 'python'; // Hozircha faqat Python ochiq bo'lgani uchun barchani majburan Pythonga o'tkazamiz
+                // Faqat oddiy foydalanuvchilar uchun Pythonga majburan o'tkazamiz
+                // Admin va super_admin uchun hamma kurslar ochiq
+                const isAdmin = parsed.role === 'admin' || parsed.role === 'super_admin';
+                if (!isAdmin) {
+                    parsed.currentCourse = 'python';
+                }
                 if (!parsed.unlockedAvatars) parsed.unlockedAvatars = ['default'];
                 if (!parsed.currentAvatar) parsed.currentAvatar = 'default';
                 if (!parsed.unlockedBadges) parsed.unlockedBadges = [];

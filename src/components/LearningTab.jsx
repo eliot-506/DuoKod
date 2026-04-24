@@ -70,6 +70,7 @@ function Literature({ courseId, onBack }) {
 
 function LearningTab({ onNodeClick, onBossStart, onClaimCertificate, onStartProject }) {
     const { stats, switchCourse } = useUser();
+    const isAdmin = stats?.isAdmin || stats?.isSuperAdmin;
     
     // Ensure stats exists and fallback properly
     const initialCourse = stats?.currentCourse || null;
@@ -150,17 +151,22 @@ function LearningTab({ onNodeClick, onBossStart, onClaimCertificate, onStartProj
             <div className="courses-grid">
                 {COURSE_KEYS.map(key => {
                     const c = COURSES[key];
-                    if (!c) return null; // Failsafe
+                    if (!c) return null;
+                    const isLocked = !isAdmin && key !== 'python'; // Admins have all, others only Python
                     return (
                         <div
                             key={key}
-                            className="course-card"
-                            style={{ '--card-color': c.color || '#fff' }}
-                            onClick={() => handleCourseSelect(key)}
+                            className={`course-card ${isLocked ? 'course-card-locked' : ''}`}
+                            style={{ '--card-color': isLocked ? '#444' : (c.color || '#fff') }}
+                            onClick={() => !isLocked && handleCourseSelect(key)}
                         >
-                            <div className="course-icon">{c.title ? c.title.charAt(0) : 'C'}</div>
-                            <h3>{c.title || 'Kurs'}</h3>
-                            <button className="start-btn" style={{ backgroundColor: c.color || '#fff', color: '#000' }}>Tanlash</button>
+                            <div className="course-icon" style={{ opacity: isLocked ? 0.4 : 1 }}>{c.title ? c.title.charAt(0) : 'C'}</div>
+                            <h3 style={{ opacity: isLocked ? 0.5 : 1 }}>{c.title || 'Kurs'}</h3>
+                            {isLocked ? (
+                                <div className="course-locked-badge">🔒 Tez kunda</div>
+                            ) : (
+                                <button className="start-btn" style={{ backgroundColor: c.color || '#fff', color: '#000' }}>Tanlash</button>
+                            )}
                         </div>
                     );
                 })}

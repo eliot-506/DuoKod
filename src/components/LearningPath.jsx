@@ -7,15 +7,13 @@ import { BOSS_DATA } from '../data/bossData'
 function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertificate, onStartProject, onBack }) {
     const { stats } = useUser()
     const [previewNode, setPreviewNode] = useState(null)
+    const isAdmin = stats?.isAdmin || stats?.isSuperAdmin
 
     const getNodeStatus = (nodeId) => {
+        if (isAdmin) return 'unlocked'; // Admin uchun hamma tugunlar ochiq
         const courseProgress = stats.courses[selectedCourse] || { completedNodes: [], unlockedNodes: [1] };
-
-        if (courseProgress?.completedNodes.includes(nodeId)) {
-            return 'completed';
-        } else if (courseProgress?.unlockedNodes?.includes(nodeId) || nodeId === 1) {
-            return 'unlocked';
-        }
+        if (courseProgress?.completedNodes.includes(nodeId)) return 'completed';
+        if (courseProgress?.unlockedNodes?.includes(nodeId) || nodeId === 1) return 'unlocked';
         return 'locked';
     }
 
