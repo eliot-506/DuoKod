@@ -15,12 +15,14 @@ import DuelMode from './components/DuelMode'
 import ProjectMode from './components/ProjectMode'
 import XpAnimation from './components/XpAnimation'
 import Library from './components/Library'
+import BossFight from './components/BossFight'
 import { useUser } from './context/UserContext'
 
 function App() {
   const { stats, addXp, completeNode, useHeart, switchCourse, updateStreak } = useUser()
-  const [currentView, setCurrentView] = useState('dashboard') // 'dashboard', 'map', 'lesson', 'leaderboard', 'profile'
+  const [currentView, setCurrentView] = useState('dashboard')
   const [activeLessonId, setActiveLessonId] = useState(null)
+  const [activeBossData, setActiveBossData] = useState(null)
   const [showXpAnim, setShowXpAnim] = useState(false)
   const [earnedXp, setEarnedXp] = useState(0)
 
@@ -47,7 +49,7 @@ function App() {
     if (wasCorrect && activeLessonId) {
       addXp(15)
       completeNode(activeLessonId, activeLessonId + 1)
-      updateStreak() // BURADA CHAQIRILADI!
+      updateStreak()
       setEarnedXp(15)
       setShowXpAnim(true)
     } else if (!wasCorrect) {
@@ -57,15 +59,38 @@ function App() {
     setCurrentView('map')
   }
 
+  const handleStartBoss = (bossData) => {
+    setActiveBossData(bossData)
+    setCurrentView('boss')
+  }
+
+  const handleBossWin = (xp) => {
+    if (xp > 0) { addXp(xp); setEarnedXp(xp); setShowXpAnim(true); }
+    // Unlock next node after boss
+    if (activeBossData?.moduleId) {
+      completeNode(
+        activeBossData.moduleId * 100,      // synthetic boss node id
+        activeBossData.moduleId + 1         // unlock next lesson module
+      );
+    }
+    setActiveBossData(null)
+    setCurrentView('map')
+  }
+
+  const handleBossExit = () => {
+    setActiveBossData(null)
+    setCurrentView('map')
+  }
+
   return (
     <div className="page-container" style={{ paddingBottom: '80px' }}>
       <div className="global-wrapper"> 
-        {currentView !== 'lesson' && currentView !== 'certificate' && currentView !== 'project' && currentView !== 'library' && <TopBar onLogoClick={() => setCurrentView('dashboard')} onNavigate={setCurrentView} />}
+        {!['lesson','certificate','project','library','boss'].includes(currentView) && <TopBar onLogoClick={() => setCurrentView('dashboard')} onNavigate={setCurrentView} />}
 
         <main className="main-content">
           {currentView === 'dashboard' && <Dashboard onNavigate={setCurrentView} />}
           {currentView === 'admin' && stats.isAdmin && <AdminDashboard />}
-          {currentView === 'map' && <LearningTab onNodeClick={handleStartLesson} onClaimCertificate={() => setCurrentView('certificate')} onStartProject={() => setCurrentView('project')} />}
+          {currentView === 'map' && <LearningTab onNodeClick={handleStartLesson} onBossStart={handleStartBoss} onClaimCertificate={() => setCurrentView('certificate')} onStartProject={() => setCurrentView('project')} />}
           {currentView === 'leaderboard' && <Leaderboard />}
           {currentView === 'profile' && <Profile />}
           {currentView === 'arena' && <CodeArena />}
@@ -84,9 +109,19 @@ function App() {
         />
       )}
 
+      {currentView === 'boss' && activeBossData && (
+        <BossFight
+          bossData={activeBossData}
+          courseColor={activeBossData.color || '#3776AB'}
+          onWin={handleBossWin}
+          onLose={handleBossExit}
+          onExit={handleBossExit}
+        />
+      )}
+
       {showXpAnim && <XpAnimation xpAmount={earnedXp} onComplete={() => setShowXpAnim(false)} />}
 
-      {currentView !== 'lesson' && currentView !== 'courses' && currentView !== 'certificate' && currentView !== 'project' && currentView !== 'library' && (
+      {!['lesson','courses','certificate','project','library','boss'].includes(currentView) && (
         <BottomNav currentTab={currentView} onTabSwitch={setCurrentView} />
       )}
     </div>

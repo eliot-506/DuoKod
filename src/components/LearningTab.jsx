@@ -68,7 +68,7 @@ function Literature({ courseId, onBack }) {
     );
 }
 
-function LearningTab({ onNodeClick, onClaimCertificate, onStartProject }) {
+function LearningTab({ onNodeClick, onBossStart, onClaimCertificate, onStartProject }) {
     const { stats, switchCourse } = useUser();
     
     // Ensure stats exists and fallback properly
@@ -89,6 +89,7 @@ function LearningTab({ onNodeClick, onClaimCertificate, onStartProject }) {
                 <LearningPath
                     selectedCourse={selectedCourse}
                     onNodeClick={onNodeClick}
+                    onBossStart={onBossStart}
                     onClaimCertificate={onClaimCertificate}
                     onStartProject={onStartProject}
                     onBack={() => setSelectedMode(null)}

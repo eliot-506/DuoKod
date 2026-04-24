@@ -128,6 +128,33 @@
     opacity: 0.35;
 }
 
+/* ===== BOSS NODE ===== */
+.node-boss {
+    background: linear-gradient(145deg, #1a0505, #2d0a0a);
+    border: 2px solid #ff2222 !important;
+    box-shadow: 0 6px 0 #7a0000, 0 0 25px rgba(255,0,0,0.4), inset 0 0 15px rgba(255,0,0,0.1);
+    animation: bossGlow 2s ease-in-out infinite !important;
+}
+
+@keyframes bossGlow {
+    0%, 100% { box-shadow: 0 6px 0 #7a0000, 0 0 20px rgba(255,0,0,0.4);  }
+    50%       { box-shadow: 0 6px 0 #7a0000, 0 0 40px rgba(255,0,0,0.7); border-color: #ff6666; }
+}
+
+.node-boss:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 9px 0 #7a0000, 0 0 50px rgba(255,0,0,0.8) !important;
+}
+
+.status-boss { /* same as node-boss, alias */ }
+
+.boss-title {
+    color: #ff6666 !important;
+    text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+}
+
 .node-btn:hover:not(.status-locked) { filter: brightness(1.1); }
 
 .node-title {

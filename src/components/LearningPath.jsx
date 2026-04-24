@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { useUser } from '../context/UserContext'
 import './LearningPath.css'
 import { COURSES } from '../data/lessons'
+import { BOSS_DATA } from '../data/bossData'
 
-function LearningPath({ selectedCourse, onNodeClick, onClaimCertificate, onStartProject, onBack }) {
+function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertificate, onStartProject, onBack }) {
     const { stats } = useUser()
     const [previewNode, setPreviewNode] = useState(null)
 
@@ -21,13 +22,28 @@ function LearningPath({ selectedCourse, onNodeClick, onClaimCertificate, onStart
     const currentCourseData = COURSES[selectedCourse];
     if (!currentCourseData) return null;
 
-    const MODULE_NODES = currentCourseData.data.map((l, i) => {
+    const MODULE_NODES = [];
+    const courseData = currentCourseData.data;
+    const courseBosses = BOSS_DATA[selectedCourse]?.bosses || [];
+
+    courseData.forEach((l, i) => {
         const pattern = [0, -30, 20, 40, 0, -20, -40, 20];
-        return {
+        MODULE_NODES.push({
             ...l,
             xOffset: pattern[i % pattern.length],
-            type: (i === currentCourseData.data.length - 1) ? 'checkpoint' : (i % 3 === 0 ? 'practice' : 'lesson')
-        };
+            type: (i === courseData.length - 1) ? 'checkpoint' : (i % 3 === 0 ? 'practice' : 'lesson')
+        });
+        // Insert boss node after every module
+        const boss = courseBosses.find(b => b.moduleId === l.id);
+        if (boss) {
+            MODULE_NODES.push({
+                id: `boss_${l.id}`,
+                title: boss.title,
+                type: 'boss',
+                xOffset: pattern[(i + 1) % pattern.length],
+                bossData: { ...boss, color: currentCourseData.color }
+            });
+        }
     });
 
     return (
@@ -41,7 +57,9 @@ function LearningPath({ selectedCourse, onNodeClick, onClaimCertificate, onStart
 
                 <div className="path-map">
                     {MODULE_NODES.map((node, index) => {
-                        const status = getNodeStatus(node.id)
+                        const isBoss = node.type === 'boss';
+                        // Boss nodes use locked/unlocked only (no 'completed' tracking for now)
+                        const status = isBoss ? 'unlocked' : getNodeStatus(node.id);
                         return (
                             <div
                                 key={`${selectedCourse}-${node.id}`}
@@ -68,39 +86,53 @@ function LearningPath({ selectedCourse, onNodeClick, onClaimCertificate, onStart
                                     )}
                                 </svg>
 
-                                <button
-                                    className={`node-btn node-${node.type} status-${status}`}
-                                    title={status === 'locked' ? '🔒 Oldingi darslarni yoping' : node.title}
-                                    onClick={() => status !== 'locked' && setPreviewNode(node)}
-                                >
-                                    <div className="node-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
-                                        {status === 'completed' ? (
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" style={{ width: '35px', height: '35px', filter: 'drop-shadow(0 0 5px currentColor)' }}>
-                                                <polyline points="20 6 9 17 4 12"></polyline>
-                                            </svg>
-                                        ) : status === 'locked' ? (
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '30px', height: '30px', opacity: 0.8 }}>
-                                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                                            </svg>
-                                        ) : (
-                                            <img
-                                                src={stats.currentAvatar && stats.currentAvatar !== 'default' ? `/assets/mascots/mascot_${stats.currentAvatar}.png` : `/assets/mascots/idle.png`}
-                                                alt="Current Position"
-                                                style={{
-                                                    width: '90px',
-                                                    height: '90px',
-                                                    borderRadius: '50%',
-                                                    objectFit: 'cover',
-                                                    border: '2px solid var(--primary)',
-                                                    boxShadow: '0 0 15px var(--primary)',
-                                                    transform: 'scale(1.2)'
-                                                }}
-                                            />
-                                        )}
-                                    </div>
-                                </button>
-                                <span className="node-title">{node.title}</span>
+                                {isBoss ? (
+                                    /* ── BOSS NODE ── */
+                                    <button
+                                        className="node-btn node-boss status-boss"
+                                        title={`⚔️ Boss Fight: ${node.title}`}
+                                        onClick={() => onBossStart && onBossStart(node.bossData)}
+                                    >
+                                        <div className="node-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%', fontSize: '2rem' }}>
+                                            💀
+                                        </div>
+                                    </button>
+                                ) : (
+                                    /* ── NORMAL NODE ── */
+                                    <button
+                                        className={`node-btn node-${node.type} status-${status}`}
+                                        title={status === 'locked' ? '🔒 Oldingi darslarni yoping' : node.title}
+                                        onClick={() => status !== 'locked' && setPreviewNode(node)}
+                                    >
+                                        <div className="node-icon" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
+                                            {status === 'completed' ? (
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" style={{ width: '35px', height: '35px', filter: 'drop-shadow(0 0 5px currentColor)' }}>
+                                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                                </svg>
+                                            ) : status === 'locked' ? (
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '30px', height: '30px', opacity: 0.8 }}>
+                                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                                </svg>
+                                            ) : (
+                                                <img
+                                                    src={stats.currentAvatar && stats.currentAvatar !== 'default' ? `/assets/mascots/mascot_${stats.currentAvatar}.png` : `/assets/mascots/idle.png`}
+                                                    alt="Current Position"
+                                                    style={{
+                                                        width: '90px',
+                                                        height: '90px',
+                                                        borderRadius: '50%',
+                                                        objectFit: 'cover',
+                                                        border: '2px solid var(--primary)',
+                                                        boxShadow: '0 0 15px var(--primary)',
+                                                        transform: 'scale(1.2)'
+                                                    }}
+                                                />
+                                            )}
+                                        </div>
+                                    </button>
+                                )}
+                                <span className={`node-title ${isBoss ? 'boss-title' : ''}`}>{node.title}</span>
                             </div>
                         )
                     })}
