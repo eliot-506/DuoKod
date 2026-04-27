@@ -102,10 +102,27 @@ function Dashboard({ onNavigate }) {
             </aside>
 
             {/* ROW 2: Compact Stat Cards */}
-            <div className="col-3 card-kpi dashboard-card">
-              <p>Davomiylik darajasi</p>
-              <div className="kpi-content">
-                <div className="kpi-val">{tier.name || 'Uchqun'}</div>
+            <div className="col-3 card-kpi dashboard-card" style={{ position: 'relative', overflow: 'hidden', padding: '20px', display: 'flex', flexDirection: 'column' }}>
+              <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, background: 'linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(255,255,255,0) 100%)', pointerEvents: 'none' }}></div>
+              <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div>
+                  <h4 style={{ margin: '0 0 6px 0', fontSize: '0.9rem', fontWeight: 800, color: 'var(--text-dark)' }}>Uchqundan eslatma</h4>
+                  <span style={{ fontSize: '0.7rem', padding: '4px 10px', background: '#D1FAE5', color: '#059669', borderRadius: '12px', fontWeight: 700 }}>Faol holat</span>
+                </div>
+              </div>
+              
+              <p style={{ position: 'relative', zIndex: 1, fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.5', margin: '16px 0', fontWeight: 500 }}>
+                Bugun kamida bitta topshiriqni bajaring va streak'ni davom ettiring.
+              </p>
+              
+              <div style={{ position: 'relative', zIndex: 1, marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-dark)' }}>{stats.streak}/7 kun</span>
+                  <div className="progress-track" style={{ width: '40px', height: '6px', margin: 0 }}>
+                    <div className="progress-fill fill-amber" style={{ width: `${Math.min((stats.streak / 7) * 100, 100)}%`, background: '#F59E0B' }}></div>
+                  </div>
+                </div>
+                <a href="#" style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--primary)', textDecoration: 'none' }}>Batafsil</a>
               </div>
             </div>
             
