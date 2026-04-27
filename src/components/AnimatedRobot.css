@@ -15,7 +15,7 @@
     height: 100%;
     object-fit: contain;
     /* Zoom into the image to eliminate excessive transparent PNG margins */
-    transform: scale(1.4);
+    transform: scale(1.1);
     mix-blend-mode: multiply; /* White bg will become transparent on light surfaces */
     z-index: 2;
     cursor: pointer;

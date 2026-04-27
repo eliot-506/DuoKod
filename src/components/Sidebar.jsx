@@ -12,7 +12,7 @@ function Sidebar({ currentTab, onNavigate }) {
         { id: 'map', icon: '📖', label: "O'rganish" },
         { id: 'leaderboard', icon: '🛡️', label: 'Reyting' },
         { id: 'arena', icon: '💻', label: 'Arena' },
-        { id: 'duel', icon: '⚔️', label: 'Duel' },
+        { id: 'duel', icon: '⚔️', label: 'Bellashuv' },
         { id: 'profile', icon: '👤', label: 'Profil' }
     ];
 

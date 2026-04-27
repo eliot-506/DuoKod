@@ -94,14 +94,14 @@ function Dashboard({ onNavigate }) {
             {/* ROW 2: Compact Stat Cards */}
             <div className="col-3 card-kpi dashboard-card">
               <p>Davomiylik darajasi</p>
-              <div className="kpi-val">{tier.name || 'Uchqun'}</div>
+              <div className="kpi-content">
+                <div className="kpi-val">{tier.name || 'Uchqun'}</div>
+              </div>
             </div>
             
             <div className="col-3 card-kpi dashboard-card">
-              <div className="kpi-row">
-                <p>Jami tajriba</p>
-              </div>
-              <div>
+              <p>Jami tajriba</p>
+              <div className="kpi-content">
                 <div className="kpi-val">{stats.xp} Tajriba</div>
                 <div className="kpi-trend">+35 bu hafta</div>
               </div>
@@ -109,12 +109,16 @@ function Dashboard({ onNavigate }) {
             
             <div className="col-3 card-kpi dashboard-card">
               <p>Sog'liq (Imkon)</p>
-              <div className="kpi-val">{stats.hearts}</div>
+              <div className="kpi-content">
+                <div className="kpi-val">{stats.hearts}</div>
+              </div>
             </div>
             
             <div className="col-3 card-kpi dashboard-card">
               <p>Tugallangan darslar</p>
-              <div className="kpi-val">{completedNodes} / {totalModules}</div>
+              <div className="kpi-content">
+                <div className="kpi-val">{completedNodes} / {totalModules}</div>
+              </div>
             </div>
 
             {/* ROW 3: Tasks & Current Course */}

@@ -143,9 +143,9 @@
   height: 72px;
   margin-left: auto;
   margin-right: auto;
-  background: #F8FAFC;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
+  background: transparent; /* Fon olib tashlandi */
+  border-radius: 0;
+  box-shadow: none; /* Kvadrat soya olib tashlandi */
 }
 
 .card-hero h1 {
