@@ -122,7 +122,7 @@ function Dashboard({ onNavigate }) {
             </div>
 
             {/* ROW 3: Tasks & Current Course */}
-            <section className="col-8 card-tasks dashboard-card" style={{ alignSelf: 'start' }}>
+            <section className="col-8 card-tasks dashboard-card" style={{ alignSelf: 'start', paddingBottom: '20px' }}>
               <div className="tasks-header">
                 <h2>Kunlik vazifalar</h2>
                 <button>Barchasini ko'rish</button>
@@ -130,16 +130,20 @@ function Dashboard({ onNavigate }) {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {dailyQuests.map((quest) => (
-                  <div key={quest.id} className={`task-item ${quest.completed ? 'completed' : ''}`} style={{ marginBottom: 0 }}>
-                    <div className="task-item-top" style={{ display: 'flex', alignItems: 'center', marginBottom: 0 }}>
-                      <input type="checkbox" checked={quest.completed} readOnly className="goal-checkbox" style={{ marginRight: '16px', width: '22px', height: '22px', cursor: 'pointer', accentColor: 'var(--primary)', flexShrink: 0 }} />
-                      <p style={{ flex: 1, fontSize: '0.95rem', margin: 0, fontWeight: 600 }}>{quest.title}</p>
-                      <span className="task-xp-badge" style={{ minWidth: '95px', textAlign: 'center', whiteSpace: 'nowrap' }}>+{quest.reward} Tajriba</span>
+                  <label key={quest.id} className={`task-item ${quest.completed ? 'completed' : ''}`} style={{ marginBottom: 0, padding: '16px', display: 'flex', alignItems: 'flex-start', gap: '16px', cursor: 'pointer', transition: 'all 0.2s' }}>
+                    <div style={{ paddingTop: '2px' }}>
+                      <input type="checkbox" checked={quest.completed} readOnly className="goal-checkbox" style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: 'var(--primary)', margin: 0, display: 'block', border: '2px solid #CBD5E1' }} />
                     </div>
-                    <div className="progress-track" style={{ height: '6px', marginTop: '14px', marginBottom: '2px' }}>
-                      <div className="progress-fill fill-blue" style={{ width: `${(quest.progress / quest.amount) * 100}%` }}></div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <p style={{ fontSize: '0.95rem', margin: 0, fontWeight: 600, color: 'var(--text-dark)' }}>{quest.title}</p>
+                        <span style={{ minWidth: '85px', textAlign: 'center', whiteSpace: 'nowrap', padding: '4px 10px', fontSize: '0.75rem', background: 'var(--warning-light)', color: '#B45309', borderRadius: '50px', fontWeight: 700 }}>+{quest.reward} Tajriba</span>
+                      </div>
+                      <div className="progress-track" style={{ height: '6px', marginTop: '12px', background: '#E2E8F0' }}>
+                        <div className="progress-fill fill-blue" style={{ width: `${(quest.progress / quest.amount) * 100}%` }}></div>
+                      </div>
                     </div>
-                  </div>
+                  </label>
                 ))}
               </div>
             </section>
@@ -163,12 +167,16 @@ function Dashboard({ onNavigate }) {
                 </button>
               </div>
 
-              <div className="card-streak-light dashboard-card" style={{ background: '#FFFFFF', padding: '24px', borderRadius: 'var(--radius-xl)', border: 'var(--border-subtle)', flex: 1 }}>
+              <div className="card-streak-light dashboard-card" style={{ background: '#FFFFFF', padding: '24px', borderRadius: 'var(--radius-xl)', border: 'var(--border-subtle)', flex: 1, textAlign: 'center' }}>
                 <p className="hero-subtitle">Davomiylik</p>
                 <h3 style={{ fontSize: '1.5rem', fontWeight: 800, margin: '4px 0 8px 0', color: 'var(--text-dark)' }}>{stats.streak} kun</h3>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '16px' }}>Ertaga ham kiring va bonus oling</p>
                 
-                <button className="dash-btn dash-btn-primary" style={{ width: '100%', padding: '10px' }}>Belgini ko'rish</button>
+                <button className="dash-btn dash-btn-outline" style={{ width: '100%', padding: '10px', borderColor: '#CBD5E1', fontWeight: 700 }}
+                  onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--primary)'; e.currentTarget.style.color = 'var(--primary)'; e.currentTarget.style.background = 'var(--primary-light)'; }}
+                  onMouseOut={(e) => { e.currentTarget.style.borderColor = '#CBD5E1'; e.currentTarget.style.color = 'var(--text-base)'; e.currentTarget.style.background = 'white'; }}>
+                  Belgini ko'rish
+                </button>
               </div>
             </aside>
 
