@@ -122,31 +122,57 @@ function Dashboard({ onNavigate }) {
             </div>
 
             {/* ROW 3: Tasks & Current Course */}
-            <section className="col-8 card-tasks dashboard-card" style={{ alignSelf: 'start', paddingBottom: '20px' }}>
-              <div className="tasks-header">
-                <h2>Kunlik vazifalar</h2>
-                <button>Barchasini ko'rish</button>
-              </div>
+            <div className="col-8" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <section className="card-tasks dashboard-card" style={{ paddingBottom: '20px' }}>
+                <div className="tasks-header">
+                  <h2>Kunlik vazifalar</h2>
+                  <button>Barchasini ko'rish</button>
+                </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {dailyQuests.map((quest) => (
-                  <label key={quest.id} className={`task-item ${quest.completed ? 'completed' : ''}`} style={{ marginBottom: 0, padding: '16px', display: 'flex', alignItems: 'flex-start', gap: '16px', cursor: 'pointer', transition: 'all 0.2s' }}>
-                    <div style={{ paddingTop: '2px' }}>
-                      <input type="checkbox" checked={quest.completed} readOnly className="goal-checkbox" style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: 'var(--primary)', margin: 0, display: 'block', border: '2px solid #CBD5E1' }} />
-                    </div>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <p style={{ fontSize: '0.95rem', margin: 0, fontWeight: 600, color: 'var(--text-dark)' }}>{quest.title}</p>
-                        <span style={{ minWidth: '85px', textAlign: 'center', whiteSpace: 'nowrap', padding: '4px 10px', fontSize: '0.75rem', background: 'var(--warning-light)', color: '#B45309', borderRadius: '50px', fontWeight: 700 }}>+{quest.reward} Tajriba</span>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  {dailyQuests.map((quest) => (
+                    <label key={quest.id} className={`task-item ${quest.completed ? 'completed' : ''}`} style={{ marginBottom: 0, padding: '16px', display: 'flex', alignItems: 'flex-start', gap: '16px', cursor: 'pointer', transition: 'all 0.2s' }}>
+                      <div style={{ paddingTop: '2px' }}>
+                        <input type="checkbox" checked={quest.completed} readOnly className="goal-checkbox" style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: 'var(--primary)', margin: 0, display: 'block', border: '2px solid #CBD5E1' }} />
                       </div>
-                      <div className="progress-track" style={{ height: '6px', marginTop: '12px', background: '#E2E8F0' }}>
-                        <div className="progress-fill fill-blue" style={{ width: `${(quest.progress / quest.amount) * 100}%` }}></div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <p style={{ fontSize: '0.95rem', margin: 0, fontWeight: 600, color: 'var(--text-dark)' }}>{quest.title}</p>
+                          <span style={{ minWidth: '85px', textAlign: 'center', whiteSpace: 'nowrap', padding: '4px 10px', fontSize: '0.75rem', background: 'var(--warning-light)', color: '#B45309', borderRadius: '50px', fontWeight: 700 }}>+{quest.reward} Tajriba</span>
+                        </div>
+                        <div className="progress-track" style={{ height: '6px', marginTop: '12px', background: '#E2E8F0' }}>
+                          <div className="progress-fill fill-blue" style={{ width: `${(quest.progress / quest.amount) * 100}%` }}></div>
+                        </div>
                       </div>
+                    </label>
+                  ))}
+                </div>
+              </section>
+
+              <section className="card-weekly dashboard-card" style={{ background: '#FFFFFF', padding: '24px', borderRadius: 'var(--radius-xl)', border: 'var(--border-subtle)', display: 'flex', gap: '24px', alignItems: 'center' }}>
+                 <div style={{ flex: 1 }}>
+                    <p className="hero-subtitle">Haftalik progress</p>
+                    <p style={{ color: 'var(--text-base)', fontSize: '0.95rem', lineHeight: '1.6', margin: '8px 0 0 0' }}>
+                       Bu hafta siz <strong style={{ color: 'var(--text-dark)' }}>4 kun faol</strong> bo‘ldingiz, <strong style={{ color: 'var(--text-dark)' }}>3 ta darsni</strong> tugatdingiz va <strong style={{ color: 'var(--text-dark)' }}>2 ta quizni</strong> muvaffaqiyatli yakunladingiz.
+                    </p>
+                 </div>
+                 
+                 <div style={{ display: 'flex', gap: '16px' }}>
+                    <div style={{ textAlign: 'center', padding: '12px', background: '#F8FAFC', borderRadius: '12px', minWidth: '70px' }}>
+                       <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--primary)' }}>4/7</div>
+                       <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontWeight: 600, marginTop: '4px', textTransform: 'uppercase' }}>Faol</div>
                     </div>
-                  </label>
-                ))}
-              </div>
-            </section>
+                    <div style={{ textAlign: 'center', padding: '12px', background: '#F8FAFC', borderRadius: '12px', minWidth: '70px' }}>
+                       <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--success)' }}>3 ta</div>
+                       <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontWeight: 600, marginTop: '4px', textTransform: 'uppercase' }}>Dars</div>
+                    </div>
+                    <div style={{ textAlign: 'center', padding: '12px', background: '#F8FAFC', borderRadius: '12px', minWidth: '70px' }}>
+                       <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--warning)' }}>2 ta</div>
+                       <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontWeight: 600, marginTop: '4px', textTransform: 'uppercase' }}>Quiz</div>
+                    </div>
+                 </div>
+              </section>
+            </div>
 
             <aside className="col-4" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div className="card-course dashboard-card">
