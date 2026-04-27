@@ -65,30 +65,40 @@ function Dashboard({ onNavigate }) {
               </div>
             </div>
 
-            <aside className="col-4 card-goal dashboard-card">
-              <p className="hero-subtitle">Bugungi maqsad</p>
-              <h2>{dailyQuests.length} ta vazifani yakunlang</h2>
-
-              <ul className="goal-list">
-                {dailyQuests.map(q => (
-                  <li key={q.id}>
-                    <label className="goal-checkbox-label">
-                      <input type="checkbox" className="goal-checkbox" checked={q.completed} readOnly />
-                      <span className="goal-title">{q.title}</span>
-                    </label>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="goal-info-group">
-                <div className="goal-reward">
-                  <span>🎯 Umumiy mukofot</span>
-                  <strong>+25 Tajriba</strong>
-                </div>
-                <div className="goal-bonus">
-                  <span>Davomiylik bonusi: Faol</span>
+            <aside className="col-4 card-goal dashboard-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '32px 24px' }}>
+              <p className="hero-subtitle" style={{ alignSelf: 'flex-start', margin: 0 }}>Bugungi maqsad</p>
+              
+              <div style={{ marginTop: '24px', position: 'relative', width: '140px', height: '140px' }}>
+                <svg viewBox="0 0 36 36" style={{ width: '100%', height: '100%' }}>
+                  <path
+                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                    fill="none"
+                    stroke="#E2E8F0"
+                    strokeWidth="3"
+                  />
+                  <path
+                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                    fill="none"
+                    stroke="var(--primary)"
+                    strokeWidth="3"
+                    strokeDasharray="40, 100"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-dark)', lineHeight: 1 }}>20</span>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-muted)', marginTop: '4px' }}>/ 50 XP</span>
                 </div>
               </div>
+
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, margin: '24px 0 8px 0', color: 'var(--text-dark)' }}>Yana 30 Tajriba kerak</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '24px', lineHeight: 1.5, padding: '0 10px' }}>
+                Bugungi normani bajarish uchun darslarni davom ettiring.
+              </p>
+
+              <button className="dash-btn dash-btn-primary" style={{ width: '100%', padding: '12px' }} onClick={() => onNavigate('map')}>
+                Mashqni boshlash
+              </button>
             </aside>
 
             {/* ROW 2: Compact Stat Cards */}
