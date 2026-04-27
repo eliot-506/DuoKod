@@ -38,18 +38,18 @@ function Dashboard({ onNavigate }) {
           <main className="dash-grid-12">
             
             {/* ROW 1: Hero & Goal */}
-            <div className="col-8 card-hero relative-container">
+            <div className="col-8 card-hero dashboard-card relative-container">
               <div className="hero-mascot-wrapper">
                 <AnimatedRobot state="happy" />
               </div>
 
               <div className="hero-content">
-                <div>
+                <div className="hero-reveal hero-reveal-delay-1">
                   <p className="hero-subtitle">Xush kelibsiz 👋</p>
                   <h1>{stats.username || 'Muhammad Matchonov'}, bugun yangi marralarni zabt etamizmi?</h1>
                 </div>
 
-                <div>
+                <div className="hero-reveal hero-reveal-delay-2">
                   <div className="hero-level-row">
                     <span className="lvl-name">Level {currentLevel} Dasturchi</span>
                     <span className="lvl-xp">{currentLevelXp} / {nextLevelXp} XP</span>
@@ -57,7 +57,7 @@ function Dashboard({ onNavigate }) {
                   <div className="progress-track">
                     <div className="progress-fill fill-emerald" style={{ width: `${completedLevelPercent}%` }}></div>
                   </div>
-                  <div className="hero-actions">
+                  <div className="hero-actions hero-reveal hero-reveal-delay-3">
                     <button className="dash-btn dash-btn-primary" onClick={() => onNavigate('map')}>Darsni davom ettirish</button>
                     <button className="dash-btn dash-btn-outline" onClick={() => alert('Tez kunda!')}>Bugungi maqsadlarni ko'rish</button>
                   </div>
@@ -65,7 +65,7 @@ function Dashboard({ onNavigate }) {
               </div>
             </div>
 
-            <aside className="col-4 card-goal">
+            <aside className="col-4 card-goal dashboard-card">
               <p className="hero-subtitle">Bugungi maqsad</p>
               <h2>{dailyQuests.length} ta vazifani yakunlang</h2>
 
@@ -85,28 +85,28 @@ function Dashboard({ onNavigate }) {
             </aside>
 
             {/* ROW 2: Compact Stat Cards */}
-            <div className="col-3 card-kpi">
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Uchqun darajasi</p>
+            <div className="col-3 card-kpi dashboard-card">
+              <p>Uchqun darajasi</p>
               <div className="kpi-val">{tier.name}</div>
             </div>
             
-            <div className="col-3 card-kpi">
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Jami tajriba</p>
+            <div className="col-3 card-kpi dashboard-card">
+              <p>Jami tajriba</p>
               <div className="kpi-val">{stats.xp} XP</div>
             </div>
             
-            <div className="col-3 card-kpi">
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Sog'liq (Hearts)</p>
+            <div className="col-3 card-kpi dashboard-card">
+              <p>Sog'liq (Hearts)</p>
               <div className="kpi-val">{stats.hearts}</div>
             </div>
             
-            <div className="col-3 card-kpi">
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Tugallangan darslar</p>
+            <div className="col-3 card-kpi dashboard-card">
+              <p>Tugallangan darslar</p>
               <div className="kpi-val">{completedNodes} / {totalModules}</div>
             </div>
 
             {/* ROW 3: Tasks & Current Course */}
-            <section className="col-8 card-tasks">
+            <section className="col-8 card-tasks dashboard-card">
               <div className="tasks-header">
                 <h2>Kunlik vazifalar</h2>
                 <button>Barchasini ko'rish</button>
@@ -128,7 +128,7 @@ function Dashboard({ onNavigate }) {
             </section>
 
             <aside className="col-4" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              <div className="card-course">
+              <div className="card-course dashboard-card">
                 <p className="hero-subtitle">Hozirgi kurs</p>
                 <h3>{courseInfo.title}</h3>
                 
@@ -146,7 +146,7 @@ function Dashboard({ onNavigate }) {
                 </button>
               </div>
 
-              <div className="card-streak-dark">
+              <div className="card-streak-dark dashboard-card">
                 <p className="label">Streak holati</p>
                 <h3>{stats.streak} kunlik olov</h3>
                 <p className="desc">Ketma-ket faollikni saqlab qoling va bonus XP oling.</p>

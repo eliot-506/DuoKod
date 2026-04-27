@@ -64,6 +64,11 @@
 .dash-btn-outline:hover { background: var(--bg); }
 
 /* Progress Bars */
+@keyframes fillBar {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
 .progress-track {
   height: 12px;
   width: 100%;
@@ -75,7 +80,8 @@
 .progress-fill {
   height: 100%;
   border-radius: 50px;
-  transition: width 0.4s ease;
+  transform-origin: left center;
+  animation: fillBar 900ms var(--ease-out-premium) forwards;
 }
 
 .fill-emerald { background: var(--success); }
@@ -84,6 +90,29 @@
 /* =========================================
    CARDS 
    ========================================= */
+
+.dashboard-card {
+  transition: transform var(--dur-fast) var(--ease-soft), box-shadow var(--dur-fast) var(--ease-soft), border-color var(--dur-fast) var(--ease-soft);
+}
+
+.dashboard-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-reveal {
+  opacity: 0;
+  animation: fadeSlideUp 700ms var(--ease-out-premium) forwards;
+}
+
+.hero-reveal-delay-1 { animation-delay: 80ms; }
+.hero-reveal-delay-2 { animation-delay: 160ms; }
+.hero-reveal-delay-3 { animation-delay: 240ms; }
 
 /* Hero Card (Surface) */
 .card-hero {
@@ -238,12 +267,31 @@
 .tasks-header h2 { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); margin: 0; }
 .tasks-header button { background:none; border:none; color: var(--primary); font-weight: 600; cursor: pointer; }
 
+@keyframes taskDone {
+  0% { transform: scale(1); box-shadow: 0 0 0 rgba(34,197,94,0); }
+  50% { transform: scale(0.985); box-shadow: 0 0 0 8px rgba(34,197,94,0.08); }
+  100% { transform: scale(1); box-shadow: 0 0 0 rgba(34,197,94,0); }
+}
+
+@keyframes badgeRise {
+  0% { opacity: 0; transform: translateY(10px) scale(0.95); }
+  20% { opacity: 1; }
+  100% { opacity: 1; transform: translateY(-8px) scale(1); }
+}
+
 .task-item {
   background: #F8FAFC;
   border: 1px solid #F1F5F9;
   border-radius: var(--radius-lg);
   padding: 16px;
   margin-bottom: 16px;
+  position: relative;
+}
+
+.task-item.completed {
+  animation: taskDone 520ms var(--ease-out-premium);
+  border-color: rgba(34,197,94,0.28) !important;
+  background: rgba(34,197,94,0.03) !important;
 }
 
 .task-item-top {
@@ -263,7 +311,10 @@
   font-size: 0.75rem;
   font-weight: 700;
 }
-.task-item.completed .task-xp-badge { background: var(--success-light); color: #059669; }
+.task-item.completed .task-xp-badge {
+  background: var(--success-light); color: #059669;
+  animation: badgeRise 500ms var(--ease-out-premium) forwards;
+}
 
 /* Current Course Highlight Card */
 .card-course {

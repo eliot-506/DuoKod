@@ -7,6 +7,13 @@
   position: relative;
   overflow-x: hidden !important;
   padding-bottom: 0px;
+
+  /* Animation variables */
+  --ease-out-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 180ms;
+  --dur-mid: 320ms;
+  --dur-slow: 800ms;
 }
 
 @media (max-width: 1024px) {
