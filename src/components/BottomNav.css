@@ -4,13 +4,12 @@
     left: 0;
     right: 0;
     width: 100%;
-    background-color: var(--surface);
-    border-top: 1px solid var(--border-color);
+    background: rgba(17, 24, 39, 0.88);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     padding: 10px 0;
     z-index: 50;
-    box-shadow: 0 -4px 20px var(--glass-border);
-    backdrop-filter: blur(10px);
-    overflow-x: hidden; /* Qattiq qulflash */
+    overflow-x: hidden;
     box-sizing: border-box;
 }
 
@@ -59,19 +58,20 @@
 }
 
 .nav-item.active {
-    background-color: var(--primary-transparent);
-    border-color: var(--primary);
-    box-shadow: var(--primary-glow);
+    background: rgba(45, 212, 191, 0.12);
+    border-color: rgba(45, 212, 191, 0.35);
+    box-shadow: 0 0 16px rgba(45, 212, 191, 0.14);
 }
 
 .nav-item.active .nav-icon {
-    filter: drop-shadow(0 0 8px var(--primary));
+    filter: drop-shadow(0 0 4px rgba(45, 212, 191, 0.6));
     transform: translateY(-2px);
+    color: #2dd4bf;
 }
 
 .nav-item.active .nav-label {
-    color: var(--primary);
-    text-shadow: var(--primary-glow);
+    color: #2dd4bf;
+    text-shadow: 0 0 6px rgba(45, 212, 191, 0.4);
 }
 
 /* Kichik ekranlar (telefonlar) uchun menyu sig'ishini ta'minlash */

@@ -4,7 +4,7 @@
   --bg: #F5F7FB;
   --card: #FFFFFF;
   --text: #1E293B;
-  --muted: #64748B;
+  --muted: #475569; /* Darkened for better contrast */
   --line: #E2E8F0;
   --primary: #3B82F6;
   --primary-soft: #DBEAFE;
@@ -82,18 +82,18 @@
 .badge-hearts { background: #FCE7F3; color: #BE185D; }
 
 .dash-admin-btn {
-  background: var(--primary);
-  color: white;
+  background: white;
+  color: var(--muted);
   padding: 8px 16px;
   border-radius: 12px;
   font-size: 0.85rem;
   font-weight: 600;
-  border: none;
+  border: 1px solid var(--line);
   cursor: pointer;
   transition: 0.2s;
 }
 
-.dash-admin-btn:hover { background: #2563EB; }
+.dash-admin-btn:hover { background: #F8FAFC; color: var(--text); }
 
 /* ===== SECTION: HERO ===== */
 .dash-hero-section {
@@ -269,7 +269,7 @@
 .dash-main-section {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
-  gap: 24px;
+  gap: 32px; /* Increased vertical/horizontal gap for 'breathability' */
 }
 
 /* TASKS */
@@ -354,10 +354,18 @@
 .dash-sidebar {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 32px; /* Increased separation */
 }
 
-.course-small-card, .library-card {
+.course-small-card {
+  background: var(--card);
+  border: 2px solid var(--primary); /* Strong highlight for current course */
+  border-radius: var(--border-radius);
+  padding: 24px;
+  box-shadow: 0 12px 30px rgba(59, 130, 246, 0.15); /* Stronger glow shadow */
+}
+
+.library-card {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--border-radius);
