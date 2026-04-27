@@ -11,14 +11,21 @@
 /* AI Yordamchisining maslahatiga binoan: Unified Container */
 .global-wrapper {
   width: 100%;
-  max-width: 1000px; /* Desktop uchun */
+  max-width: 1560px; /* Full-width Dashboard layout uchun kengaytirildi */
   margin: 0 auto;
   box-sizing: border-box;
+  padding: 0 20px;
+}
+
+@media (max-width: 1024px) {
+  .global-wrapper {
+    padding: 0 16px;
+  }
 }
 
 @media (max-width: 768px) {
   .global-wrapper {
-    max-width: 480px; /* Mobil uchun ideal o'lcham */
+    max-width: 100%; /* Mobil uchun to'liq kenglik */
   }
 }
 
