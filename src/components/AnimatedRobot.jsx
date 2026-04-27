@@ -5,13 +5,13 @@ import './AnimatedRobot.css';
 // state turlari: 'idle', 'greeting', 'invite', 'happy', 'sad'
 function AnimatedRobot({ state = 'idle', className = '' }) {
     
-    // AI orqali generatsiya qilingan orqa fonsiz (shaffof PNG) rasmlarimiz
+    // Yangi milliy mascot (Uchqunbot) rasmi
     const stateImageMap = {
-        idle: '/assets/mascots/idle.png',
-        greeting: '/assets/mascots/idle.png', // Greeting qismi qo'l silkitish idle deyarli bir xil
-        invite: '/assets/mascots/invite.png',
-        happy: '/assets/mascots/happy.png',
-        sad: '/assets/mascots/sad.png'
+        idle: '/images/uchqunbot.png',
+        greeting: '/images/uchqunbot.png',
+        invite: '/images/uchqunbot.png',
+        happy: '/images/uchqunbot.png',
+        sad: '/images/uchqunbot.png'
     };
 
     const currentImage = stateImageMap[state] || stateImageMap.idle;

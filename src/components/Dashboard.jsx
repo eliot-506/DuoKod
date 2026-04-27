@@ -45,14 +45,14 @@ function Dashboard({ onNavigate }) {
 
               <div className="hero-content">
                 <div className="hero-reveal hero-reveal-delay-1">
-                  <p className="hero-subtitle">Xush kelibsiz 👋</p>
+                  <p className="hero-subtitle">Xush kelibsiz</p>
                   <h1>{stats.username || 'Muhammad Matchonov'}, bugun yangi marralarni zabt etamizmi?</h1>
                 </div>
 
                 <div className="hero-reveal hero-reveal-delay-2">
                   <div className="hero-level-row">
-                    <span className="lvl-name">Level {currentLevel} Dasturchi</span>
-                    <span className="lvl-xp">{currentLevelXp} / {nextLevelXp} XP</span>
+                    <span className="lvl-name">{currentLevel}-daraja Dasturchi</span>
+                    <span className="lvl-xp">{currentLevelXp} / {nextLevelXp} Tajriba</span>
                   </div>
                   <div className="progress-track">
                     <div className="progress-fill fill-emerald" style={{ width: `${completedLevelPercent}%` }}></div>
@@ -69,25 +69,28 @@ function Dashboard({ onNavigate }) {
               <p className="hero-subtitle">Bugungi maqsad</p>
               <h2>{dailyQuests.length} ta vazifani yakunlang</h2>
 
-              <div className="goal-box-inner">
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Progress</p>
-                <div className="goal-val">{dailyQuests.filter(q => q.completed).length} / {dailyQuests.length}</div>
-              </div>
+              <ul className="goal-list">
+                {dailyQuests.map(q => (
+                  <li key={q.id}>
+                    <input type="checkbox" checked={q.completed} readOnly />
+                    <span>{q.title}</span>
+                  </li>
+                ))}
+              </ul>
 
-              <div className="goal-stat-row">
-                <span>Umumiy mukofot</span>
-                <span style={{ color: 'var(--warning)', fontWeight: 700 }}>+{dailyQuests.reduce((a, q) => a + q.reward, 0)} XP</span>
+              <div className="goal-reward">
+                <span>🎯 Umumiy mukofot</span>
+                <strong>+25 Tajriba</strong>
               </div>
-              <div className="goal-stat-row">
-                <span>Olov (Streak) bonusi</span>
-                <span style={{ color: 'var(--success)', fontWeight: 700 }}>{stats.streak > 0 ? 'Faol' : 'Qulf'}</span>
+              <div className="goal-bonus">
+                <span>Davomiylik bonusi: Faol</span>
               </div>
             </aside>
 
             {/* ROW 2: Compact Stat Cards */}
             <div className="col-3 card-kpi dashboard-card">
-              <p>Uchqun darajasi</p>
-              <div className="kpi-val">{tier.name}</div>
+              <p>Davomiylik darajasi</p>
+              <div className="kpi-val">{tier.name || 'Uchqun'}</div>
             </div>
             
             <div className="col-3 card-kpi dashboard-card">
@@ -95,13 +98,13 @@ function Dashboard({ onNavigate }) {
                 <p>Jami tajriba</p>
               </div>
               <div>
-                <div className="kpi-val">{stats.xp} XP</div>
+                <div className="kpi-val">{stats.xp} Tajriba</div>
                 <div className="kpi-trend">+35 bu hafta</div>
               </div>
             </div>
             
             <div className="col-3 card-kpi dashboard-card">
-              <p>Sog'liq (Hearts)</p>
+              <p>Sog'liq (Imkon)</p>
               <div className="kpi-val">{stats.hearts}</div>
             </div>
             
@@ -122,7 +125,7 @@ function Dashboard({ onNavigate }) {
                   <div key={quest.id} className={`task-item ${quest.completed ? 'completed' : ''}`}>
                     <div className="task-item-top">
                       <p>{quest.title}</p>
-                      <span className="task-xp-badge">+{quest.reward} XP</span>
+                      <span className="task-xp-badge">+{quest.reward} Tajriba</span>
                     </div>
                     <div className="progress-track" style={{ height: '8px' }}>
                       <div className="progress-fill fill-blue" style={{ width: `${(quest.progress / quest.amount) * 100}%` }}></div>
@@ -152,9 +155,17 @@ function Dashboard({ onNavigate }) {
               </div>
 
               <div className="card-streak-dark dashboard-card">
-                <p className="label">Streak holati</p>
-                <h3>{stats.streak} kunlik olov</h3>
-                <p className="desc">Ketma-ket faollikni saqlab qoling va bonus XP oling.</p>
+                <p className="label">Davomiylik holati</p>
+                <h3>{stats.streak} kunlik zanjir</h3>
+                <p className="desc">Ketma-ket faollikni saqlab qoling va bonus Tajriba oling.</p>
+                
+                <div className="streak-days">
+                  {['D', 'S', 'C', 'P', 'J', 'S', 'Y'].map((day, i) => (
+                    <div key={i} className={`s-day ${i < (stats.streak % 7 || 7) ? 'active' : ''}`}>
+                      {day}
+                    </div>
+                  ))}
+                </div>
               </div>
             </aside>
 
