@@ -8,10 +8,10 @@ function Dashboard({ onNavigate }) {
     const { stats, currentLevel, currentLevelXp, nextLevelXp } = useUser();
     const tier = getStreakTier(stats?.streak || 0);
 
-    // Mock daily quests data
     const dailyQuests = [
         { id: 1, title: 'Bitta HTML darsini tugating', amount: 1, progress: 0, reward: 15, completed: false },
-        { id: 2, title: 'Xatosiz 3ta savolga javob bering', amount: 3, progress: 1, reward: 20, completed: false }
+        { id: 2, title: 'Xatosiz 3ta savolga javob bering', amount: 3, progress: 1, reward: 20, completed: false },
+        { id: 3, title: '1 ta quiz yakunlang', amount: 1, progress: 0, reward: 10, completed: false }
     ];
 
     const currentCourseData = {
@@ -131,11 +131,12 @@ function Dashboard({ onNavigate }) {
               <div>
                 {dailyQuests.map((quest) => (
                   <div key={quest.id} className={`task-item ${quest.completed ? 'completed' : ''}`}>
-                    <div className="task-item-top">
-                      <p>{quest.title}</p>
+                    <div className="task-item-top" style={{ display: 'flex', alignItems: 'center' }}>
+                      <input type="checkbox" checked={quest.completed} readOnly className="goal-checkbox" style={{ marginRight: '16px' }} />
+                      <p style={{ flex: 1, fontSize: '0.95rem' }}>{quest.title}</p>
                       <span className="task-xp-badge">+{quest.reward} Tajriba</span>
                     </div>
-                    <div className="progress-track" style={{ height: '8px' }}>
+                    <div className="progress-track" style={{ height: '6px', marginTop: '12px' }}>
                       <div className="progress-fill fill-blue" style={{ width: `${(quest.progress / quest.amount) * 100}%` }}></div>
                     </div>
                   </div>
@@ -162,18 +163,12 @@ function Dashboard({ onNavigate }) {
                 </button>
               </div>
 
-              <div className="card-streak-dark dashboard-card">
-                <p className="label">Davomiylik holati</p>
-                <h3>{stats.streak} kunlik zanjir</h3>
-                <p className="desc">Ketma-ket faollikni saqlab qoling va bonus Tajriba oling.</p>
+              <div className="card-streak-light dashboard-card" style={{ background: '#FFFFFF', padding: '24px', borderRadius: 'var(--radius-xl)', border: 'var(--border-subtle)' }}>
+                <p className="hero-subtitle">Davomiylik</p>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 800, margin: '4px 0 8px 0', color: 'var(--text-dark)' }}>{stats.streak} kun</h3>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '16px' }}>Ertaga ham kiring va bonus oling</p>
                 
-                <div className="streak-days">
-                  {['D', 'S', 'C', 'P', 'J', 'S', 'Y'].map((day, i) => (
-                    <div key={i} className={`s-day ${i < (stats.streak % 7 || 7) ? 'active' : ''}`}>
-                      {day}
-                    </div>
-                  ))}
-                </div>
+                <button className="dash-btn dash-btn-outline" style={{ width: '100%' }}>Belgini ko'rish</button>
               </div>
             </aside>
 
