@@ -6,6 +6,13 @@
   max-width: 100vw;
   position: relative;
   overflow-x: hidden !important; /* Absolute elementlar teshishiga yo'l qo'ymang */
+  padding-bottom: 0px;
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding-bottom: 80px; /* Mobile uchun bottom-nav joyi */
+  }
 }
 
 /* AI Yordamchisining maslahatiga binoan: Unified Container */

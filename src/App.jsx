@@ -83,7 +83,7 @@ function App() {
   }
 
   return (
-    <div className="page-container" style={{ paddingBottom: '80px' }}>
+    <div className="page-container">
       <div className="global-wrapper"> 
         {!['lesson','certificate','project','library','boss'].includes(currentView) && <TopBar onLogoClick={() => setCurrentView('dashboard')} onNavigate={setCurrentView} />}
 

@@ -13,6 +13,12 @@
     box-sizing: border-box;
 }
 
+@media (min-width: 769px) {
+    .bottom-nav {
+        display: none !important;
+    }
+}
+
 .nav-items-container {
     display: flex;
     justify-content: space-around;

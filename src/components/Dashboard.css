@@ -14,15 +14,16 @@
   --success-light: #D1FAE5;
   --warning: #F59E0B;
   --warning-light: #FEF3C7;
-  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.01); /* Yengillashtirilgan shadow */
+  --border-subtle: 1px solid var(--line);
   --radius-xl: 24px;
   --radius-lg: 20px;
   
-  background-color: transparent; /* Wrapper fonini orqa fon bilan bir xil qo'yamiz */
+  background-color: transparent;
   color: var(--text-base);
   font-family: 'Inter', 'Outfit', sans-serif;
   animation: fadeIn 0.4s ease-out;
-  padding: 20px 0;
+  padding: 24px 0; /* Tepadagi bo'shliq */
 }
 
 .dash-container {
@@ -88,33 +89,36 @@
 .card-hero {
   background: var(--card);
   border-radius: var(--radius-xl);
-  padding: 24px;
-  box-shadow: var(--shadow-sm);
+  padding: 32px; /* Kengroq padding */
+  border: var(--border-subtle);
+  box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .card-hero h1 {
-  font-size: 1.875rem;
+  font-size: 2.25rem; /* 36px, kattalashtirildi */
   font-weight: 800;
   line-height: 1.2;
   color: var(--text-dark);
-  margin: 0 0 20px 0;
-  max-width: 80%;
+  margin: 0 0 16px 0; /* Bo'shliq kamaytirildi */
+  max-width: 85%;
 }
 
 .hero-subtitle {
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-muted);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .hero-level-row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 8px; /* Ixchamlashdi */
   font-size: 0.9rem;
   font-weight: 600;
 }
@@ -124,7 +128,7 @@
 .hero-actions {
   display: flex;
   gap: 12px;
-  margin-top: 24px;
+  margin-top: 16px; /* Tugmalar tepaga yaqinroq */
   flex-wrap: wrap;
 }
 
@@ -133,52 +137,67 @@
   background: linear-gradient(135deg, #EFF6FF 0%, #EEF2FF 100%);
   border-radius: var(--radius-xl);
   padding: 24px;
-  box-shadow: var(--shadow-sm);
+  border: 1px solid #E0E7FF;
 }
 
 .card-goal h2 {
-  font-size: 1.5rem;
+  font-size: 1.25rem; /* Biroz kichraytirildi */
   font-weight: 800;
   color: var(--text-dark);
-  margin: 0 0 20px 0;
+  margin: 0 0 16px 0;
 }
 
 .goal-box-inner {
-  background: rgba(255,255,255,0.7);
-  border-radius: var(--radius-lg);
-  padding: 24px;
+  background: #FFFFFF; /* Faqat Oq */
+  border-radius: 16px;
+  padding: 16px; /* Kichraytirildi */
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.05); /* Yengil farqlash uchun */
 }
 
 .goal-val {
-  font-size: 2.25rem;
+  font-size: 2rem; /* 32px */
   font-weight: 800;
   color: var(--primary);
-  margin-top: 4px;
+  margin-top: 2px; /* Zich */
 }
 
 .goal-stat-row {
   display: flex;
   justify-content: space-between;
-  font-size: 0.875rem;
-  margin-bottom: 12px;
+  font-size: 0.8125rem; /* 13px supporting font */
+  margin-bottom: 8px;
 }
-.goal-stat-row span:first-child { color: var(--text-muted); }
+.goal-stat-row span:first-child { color: var(--text-muted); font-weight: 500; }
 
 /* KPI Cards */
 .card-kpi {
   background: var(--card);
   border-radius: var(--radius-lg);
-  padding: 20px;
-  box-shadow: var(--shadow-sm);
+  padding: 24px;
+  border: var(--border-subtle);
+  box-shadow: var(--shadow-card);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-kpi p {
+  color: var(--text-muted);
+  font-size: 0.8125rem; /* 13px */
+  font-weight: 600;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .kpi-val {
-  font-size: 1.875rem;
+  font-size: 2rem; /* 32px */
   font-weight: 800;
   color: var(--text-dark);
-  margin-top: 12px;
+  margin-top: 8px;
 }
 
 /* Tasks Card */
@@ -186,7 +205,8 @@
   background: var(--card);
   border-radius: var(--radius-xl);
   padding: 24px;
-  box-shadow: var(--shadow-sm);
+  border: var(--border-subtle);
+  box-shadow: var(--shadow-card);
 }
 
 .tasks-header {
@@ -231,7 +251,8 @@
   background: var(--card);
   border-radius: var(--radius-xl);
   padding: 24px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.1);
+  border: 2px solid var(--primary);
 }
 
 .card-course h3 {
@@ -256,7 +277,7 @@
   color: white;
   border-radius: var(--radius-xl);
   padding: 24px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
 }
 
 .card-streak-dark p.label { color: #94A3B8; font-size: 0.875rem; margin-bottom: 8px; }
