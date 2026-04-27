@@ -122,21 +122,21 @@ function Dashboard({ onNavigate }) {
             </div>
 
             {/* ROW 3: Tasks & Current Course */}
-            <section className="col-8 card-tasks dashboard-card">
+            <section className="col-8 card-tasks dashboard-card" style={{ alignSelf: 'start' }}>
               <div className="tasks-header">
                 <h2>Kunlik vazifalar</h2>
                 <button>Barchasini ko'rish</button>
               </div>
 
-              <div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {dailyQuests.map((quest) => (
-                  <div key={quest.id} className={`task-item ${quest.completed ? 'completed' : ''}`}>
-                    <div className="task-item-top" style={{ display: 'flex', alignItems: 'center' }}>
-                      <input type="checkbox" checked={quest.completed} readOnly className="goal-checkbox" style={{ marginRight: '16px' }} />
-                      <p style={{ flex: 1, fontSize: '0.95rem' }}>{quest.title}</p>
-                      <span className="task-xp-badge">+{quest.reward} Tajriba</span>
+                  <div key={quest.id} className={`task-item ${quest.completed ? 'completed' : ''}`} style={{ marginBottom: 0 }}>
+                    <div className="task-item-top" style={{ display: 'flex', alignItems: 'center', marginBottom: 0 }}>
+                      <input type="checkbox" checked={quest.completed} readOnly className="goal-checkbox" style={{ marginRight: '16px', width: '22px', height: '22px', cursor: 'pointer', accentColor: 'var(--primary)', flexShrink: 0 }} />
+                      <p style={{ flex: 1, fontSize: '0.95rem', margin: 0, fontWeight: 600 }}>{quest.title}</p>
+                      <span className="task-xp-badge" style={{ minWidth: '95px', textAlign: 'center', whiteSpace: 'nowrap' }}>+{quest.reward} Tajriba</span>
                     </div>
-                    <div className="progress-track" style={{ height: '6px', marginTop: '12px' }}>
+                    <div className="progress-track" style={{ height: '6px', marginTop: '14px', marginBottom: '2px' }}>
                       <div className="progress-fill fill-blue" style={{ width: `${(quest.progress / quest.amount) * 100}%` }}></div>
                     </div>
                   </div>
@@ -163,12 +163,12 @@ function Dashboard({ onNavigate }) {
                 </button>
               </div>
 
-              <div className="card-streak-light dashboard-card" style={{ background: '#FFFFFF', padding: '24px', borderRadius: 'var(--radius-xl)', border: 'var(--border-subtle)' }}>
+              <div className="card-streak-light dashboard-card" style={{ background: '#FFFFFF', padding: '24px', borderRadius: 'var(--radius-xl)', border: 'var(--border-subtle)', flex: 1 }}>
                 <p className="hero-subtitle">Davomiylik</p>
                 <h3 style={{ fontSize: '1.5rem', fontWeight: 800, margin: '4px 0 8px 0', color: 'var(--text-dark)' }}>{stats.streak} kun</h3>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '16px' }}>Ertaga ham kiring va bonus oling</p>
                 
-                <button className="dash-btn dash-btn-outline" style={{ width: '100%' }}>Belgini ko'rish</button>
+                <button className="dash-btn dash-btn-primary" style={{ width: '100%', padding: '10px' }}>Belgini ko'rish</button>
               </div>
             </aside>
 
