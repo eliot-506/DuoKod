@@ -10,7 +10,6 @@
     position: sticky;
     top: 0;
     box-sizing: border-box;
-    overflow-y: auto;
 }
 
 @media (min-width: 1025px) {
@@ -111,15 +110,11 @@
 }
 
 .sidebar-footer {
-    position: sticky;
-    bottom: 0;
     background: #F8FAFC;
     border: 1px solid #E2E8F0;
     border-radius: 16px;
     padding: 16px;
-    z-index: 10;
     margin-top: auto;
-    box-shadow: 0 -10px 20px -10px rgba(0,0,0,0.05);
 }
 
 .footer-title {
