@@ -1,170 +1,197 @@
 import { useState, useEffect } from 'react';
 import './Dashboard.css';
 import { useUser } from '../context/UserContext';
-import Mascot from './Mascot';
 import { getStreakTier } from '../utils/streakUtils';
 
 function Dashboard({ onNavigate }) {
     const { stats, currentLevel, currentLevelXp, nextLevelXp } = useUser();
     const tier = getStreakTier(stats?.streak || 0);
-    const [mascotState, setMascotState] = useState('greeting');
-    const [mascotMessage, setMascotMessage] = useState('Assalomu alaykum!');
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            if ([3, 7, 14, 30].includes(stats.streak)) {
-                setMascotState('happy');
-                setMascotMessage(`🎉 Olovingiz "${tier.name}" darajasiga chiqdi! G'alaba!`);
-            } else {
-                setMascotState('invite');
-                setMascotMessage('Bugun qayerdan boshlaymiz?');
-            }
-        }, 3500); // 3.5 sekund salom beradi
-        return () => clearTimeout(timer);
-    }, []);
 
     // Mock daily quests data depending on real day
     const dailyQuests = [
         { id: 1, title: 'Bitta HTML darsini tugating', amount: 1, progress: 0, reward: 15, completed: false },
         { id: 2, title: 'Xatosiz 3ta savolga javob bering', amount: 3, progress: 1, reward: 20, completed: false },
-        { id: 3, title: 'Yangi maqolani o\'qing', amount: 1, progress: 1, reward: 10, completed: true },
+        { id: 3, title: 'Yangi maqolani o\'qing', amount: 1, progress: 1, reward: 40, completed: true },
     ];
 
     const currentCourseData = {
-        'html': { title: 'HTML5 Asoslari', icon: 'fa-html5', color: '#e34f26' },
-        'css': { title: 'Zamonaviy CSS3', icon: 'fa-css3-alt', color: '#264de4' },
-        'js': { title: 'JavaScript Dasturlash', icon: 'fa-js', color: '#f7df1e' },
-        'python': { title: 'Python Asoslari', icon: 'fa-python', color: '#3776AB' }
+        'html': { title: 'HTML5 Asoslari', icon: '🧱', color: '#e34f26' },
+        'css': { title: 'Toza CSS3', icon: '🎨', color: '#264de4' },
+        'js': { title: 'JavaScript Dasturlash', icon: '⚡', color: '#f7df1e' },
+        'python': { title: 'Python Asoslari', icon: '🐍', color: '#3776AB' }
     };
 
-    // Safe fallbacks to prevent screen crashes!
+    const isAdmin = stats?.isAdmin || stats?.isSuperAdmin;
     const safeCourseId = stats?.currentCourse && currentCourseData[stats.currentCourse] ? stats.currentCourse : 'html';
     const courseInfo = currentCourseData[safeCourseId] || currentCourseData['html'];
     const courseProgress = stats?.courses?.[safeCourseId] || { completedNodes: [] };
     const completedNodes = courseProgress.completedNodes?.length || 0;
-    // Assuming 5 modules per course (as per Phase 12 restructuring)
-    const progressPercent = Math.min((completedNodes / 5) * 100, 100);
+    
+    // Hardcode modules count based on actual app data (Python has 11, others 5)
+    const totalModules = safeCourseId === 'python' ? 11 : 5;
+    const progressPercent = Math.min((completedNodes / totalModules) * 100, 100).toFixed(0);
+    const completedLevelPercent = Math.min((currentLevelXp / nextLevelXp) * 100, 100);
 
     return (
-        <div className="dashboard-container">
-            <div className="dashboard-header">
-                <div className="dashboard-welcome-info">
-                    <h2>Xush Kelibsiz, <span className="highlight-text">{stats.username || 'Dasturchi'}</span>! 🚀</h2>
-                    <p>Bugungi yangi marralarni zabt etishga tayyormisiz?</p>
-
-                    <div className="user-level-info">
-                        <div className="level-texts">
-                            <span className="level-badge">🏆 Level {currentLevel} Dasturchi</span>
-                            <span className="level-xp">{currentLevelXp} / {nextLevelXp} XP</span>
-                        </div>
-                        <div className="xp-progress-bar">
-                            <div className="xp-progress-fill" style={{ width: `${(currentLevelXp / nextLevelXp) * 100}%` }}></div>
-                        </div>
-                    </div>
-                </div>
-                <div className="mascot-greeting">
-                    <Mascot state={mascotState} message={mascotMessage} />
-                </div>
+      <div className="dash-wrapper">
+        <div className="dash-container">
+          
+          {/* Topbar */}
+          <header className="dash-header">
+            <div className="dash-logo">
+              <h1>DUOKOD</h1>
+              <p>Gamified learning dashboard</p>
             </div>
 
-            <div className="dashboard-grid">
-                {/* Asosiy statistika */}
-                <div className="dash-card stats-overview">
-                    <h3>Sizning Natijangiz</h3>
-                    <div className="stats-row">
-                        <div className="stat-box" style={{ 
-                            borderColor: tier.tier > 1 ? tier.color : '',
-                            boxShadow: tier.tier > 1 ? `inset 0 0 15px ${tier.color}30` : ''
-                        }}>
-                            <span className="dashboard-streak-emoji" style={{ 
-                                filter: `drop-shadow(0 0 ${tier.glow}px ${tier.color})`,
-                                fontSize: '2.5rem',
-                                transition: 'all 0.5s ease',
-                                transform: tier.tier >= 4 ? 'scale(1.1)' : 'scale(1)'
-                            }}>
-                                {tier.icon}
-                            </span>
-                            <div className="stat-info">
-                                <span style={{ 
-                                    color: tier.tier > 1 ? tier.color : '', 
-                                    textShadow: tier.tier > 1 ? `0 0 10px ${tier.color}` : '' 
-                                }}>
-                                    {stats.streak} Kun
-                                </span>
-                                <small style={{ color: tier.tier > 1 ? tier.color : 'var(--text-muted)', fontWeight: 'bold', textShadow: tier.tier > 1 ? `0 0 5px ${tier.color}` : '' }}>{tier.name}</small>
-                            </div>
-                        </div>
-                        <div className="stat-box">
-                            <span className="xp-emoji" style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 0 10px #ffd700)' }}>⚡</span>
-                            <div className="stat-info">
-                                <span>{stats.xp} XP</span>
-                                <small>Jami Tajriba</small>
-                            </div>
-                        </div>
-                        <div className="stat-box">
-                            <span className="heart-emoji" style={{ fontSize: '2.5rem', filter: 'drop-shadow(0 0 10px #ff1744)' }}>❤️</span>
-                            <div className="stat-info">
-                                <span>{stats.hearts}</span>
-                                <small>Sog'lik</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Joriy Kurs */}
-                <div className="dash-card current-course-resume">
-                    <h3>Hozirgi Kursingiz</h3>
-                    <div className="resume-box" style={{ borderLeftColor: courseInfo?.color || '#fff' }}>
-                        <i className={`fa-brands ${courseInfo?.icon || 'fa-html5'} course-big-icon`} style={{ color: courseInfo?.color || '#fff' }}></i>
-                        <div className="resume-info">
-                            <h4>{courseInfo?.title || 'Kurs'}</h4>
-                            <div className="course-progress-bar">
-                                <div className="course-progress-fill" style={{ width: `${progressPercent}%`, backgroundColor: courseInfo?.color || '#fff' }}></div>
-                            </div>
-                            <span>{completedNodes} / 5 tugun tugatildi</span>
-                        </div>
-                        <button className="btn btn-primary play-btn" onClick={() => onNavigate('map')}>
-                            Davom Etish <i className="fa-solid fa-play"></i>
-                        </button>
-                    </div>
-
-                    <div className="resume-box library-promo-box" style={{ borderLeftColor: '#00e5ff', marginTop: '15px' }}>
-                        <i className="fa-solid fa-book-open course-big-icon" style={{ color: '#00e5ff' }}></i>
-                        <div className="resume-info">
-                            <h4>Kutubxona</h4>
-                            <span>PDF Maqolalar & Kitoblar oynasi</span>
-                        </div>
-                        <button className="btn btn-primary play-btn" style={{ background: 'rgba(0,229,255,0.1)', color: '#00e5ff', borderColor: '#00e5ff' }} onClick={() => onNavigate('library')}>
-                            Kutubxona <i className="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-
-                {/* Kunlik Vazifalar (Daily Quests) */}
-                <div className="dash-card daily-quests">
-                    <h3>Kunlik Vazifalar <i className="fa-solid fa-calendar-check"></i></h3>
-                    <div className="quests-list">
-                        {dailyQuests.map(quest => (
-                            <div key={quest.id} className={`quest-item ${quest.completed ? 'completed' : ''}`}>
-                                <div className="quest-icon">
-                                    {quest.completed ? <i className="fa-solid fa-check-circle correct-icon"></i> : <i className="fa-solid fa-circle-dot"></i>}
-                                </div>
-                                <div className="quest-details">
-                                    <h4>{quest.title}</h4>
-                                    <div className="quest-progress-bar">
-                                        <div className="quest-progress-fill" style={{ width: `${(quest.progress / quest.amount) * 100}%` }}></div>
-                                    </div>
-                                    <span>{quest.progress} / {quest.amount}</span>
-                                </div>
-                                <div className="quest-reward" style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '1rem', fontWeight: 'bold', color: '#ffd700', textShadow: '0 0 10px rgba(255,215,0,0.5)' }}>
-                                    <span>⚡</span> +{quest.reward}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+            <div className="dash-badges">
+              <span className="badge badge-streak">🔥 {stats.streak}</span>
+              <span className="badge badge-xp">⚡ {stats.xp} XP</span>
+              <span className="badge badge-hearts">💗 {stats.hearts}</span>
+              {isAdmin && (
+                <button className="dash-admin-btn" onClick={() => onNavigate('admin')}>
+                  Admin Panel
+                </button>
+              )}
             </div>
+          </header>
+
+          {/* Hero */}
+          <section className="dash-hero-section">
+            <div className="dash-hero-card">
+              <div className="hero-top">
+                <div>
+                  <p>Xush kelibsiz 👋</p>
+                  <h2>{stats.username || 'Dasturchi'}, bugun yangi marralarni zabt etamizmi?</h2>
+                </div>
+                <div className="hero-avatar">🤖</div>
+              </div>
+
+              <div className="hero-level-info">
+                <div className="hero-level-text">
+                  <span className="title">Level {currentLevel} Dasturchi</span>
+                  <span className="progress">{currentLevelXp} / {nextLevelXp} XP</span>
+                </div>
+                <div className="hero-bar-bg">
+                  <div className="hero-bar-fill" style={{ width: `${completedLevelPercent}%` }}></div>
+                </div>
+              </div>
+
+              <div className="hero-actions">
+                <button className="hero-btn hero-btn-primary" onClick={() => onNavigate('map')}>
+                  Darsni davom ettirish
+                </button>
+                <button className="hero-btn hero-btn-secondary" onClick={() => alert('Vazifalar menyusi alohida yaratiladi')}>
+                  Bugungi mag'sadlarni ko'rish
+                </button>
+              </div>
+            </div>
+
+            <aside className="dash-goal-card">
+              <p style={{ fontSize: '0.9rem', color: 'var(--muted)', margin: '0 0 8px 0', fontWeight: 500 }}>Bugungi maqsad</p>
+              <h3>{dailyQuests.length} ta vazifani yakunlang</h3>
+
+              <div className="goal-box">
+                <p>Progress</p>
+                <p>{dailyQuests.filter(q => q.completed).length} / {dailyQuests.length}</p>
+              </div>
+
+              <div className="goal-meta">
+                <span className="label">Umumiy Mukofot</span>
+                <span className="val-warning">+{dailyQuests.reduce((acc, q) => acc + q.reward, 0)} XP</span>
+              </div>
+              <div className="goal-meta">
+                <span className="label">Olov (Streak) Bonus</span>
+                <span className="val-success">{stats.streak > 0 ? 'Faol' : 'Qulf'}</span>
+              </div>
+            </aside>
+          </section>
+
+          {/* KPIs */}
+          <section className="dash-kpi-section">
+            <div className="kpi-card">
+              <p className="label">Uchqun darajasi</p>
+              <p className="val">{tier.name}</p>
+            </div>
+            <div className="kpi-card">
+              <p className="label">Jami tajriba</p>
+              <p className="val">{stats.xp} XP</p>
+            </div>
+            <div className="kpi-card">
+              <p className="label">Sog'liq (Hearts)</p>
+              <p className="val">{stats.hearts}</p>
+            </div>
+            <div className="kpi-card">
+              <p className="label">Tugallangan darslar</p>
+              <p className="val">{completedNodes} / {totalModules}</p>
+            </div>
+          </section>
+
+          {/* Main Content */}
+          <section className="dash-main-section">
+            <div className="dash-tasks-card">
+              <div className="tasks-header">
+                <h3>Kunlik vazifalar</h3>
+                <button>Barchasini ko'rish</button>
+              </div>
+
+              <div className="task-list">
+                {dailyQuests.map(quest => (
+                  <div key={quest.id} className={`task-item ${quest.completed ? 'completed' : ''}`}>
+                    <div className="task-check">
+                      {quest.completed ? '✓' : ''}
+                    </div>
+                    
+                    <div className="task-content">
+                      <p className="task-title">{quest.title}</p>
+                      <div className="task-progress-bg">
+                        <div className="task-progress-fill" style={{ width: `${(quest.progress / quest.amount) * 100}%` }}></div>
+                      </div>
+                      <p className="task-meta">{quest.progress} / {quest.amount} bajarildi</p>
+                    </div>
+
+                    <span className="task-reward">+{quest.reward} XP</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <aside className="dash-sidebar">
+              <div className="course-small-card">
+                <div className="course-card-top">
+                  <div>
+                    <p>Hozirgi kurs</p>
+                    <h3>{courseInfo.title}</h3>
+                  </div>
+                  <div className="course-card-icon">{courseInfo.icon}</div>
+                </div>
+
+                <div className="task-progress-bg" style={{ height: '10px' }}>
+                  <div className="task-progress-fill" style={{ width: `${progressPercent}%` }}></div>
+                </div>
+
+                <div className="course-progress-meta">
+                  <span>{completedNodes} / {totalModules} dars tugatildi</span>
+                  <span>{progressPercent}%</span>
+                </div>
+
+                <button className="hero-btn hero-btn-primary continue-btn" onClick={() => onNavigate('map')}>
+                  Davom etish
+                </button>
+              </div>
+
+              <div className="library-card">
+                <p style={{ fontSize: '0.85rem', color: 'var(--muted)', margin: 0 }}>Kutubxona</p>
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: '4px 0 0' }}>PDF Maqolalar</h3>
+                <p className="lib-desc">Qo'shimcha materiallar orqali bilimingizni yanada mustahkamlang.</p>
+                <button className="hero-btn hero-btn-secondary continue-btn" onClick={() => onNavigate('library')}>
+                  Kutubxonaga o'tish
+                </button>
+              </div>
+            </aside>
+          </section>
+
         </div>
+      </div>
     );
 }
 
