@@ -72,18 +72,22 @@ function Dashboard({ onNavigate }) {
               <ul className="goal-list">
                 {dailyQuests.map(q => (
                   <li key={q.id}>
-                    <input type="checkbox" checked={q.completed} readOnly />
-                    <span>{q.title}</span>
+                    <label className="goal-checkbox-label">
+                      <input type="checkbox" className="goal-checkbox" checked={q.completed} readOnly />
+                      <span className="goal-title">{q.title}</span>
+                    </label>
                   </li>
                 ))}
               </ul>
 
-              <div className="goal-reward">
-                <span>🎯 Umumiy mukofot</span>
-                <strong>+25 Tajriba</strong>
-              </div>
-              <div className="goal-bonus">
-                <span>Davomiylik bonusi: Faol</span>
+              <div className="goal-info-group">
+                <div className="goal-reward">
+                  <span>🎯 Umumiy mukofot</span>
+                  <strong>+25 Tajriba</strong>
+                </div>
+                <div className="goal-bonus">
+                  <span>Davomiylik bonusi: Faol</span>
+                </div>
               </div>
             </aside>
 

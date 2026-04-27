@@ -117,7 +117,7 @@
 /* Hero Card (Surface) */
 .card-hero {
   background: var(--card);
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2322C7C7' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2322C7C7' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   background-position: top right;
   background-repeat: no-repeat;
   border-radius: var(--radius-xl);
@@ -198,29 +198,68 @@
   margin: 0 0 16px 0;
 }
 
-.goal-box-inner {
-  background: #FFFFFF; /* Faqat Oq */
-  border-radius: 16px;
-  padding: 16px; /* Kichraytirildi */
-  text-align: center;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.05); /* Yengil farqlash uchun */
+.goal-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.goal-val {
-  font-size: 2rem; /* 32px */
-  font-weight: 800;
-  color: var(--primary);
-  margin-top: 2px; /* Zich */
+.goal-list li {
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  overflow: hidden;
+  transition: border-color var(--dur-fast), background var(--dur-fast);
 }
 
-.goal-stat-row {
+.goal-list li:hover {
+  border-color: #CBD5E1;
+  background: var(--bg);
+}
+
+.goal-checkbox-label {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  gap: 12px;
+  width: 100%;
+}
+
+.goal-checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--primary);
+}
+
+.goal-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-base);
+}
+
+.goal-info-group {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(226, 232, 240, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.goal-reward, .goal-bonus {
   display: flex;
   justify-content: space-between;
-  font-size: 0.8125rem; /* 13px supporting font */
-  margin-bottom: 8px;
+  font-size: 0.8125rem;
 }
-.goal-stat-row span:first-child { color: var(--text-muted); font-weight: 500; }
+
+.goal-reward span { color: var(--text-muted); font-weight: 500; }
+.goal-reward strong { color: var(--warning); font-weight: 700; }
+.goal-bonus span { color: var(--success); font-weight: 700; }
 
 /* KPI Cards */
 .card-kpi {
@@ -378,17 +417,17 @@
 @media (min-width: 1025px) {
   .hero-mascot-wrapper {
     position: absolute;
-    top: 24px;
-    right: 32px; /* 32px orqali xavfsiz joylashtirildi */
-    width: 104px; /* Biroz kattaroq */
-    height: 104px;
+    top: 32px;
+    right: 28px;
+    width: 90px;
+    height: 90px;
     margin: 0;
     background: transparent;
     box-shadow: none;
-    filter: drop-shadow(0 16px 24px rgba(15, 23, 42, 0.15)); /* Aniqlangan soyalar */
+    filter: none; /* Removed square border glow */
   }
   .hero-content {
-    padding-right: 140px; /* Safe space limit oshirildi */
+    padding-right: 120px;
   }
 }
 

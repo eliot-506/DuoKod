@@ -43,7 +43,7 @@
 
 .top-bar-stats {
     display: flex;
-    gap: 16px;
+    gap: 24px; /* Bir xillik uchun kattalashtirildi */
     margin-left: auto; /* Logo hidden bo'lganda o'ngda qolishi uchun */
 }
 
