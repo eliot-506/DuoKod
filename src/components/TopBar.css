@@ -44,6 +44,7 @@
 .top-bar-stats {
     display: flex;
     gap: 16px;
+    margin-left: auto; /* Logo hidden bo'lganda o'ngda qolishi uchun */
 }
 
 .stat-item {
@@ -189,5 +190,12 @@
     /* Kichik ekranlarda "Admin" yozuvini yashirib, faqat emoji qoldirish */
     @media (max-width: 380px) {
         .admin-btn-text { display: none; }
+    }
+}
+
+/* Hide Logo on Desktop because the Sidebar has it */
+@media (min-width: 1025px) {
+    .top-bar-logo {
+        display: none !important;
     }
 }

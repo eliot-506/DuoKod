@@ -1,27 +1,30 @@
 .page-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row; /* Desktopda Sidebar chapda bo'lishi uchun */
   min-height: 100vh;
   width: 100%;
   max-width: 100vw;
   position: relative;
-  overflow-x: hidden !important; /* Absolute elementlar teshishiga yo'l qo'ymang */
+  overflow-x: hidden !important;
   padding-bottom: 0px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .page-container {
-    padding-bottom: 80px; /* Mobile uchun bottom-nav joyi */
+    flex-direction: column; /* Mobile/Tablet uchun vertikal ustun */
   }
 }
 
 /* AI Yordamchisining maslahatiga binoan: Unified Container */
 .global-wrapper {
   width: 100%;
-  max-width: 1560px; /* Full-width Dashboard layout uchun kengaytirildi */
+  flex: 1; /* Qolgan bo'sh joyni egallash */
+  max-width: 1560px;
   margin: 0 auto;
   box-sizing: border-box;
   padding: 0 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (max-width: 1024px) {

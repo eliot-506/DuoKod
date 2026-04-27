@@ -5,6 +5,7 @@ import LearningTab from './components/LearningTab'
 import LessonView from './components/LessonView'
 import Leaderboard from './components/Leaderboard'
 import BottomNav from './components/BottomNav'
+import Sidebar from './components/Sidebar'
 import Profile from './components/Profile'
 import Certificate from './components/Certificate'
 import Auth from './components/Auth'
@@ -84,6 +85,10 @@ function App() {
 
   return (
     <div className="page-container">
+      {!['lesson','certificate','project','library','boss'].includes(currentView) && (
+          <Sidebar currentTab={currentView} onNavigate={setCurrentView} />
+      )}
+
       <div className="global-wrapper"> 
         {!['lesson','certificate','project','library','boss'].includes(currentView) && <TopBar onLogoClick={() => setCurrentView('dashboard')} onNavigate={setCurrentView} />}
 
