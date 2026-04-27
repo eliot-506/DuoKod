@@ -53,7 +53,7 @@
     border-radius: 16px;
     background: transparent;
     border: none;
-    color: #475569;
+    color: #334155; /* Kontrast oshirildi (oldingi #475569 dan to'qroq) */
     font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;

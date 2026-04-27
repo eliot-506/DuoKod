@@ -91,8 +91,13 @@ function Dashboard({ onNavigate }) {
             </div>
             
             <div className="col-3 card-kpi dashboard-card">
-              <p>Jami tajriba</p>
-              <div className="kpi-val">{stats.xp} XP</div>
+              <div className="kpi-row">
+                <p>Jami tajriba</p>
+              </div>
+              <div>
+                <div className="kpi-val">{stats.xp} XP</div>
+                <div className="kpi-trend">+35 bu hafta</div>
+              </div>
             </div>
             
             <div className="col-3 card-kpi dashboard-card">

@@ -30,14 +30,14 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px; /* 8px ritm bo'yicha 24px */
 }
 
 /* 12-Column Grid System */
 .dash-grid-12 {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: 20px;
+  gap: 24px; /* 8px ritm bo'yicha */
 }
 
 .col-12 { grid-column: span 12; }
@@ -146,11 +146,11 @@
 }
 
 .card-hero h1 {
-  font-size: 2.25rem; /* 36px, kattalashtirildi */
+  font-size: 2.125rem; /* ~34px, 5% gacha kichraytirildi */
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.25;
   color: var(--text-dark);
-  margin: 0 0 16px 0; /* Bo'shliq kamaytirildi */
+  margin: 0 0 16px 0;
   max-width: 85%;
 }
 
@@ -230,6 +230,23 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.kpi-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kpi-trend {
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--success-light);
+  color: var(--success);
+  padding: 4px 8px;
+  border-radius: 50px;
+  margin-top: 8px;
+  display: inline-block;
 }
 
 .card-kpi p {
@@ -359,27 +376,28 @@
   .hero-mascot-wrapper {
     position: absolute;
     top: 24px;
-    right: 24px;
-    width: 96px;
-    height: 96px;
+    right: 32px; /* 32px orqali xavfsiz joylashtirildi */
+    width: 104px; /* Biroz kattaroq */
+    height: 104px;
     margin: 0;
     background: transparent;
     box-shadow: none;
+    filter: drop-shadow(0 16px 24px rgba(15, 23, 42, 0.15)); /* Aniqlangan soyalar */
   }
   .hero-content {
-    padding-right: 120px; /* Safe space limit */
+    padding-right: 140px; /* Safe space limit oshirildi */
   }
 }
 
 @media (max-width: 1024px) {
   .col-8 { grid-column: span 12; }
   .col-4 { grid-column: span 12; }
-  .card-hero h1 { max-width: 100%; font-size: 1.5rem; }
+  .card-hero h1 { max-width: 100%; font-size: 1.75rem; }
 }
 
 @media (max-width: 768px) {
   .col-6 { grid-column: span 12; }
   .col-3 { grid-column: span 6; }
-  .dash-grid-12 { gap: 16px; }
-  .card-hero, .card-goal, .card-tasks, .card-course, .card-streak-dark { padding: 16px; }
+  .dash-grid-12 { gap: 16px; } /* Mobileda 16px (8px rhythm) */
+  .card-hero, .card-goal, .card-tasks, .card-course, .card-streak-dark { padding: 24px; } /* Bir xil 24px paddings */
 }
