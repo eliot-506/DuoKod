@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './Dashboard.css';
 import { useUser } from '../context/UserContext';
 import { getStreakTier } from '../utils/streakUtils';
+import AnimatedRobot from './AnimatedRobot';
 
 function Dashboard({ onNavigate }) {
     const { stats, currentLevel, currentLevelXp, nextLevelXp } = useUser();
@@ -37,23 +38,29 @@ function Dashboard({ onNavigate }) {
           <main className="dash-grid-12">
             
             {/* ROW 1: Hero & Goal */}
-            <div className="col-8 card-hero">
-              <div>
-                <p className="hero-subtitle">Xush kelibsiz 👋</p>
-                <h1>{stats.username || 'Muhammad Matchonov'}, bugun yangi marralarni zabt etamizmi?</h1>
+            <div className="col-8 card-hero relative-container">
+              <div className="hero-mascot-wrapper">
+                <AnimatedRobot state="happy" />
               </div>
 
-              <div>
-                <div className="hero-level-row">
-                  <span className="lvl-name">Level {currentLevel} Dasturchi</span>
-                  <span className="lvl-xp">{currentLevelXp} / {nextLevelXp} XP</span>
+              <div className="hero-content">
+                <div>
+                  <p className="hero-subtitle">Xush kelibsiz 👋</p>
+                  <h1>{stats.username || 'Muhammad Matchonov'}, bugun yangi marralarni zabt etamizmi?</h1>
                 </div>
-                <div className="progress-track">
-                  <div className="progress-fill fill-emerald" style={{ width: `${completedLevelPercent}%` }}></div>
-                </div>
-                <div className="hero-actions">
-                  <button className="dash-btn dash-btn-primary" onClick={() => onNavigate('map')}>Darsni davom ettirish</button>
-                  <button className="dash-btn dash-btn-outline" onClick={() => alert('Tez kunda!')}>Bugungi maqsadlarni ko'rish</button>
+
+                <div>
+                  <div className="hero-level-row">
+                    <span className="lvl-name">Level {currentLevel} Dasturchi</span>
+                    <span className="lvl-xp">{currentLevelXp} / {nextLevelXp} XP</span>
+                  </div>
+                  <div className="progress-track">
+                    <div className="progress-fill fill-emerald" style={{ width: `${completedLevelPercent}%` }}></div>
+                  </div>
+                  <div className="hero-actions">
+                    <button className="dash-btn dash-btn-primary" onClick={() => onNavigate('map')}>Darsni davom ettirish</button>
+                    <button className="dash-btn dash-btn-outline" onClick={() => alert('Tez kunda!')}>Bugungi maqsadlarni ko'rish</button>
+                  </div>
                 </div>
               </div>
             </div>
