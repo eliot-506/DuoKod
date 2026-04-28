@@ -7,8 +7,10 @@
     display: none; /* Mobileda ko'rinmaydi */
     flex-direction: column;
     height: 100vh;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    z-index: 1000;
     box-sizing: border-box;
 }
 

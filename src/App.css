@@ -22,6 +22,12 @@
   }
 }
 
+@media (min-width: 1025px) {
+  .page-container {
+    padding-left: 250px; /* Sidebar kengligi + bo'sh joy */
+  }
+}
+
 /* AI Yordamchisining maslahatiga binoan: Unified Container */
 .global-wrapper {
   width: 100%;
