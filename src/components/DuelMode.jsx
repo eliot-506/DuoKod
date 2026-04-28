@@ -116,15 +116,23 @@ function DuelMode({ onComplete }) {
                 <h1 className={`result-title ${matchResult}`}>
                     {matchResult === 'win' ? "G'ALABA! 🎉" : "MAG'LUBIYAT 💀"}
                 </h1>
-                <Mascot
-                    state={matchResult === 'win' ? 'happy' : 'sad'}
-                    message={matchResult === 'win' ? "+50 XP Olingiz! Siz ajoyib dasturchisiz!" : "Raqib tezroq edi, taslim bo'lmang!"}
-                />
+                
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '24px' }}>
+                    <div style={{ transform: 'scale(1.2)', padding: '20px' }}>
+                        <AnimatedRobot customState={matchResult === 'win' ? 'celebration' : 'sad'} />
+                    </div>
+                    <p style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--text-color)', marginTop: '8px' }}>
+                        {matchResult === 'win' ? "+50 XP Olingiz! Siz ajoyib dasturchisiz!" : "Raqib tezroq edi, taslim bo'lmang!"}
+                    </p>
+                </div>
+
                 <div className="result-stats">
                     <div className="stat-box">
                         <span>Sizning holatingiz</span>
-                        <div className="final-avatar">
-                            <img src={userAvatarSrc} alt="Siz" style={{width: '70%', height: '70%', objectFit: 'contain', transform: 'scale(1.3)'}} />
+                        <div className="final-avatar" style={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <div style={{ width: '80%', height: '80%' }}>
+                                <AnimatedRobot customState="happy" />
+                            </div>
                         </div>
                         <h3>{matchResult === 'win' ? '100%' : 'Chala'}</h3>
                     </div>
