@@ -15,15 +15,15 @@ function AnimatedRobot({ isFloating = false, customState, className = '' }) {
     if (!isVisible) return null;
 
     const stateImageMap = {
-        idle: '/images/uchqunbot.png',
-        happy: '/images/uchqunbot.png',
-        excited: '/images/uchqunbot.png',
-        thinking: '/images/uchqunbot.png',
-        confused: '/images/uchqunbot.png',
-        sad: '/images/uchqunbot.png',
-        wrong: '/images/uchqunbot.png',
-        celebration: '/images/uchqunbot.png',
-        sleepy: '/images/uchqunbot.png'
+        idle: '/assets/mascots/idle.png',
+        happy: '/assets/mascots/happy.png',
+        excited: '/assets/mascots/happy.png',
+        thinking: '/assets/mascots/idle.png',
+        confused: '/assets/mascots/sad.png',
+        sad: '/assets/mascots/sad.png',
+        wrong: '/assets/mascots/sad.png',
+        celebration: '/assets/mascots/happy.png',
+        sleepy: '/assets/mascots/idle.png'
     };
 
     const currentImage = stateImageMap[state] || stateImageMap.idle;
