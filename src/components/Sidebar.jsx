@@ -7,16 +7,28 @@ function Sidebar({ currentTab, onNavigate }) {
     const { stats } = useUser();
     const tier = getStreakTier(stats?.streak || 0);
 
-    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+    const [isLight, setIsLight] = useState(() => document.body.classList.contains('light-mode'));
 
     useEffect(() => {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-    }, [theme]);
+        if (isLight) {
+            document.body.classList.add('light-mode');
+            localStorage.setItem('duokod_theme', 'light');
+        } else {
+            document.body.classList.remove('light-mode');
+            localStorage.setItem('duokod_theme', 'neon');
+        }
+    }, [isLight]);
 
-    const toggleTheme = () => {
-        setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-    };
+    // Apply saved theme on mount
+    useEffect(() => {
+        const saved = localStorage.getItem('duokod_theme');
+        if (saved === 'light') {
+            setIsLight(true);
+            document.body.classList.add('light-mode');
+        }
+    }, []);
+
+    const toggleTheme = () => setIsLight(prev => !prev);
 
     const tabs = [
         { id: 'dashboard', icon: '🏠', label: 'Asosiy' },
@@ -51,12 +63,12 @@ function Sidebar({ currentTab, onNavigate }) {
                 })}
             </nav>
 
-            <div className="sidebar-theme-toggle" style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px', background: 'var(--background)', borderRadius: '16px', border: '1px solid var(--border-color)' }}>
-                <span style={{ margin: 0, fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-dark-theme)' }}>{theme === 'dark' ? 'Tungi rejim 🌙' : 'Kunduzgi ☀️'}</span>
+            <div className="sidebar-theme-toggle" style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px', background: 'var(--surface, #f8fafc)', borderRadius: '16px', border: '1px solid var(--border-color, #e2e8f0)' }}>
+                <span style={{ margin: 0, fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-dark, #172554)' }}>{isLight ? 'Kunduzgi ☀️' : 'Tungi rejim 🌙'}</span>
                 <label className="sidebar-theme-switch">
                     <input
                         type="checkbox"
-                        checked={theme === 'light'}
+                        checked={isLight}
                         onChange={toggleTheme}
                     />
                     <span className="slider round"></span>
