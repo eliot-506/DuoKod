@@ -17,8 +17,8 @@ function AnimatedRobot({ isFloating = false, customState, className = '' }) {
     const stateImageMap = {
         idle: '/assets/mascots/idle.png',
         happy: '/assets/mascots/happy.png',
-        excited: '/assets/mascots/happy.png',
-        thinking: '/assets/mascots/idle.png',
+        excited: '/assets/mascots/rizz.png',
+        thinking: '/assets/mascots/rizz.png',
         confused: '/assets/mascots/sad.png',
         sad: '/assets/mascots/sad.png',
         wrong: '/assets/mascots/sad.png',
