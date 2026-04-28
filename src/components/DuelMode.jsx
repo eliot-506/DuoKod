@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useUser } from '../context/UserContext';
 import './DuelMode.css';
 import Mascot from './Mascot';
+import AnimatedRobot from './AnimatedRobot';
 
 const MOCK_OPPONENTS = [
     { name: 'Alex_CodeMaster', level: 8, avatar: '👤' },
@@ -97,8 +98,10 @@ function DuelMode({ onComplete }) {
                     <div className="radar-circle circle-2"></div>
                     <div className="radar-circle circle-3"></div>
                     <div className="radar-scanner"></div>
-                    <div className="user-radar-avatar" style={{width: '70px', height: '70px', borderRadius: '50%', background: 'rgba(10,10,20,0.8)', overflow: 'hidden', padding: '5px', boxSizing: 'border-box' }}>
-                        <img src={userAvatarSrc} alt="Sizning avataringiz" style={{width: '100%', height: '100%', objectFit: 'contain', transform: 'scale(1.3)'}} />
+                    <div className="user-radar-avatar" style={{width: '100px', height: '100px', borderRadius: '50%', background: 'var(--surface)', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', border: '3px solid var(--border-color)', position: 'relative', zIndex: 5}}>
+                        <div style={{transform: 'scale(0.8)', width: '120px', height: '120px'}}>
+                            <AnimatedRobot customState="thinking" />
+                        </div>
                     </div>
                 </div>
                 <h2 className="matchmaking-text">Munosib raqib qidirilmoqda...</h2>
