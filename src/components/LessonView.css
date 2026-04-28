@@ -453,7 +453,7 @@ body.light-mode .theory-card p {
 .mascot-quiz-wrapper {
     display: flex;
     justify-content: center;
-    padding-top: 16px; /* Add padding so head is not cut off */
+    padding-top: 60px; /* Increased to allow plenty of space for speech bubble */
     position: relative;
     z-index: 10;
     margin-bottom: -10px; /* Pull the next element (task header) closer */
