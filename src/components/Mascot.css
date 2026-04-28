@@ -55,17 +55,18 @@
 
 .mascot-bubble {
     position: absolute;
-    top: 100%; 
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 12px;
+    bottom: 85%; 
+    left: 75%;
+    transform: none;
+    margin-bottom: 12px;
     z-index: 20; 
-    max-width: 200px;
+    max-width: 220px;
     
     padding: 10px 16px; 
     background: var(--surface); 
     border: 1px solid var(--border-color);
     border-radius: 16px;
+    border-bottom-left-radius: 4px; /* Give it a chat bubble look */
     color: var(--text-color);
     font-weight: 600;
     font-size: clamp(0.75rem, 3.5vw, 0.85rem); 
@@ -73,7 +74,7 @@
     min-width: 140px;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
     animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    text-align: center;
+    text-align: left;
     text-shadow: none;
 }
 
@@ -86,31 +87,31 @@ body.light-mode .mascot-bubble {
 .mascot-bubble::before {
     content: '';
     position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 0 8px 8px 8px;
+    top: 100%;
+    left: 10px;
+    transform: none;
+    border-width: 10px 10px 0 0;
     border-style: solid;
-    border-color: transparent transparent var(--border-color) transparent;
+    border-color: var(--border-color) transparent transparent transparent;
 }
 
 .mascot-bubble::after {
     content: '';
     position: absolute;
-    top: -6px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 0 7px 7px 7px;
+    top: 100%;
+    left: 11px;
+    transform: none;
+    border-width: 9px 9px 0 0;
     border-style: solid;
-    border-color: transparent transparent var(--surface) transparent;
+    border-color: var(--surface) transparent transparent transparent;
 }
 
 body.light-mode .mascot-bubble::before {
-    border-color: transparent transparent #e2e8f0 transparent;
+    border-color: #e2e8f0 transparent transparent transparent;
 }
 
 body.light-mode .mascot-bubble::after {
-    border-color: transparent transparent #ffffff transparent;
+    border-color: #ffffff transparent transparent transparent;
 }
 
 /* States */
@@ -130,7 +131,7 @@ body.light-mode .mascot-bubble::after {
 }
 
 .mascot-container.happy .mascot-bubble::before {
-    border-color: transparent transparent var(--accent-yellow) transparent;
+    border-color: var(--accent-yellow) transparent transparent transparent;
 }
 
 .mascot-container.sad .mascot-avatar {
@@ -149,7 +150,7 @@ body.light-mode .mascot-bubble::after {
 }
 
 .mascot-container.sad .mascot-bubble::before {
-    border-color: transparent transparent var(--accent-pink) transparent;
+    border-color: var(--accent-pink) transparent transparent transparent;
 }
 
 /* Animations */
