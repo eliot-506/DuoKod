@@ -116,42 +116,47 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                     {/* 2. S-Shape Journey Map */}
                     <div className="journey-map-container">
                         
+                        <div className="co-starter-line"></div>
+
                         {MODULE_NODES.map((node, i) => {
-                        const isLast = i === MODULE_NODES.length - 1;
-                        // S-shape pattern for X offsets from center
-                        const pattern = [0, 80, 160, 50, -50, -160, -80];
-                        const xOffset = pattern[i % pattern.length];
-                        const nextXOffset = isLast ? 0 : pattern[(i + 1) % pattern.length];
-                        
-                        const isLabelLeft = xOffset > 0; // If node shifted right, label sits left
-                        const labelSide = isLabelLeft ? 'left' : 'right';
+                            const isLast = i === MODULE_NODES.length - 1;
+                            
+                            // Distribute nodes using pure % values to fill the wide canvas
+                            const pattern = [75, 40, 15, 50, 85, 60, 25, 50];
+                            const xOffset = pattern[i % pattern.length];
+                            const nextXOffset = isLast ? xOffset : pattern[(i + 1) % pattern.length];
+                            
+                            // Label positioning logic
+                            const isLabelLeft = xOffset > 50; 
+                            const labelSide = isLabelLeft ? 'left' : 'right';
 
-                        // Sizing constants based on specs
-                        let nodeSize = 88;
-                        if (node.status === 'current') nodeSize = 104;
-                        if (node.isBoss) nodeSize = 76;
-                        if (isLast) nodeSize = 96;
+                            // Sizing constants
+                            let nodeSize = 88;
+                            if (node.status === 'current') nodeSize = 104;
+                            if (node.isBoss) nodeSize = 76;
+                            if (isLast) nodeSize = 96;
 
-                        return (
-                            <div key={`node-${node.id}`} className={`journey-node-row status-${node.status} ${node.isBoss ? 'is-boss' : ''}`} style={{ position: 'relative', height: '240px', display: 'flex', justifyContent: 'center' }}>
-                                
-                                {/* Curved SVG Line to next node */}
-                                {!isLast && (
-                                    <svg className="path-connector" width="100%" height="240" style={{ position: 'absolute', top: '50%', left: 0, overflow: 'visible', zIndex: 0 }}>
-                                        <path 
-                                            d={`M ${300 + xOffset} 0 C ${300 + xOffset} 120, ${300 + nextXOffset} 120, ${300 + nextXOffset} 240`} 
-                                            stroke={node.status === 'completed' ? 'var(--primary)' : 'rgba(255,255,255,0.1)'} 
-                                            strokeWidth="6" 
-                                            fill="none" 
-                                            strokeLinecap="round"
-                                        />
-                                    </svg>
-                                )}
-                                
-                                {/* Interactive Node Circle */}
-                                <div 
-                                    className={`node-circle-btn size-variant-${nodeSize}`} 
-                                    style={{ transform: `translateX(${xOffset}px)`, zIndex: 2 }}
+                            return (
+                                <div key={`node-${node.id}`} className={`journey-node-row status-${node.status} ${node.isBoss ? 'is-boss' : ''}`} style={{ position: 'relative', height: '240px', width: '100%', display: 'flex', alignItems: 'center' }}>
+                                    
+                                    {/* Curved SVG Line connecting to next node */}
+                                    {!isLast && (
+                                        <svg className="path-connector" viewBox="0 0 100 100" preserveAspectRatio="none" style={{ position: 'absolute', top: '50%', left: 0, width: '100%', height: '240px', overflow: 'visible', zIndex: 0 }}>
+                                            <path 
+                                                d={`M ${xOffset} 0 C ${xOffset} 50, ${nextXOffset} 50, ${nextXOffset} 100`} 
+                                                stroke={node.status === 'completed' ? 'var(--primary)' : 'rgba(148, 163, 184, 0.2)'} 
+                                                strokeWidth="3" 
+                                                vectorEffect="non-scaling-stroke"
+                                                fill="none" 
+                                                strokeLinecap="round"
+                                            />
+                                        </svg>
+                                    )}
+                                    
+                                    {/* Interactive Node Circle */}
+                                    <div 
+                                        className={`node-circle-btn size-variant-${nodeSize}`} 
+                                        style={{ position: 'absolute', left: `${xOffset}%`, transform: 'translateX(-50%)', zIndex: 2 }}
                                     onClick={() => {
                                         if(node.status !== 'locked' && !node.isBoss) setPreviewNode(node);
                                         if(node.status !== 'locked' && node.isBoss && onBossStart) onBossStart(node.bossData);
@@ -178,8 +183,8 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                                         top: '50%', 
                                         transform: 'translateY(-50%)',
                                         ...(isLabelLeft 
-                                            ? { right: `calc(50% - ${xOffset}px + ${nodeSize/2 + 24}px)` }
-                                            : { left: `calc(50% + ${xOffset}px + ${nodeSize/2 + 24}px)` })
+                                            ? { right: `calc(100% - ${xOffset}% + ${nodeSize/2 + 24}px)` }
+                                            : { left: `calc(${xOffset}% + ${nodeSize/2 + 24}px)` })
                                     }}
                                 >
                                     <h4 className="j-title">{node.title}</h4>
