@@ -1,51 +1,45 @@
-:root, [data-theme="dark"] {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* ================================
+   GLOBAL THEME TOKENS
+   Dark = default, Light = toggle
+================================ */
 
-  color-scheme: light dark;
-  color: var(--text-color, rgba(255, 255, 255, 0.87));
-  background-color: var(--background, #0f172a);
-
+/* Dark mode (default) */
+:root {
   --background: #0f172a;
   --surface: #1e293b;
+  --surface-hover: #263248;
   --text-dark-theme: #ffffff;
   --text-color: #f1f5f9;
   --text-muted: #94a3b8;
   --border-color: #334155;
   --primary: #3B82F6;
-  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.25);
 
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-[data-theme="light"] {
+/* Light mode override */
+body[data-theme="light"] {
   --background: #F8FAFC;
   --surface: #FFFFFF;
+  --surface-hover: #F1F5F9;
   --text-dark-theme: #0F172A;
   --text-color: #1E293B;
   --text-muted: #64748B;
   --border-color: #E2E8F0;
   --primary: #3B82F6;
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05);
-
-  color-scheme: light;
-  color: var(--text-color);
-  background-color: var(--background);
+  --shadow-card: 0 1px 6px rgba(0, 0, 0, 0.08);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
+/* ================================
+   GLOBALS
+================================ */
 * {
   box-sizing: border-box !important;
 }
@@ -68,7 +62,9 @@ body {
   min-width: 320px;
   min-height: 100vh;
   box-sizing: border-box;
-  background-color: var(--background, #0f172a);
+  background-color: var(--background);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
   overscroll-behavior-x: none !important;
   position: relative !important;
   touch-action: pan-y;
@@ -88,6 +84,15 @@ h1 {
   line-height: 1.1;
 }
 
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -95,7 +100,6 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -105,17 +109,4 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
