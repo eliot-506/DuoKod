@@ -114,7 +114,7 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                     {MODULE_NODES.map((node, i) => {
                         const isLast = i === MODULE_NODES.length - 1;
                         // S-shape pattern for X offsets from center
-                        const pattern = [0, 60, 110, 40, -40, -110, -60];
+                        const pattern = [0, 80, 160, 50, -50, -160, -80];
                         const xOffset = pattern[i % pattern.length];
                         const nextXOffset = isLast ? 0 : pattern[(i + 1) % pattern.length];
                         
@@ -128,13 +128,13 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                         if (isLast) nodeSize = 96;
 
                         return (
-                            <div key={`node-${node.id}`} className={`journey-node-row status-${node.status} ${node.isBoss ? 'is-boss' : ''}`} style={{ position: 'relative', height: '160px', display: 'flex', justifyContent: 'center' }}>
+                            <div key={`node-${node.id}`} className={`journey-node-row status-${node.status} ${node.isBoss ? 'is-boss' : ''}`} style={{ position: 'relative', height: '240px', display: 'flex', justifyContent: 'center' }}>
                                 
                                 {/* Curved SVG Line to next node */}
                                 {!isLast && (
-                                    <svg className="path-connector" width="100%" height="160" style={{ position: 'absolute', top: '50%', left: 0, overflow: 'visible', zIndex: 0 }}>
+                                    <svg className="path-connector" width="100%" height="240" style={{ position: 'absolute', top: '50%', left: 0, overflow: 'visible', zIndex: 0 }}>
                                         <path 
-                                            d={`M ${300 + xOffset} 0 C ${300 + xOffset} 80, ${300 + nextXOffset} 80, ${300 + nextXOffset} 160`} 
+                                            d={`M ${300 + xOffset} 0 C ${300 + xOffset} 120, ${300 + nextXOffset} 120, ${300 + nextXOffset} 240`} 
                                             stroke={node.status === 'completed' ? 'var(--primary)' : 'rgba(255,255,255,0.1)'} 
                                             strokeWidth="6" 
                                             fill="none" 
