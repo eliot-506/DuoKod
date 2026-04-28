@@ -1,28 +1,65 @@
-.lesson-container {
+.lesson-container.new-layout {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
     width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
     background-color: var(--background);
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
     z-index: 100;
+    padding: 24px;
+}
+
+.lesson-stage {
+    width: 100%;
+    max-width: 980px;
+    height: 100%;
+    max-height: 850px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 32px;
+    background: var(--surface);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+body.light-mode .lesson-stage {
+    background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+    border-color: #e7eef7;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+}
+
+.lesson-stage::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 35%, rgba(59,130,246,0.12), transparent 350px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.95) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .lesson-header {
     display: flex;
     align-items: center;
-    padding: 20px 24px;
-    gap: 16px;
-    background-color: var(--surface);
-    border-bottom: 1px solid var(--border-color);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
+    padding: 24px 32px;
+    gap: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 5;
+    position: relative;
+}
+
+body.light-mode .lesson-header {
+    border-bottom-color: rgba(0, 0, 0, 0.05);
 }
 
 .lesson-exit-btn {
@@ -176,64 +213,70 @@
 
 /* Footer Section */
 .lesson-footer {
-    padding: 15px 30px;
+    padding: 24px 32px;
     border-top: 1px solid var(--border-color);
     background-color: var(--surface);
     transition: all 0.3s ease;
     position: relative;
     z-index: 10;
-    backdrop-filter: blur(10px);
+    margin-top: auto;
+}
+
+body.light-mode .lesson-footer {
+    border-top-color: #e7eef7;
 }
 
 .footer-correct {
-    background-color: rgba(0, 255, 204, 0.1);
+    background-color: rgba(0, 255, 204, 0.05);
     border-top-color: var(--primary);
-    box-shadow: 0 -10px 30px rgba(0, 255, 204, 0.1);
 }
 
 .footer-incorrect {
-    background-color: rgba(255, 75, 75, 0.1);
+    background-color: rgba(255, 75, 75, 0.05);
     border-top-color: var(--accent-pink);
-    box-shadow: 0 -10px 30px rgba(255, 75, 75, 0.1);
 }
 
 .footer-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 800px;
-    margin: 0 auto;
+    width: 100%;
+}
+
+.feedback-message.theory-helper p {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    font-weight: 600;
 }
 
 .feedback-message h3 {
-    font-size: 1.5rem;
-    margin-bottom: 2px;
+    font-size: 1.6rem;
+    margin-bottom: 4px;
     font-weight: 800;
 }
 
 .footer-correct .feedback-message {
     color: var(--primary);
-    text-shadow: var(--primary-glow);
 }
 
 .footer-incorrect .feedback-message {
     color: var(--accent-pink);
-    text-shadow: var(--accent-pink-glow);
 }
 
 .footer-incorrect p,
 .footer-correct p {
-    color: var(--text-dark);
-    opacity: 0.8;
-    font-family: var(--font-mono);
-    font-size: 1rem;
+    color: var(--text-color);
+    opacity: 0.9;
+    font-size: 1.1rem;
     font-weight: 600;
 }
 
 .check-btn {
-    padding: 12px 30px;
-    font-size: 1.1rem;
-    min-width: 150px;
+    padding: 14px 40px;
+    font-size: 1.15rem;
+    min-width: 180px;
+    border-radius: 16px;
+    font-weight: 800;
 }
 
 .check-btn.disabled {
@@ -246,51 +289,87 @@
 }
 
 /* Theory and Mascot Styles */
+.lesson-content {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+    position: relative;
+    z-index: 5;
+}
+
 .theory-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
-    height: 100%;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .theory-card {
-    background: rgba(20, 20, 30, 0.8);
-    border: 1px solid var(--primary);
-    border-radius: var(--border-radius-lg);
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0, 255, 204, 0.1), inset 0 0 20px rgba(0, 255, 204, 0.05);
-    max-width: 600px;
+    background: var(--surface-variant);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 40px 48px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 720px;
     text-align: center;
-    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 2;
     animation: slideUp 0.5s ease-out;
+    margin-top: -30px; /* Pull it up to overlap with mascot */
+}
+
+body.light-mode .theory-card {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 10px 40px rgba(15, 23, 42, 0.05);
 }
 
 .theory-card h3 {
-    font-size: 2rem;
-    color: var(--primary);
-    margin-bottom: 20px;
+    font-size: 2.2rem;
+    color: var(--text-color);
+    margin-bottom: 24px;
     font-weight: 800;
-    text-shadow: var(--primary-glow);
 }
 
 .theory-card p {
-    font-size: 1.2rem;
-    color: var(--text-light);
-    line-height: 1.6;
+    font-size: 1.35rem;
+    color: var(--text-muted);
+    line-height: 1.7;
     font-weight: 600;
+}
+
+.theory-pagination {
+    margin-top: 32px;
+    display: inline-block;
+    padding: 8px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: 99px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-muted);
 }
 
 .mascot-quiz-wrapper {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
     padding-top: 10px;
-    /* Pufakcha (absolute) pastdagi savol matnini yopmasligi uchun joy ajratamiz */
-    padding-bottom: 90px;
-    position: relative; /* Pufakcha shu konteyner ichida qoladi (chiqmaydi) */
-    overflow: visible;
+    position: relative;
+    z-index: 10;
+    margin-bottom: 0;
+    /* Move robot down slightly to overlap the card */
+    transform: translateY(20px);
+}
+
+/* Hide the global floating robot when the lesson stage is open */
+body:has(.lesson-container.new-layout) .floating-robot-wrapper {
+    display: none !important;
 }
 
 @keyframes slideUp {

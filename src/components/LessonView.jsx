@@ -270,47 +270,57 @@ function LessonView({ onComplete, onExit, lessonId }) {
     const progressPercentage = (currentStep / totalSteps) * 100;
 
     return (
-        <div className="lesson-container">
-            <div className="lesson-header">
-                <button className="lesson-exit-btn" onClick={onExit}>✕</button>
-                <div className="lesson-progress-bar">
-                    <div className="lesson-progress-fill" style={{ width: `${progressPercentage}%` }}></div>
+        <div className="lesson-container new-layout">
+            <div className="lesson-stage">
+                <div className="lesson-header">
+                    <button className="lesson-exit-btn" onClick={onExit}>✕</button>
+                    <div className="lesson-progress-bar">
+                        <div className="lesson-progress-fill" style={{ width: `${progressPercentage}%` }}></div>
+                    </div>
+                    <div className="lesson-hearts">
+                        <i className="fa-solid fa-heart"></i> {stats.hearts}
+                    </div>
                 </div>
-                <div className="lesson-hearts">❤️ {stats.hearts}</div>
-            </div>
 
-            <div className="lesson-content">
-                {phase === 'theory' ? renderTheory() : renderQuiz()}
-            </div>
+                <div className="lesson-content">
+                    {phase === 'theory' ? renderTheory() : renderQuiz()}
+                </div>
 
-            <div className={`lesson-footer ${isChecked && phase === 'quiz' ? (isCorrect ? 'footer-correct' : 'footer-incorrect') : ''}`}>
-                <div className="footer-content">
-                    {isChecked && phase === 'quiz' ? (
-                        <div className="feedback-message">
-                            <h3>{isCorrect ? 'To\'g\'ri!' : 'Xato javob!'}</h3>
-                            <p>{isCorrect ? 'Qoyilmaqom, davom etamiz 🎉' : 'Robot qahramon fikriga e\'tibor bering'}</p>
-                        </div>
-                    ) : (
-                        <div className="feedback-placeholder"></div>
-                    )}
-
-                    <div className="button-group" style={{ display: 'flex', gap: '15px' }}>
-                        {isChecked && phase === 'quiz' && !isCorrect && hintLevel < 3 && (
-                            <button
-                                className="btn btn-secondary"
-                                onClick={() => setHintLevel(prev => prev + 1)}
-                                style={{ background: 'var(--surface)', color: 'var(--accent-pink)', borderColor: 'var(--accent-pink)' }}
-                            >
-                                💡 Yordam So'rash ({3 - hintLevel})
-                            </button>
+                <div className={`lesson-footer ${isChecked && phase === 'quiz' ? (isCorrect ? 'footer-correct' : 'footer-incorrect') : ''}`}>
+                    <div className="footer-content">
+                        {phase === 'theory' ? (
+                            <div className="feedback-message theory-helper">
+                                <p>Tayyor bo'lsangiz, keyingi qadamga o'tamiz.</p>
+                            </div>
+                        ) : (
+                            isChecked && phase === 'quiz' ? (
+                                <div className="feedback-message">
+                                    <h3>{isCorrect ? 'To\'g\'ri!' : 'Xato javob!'}</h3>
+                                    <p>{isCorrect ? 'Qoyilmaqom, davom etamiz 🎉' : 'Robot qahramon fikriga e\'tibor bering'}</p>
+                                </div>
+                            ) : (
+                                <div className="feedback-placeholder"></div>
+                            )
                         )}
-                        <button
-                            className={`btn btn-primary check-btn ${phase === 'quiz' && isCheckDisabled && !isChecked ? 'disabled' : ''}`}
-                            onClick={phase === 'theory' || isChecked ? handleNext : handleCheck}
-                            disabled={phase === 'quiz' && !isChecked && isCheckDisabled}
-                        >
-                            {phase === 'theory' ? "Tushunarli, Davom etish" : (isChecked ? (isCorrect ? 'Davom etish' : 'Tushundim, Qayta urinish') : 'Tekshirish')}
-                        </button>
+
+                        <div className="button-group" style={{ display: 'flex', gap: '15px' }}>
+                            {isChecked && phase === 'quiz' && !isCorrect && hintLevel < 3 && (
+                                <button
+                                    className="btn btn-secondary"
+                                    onClick={() => setHintLevel(prev => prev + 1)}
+                                    style={{ background: 'var(--surface)', color: 'var(--accent-pink)', borderColor: 'var(--accent-pink)' }}
+                                >
+                                    💡 Yordam So'rash ({3 - hintLevel})
+                                </button>
+                            )}
+                            <button
+                                className={`btn btn-primary check-btn ${phase === 'quiz' && isCheckDisabled && !isChecked ? 'disabled' : ''}`}
+                                onClick={phase === 'theory' || isChecked ? handleNext : handleCheck}
+                                disabled={phase === 'quiz' && !isChecked && isCheckDisabled}
+                            >
+                                {phase === 'theory' ? "Tushunarli, Davom etish" : (isChecked ? (isCorrect ? 'Davom etish' : 'Tushundim, Qayta urinish') : 'Tekshirish')}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
