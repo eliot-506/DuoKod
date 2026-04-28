@@ -24,8 +24,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Light mode override */
-body[data-theme="light"] {
+/* Light mode override — applied to html element via JS */
+html[data-theme="light"] {
   --background: #F8FAFC;
   --surface: #FFFFFF;
   --surface-hover: #F1F5F9;

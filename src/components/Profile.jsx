@@ -23,7 +23,7 @@ function Profile() {
     const [selectedSkillTab, setSelectedSkillTab] = useState(stats.currentCourse || 'python');
 
     useEffect(() => {
-        document.body.setAttribute('data-theme', theme);
+        document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
     }, [theme])
 
