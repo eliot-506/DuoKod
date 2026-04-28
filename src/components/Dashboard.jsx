@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import './Dashboard.css';
+import './LearningTab.css';
 import { useUser } from '../context/UserContext';
 import { getStreakTier } from '../utils/streakUtils';
 import AnimatedRobot from './AnimatedRobot';
-
+import { COURSES } from '../data/lessons';
 function Dashboard({ onNavigate }) {
-    const { stats, currentLevel, currentLevelXp, nextLevelXp } = useUser();
+    const { stats, currentLevel, currentLevelXp, nextLevelXp, switchCourse } = useUser();
     const tier = getStreakTier(stats?.streak || 0);
+    const isAdmin = stats?.isAdmin || stats?.isSuperAdmin;
 
     const dailyQuests = [
         { id: 1, title: 'Bitta HTML darsini tugating', amount: 1, progress: 0, reward: 15, completed: false },
@@ -30,6 +32,51 @@ function Dashboard({ onNavigate }) {
     const totalModules = safeCourseId === 'python' ? 11 : 5;
     const progressPercent = Math.min((completedNodes / totalModules) * 100, 100).toFixed(0);
     const completedLevelPercent = Math.min((currentLevelXp / nextLevelXp) * 100, 100);
+
+    // Barcha kurslar bo'yicha umumiy bitirgan nodelar soni (Yangi foydalanuvchini aniqlash)
+    const totalCompletedAcrossAll = Object.values(stats?.courses || {}).reduce((acc, course) => acc + (course.completedNodes?.length || 0), 0);
+    const isNewUser = totalCompletedAcrossAll === 0;
+    const COURSE_KEYS = ['html', 'css', 'js', 'python'];
+
+    // Agar o'quvchi yangi bo'lsa (yoki birinchi marta kirdi), unga avval kurs tanlatamiz
+    if (isNewUser) {
+        return (
+            <div className="dash-wrapper" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', padding: '60px 24px' }}>
+                <div className="header-title text-center" style={{ marginBottom: '40px' }}>
+                    <h1 style={{ fontSize: '2.5rem', color: 'var(--text-dark)', fontWeight: '800' }}>Siz nima o'rganmoqchisiz?</h1>
+                    <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }}>O'zingiz qiziqqan yo'nalishni tanlang</p>
+                </div>
+                <div className="courses-grid" style={{ maxWidth: '1000px', margin: '0 auto', width: '100%' }}>
+                    {COURSE_KEYS.map(key => {
+                        const c = COURSES[key];
+                        if (!c) return null;
+                        const isLocked = !isAdmin && key !== 'python'; // Admins have all, others only Python
+                        return (
+                            <div
+                                key={key}
+                                className={`course-card ${isLocked ? 'course-card-locked' : ''}`}
+                                style={{ '--card-color': isLocked ? '#444' : (c.color || '#fff') }}
+                                onClick={() => {
+                                    if (!isLocked) {
+                                        switchCourse(key);
+                                        onNavigate('map'); // Avtomatik map sahifasiga o'tkazish
+                                    }
+                                }}
+                            >
+                                <div className="course-icon" style={{ opacity: isLocked ? 0.4 : 1 }}>{c.title ? c.title.charAt(0) : 'C'}</div>
+                                <h3 style={{ opacity: isLocked ? 0.5 : 1 }}>{c.title || 'Kurs'}</h3>
+                                {isLocked ? (
+                                    <div className="course-locked-badge">🔒 Tez kunda</div>
+                                ) : (
+                                    <button className="start-btn" style={{ backgroundColor: c.color || '#fff', color: '#000' }}>Tanlash</button>
+                                )}
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        );
+    }
 
     return (
       <div className="dash-wrapper">

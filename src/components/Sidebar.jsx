@@ -40,11 +40,7 @@ function Sidebar({ currentTab, onNavigate }) {
                 })}
             </nav>
 
-            <div className="sidebar-footer">
-                <p className="footer-title">Uchqundan eslatma</p>
-                <div style={{ display: 'inline-block', padding: '2px 8px', background: 'rgba(5, 150, 105, 0.1)', color: '#059669', borderRadius: '8px', fontSize: '0.7rem', fontWeight: 'bold', marginBottom: '8px' }}>Faol holat</div>
-                <p className="footer-desc">Bugun kamida bitta topshiriqni bajaring va streakni davom ettiring.</p>
-            </div>
+
         </aside>
     );
 }
