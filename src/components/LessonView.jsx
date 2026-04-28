@@ -238,7 +238,9 @@ function LessonView({ onComplete, onExit, lessonId }) {
 
         return (
             <div className="theory-container">
-                <Mascot state={robotState} message={message} />
+                <div className="results-mascot">
+                    <Mascot state={robotState} message={message} />
+                </div>
                 <div className="theory-card">
                     <h3>Dars yakunlandi!</h3>
                     <p>Sizning yakuniy natijangiz: <strong>{Math.round(score)}%</strong></p>
