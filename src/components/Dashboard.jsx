@@ -133,8 +133,8 @@ function Dashboard({ onNavigate }) {
                   />
                 </svg>
                 <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                  <span style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--text-dark)', lineHeight: 1 }}>20</span>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-muted)', marginTop: '4px' }}>/ 50 XP</span>
+                  <span className="goal-circle-num">20</span>
+                  <span className="goal-circle-sub">/ 50 XP</span>
                 </div>
               </div>
 
@@ -148,50 +148,64 @@ function Dashboard({ onNavigate }) {
               </button>
             </aside>
 
-            {/* ROW 2: Compact Stat Cards */}
-            <div className="col-3 card-kpi dashboard-card" style={{ position: 'relative', overflow: 'hidden', padding: '20px', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, background: 'linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(255,255,255,0) 100%)', pointerEvents: 'none' }}></div>
-              <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            {/* ROW 2: Compact Streak Card (unchanged) */}
+            <div className="col-3 card-kpi dashboard-card" style={{ background: 'linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%)', border: '1px solid #BFDBFE', overflow: 'hidden', padding: '22px', display: 'flex', flexDirection: 'column' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div>
-                  <h4 style={{ margin: '0 0 6px 0', fontSize: '0.9rem', fontWeight: 800, color: 'var(--text-dark)' }}>Uchqundan eslatma</h4>
-                  <span style={{ fontSize: '0.7rem', padding: '4px 10px', background: '#D1FAE5', color: '#059669', borderRadius: '12px', fontWeight: 700 }}>Faol holat</span>
+                  <div className="kpi-icon kpi-icon-blue" style={{ marginBottom: '8px' }}>🔥</div>
+                  <h4 style={{ margin: '0 0 4px 0', fontSize: '0.78rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Uchqundan eslatma</h4>
+                  <span style={{ fontSize: '0.68rem', padding: '3px 10px', background: '#DCFCE7', color: '#16A34A', borderRadius: '50px', fontWeight: 700 }}>Faol holat</span>
                 </div>
               </div>
-              
-              <p style={{ position: 'relative', zIndex: 1, fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.5', margin: '16px 0', fontWeight: 500 }}>
+              <p style={{ fontSize: '0.82rem', color: '#64748B', lineHeight: '1.5', margin: '14px 0', fontWeight: 500 }}>
                 Bugun kamida bitta topshiriqni bajaring va streak'ni davom ettiring.
               </p>
-              
-              <div style={{ position: 'relative', zIndex: 1, marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-dark)' }}>{stats.streak}/7 kun</span>
-                  <div className="progress-track" style={{ width: '40px', height: '6px', margin: 0 }}>
-                    <div className="progress-fill fill-amber" style={{ width: `${Math.min((stats.streak / 7) * 100, 100)}%`, background: '#F59E0B' }}></div>
+                  <span style={{ fontSize: '0.875rem', fontWeight: 800, color: '#1D4ED8' }}>{stats.streak}/7 kun</span>
+                  <div className="progress-track" style={{ width: '44px', height: '6px', margin: 0 }}>
+                    <div className="progress-fill fill-blue" style={{ width: `${Math.min((stats.streak / 7) * 100, 100)}%` }}></div>
                   </div>
                 </div>
-                <a href="#" style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--primary)', textDecoration: 'none' }}>Batafsil</a>
+                <a href="#" style={{ fontSize: '0.78rem', fontWeight: 700, color: '#2563EB', textDecoration: 'none' }}>Batafsil</a>
               </div>
             </div>
-            
-            <div className="col-3 card-kpi dashboard-card">
-              <p>Jami tajriba</p>
-              <div className="kpi-content">
-                <div className="kpi-val">{stats.xp} Tajriba</div>
-                <div className="kpi-trend">+35 bu hafta</div>
+
+            {/* XP — Green */}
+            <div className="col-3 card-kpi kpi-xp dashboard-card">
+              <div className="kpi-row">
+                <p className="kpi-label">Jami tajriba</p>
+                <div className="kpi-icon kpi-icon-green">⚡</div>
+              </div>
+              <div>
+                <div className="kpi-val" style={{ color: '#15803D' }}>{stats.xp}</div>
+                <span className="kpi-trend">+35 bu hafta</span>
               </div>
             </div>
-            
-            <div className="col-3 card-kpi dashboard-card">
-              <p>Sog'liq (Imkon)</p>
-              <div className="kpi-content">
-                <div className="kpi-val">{stats.hearts}</div>
+
+            {/* Hearts — Yellow */}
+            <div className="col-3 card-kpi kpi-hearts dashboard-card">
+              <div className="kpi-row">
+                <p className="kpi-label">Sog'liq (Imkon)</p>
+                <div className="kpi-icon kpi-icon-yellow">❤️</div>
+              </div>
+              <div>
+                <div className="kpi-val" style={{ color: '#B45309' }}>{stats.hearts}</div>
+                <span className="kpi-trend kpi-trend-yellow">Imkonlar</span>
               </div>
             </div>
-            
-            <div className="col-3 card-kpi dashboard-card">
-              <p>Tugallangan darslar</p>
-              <div className="kpi-content">
-                <div className="kpi-val">{completedNodes} / {totalModules}</div>
+
+            {/* Lessons — Neutral white */}
+            <div className="col-3 card-kpi kpi-lessons dashboard-card">
+              <div className="kpi-row">
+                <p className="kpi-label">Tugallangan darslar</p>
+                <div className="kpi-icon kpi-icon-blue">📚</div>
+              </div>
+              <div>
+                <div className="kpi-val" style={{ color: '#1E3A5F' }}>{completedNodes} <span style={{ fontSize: '1.1rem', color: '#94A3B8' }}>/ {totalModules}</span></div>
+                <div className="progress-track kpi-mini-bar" style={{ height: '6px' }}>
+                  <div className="progress-fill fill-blue" style={{ width: `${Math.round((completedNodes / (totalModules || 1)) * 100)}%` }}></div>
+                </div>
               </div>
             </div>
 
@@ -202,18 +216,19 @@ function Dashboard({ onNavigate }) {
                 <button>Barchasini ko'rish</button>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {dailyQuests.map((quest) => (
-                  <label key={quest.id} className={`task-item ${quest.completed ? 'completed' : ''}`} style={{ marginBottom: 0, padding: '16px', display: 'flex', alignItems: 'flex-start', gap: '16px', cursor: 'pointer', transition: 'all 0.2s' }}>
-                    <div style={{ paddingTop: '2px' }}>
-                      <input type="checkbox" checked={quest.completed} readOnly className="goal-checkbox" style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: 'var(--primary)', margin: 0, display: 'block', border: '2px solid #CBD5E1' }} />
+                  <label key={quest.id} className={`task-item ${quest.completed ? 'completed' : ''}`}>
+                    <div className="task-status-dot"></div>
+                    <div style={{ paddingTop: '1px' }}>
+                      <input type="checkbox" checked={quest.completed} readOnly className="goal-checkbox" style={{ width: '17px', height: '17px', cursor: 'pointer', accentColor: '#2563EB', margin: 0, display: 'block' }} />
                     </div>
                     <div style={{ flex: 1 }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <p style={{ fontSize: '0.95rem', margin: 0, fontWeight: 600, color: 'var(--text-dark)' }}>{quest.title}</p>
-                        <span style={{ minWidth: '85px', textAlign: 'center', whiteSpace: 'nowrap', padding: '4px 10px', fontSize: '0.75rem', background: 'var(--warning-light)', color: '#B45309', borderRadius: '50px', fontWeight: 700 }}>+{quest.reward} Tajriba</span>
+                        <p style={{ fontSize: '0.9rem', margin: 0, fontWeight: 600, color: '#0F172A' }}>{quest.title}</p>
+                        <span className="task-xp-badge">+{quest.reward} XP</span>
                       </div>
-                      <div className="progress-track" style={{ height: '6px', marginTop: '12px', background: '#E2E8F0' }}>
+                      <div className="progress-track" style={{ height: '5px', marginTop: '10px' }}>
                         <div className="progress-fill fill-blue" style={{ width: `${(quest.progress / quest.amount) * 100}%` }}></div>
                       </div>
                     </div>
