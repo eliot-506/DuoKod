@@ -417,12 +417,11 @@ body.light-mode .theory-card p {
 .mascot-quiz-wrapper {
     display: flex;
     justify-content: center;
-    padding-top: 0;
+    padding-top: 20px; /* Add padding so head is not cut off */
     position: relative;
     z-index: 10;
-    margin-bottom: 0;
-    /* Move robot down tighter to overlap the card */
-    transform: translateY(35px);
+    margin-bottom: -15px; /* Pull the next element (task header) closer */
+    transform: none; /* Remove translateY to stop clipping at top */
 }
 
 /* Hide the global floating robot when the lesson stage is open */

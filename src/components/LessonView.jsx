@@ -19,6 +19,8 @@ function LessonView({ onComplete, onExit, lessonId }) {
     const [isCorrect, setIsCorrect] = useState(false)
     const [hintLevel, setHintLevel] = useState(0)
 
+    const [mistakes, setMistakes] = useState(0)
+
     const { stats, updateSkill } = useUser()
     const activeCourseData = COURSES[stats.currentCourse].data;
     const questionData = activeCourseData.find(l => l.id === lessonId) || activeCourseData[0];
@@ -60,6 +62,7 @@ function LessonView({ onComplete, onExit, lessonId }) {
         setIsChecked(false);
         setIsCorrect(false);
         setHintLevel(0);
+        setMistakes(0);
         setBossQuestions(null);
     }, [lessonId]);
 
@@ -89,6 +92,7 @@ function LessonView({ onComplete, onExit, lessonId }) {
         } else {
             playErrorSound();
             setHintLevel(0);
+            setMistakes(prev => prev + 1);
             if (currentQuestion.skill && updateSkill) {
                 updateSkill(stats.currentCourse, currentQuestion.skill, -3);
             }
@@ -104,7 +108,7 @@ function LessonView({ onComplete, onExit, lessonId }) {
                 const firstQ = activeQuestions[0];
                 setFillValue(firstQ.type === 'code-fix' ? firstQ.initialCode : '');
             }
-        } else {
+        } else if (phase === 'quiz') {
             if (isCorrect && currentQuestionIndex < activeQuestions.length - 1) {
                 // Keyingi savolga o'tish
                 const nextIndex = currentQuestionIndex + 1;
@@ -116,16 +120,15 @@ function LessonView({ onComplete, onExit, lessonId }) {
                 setHintLevel(0);
                 setFillValue(nextQ.type === 'code-fix' ? nextQ.initialCode : '');
             } else if (isCorrect && currentQuestionIndex === activeQuestions.length - 1) {
-                // Oxirgi savolda tugatish
-                onComplete(isCorrect);
+                // Oxirgi savolda natijalarga o'tish
+                setPhase('results');
             } else {
-                // Biz Dulingoga ohshab joyida to'g'rilashga bermasdan pastga tugmani "Davom etish" qilsak qanday?
-                // Hozir agar false botsa tekshirish yana qaytarilsin.
                 setIsChecked(false);
                 setSelectedId(null);
                 setHintLevel(0);
-                // fillValue qoladi (kodni o'chirmaslik uchun)
             }
+        } else if (phase === 'results') {
+            onComplete(true);
         }
     }
 
@@ -216,6 +219,35 @@ function LessonView({ onComplete, onExit, lessonId }) {
         }
     }
 
+    const renderResults = () => {
+        const totalQuestions = activeQuestions.length;
+        const score = Math.max(0, 100 - (mistakes * (100 / totalQuestions)));
+        
+        let robotState = 'happy';
+        let message = "Ajoyib natija! Barcha savollarga to'g'ri javob berdingiz!";
+        
+        if (score === 100) {
+            robotState = 'happy';
+        } else if (score > 60) {
+            robotState = 'default';
+            message = `Yaxshi natija! Siz ${Math.round(score)}% to'pladingiz.`;
+        } else {
+            robotState = 'sad';
+            message = "Ko'proq o'qish kerak! Hech qisi yo'q, qayta urinib ko'ramiz.";
+        }
+
+        return (
+            <div className="theory-container">
+                <Mascot state={robotState} message={message} />
+                <div className="theory-card">
+                    <h3>Dars yakunlandi!</h3>
+                    <p>Sizning yakuniy natijangiz: <strong>{Math.round(score)}%</strong></p>
+                    <p>Yo'l qo'yilgan xatolar: {mistakes}</p>
+                </div>
+            </div>
+        );
+    };
+
     const renderQuiz = () => {
         const currentQuestion = activeQuestions[currentQuestionIndex];
         return (
@@ -251,7 +283,7 @@ function LessonView({ onComplete, onExit, lessonId }) {
                                 message={isCorrect ? 'Ajoyib! Juda to\'g\'ri' : getMentorHint(currentQuestion, selectedId || fillValue, hintLevel)}
                             />
                         ) : (
-                            <Mascot state="thinking" message="Qani, o'ylab ko'ringchi..." />
+                            <Mascot state="happy" message="" />
                         )
                     )}
                 </div>
@@ -291,7 +323,7 @@ function LessonView({ onComplete, onExit, lessonId }) {
                 </div>
 
                 <div className="lesson-content">
-                    {phase === 'theory' ? renderTheory() : renderQuiz()}
+                    {phase === 'theory' ? renderTheory() : (phase === 'quiz' ? renderQuiz() : renderResults())}
                 </div>
 
                 <div className={`lesson-footer ${isChecked && phase === 'quiz' ? (isCorrect ? 'footer-correct' : 'footer-incorrect') : ''}`}>
@@ -299,6 +331,10 @@ function LessonView({ onComplete, onExit, lessonId }) {
                         {phase === 'theory' ? (
                             <div className="feedback-message theory-helper">
                                 <p>Tayyor bo'lsangiz, keyingi qadamga o'tamiz.</p>
+                            </div>
+                        ) : phase === 'results' ? (
+                            <div className="feedback-message theory-helper">
+                                <p>Darsni muvaffaqiyatli yakunladingiz!</p>
                             </div>
                         ) : (
                             isChecked && phase === 'quiz' ? (
@@ -323,11 +359,13 @@ function LessonView({ onComplete, onExit, lessonId }) {
                             )}
                             <button
                                 className={`btn btn-primary check-btn ${phase === 'quiz' && isCheckDisabled && !isChecked ? 'disabled' : ''}`}
-                                onClick={phase === 'theory' || isChecked ? handleNext : handleCheck}
+                                onClick={(phase === 'theory' || phase === 'results' || isChecked) ? handleNext : handleCheck}
                                 disabled={phase === 'quiz' && !isChecked && isCheckDisabled}
                             >
                                 {phase === 'theory' ? (
                                     <>Tushundim, davom etamiz <i className="fa-solid fa-arrow-right" style={{marginLeft: '8px'}}></i></>
+                                ) : phase === 'results' ? (
+                                    <>Darsni yakunlash <i className="fa-solid fa-check" style={{marginLeft: '8px'}}></i></>
                                 ) : (
                                     isChecked ? (isCorrect ? 'Davom etish' : 'Tushundim, Qayta urinish') : 'Tekshirish'
                                 )}
