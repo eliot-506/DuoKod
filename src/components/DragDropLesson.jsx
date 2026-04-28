@@ -88,26 +88,28 @@ function DragDropLesson({ blocks, correctAnswer, onChange, isChecked, isCorrect,
                 </AnimatePresence>
             </div>
 
-            <div className="available-area">
-                <AnimatePresence>
-                    {available.map((block, i) => (
-                        <motion.button
-                            layout
-                            initial={{ scale: 0.8, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.8, opacity: 0 }}
-                            whileHover={{ scale: isChecked ? 1 : 1.05 }}
-                            whileTap={{ scale: isChecked ? 1 : 0.95 }}
-                            key={`avail-${block}-${i}`}
-                            className="code-block available-block"
-                            onClick={() => handleSelect(block, i)}
-                            disabled={isChecked}
-                        >
-                            {block}
-                        </motion.button>
-                    ))}
-                </AnimatePresence>
-            </div>
+            {!(isChecked && isCorrect) && (
+                <div className="available-area">
+                    <AnimatePresence>
+                        {available.map((block, i) => (
+                            <motion.button
+                                layout
+                                initial={{ scale: 0.8, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                exit={{ scale: 0.8, opacity: 0 }}
+                                whileHover={{ scale: isChecked ? 1 : 1.05 }}
+                                whileTap={{ scale: isChecked ? 1 : 0.95 }}
+                                key={`avail-${block}-${i}`}
+                                className="code-block available-block"
+                                onClick={() => handleSelect(block, i)}
+                                disabled={isChecked}
+                            >
+                                {block}
+                            </motion.button>
+                        ))}
+                    </AnimatePresence>
+                </div>
+            )}
         </div>
     );
 }
