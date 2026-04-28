@@ -111,44 +111,57 @@ function DuelMode({ onComplete }) {
     }
 
     if (phase === 'result') {
+        const synthesizedPlayerProgress = matchResult === 'win' ? '100%' : `${Math.min(85, Math.max(15, Math.floor((60 - timeLeft) / 60 * 100)) + 15)}%`;
+        
         return (
             <div className="duel-container result-wrapper">
-                <h1 className={`result-title ${matchResult}`}>
-                    {matchResult === 'win' ? "G'ALABA! 🎉" : "MAG'LUBIYAT 💀"}
+                <h1 className={`result-title new-style ${matchResult}`}>
+                    {matchResult === 'win' ? "Ajoyib G'alaba! 🎉" : "Bu safar biroz yetmay qoldi"}
                 </h1>
                 
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '24px' }}>
-                    <div style={{ transform: 'scale(1.2)', padding: '20px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '32px' }}>
+                    <div style={{ transform: 'scale(1.15)', padding: '10px' }}>
                         <AnimatedRobot customState={matchResult === 'win' ? 'celebration' : 'sad'} />
                     </div>
-                    <p style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--text-color)', marginTop: '8px' }}>
-                        {matchResult === 'win' ? "+50 XP Olingiz! Siz ajoyib dasturchisiz!" : "Raqib tezroq edi, taslim bo'lmang!"}
+                    <p style={{ fontSize: '1.15rem', fontWeight: '600', color: 'var(--text-muted)', marginTop: '4px', textAlign: 'center', maxWidth: '400px' }}>
+                        {matchResult === 'win' ? "+50 XP Olingiz! Siz ajoyib dasturchisiz!" : "Raqib tezroq bo'ldi, lekin keyingi urinishda natijani yaxshilashingiz mumkin."}
                     </p>
                 </div>
 
-                <div className="result-stats">
+                <div className="result-stats new-card">
                     <div className="stat-box">
-                        <span>Sizning holatingiz</span>
-                        <div className="final-avatar" style={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <span className="stat-header">Sizning holatingiz</span>
+                        <div className="final-avatar" style={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'var(--surface-variant)' }}>
                             <div style={{ width: '80%', height: '80%' }}>
-                                <AnimatedRobot customState="happy" />
+                                <AnimatedRobot customState={matchResult === 'win' ? 'happy' : 'idle'} />
                             </div>
                         </div>
-                        <h3>{matchResult === 'win' ? '100%' : 'Chala'}</h3>
+                        <h3 className="stat-value">{synthesizedPlayerProgress}</h3>
                     </div>
-                    <div className="vs-badge-small">VS</div>
+                    <div className="vs-badge-decorative">VS</div>
                     <div className="stat-box enemy-stat">
-                        <span>{opponent?.name}</span>
-                        <div className="final-avatar">{opponent?.avatar}</div>
-                        <h3>{matchResult === 'lose' ? '100%' : enemyProgress + '%'}</h3>
+                        <span className="stat-header">{opponent?.name}</span>
+                        <div className="final-avatar" style={{ background: 'var(--surface-variant)' }}>{opponent?.avatar}</div>
+                        <h3 className="stat-value">{matchResult === 'lose' ? '100%' : enemyProgress + '%'}</h3>
                     </div>
                 </div>
-                <button className="btn btn-primary mt-20" onClick={() => {
-                    setPhase('matchmaking');
-                    setEnemyProgress(0);
-                    setTimeLeft(60);
-                    setCode(CHALLENGE.initialCode);
-                }}>Yangi Jang ⚔️</button>
+                
+                <div className="duel-actions" style={{ display: 'flex', gap: '16px', marginTop: '32px', justifyContent: 'center' }}>
+                    <button className="btn btn-primary" onClick={() => {
+                        setPhase('matchmaking');
+                        setEnemyProgress(0);
+                        setTimeLeft(60);
+                        setCode(CHALLENGE.initialCode);
+                    }}>Yangi Jang ⚔️</button>
+                    {matchResult === 'lose' && (
+                        <button className="btn btn-outline" onClick={() => {
+                            setPhase('matchmaking');
+                            setEnemyProgress(0);
+                            setTimeLeft(60);
+                            setCode(CHALLENGE.initialCode);
+                        }}>Qayta urinish 🔄</button>
+                    )}
+                </div>
             </div>
         );
     }
