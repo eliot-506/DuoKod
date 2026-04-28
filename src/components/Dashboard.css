@@ -1,21 +1,21 @@
 /* Dashboard.css - Full-width 12-col Grid Asymmetrical Dashboard Layout */
 
 .dash-wrapper {
-  --bg: #F8FAFC;
-  --card: #FFFFFF;
-  --text-dark: #0F172A;
-  --text-base: #1E293B;
-  --text-muted: #64748B;
-  --line: #E2E8F0;
-  --primary: #3B82F6;
+  --bg: var(--background);
+  --card: var(--surface);
+  --text-dark: var(--text-dark-theme);
+  --text-base: var(--text-color);
+  --text-muted: var(--text-muted);
+  --line: var(--border-color);
+  --border-subtle: 1px solid var(--border-color);
+  --shadow-card: var(--shadow-card);
+  --primary: var(--primary);
   --primary-hover: #2563EB;
-  --primary-light: #EFF6FF;
+  --primary-light: rgba(59, 130, 246, 0.1);
   --success: #10B981;
-  --success-light: #D1FAE5;
+  --success-light: rgba(16, 185, 129, 0.1);
   --warning: #F59E0B;
-  --warning-light: #FEF3C7;
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.01); /* Yengillashtirilgan shadow */
-  --border-subtle: 1px solid var(--line);
+  --warning-light: rgba(245, 158, 11, 0.1);
   --radius-xl: 24px;
   --radius-lg: 20px;
   

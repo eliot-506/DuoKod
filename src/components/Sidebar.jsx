@@ -51,11 +51,11 @@ function Sidebar({ currentTab, onNavigate }) {
                 })}
             </nav>
 
-            <div className="sidebar-theme-toggle" style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px', background: '#F8FAFC', borderRadius: '16px', border: '1px solid #E2E8F0' }}>
-                <span style={{ margin: 0, fontSize: '0.9rem', fontWeight: 700, color: '#0F172A' }}>{theme === 'dark' ? 'Tungi rejim' : 'Kunduzgi rejim'}</span>
+            <div className="sidebar-theme-toggle" style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px', background: 'var(--background)', borderRadius: '16px', border: '1px solid var(--border-color)' }}>
+                <span style={{ margin: 0, fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-dark-theme)' }}>{theme === 'dark' ? 'Tungi rejim' : 'Kunduzgi rejim'}</span>
                 <button 
                   onClick={toggleTheme}
-                  style={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: theme === 'dark' ? '#F7DF1E' : '#3B82F6', fontSize: '1.2rem', padding: 0, boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}
+                  style={{ background: 'var(--surface)', border: '1px solid var(--border-color)', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: theme === 'dark' ? '#F7DF1E' : '#3B82F6', fontSize: '1.2rem', padding: 0, boxShadow: 'var(--shadow-card)' }}
                 >
                     {theme === 'dark' ? '🌙' : '☀️'}
                 </button>
