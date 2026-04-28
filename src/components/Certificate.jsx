@@ -1,162 +1,68 @@
-import { useState, useEffect, useRef } from 'react'
-import './Certificate.css'
-import { useUser } from '../context/UserContext'
-import { COURSES } from '../data/lessons'
+import React from 'react';
+import './Certificate.css';
+import { useUser } from '../context/UserContext';
+import { COURSES } from '../data/lessons';
 
 function Certificate({ onBack }) {
-    const { stats } = useUser()
-    const [name, setName] = useState('')
-    const [isGenerated, setIsGenerated] = useState(false)
-    const canvasRef = useRef(null)
+    const { stats } = useUser();
+    const courseData = COURSES[stats.currentCourse];
+    const currentDate = new Date().toLocaleDateString('uz-UZ');
+    const certificateId = Math.random().toString(36).substr(2, 9).toUpperCase();
+    const userName = stats.username || 'Super Dasturchi';
 
-    const courseData = COURSES[stats.currentCourse]
-    const currentDate = new Date().toLocaleDateString('uz-UZ')
-
-    const generateCertificate = () => {
-        if (!name.trim()) return;
-        setIsGenerated(true);
-        drawToCanvas();
-    }
-
-    const drawToCanvas = () => {
-        setTimeout(() => {
-            const canvas = canvasRef.current;
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-
-            // Xolst (Canvas) sozlamalari HD kachestva uchun
-            canvas.width = 1200;
-            canvas.height = 800;
-
-            // Orqa fon (Dark Cyberpunk gradient)
-            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            gradient.addColorStop(0, '#0a0a0a');
-            gradient.addColorStop(1, '#111827');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Chiziqli naqsh
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
-            ctx.lineWidth = 1;
-            for (let i = 0; i < canvas.width; i += 40) {
-                ctx.beginPath();
-                ctx.moveTo(i, 0);
-                ctx.lineTo(i, canvas.height);
-                ctx.stroke();
-            }
-
-            // Chekka ramka tasviri (Border)
-            ctx.strokeStyle = courseData.color || '#00ff88';
-            ctx.lineWidth = 15;
-            ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
-
-            ctx.lineWidth = 2;
-            ctx.strokeRect(45, 45, canvas.width - 90, canvas.height - 90);
-
-            // DUOKOD Logotip matni
-            ctx.font = 'bold 50px "Fira Code", monospace';
-            ctx.fillStyle = courseData.color || '#00ff88';
-            ctx.textAlign = 'center';
-            ctx.fillText('DuoKod', canvas.width / 2, 150);
-
-            // Sarlavha
-            ctx.font = 'bold 70px "Outfit", sans-serif';
-            ctx.fillStyle = '#ffffff';
-            ctx.fillText('Muvaffaqiyat Sertifikati', canvas.width / 2, 280);
-
-            // Oddiy matn
-            ctx.font = '30px "Outfit", sans-serif';
-            ctx.fillStyle = '#a3a3a3';
-            ctx.fillText("Ushbu sertifikat tasdiqlaydiki", canvas.width / 2, 360);
-
-            // Foydalanuvchi ismi
-            ctx.font = 'bold 80px "Outfit", monospace';
-            ctx.fillStyle = '#ffffff';
-            ctx.shadowBlur = 15;
-            ctx.shadowColor = courseData.color || '#00ff88';
-            ctx.fillText(name.toUpperCase(), canvas.width / 2, 480);
-            ctx.shadowBlur = 0; // Reset shadow
-
-            // Kurs nomi
-            ctx.font = '40px "Outfit", sans-serif';
-            ctx.fillStyle = '#a3a3a3';
-            ctx.fillText(`nomli yigit/qiz, quyidagi kursni a'lo darajada tamomladi:`, canvas.width / 2, 570);
-
-            ctx.font = 'bold 50px "Outfit", sans-serif';
-            ctx.fillStyle = courseData.color || '#00ff88';
-            ctx.fillText(`${courseData.title.toUpperCase()} Moduli`, canvas.width / 2, 650);
-
-            // Sana va Imzo qismlari
-            ctx.font = '25px "Fira Code", monospace';
-            ctx.fillStyle = '#a3a3a3';
-
-            // Chap tomon Sana
-            ctx.textAlign = 'left';
-            ctx.fillText(`Sana: ${currentDate}`, 120, 720);
-
-            // O'ng tomon ID/Imzo platformasi
-            ctx.textAlign = 'right';
-            ctx.fillText(`ID: ${Math.random().toString(36).substr(2, 9).toUpperCase()}`, canvas.width - 120, 720);
-
-        }, 100);
-    }
-
-    const downloadCertificate = () => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-
-        const dataUrl = canvas.toDataURL('image/png');
-        const link = document.createElement('a');
-        link.download = `DuoKod_${courseData.id}_Sertifikat.png`;
-        link.href = dataUrl;
-        link.click();
-    }
+    const handleDownload = () => {
+        window.print();
+    };
 
     return (
-        <div className="certificate-page">
+        <section className="certificate-section">
             <button className="back-btn" onClick={onBack}>← Ortga</button>
-            <div className="cert-container">
-                {!isGenerated ? (
-                    <div className="cert-form-box" style={{ borderColor: courseData.color }}>
-                        <div className="cert-icon" style={{ textShadow: `0 0 20px ${courseData.color}` }}>🏆</div>
-                        <h2>Tabriklaymiz!</h2>
-                        <p>Siz <b>{courseData.title}</b> kursidagi barcha darslarni to'liq tugatdingiz.</p>
+            <h2 className="page-title">Sizning sertifikatingiz tayyor</h2>
 
-                        <div className="name-input-group">
-                            <label>Sertifikatga yozish uchun to'liq ismingizni kiriting:</label>
-                            <input
-                                type="text"
-                                placeholder="Masalan: Murodjon Komilov"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                            />
+            <div className="certificate-card">
+                <div className="certificate-inner">
+                    <div className="brand">DUOKOD</div>
+                    <div className="eyebrow">Certificate of Achievement</div>
+
+                    <h1 className="certificate-title">Muvaffaqiyat Sertifikati</h1>
+
+                    <p className="certificate-subtitle">
+                        Ushbu sertifikat quyidagini tasdiqlaydi
+                    </p>
+
+                    <h3 className="student-name">{userName}</h3>
+
+                    <p className="certificate-text">
+                        <span className="course-name">{courseData?.title || 'Dasturlash asoslari'}</span> modulini muvaffaqiyatli
+                        tamomlagan.
+                    </p>
+
+                    <div className="certificate-meta">
+                        <div className="meta-item">
+                            <span className="meta-label">Berilgan sana</span>
+                            <span className="meta-value">{currentDate}</span>
                         </div>
 
-                        <button
-                            className="generate-btn"
-                            style={{ backgroundColor: courseData.color, color: '#000' }}
-                            onClick={generateCertificate}
-                            disabled={!name.trim()}
-                        >
-                            Sertifikat Yarating
-                        </button>
-                    </div>
-                ) : (
-                    <div className="cert-preview-box">
-                        <h3>Sizning Maqtov Yorlig'ingiz</h3>
-                        <div className="canvas-wrapper">
-                            <canvas ref={canvasRef} className="cert-canvas"></canvas>
+                        <div className="meta-item meta-center">
+                            <div className="seal">DK</div>
                         </div>
-                        <div className="cert-actions">
-                            <button className="download-btn" onClick={downloadCertificate}>
-                                📥 Yuklab Olish (PNG)
-                            </button>
+
+                        <div className="meta-item meta-right">
+                            <span className="meta-label">Sertifikat ID</span>
+                            <span className="meta-value">{certificateId}</span>
                         </div>
                     </div>
-                )}
+                </div>
             </div>
-        </div>
-    )
+
+            <div className="certificate-actions">
+                <button className="download-btn" onClick={handleDownload}>
+                    <span className="btn-icon">⬇</span>
+                    <span>Saqlash (PDF)</span>
+                </button>
+            </div>
+        </section>
+    );
 }
 
-export default Certificate
+export default Certificate;
