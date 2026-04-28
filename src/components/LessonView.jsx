@@ -255,7 +255,13 @@ function LessonView({ onComplete, onExit, lessonId }) {
                         )
                     )}
                 </div>
-                <h2 className="lesson-prompt" style={{ color: isBossNode ? '#ff1744' : '' }}>{isBossNode ? '⚠️ BOSS HUJUMI: ' : ''}{currentQuestion.prompt}</h2>
+                <div className="task-header-container">
+                    {!isBossNode && <span className="task-label">Amaliyot</span>}
+                    <h2 className="lesson-prompt" style={{ color: isBossNode ? '#ff1744' : '' }}>{isBossNode ? '⚠️ BOSS HUJUMI: ' : ''}{currentQuestion.prompt}</h2>
+                    {currentQuestion.type === 'drag-reorder' && (
+                        <p className="task-helper-text">Bloklarni sudrab joylashtiring</p>
+                    )}
+                </div>
                 {renderQuizOptions()}
             </div>
         );

@@ -128,12 +128,40 @@ body.light-mode .lesson-header {
     z-index: 5;
 }
 
-.lesson-prompt {
-    font-size: 1.4rem;
-    margin-bottom: 20px;
-    text-align: left;
-    color: var(--text-dark);
+.task-header-container {
+    text-align: center;
+    margin-bottom: 28px;
+    animation: slideUp 0.4s ease-out;
+}
+
+.task-label {
+    display: inline-block;
+    font-size: 0.85rem;
     font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--primary);
+    margin-bottom: 12px;
+    background: rgba(59, 130, 246, 0.1);
+    padding: 6px 14px;
+    border-radius: 99px;
+}
+
+.lesson-prompt {
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    font-weight: 800;
+    line-height: 1.3;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.task-helper-text {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-weight: 500;
 }
 
 .lesson-options {
