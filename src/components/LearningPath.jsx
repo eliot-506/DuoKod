@@ -85,33 +85,38 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
 
     return (
         <div className="unified-learning-path">
-            <button className="back-btn" onClick={onBack}>⬅ Menyuga Qaytish</button>
+            <button className="back-btn" onClick={onBack}>
+                <i className="fa-solid fa-arrow-left"></i> Menyuga qaytish
+            </button>
             
-            <div className="learning-path-container">
-                {/* 1. Header Card */}
-                <div className="course-overview-card">
-                    <div className="co-header">
-                        <h2 className="co-title">{currentCourseData.title}</h2>
-                        <span className="co-percent">{progressPercent}%</span>
-                    </div>
-                    <p className="co-subtitle">Muvaffaqiyatli darslar orqali darajangizni oshiring</p>
-                    <div className="co-meta">
-                        {completedCount}/{courseData.length} modul tugallandi • {totalChallenges} challenge • Joriy: {stats?.courses?.[selectedCourse]?.unlockedNodes?.[stats.courses[selectedCourse].unlockedNodes.length - 1] || 1}-modul
-                    </div>
-                    <div className="co-actions" style={{ display: 'flex', gap: '15px', marginTop: '25px' }}>
-                        <button className="btn-primary co-btn" style={{ padding: '12px 24px', fontSize: '1rem', borderRadius: '12px' }} onClick={() => {
-                            const lastUnlocked = stats?.courses?.[selectedCourse]?.unlockedNodes?.[stats.courses[selectedCourse].unlockedNodes.length - 1] || 1;
-                            onNodeClick(selectedCourse, lastUnlocked);
-                        }}>Davom etish</button>
-                        <button className="btn-outline co-btn" style={{ padding: '12px 24px', fontSize: '1rem', borderRadius: '12px', background: 'transparent', border: '1px solid var(--border-color)', color: 'var(--text-color)' }}>Kurs haqida</button>
-                    </div>
-                </div>
-
-                {/* 2 & 3. Journey Line and Modules */}
-                {/* 2. S-Shape Journey Map */}
-                <div className="journey-map-container" style={{ position: 'relative', width: '100%', maxWidth: '600px', margin: '0 auto', paddingTop: '40px' }}>
+            <div className="learning-path-wrapper">
+                <div className="roadmap-section">
                     
-                    {MODULE_NODES.map((node, i) => {
+                    {/* 1. Header Card (Integrated) */}
+                    <div className="course-overview-card">
+                        <div className="co-header">
+                            <h2 className="co-title">{currentCourseData.title}</h2>
+                            <span className="co-percent">{progressPercent}%</span>
+                        </div>
+                        <p className="co-subtitle">Muvaffaqiyatli darslar orqali darajangizni oshiring</p>
+                        <div className="co-meta">
+                            <span>{completedCount}/{courseData.length} modul tugallandi</span>
+                            <span>{totalChallenges} challenge</span>
+                            <span>Joriy: {stats?.courses?.[selectedCourse]?.unlockedNodes?.[stats.courses[selectedCourse].unlockedNodes.length - 1] || 1}-modul</span>
+                        </div>
+                        <div className="co-actions">
+                            <button className="co-btn co-btn-primary" onClick={() => {
+                                const lastUnlocked = stats?.courses?.[selectedCourse]?.unlockedNodes?.[stats.courses[selectedCourse].unlockedNodes.length - 1] || 1;
+                                onNodeClick(selectedCourse, lastUnlocked);
+                            }}>Davom etish</button>
+                            <button className="co-btn co-btn-outline">Kurs haqida</button>
+                        </div>
+                    </div>
+
+                    {/* 2. S-Shape Journey Map */}
+                    <div className="journey-map-container">
+                        
+                        {MODULE_NODES.map((node, i) => {
                         const isLast = i === MODULE_NODES.length - 1;
                         // S-shape pattern for X offsets from center
                         const pattern = [0, 80, 160, 50, -50, -160, -80];
@@ -206,7 +211,8 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                         </button>
                     </div>
                 )}
-            </div>
+                </div> {/* End roadmap-section */}
+            </div> {/* End learning-path-wrapper */}
 
             {/* Preview Modal */}
             {previewNode && (
