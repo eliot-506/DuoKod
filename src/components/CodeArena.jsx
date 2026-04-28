@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './CodeArena.css';
+import { useRobot } from '../context/RobotContext';
 
 function CodeArena() {
     const [html, setHtml] = useState('<h1>Arena</h1>\n<p>DuoKod Playgrounga xush kelibsiz!</p>');
@@ -8,8 +9,10 @@ function CodeArena() {
     const [python, setPython] = useState('print("Salom, Python!")');
     const [activeTab, setActiveTab] = useState('python');
     const [srcDoc, setSrcDoc] = useState('');
+    const { triggerRobot } = useRobot();
 
     const handleRun = () => {
+        triggerRobot('happy', "Kod ishga tushdi! Natijani o‘ng panelda ko‘ring 🚀", 4000);
         setSrcDoc(`
             <html>
                 <head>

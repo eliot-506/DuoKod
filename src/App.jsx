@@ -18,9 +18,12 @@ import XpAnimation from './components/XpAnimation'
 import Library from './components/Library'
 import BossFight from './components/BossFight'
 import { useUser } from './context/UserContext'
+import { useRobot } from './context/RobotContext'
+import AnimatedRobot from './components/AnimatedRobot'
 
 function App() {
   const { stats, addXp, completeNode, useHeart, switchCourse, updateStreak } = useUser()
+  const { triggerRobot } = useRobot()
   const [currentView, setCurrentView] = useState('dashboard')
   const [activeLessonId, setActiveLessonId] = useState(null)
   const [activeBossData, setActiveBossData] = useState(null)
@@ -38,11 +41,13 @@ function App() {
     }
     switchCourse(courseId)
     setActiveLessonId(nodeId)
+    triggerRobot('happy', "Yangi dars boshladik! Muvaffaqiyatlar tilayman 🚀", 3000)
     setCurrentView('lesson')
   }
 
   const handleExitLesson = () => {
     setActiveLessonId(null)
+    triggerRobot('idle', "Charchadingizmi? Hechqisi yo'q, keyinroq davom ettiramiz!", 4000)
     setCurrentView('map')
   }
 
@@ -53,8 +58,10 @@ function App() {
       updateStreak()
       setEarnedXp(15)
       setShowXpAnim(true)
+      triggerRobot('celebration', "Zo'r topdingiz! Yana bitta dars o'zlashtirildi 🎉", 5000)
     } else if (!wasCorrect) {
       useHeart()
+      triggerRobot('wrong', "Xato chiqdi, lekin hech qisi yo'q, keyingi safar aniq o'xshaydi! 💪", 5000)
     }
     setActiveLessonId(null)
     setCurrentView('map')
@@ -62,6 +69,7 @@ function App() {
 
   const handleStartBoss = (bossData) => {
     setActiveBossData(bossData)
+    triggerRobot('excited', "Tayyormisiz? Challenge boshlanmoqda! ⚔️", 4000)
     setCurrentView('boss')
   }
 
@@ -75,11 +83,13 @@ function App() {
       );
     }
     setActiveBossData(null)
+    triggerRobot('celebration', "Siz super qahramonsiz! Challenge yengildi! 🎖️", 6000)
     setCurrentView('map')
   }
 
   const handleBossExit = () => {
     setActiveBossData(null)
+    triggerRobot('sad', "Challenge'dan chiqdingiz. Kuch yig'ib yana qaytamiz! 🛡️", 4000)
     setCurrentView('map')
   }
 
@@ -129,6 +139,9 @@ function App() {
       {!['lesson','courses','certificate','project','library','boss'].includes(currentView) && (
         <BottomNav currentTab={currentView} onTabSwitch={setCurrentView} />
       )}
+
+      {/* Global AI Assistant Bot */}
+      <AnimatedRobot isFloating={true} />
     </div>
   )
 }

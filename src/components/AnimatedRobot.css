@@ -1,40 +1,104 @@
 .robot-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    max-width: 180px;  /* slightly larger to fit the rich image */
-    max-height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 100;
+  width: 120px;
+  height: 120px;
 }
 
 .robot-mascot-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    /* Zoom into the image to eliminate excessive transparent PNG margins */
-    transform: scale(1.1);
-    mix-blend-mode: multiply; /* White bg will become transparent on light surfaces */
-    z-index: 2;
-    cursor: pointer;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
+  will-change: transform, filter;
+  transition: filter 0.3s ease;
 }
 
-.state-happy .robot-mascot-image {
-    /* No strict square filter */
+.floating-robot-wrapper {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: none;
 }
 
-.state-sad .robot-mascot-image {
-    /* No strict square filter */
+.floating-robot-wrapper .robot-container {
+  width: 90px;
+  height: 90px;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
+/* Base Shadow */
 .robot-shadow-element {
-    position: absolute;
-    bottom: -15px; /* Adjust if it's too far from robot */
-    width: 80px;
-    height: 14px;
-    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 70%);
-    border-radius: 50%;
-    z-index: 1;
+  position: absolute;
+  bottom: -15px;
+  width: 60%;
+  height: 10px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.25) 0%, rgba(0,0,0,0) 70%);
+  border-radius: 50%;
+  z-index: 1;
 }
+
+body.dark-mode .robot-shadow-element {
+    background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.3) 0%, rgba(0,0,0,0) 70%);
+}
+
+/* ==================================
+   SPEECH BUBBLE
+================================== */
+.robot-speech-bubble {
+  position: absolute;
+  bottom: 110%;
+  right: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  padding: 12px 18px;
+  border-radius: 20px 20px 0 20px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+  max-width: 260px;
+  min-width: 160px;
+  pointer-events: none;
+  transform-origin: bottom right;
+  z-index: 50;
+}
+
+.speech-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* Special Mood Colors */
+.robot-container.state-happy .speech-text,
+.robot-container.state-celebration .speech-text {
+  color: #059669;
+}
+.robot-container.state-wrong .speech-text {
+  color: #B91C1C;
+}
+
+body:not(.light-mode) .robot-container.state-happy .speech-text,
+body:not(.light-mode) .robot-container.state-celebration .speech-text { color: #34D399; }
+body:not(.light-mode) .robot-container.state-wrong .speech-text { color: #F87171; }
+
+/* Status Particles */
+.emotion-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+/* Floating animation variations are handled by Framer Motion in JSX */
