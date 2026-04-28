@@ -77,66 +77,94 @@ except Exception as e:
     }, []);
 
     return (
-        <div className="code-arena-container">
-            <h2 className="arena-title">💻 Code Arena</h2>
-
-            <div className="arena-editor-section">
-                <div className="arena-tabs">
-                    <button className={`tab-btn ${activeTab === 'html' ? 'active' : ''}`} onClick={() => setActiveTab('html')}>HTML</button>
-                    <button className={`tab-btn ${activeTab === 'css' ? 'active' : ''}`} onClick={() => setActiveTab('css')}>CSS</button>
-                    <button className={`tab-btn ${activeTab === 'js' ? 'active' : ''}`} onClick={() => setActiveTab('js')}>JS</button>
-                    <button className={`tab-btn ${activeTab === 'python' ? 'active' : ''}`} onClick={() => setActiveTab('python')}>PYTHON</button>
-                    <button className="run-btn" onClick={handleRun}>▶ Run</button>
+        <div className="arena-wrapper">
+            <div className="arena-header">
+                <div className="arena-header-titles">
+                    <h2>💻 Code Arena</h2>
+                    <p>Kodni yozing, RUN bosing va natijani shu yerning o‘zida ko‘ring.</p>
                 </div>
-
-                <div className="editor-pane">
-                    {activeTab === 'html' && (
-                        <textarea
-                            value={html}
-                            onChange={(e) => setHtml(e.target.value)}
-                            className="code-input html-editor"
-                            spellCheck="false"
-                            placeholder="HTML kodingizni kiriting..."
-                        />
-                    )}
-                    {activeTab === 'css' && (
-                        <textarea
-                            value={css}
-                            onChange={(e) => setCss(e.target.value)}
-                            className="code-input css-editor"
-                            spellCheck="false"
-                            placeholder="CSS kodingizni kiriting..."
-                        />
-                    )}
-                    {activeTab === 'js' && (
-                        <textarea
-                            value={js}
-                            onChange={(e) => setJs(e.target.value)}
-                            className="code-input js-editor"
-                            spellCheck="false"
-                            placeholder="JavaScript kodingizni kiriting..."
-                        />
-                    )}
-                    {activeTab === 'python' && (
-                        <textarea
-                            value={python}
-                            onChange={(e) => setPython(e.target.value)}
-                            className="code-input python-editor"
-                            spellCheck="false"
-                            placeholder="Python kodingizni kiriting..."
-                        />
-                    )}
-                </div>
+                <div className="arena-badge">Practice Mode</div>
             </div>
 
-            <div className="arena-output-section">
-                <div className="output-header">Live Natija ✨</div>
-                <iframe
-                    srcDoc={srcDoc}
-                    title="Code Output"
-                    sandbox="allow-scripts allow-same-origin"
-                    className="arena-iframe"
-                />
+            <div className="arena-section">
+                <div className="arena-grid">
+                    
+                    {/* LEFT PANEL: EDITOR */}
+                    <div className="editor-panel">
+                        <div className="editor-toolbar">
+                            <div className="arena-tabs">
+                                <button className={`lang-tab ${activeTab === 'html' ? 'active' : ''}`} onClick={() => setActiveTab('html')}>HTML</button>
+                                <button className={`lang-tab ${activeTab === 'css' ? 'active' : ''}`} onClick={() => setActiveTab('css')}>CSS</button>
+                                <button className={`lang-tab ${activeTab === 'js' ? 'active' : ''}`} onClick={() => setActiveTab('js')}>JS</button>
+                                <button className={`lang-tab ${activeTab === 'python' ? 'active' : ''}`} onClick={() => setActiveTab('python')}>Python</button>
+                            </div>
+                            <button className="run-btn" onClick={handleRun}>
+                                <i className="fa-solid fa-play"></i> RUN
+                            </button>
+                        </div>
+                        
+                        <div className="editor-pane">
+                            <div className="editor-line-numbers">
+                                {Array.from({ length: 30 }, (_, i) => (
+                                    <div key={i}>{i + 1}</div>
+                                ))}
+                            </div>
+                            {activeTab === 'html' && (
+                                <textarea
+                                    value={html}
+                                    onChange={(e) => setHtml(e.target.value)}
+                                    className="code-input html-editor"
+                                    spellCheck="false"
+                                    placeholder="HTML kodingizni kiriting..."
+                                />
+                            )}
+                            {activeTab === 'css' && (
+                                <textarea
+                                    value={css}
+                                    onChange={(e) => setCss(e.target.value)}
+                                    className="code-input css-editor"
+                                    spellCheck="false"
+                                    placeholder="CSS kodingizni kiriting..."
+                                />
+                            )}
+                            {activeTab === 'js' && (
+                                <textarea
+                                    value={js}
+                                    onChange={(e) => setJs(e.target.value)}
+                                    className="code-input js-editor"
+                                    spellCheck="false"
+                                    placeholder="JavaScript kodingizni kiriting..."
+                                />
+                            )}
+                            {activeTab === 'python' && (
+                                <textarea
+                                    value={python}
+                                    onChange={(e) => setPython(e.target.value)}
+                                    className="code-input python-editor"
+                                    spellCheck="false"
+                                    placeholder="Python kodingizni kiriting..."
+                                />
+                            )}
+                        </div>
+                    </div>
+
+                    {/* RIGHT PANEL: PREVIEW */}
+                    <div className="preview-panel">
+                        <div className="preview-toolbar">
+                            <div className="preview-title">
+                                <span className="status-dot"></span> Live Natija ✨
+                            </div>
+                            <span style={{ fontSize: '0.8rem', color: '#94A3B8', fontWeight: 600 }}>DuoKod Engine</span>
+                        </div>
+                        <iframe
+                            srcDoc={srcDoc}
+                            title="Code Output"
+                            sandbox="allow-scripts allow-same-origin"
+                            className="arena-iframe"
+                        />
+                    </div>
+
+                </div>
             </div>
         </div>
     );
