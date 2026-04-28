@@ -19,23 +19,15 @@ const BADGE_LIST = [
 
 function Profile() {
     const { stats, changeAvatar, buyPremiumAvatar, logoutUser, deleteAccount, currentLevel, currentLevelXp, nextLevelXp } = useUser()
-    const [isLightMode, setIsLightMode] = useState(() => document.body.classList.contains('light-mode'))
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
     const [selectedSkillTab, setSelectedSkillTab] = useState(stats.currentCourse || 'python');
 
     useEffect(() => {
-        if (isLightMode) {
-            document.body.classList.add('light-mode')
-            localStorage.setItem('duokod_theme', 'light')
-        } else {
-            document.body.classList.remove('light-mode')
-            localStorage.setItem('duokod_theme', 'neon')
-        }
-    }, [isLightMode])
+        document.body.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    }, [theme])
 
-    useEffect(() => {
-        const savedTheme = localStorage.getItem('duokod_theme')
-        if (savedTheme === 'light') setIsLightMode(true)
-    }, [])
+    const isLightMode = theme === 'light';
 
     const handleBuyPremium = () => {
         if (buyPremiumAvatar(500)) {
@@ -194,7 +186,7 @@ function Profile() {
                         <input
                             type="checkbox"
                             checked={isLightMode}
-                            onChange={() => setIsLightMode(!isLightMode)}
+                            onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                         />
                         <span className="slider round"></span>
                     </label>

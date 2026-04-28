@@ -52,13 +52,15 @@ function Sidebar({ currentTab, onNavigate }) {
             </nav>
 
             <div className="sidebar-theme-toggle" style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px', background: 'var(--background)', borderRadius: '16px', border: '1px solid var(--border-color)' }}>
-                <span style={{ margin: 0, fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-dark-theme)' }}>{theme === 'dark' ? 'Tungi rejim' : 'Kunduzgi rejim'}</span>
-                <button 
-                  onClick={toggleTheme}
-                  style={{ background: 'var(--surface)', border: '1px solid var(--border-color)', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: theme === 'dark' ? '#F7DF1E' : '#3B82F6', fontSize: '1.2rem', padding: 0, boxShadow: 'var(--shadow-card)' }}
-                >
-                    {theme === 'dark' ? '🌙' : '☀️'}
-                </button>
+                <span style={{ margin: 0, fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-dark-theme)' }}>{theme === 'dark' ? 'Tungi rejim 🌙' : 'Kunduzgi ☀️'}</span>
+                <label className="sidebar-theme-switch">
+                    <input
+                        type="checkbox"
+                        checked={theme === 'light'}
+                        onChange={toggleTheme}
+                    />
+                    <span className="slider round"></span>
+                </label>
             </div>
         </aside>
     );
