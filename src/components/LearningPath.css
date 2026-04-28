@@ -9,16 +9,26 @@
   overflow: hidden;
   background-color: #F8FAFC;
   background-image: 
-    radial-gradient(circle at 6% 34%, rgba(59, 130, 246, 0.12) 0%, transparent 400px),
-    radial-gradient(circle at 94% 66%, rgba(16, 185, 129, 0.08) 0%, transparent 400px),
-    linear-gradient(rgba(226, 232, 240, 0.5) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(226, 232, 240, 0.5) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
   border: 1px solid #E2E8F0;
   box-shadow: 0 18px 50px rgba(15, 23, 42, 0.05);
+  padding-bottom: 140px;
+}
+
+.roadmap-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 50% 20%, rgba(59, 130, 246, 0.08), transparent 450px),
+    radial-gradient(circle at 30% 65%, rgba(16, 185, 129, 0.06), transparent 450px);
+  pointer-events: none;
+  z-index: 0;
 }
 
 body.dark-mode .roadmap-section,
@@ -26,11 +36,17 @@ body.dark-mode .roadmap-section,
 body:not(.light-mode) .roadmap-section {
     background-color: var(--background);
     background-image: 
-      radial-gradient(circle at 6% 34%, rgba(59, 130, 246, 0.15) 0%, transparent 400px),
-      radial-gradient(circle at 94% 66%, rgba(16, 185, 129, 0.1) 0%, transparent 400px),
       linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .roadmap-section::before,
+[data-theme="dark"] .roadmap-section::before,
+body:not(.light-mode) .roadmap-section::before {
+    background: 
+      radial-gradient(circle at 50% 20%, rgba(59, 130, 246, 0.15), transparent 450px),
+      radial-gradient(circle at 30% 65%, rgba(16, 185, 129, 0.1), transparent 450px);
 }
 
 .back-btn {
@@ -163,8 +179,8 @@ body:not(.light-mode) .co-percent { background: rgba(16, 185, 129, 0.15); border
   bottom: 0;
   left: 50%;
   width: 6px;
-  height: 40px;
-  background: linear-gradient(180deg, #10B981, #3B82F6);
+  height: 48px;
+  background: linear-gradient(180deg, #10B981, rgba(59, 130, 246, 0.5));
   transform: translateX(-50%);
   border-radius: 10px;
   z-index: 5;
@@ -231,120 +247,126 @@ body:not(.light-mode) .co-percent { background: rgba(16, 185, 129, 0.15); border
 }
 
 /* ==================================
+/* ==================================
    NODE COMPONENTS
 ================================== */
 .node-circle-btn {
-  border-radius: 50%;
+  border-radius: 999px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 4px solid var(--surface);
-  flex-shrink: 0;
-  position: relative;
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.1);
   background: #FFFFFF;
+  position: relative;
+  /* Updated checkpoint styling */
+  border: 4px solid #BFDBFE;
+  box-shadow: 0 0 0 8px rgba(59, 130, 246, 0.08);
+  flex-shrink: 0;
+  z-index: 10;
 }
 
 body:not(.light-mode) .node-circle-btn {
     background: var(--surface);
-    border-color: var(--background);
+    border-color: #1E3A8A;
+    box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.15);
 }
 
 .node-circle-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 8px 30px rgba(37, 99, 235, 0.2);
+  transform: scale(1.15);
+  box-shadow: 0 0 0 12px rgba(59, 130, 246, 0.12);
 }
 
-.size-variant-88 { width: 88px; height: 88px; }
-.size-variant-104 { width: 104px; height: 104px; border-width: 5px; }
-.size-variant-76 { width: 76px; height: 76px; border-radius: 20px; }
-.size-variant-96 { width: 96px; height: 96px; }
+/* Reduced size variants since they are now small checkpoints */
+.size-variant-88 { width: 28px; height: 28px; }
+.size-variant-104 { width: 32px; height: 32px; border-width: 5px; }
+.size-variant-76 { width: 44px; height: 44px; border-radius: 12px; } /* Boss slightly distinct */
+.size-variant-96 { width: 40px; height: 40px; }
 
 /* Status: Completed */
 .status-completed .node-circle-btn {
-  background: linear-gradient(135deg, #10B981, #059669);
-  color: #fff;
-  border-color: #D1FAE5;
-  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+  background: #FFFFFF;
+  border-color: #22C55E;
+  color: #22C55E;
+  box-shadow: 0 0 0 10px rgba(34, 197, 94, 0.12);
 }
 
 body:not(.light-mode) .status-completed .node-circle-btn {
-    border-color: #064E3B;
+    background: var(--surface);
+    border-color: #059669;
+    color: #10B981;
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0.15);
 }
+
+.status-completed .node-circle-btn:hover {
+  box-shadow: 0 0 0 12px rgba(34, 197, 94, 0.18);
+}
+
+.chk-icon { width: 14px; height: 14px; stroke-width: 4; }
 
 /* Status: Current */
 .status-current .node-circle-btn {
-  border-color: #DBEAFE;
-  box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.15), 0 8px 24px rgba(37, 99, 235, 0.2);
-  animation: currentPulse 3s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  background: #FFFFFF;
+  border-color: #3B82F6;
+  box-shadow: 0 0 0 10px rgba(59, 130, 246, 0.14), 0 0 20px rgba(59, 130, 246, 0.4);
 }
 
 body:not(.light-mode) .status-current .node-circle-btn {
-    border-color: #1E3A8A;
-}
-
-@keyframes currentPulse {
-    0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.3); }
-    50% { box-shadow: 0 0 0 16px rgba(37, 99, 235, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+    background: var(--surface);
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 10px rgba(37, 99, 235, 0.25), 0 0 20px rgba(37, 99, 235, 0.5);
 }
 
 .status-current .inner-dot {
-  width: 44px;
-  height: 44px;
-  background: linear-gradient(135deg, #3B82F6, #2563EB);
+  width: 12px;
+  height: 12px;
+  background: #3B82F6;
   border-radius: 50%;
+  animation: pulseCore 2s ease-in-out infinite;
+}
+
+@keyframes pulseCore {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.8; }
 }
 
 /* Status: Locked */
 .status-locked .node-circle-btn {
-  background: #F1F5F9;
+  background: #F8FAFC;
   border-color: #E2E8F0;
+  box-shadow: 0 0 0 8px rgba(226, 232, 240, 0.4);
   cursor: not-allowed;
-  opacity: 0.7;
-  box-shadow: none;
+  opacity: 0.6;
 }
 
 body:not(.light-mode) .status-locked .node-circle-btn {
-    background: rgba(255,255,255,0.05);
-    border-color: rgba(255,255,255,0.02);
+    background: rgba(255,255,255,0.02);
+    border-color: rgba(255,255,255,0.06);
+    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.02);
 }
 
 .status-locked .inner-dot {
-  width: 24px;
-  height: 24px;
-  background: #CBD5E1;
-  border-radius: 50%;
-}
-
-body:not(.light-mode) .status-locked .inner-dot {
-    background: rgba(255,255,255,0.2);
+  display: none;
 }
 
 /* Status: Boss */
 .is-boss .node-circle-btn {
   background: #FFFFFF;
-  border-color: #FEE2E2;
-  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.15);
+  border-color: #EF4444;
+  box-shadow: 0 0 0 8px rgba(239, 68, 68, 0.12);
 }
 
 body:not(.light-mode) .is-boss .node-circle-btn {
     background: var(--surface);
-    border-color: #451A1E;
-}
-
-.is-boss.status-completed .node-circle-btn {
-  background: linear-gradient(135deg, #10B981, #059669);
-  border-color: #D1FAE5;
+    border-color: #DC2626;
+    box-shadow: 0 0 0 8px rgba(220, 38, 38, 0.15);
 }
 
 /* ==================================
    CARD / JOURNEY LABEL
 ================================== */
 .node-label-card {
-  background: var(--surface);
+  background: #FFFFFF;
   width: 260px;
   min-height: 96px;
   border-radius: 24px;
@@ -352,21 +374,32 @@ body:not(.light-mode) .is-boss .node-circle-btn {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  border: 1px solid #E6EDF5;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
   transition: all 0.25s ease;
   z-index: 10;
 }
 
+body:not(.light-mode) .node-label-card {
+    background: var(--surface);
+    border-color: rgba(255,255,255,0.08);
+}
+
 .node-label-card:hover {
-  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.1);
-  transform: translateY(-2px);
-  border-color: var(--primary);
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.1);
+  transform: translateY(-4px);
 }
 
 .status-current .node-label-card {
-  border: 1.5px solid var(--primary);
-  box-shadow: 0 14px 40px rgba(37, 99, 235, 0.12);
+  border: 1.5px solid #93C5FD;
+  background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+  box-shadow: 0 18px 40px rgba(37, 99, 235, 0.12);
+}
+
+body:not(.light-mode) .status-current .node-label-card {
+    border-color: var(--primary);
+    background: linear-gradient(180deg, var(--surface) 0%, rgba(37, 99, 235, 0.05) 100%);
+    box-shadow: 0 18px 40px rgba(37, 99, 235, 0.15);
 }
 
 .status-locked .node-label-card {

@@ -144,11 +144,14 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                                         <svg className="path-connector" viewBox="0 0 100 100" preserveAspectRatio="none" style={{ position: 'absolute', top: '50%', left: 0, width: '100%', height: '240px', overflow: 'visible', zIndex: 0 }}>
                                             <path 
                                                 d={`M ${xOffset} 0 C ${xOffset} 50, ${nextXOffset} 50, ${nextXOffset} 100`} 
-                                                stroke={node.status === 'completed' ? 'var(--primary)' : 'rgba(148, 163, 184, 0.2)'} 
-                                                strokeWidth="3" 
+                                                stroke={node.status === 'completed' || node.status === 'current' ? '#93C5FD' : '#D9E6F7'} 
+                                                strokeWidth={node.status === 'completed' || node.status === 'current' ? "5" : "4"} 
                                                 vectorEffect="non-scaling-stroke"
                                                 fill="none" 
                                                 strokeLinecap="round"
+                                                style={{
+                                                    filter: node.status === 'completed' || node.status === 'current' ? 'drop-shadow(0 0 8px rgba(59,130,246,0.22))' : 'none'
+                                                }}
                                             />
                                         </svg>
                                     )}
