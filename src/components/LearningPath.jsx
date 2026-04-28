@@ -160,23 +160,28 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                                     <div 
                                         className={`node-circle-btn size-variant-${nodeSize}`} 
                                         style={{ position: 'absolute', left: `${xOffset}%`, transform: 'translateX(-50%)', zIndex: 2 }}
-                                    onClick={() => {
-                                        if(node.status !== 'locked' && !node.isBoss) setPreviewNode(node);
-                                        if(node.status !== 'locked' && node.isBoss && onBossStart) onBossStart(node.bossData);
-                                    }}
-                                >
-                                    {node.status === 'completed' ? (
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="chk-icon">
-                                            <polyline points="20 6 9 17 4 12"></polyline>
-                                        </svg>
-                                    ) : node.isBoss ? (
-                                         <span style={{fontSize:'1.5rem'}}>⚔️</span>
-                                    ) : isLast ? (
-                                         <span style={{fontSize:'2rem'}}>🏅</span>
-                                    ) : (
-                                        <div className="inner-dot"></div>
-                                    )}
-                                </div>
+                                        onClick={() => {
+                                            if(node.status !== 'locked' && !node.isBoss) setPreviewNode(node);
+                                            if(node.status !== 'locked' && node.isBoss && onBossStart) onBossStart(node.bossData);
+                                        }}
+                                    >
+                                        {node.isBoss ? (
+                                             <span style={{fontSize:'1.3rem'}}>⚔️</span>
+                                        ) : node.status === 'completed' ? (
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="chk-icon">
+                                                <polyline points="20 6 9 17 4 12"></polyline>
+                                            </svg>
+                                        ) : node.status === 'locked' ? (
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="#94A3B8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="lock-icon" style={{width: '12px', height: '12px'}}>
+                                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                            </svg>
+                                        ) : isLast ? (
+                                             <span style={{fontSize:'1.5rem'}}>🏅</span>
+                                        ) : (
+                                            <div className="inner-dot"></div>
+                                        )}
+                                    </div>
 
                                 {/* Label Card block */}
                                 <div 
