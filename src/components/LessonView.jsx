@@ -136,7 +136,9 @@ function LessonView({ onComplete, onExit, lessonId }) {
                 <h3>{questionData.title}</h3>
                 <p>{questionData.theory[currentTheoryIndex]}</p>
                 <div className="theory-pagination">
-                    {currentTheoryIndex + 1} / {questionData.theory.length}
+                    {questionData.theory.map((_, idx) => (
+                        <span key={idx} className={`pagination-dot ${idx === currentTheoryIndex ? 'active' : ''}`}></span>
+                    ))}
                 </div>
             </div>
         </div>
@@ -318,7 +320,11 @@ function LessonView({ onComplete, onExit, lessonId }) {
                                 onClick={phase === 'theory' || isChecked ? handleNext : handleCheck}
                                 disabled={phase === 'quiz' && !isChecked && isCheckDisabled}
                             >
-                                {phase === 'theory' ? "Tushunarli, Davom etish" : (isChecked ? (isCorrect ? 'Davom etish' : 'Tushundim, Qayta urinish') : 'Tekshirish')}
+                                {phase === 'theory' ? (
+                                    <>Tushundim, davom etamiz <i className="fa-solid fa-arrow-right" style={{marginLeft: '8px'}}></i></>
+                                ) : (
+                                    isChecked ? (isCorrect ? 'Davom etish' : 'Tushundim, Qayta urinish') : 'Tekshirish'
+                                )}
                             </button>
                         </div>
                     </div>
