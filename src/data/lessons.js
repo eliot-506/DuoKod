@@ -166,136 +166,92 @@ export const JS_LESSONS = [
 
 export const PYTHON_LESSONS = [
     {
-        id: 1, title: 'Python va Hello World (1-Modul)',
+        id: 1, title: 'Python va Hello World', desc: 'Birinchi dastur va asosiy sintaksis',
         theory: [
             "Python kompyuterga o'rnatilgach o'zingizning ilk kodingizni yozishingiz mumkin.",
             "Ekranga xabar chiqarish uchun `print('Hello world!')` funksiyasidan foydalanamiz."
         ],
-        questions: [
-            { id: 'q1', skill: 'syntax', type: 'multiple-choice', prompt: 'Python da ekranga qanday qilib "Hello world!" so\'zini chiqarish mumkin?', options: [{ id: 'a', text: 'echo "Hello world!"' }, { id: 'b', text: 'console.log("Hello world!")' }, { id: 'c', text: 'print("Hello world!")' }, { id: 'd', text: 'show("Hello world!")' }], correctId: 'c', explanation: 'Pythonda maxsus print() komandasi bor.' },
-            { id: 'q2', skill: 'syntax', type: 'fill-blanks', prompt: 'Dasturdagi yozuvni to\'ldiring:', codeBefore: '', codeAfter: '("Hello world!");', correctAnswer: 'print', smartHint: 'Bu yerda xato qilyapsiz, ekranga chiqarish so\'zini harflab tekshiring: print', explanation: 'Buyruq doim kichik harflarda yoziladi.' },
-            { id: 'q3', skill: 'syntax', type: 'drag-reorder', prompt: 'Amaliyot: Ekranga "Hello world!" so\'zini chop etuvchi kodni qismlardan yig\'ing.', options: ['print', '(', '"Hello world!"', ')'], correctAnswer: 'print("Hello world!")', terminalOutput: '> Hello world!', smartHint: 'Matnni aynan qo\'shtirnoqqa o\'rash kerak!', explanation: 'Matn bo\'lgani uchun doim qo\'shtirnoq ishlatiladi.' }
-        ]
+        questions: [{ id: 'q1', skill: 'syntax', type: 'multiple-choice', prompt: 'Python da ekranga qanday qilib "Hello world!" so\'zini chiqarish mumkin?', options: [{ id: 'a', text: 'echo "Hello world!"' }, { id: 'b', text: 'console.log("Hello world!")' }, { id: 'c', text: 'print("Hello world!")' }, { id: 'd', text: 'show("Hello world!")' }], correctId: 'c', explanation: 'Pythonda maxsus print() komandasi bor.' }, { id: 'q2', skill: 'syntax', type: 'fill-blanks', prompt: 'Dasturdagi yozuvni to\'ldiring:', codeBefore: '', codeAfter: '("Hello world!");', correctAnswer: 'print', smartHint: 'Bu yerda xato qilyapsiz, ekranga chiqarish so\'zini harflab tekshiring: print', explanation: 'Buyruq doim kichik harflarda yoziladi.' }, { id: 'q3', skill: 'syntax', type: 'drag-reorder', prompt: 'Amaliyot: Ekranga "Hello world!" so\'zini chop etuvchi kodni qismlardan yig\'ing.', options: ['print', '(', '"Hello world!"', ')'], correctAnswer: 'print("Hello world!")', terminalOutput: '> Hello world!', smartHint: 'Matnni aynan qo\'shtirnoqqa o\'rash kerak!', explanation: 'Matn bo\'lgani uchun doim qo\'shtirnoq ishlatiladi.' }]
     },
     {
-        id: 2, title: 'O\'zgaruvchilar va Raqamlar (2-Modul)',
+        id: 2, title: 'O\'zgaruvchilar va raqamlar', desc: 'Qiymatlar, sonlar va o‘zgaruvchilar bilan ishlash',
         theory: [
             "Ma'lumotlarni xotirada saqlash uchun o'zgaruvchilardan (variables) foydalanamiz. Masalan: `yosh = 20`",
             "Siz matnli (text) va raqamli (numerical) qiymatlar bilan qulay ishlashingiz mumkin."
         ],
-        questions: [
-            { id: 'q4', skill: 'variables', type: 'multiple-choice', prompt: 'O\'zgaruvchiga ma\'lumot saqlashning to\'g\'ri usulini tanlang:', options: [{ id: 'a', text: 'let ism = "Ali"' }, { id: 'b', text: 'ism = "Ali"' }, { id: 'c', text: 'var ism = "Ali"' }, { id: 'd', text: 'String ism = "Ali"' }], correctId: 'b', explanation: 'Tilsiz (Typesiz) oson e\'lon qilinadi.' },
-            { id: 'q5', skill: 'variables', type: 'fill-blanks', prompt: 'Xotiraga raqamni saqlash qismini to\'ldiring:', codeBefore: 'yosh ', codeAfter: ' 25', correctAnswer: '=', smartHint: 'Ikkala tomonni biriga "tenglash" belgisi...', explanation: '= tenglashtirish operatori.' },
-            { id: 'q6', skill: 'variables', type: 'drag-reorder', prompt: 'Amaliyot: O\'zgaruvchini yarating va unga raqam biriktiring.', options: ['mening_yoshim', ' = ', '25', 'var '], correctAnswer: 'mening_yoshim = 25', terminalOutput: '> Process finished with exit code 0.', smartHint: 'Python da JS kabi yordamchi `var` so\'zi umuman ishlatilmaydi!', explanation: 'O\'zgaruvchi nomlarida bo\'sh joy o\'rniga (_) ishlatiladi va Pythonda var yozilmaydi.' }
-        ]
+        questions: [{ id: 'q4', skill: 'variables', type: 'multiple-choice', prompt: 'O\'zgaruvchiga ma\'lumot saqlashning to\'g\'ri usulini tanlang:', options: [{ id: 'a', text: 'let ism = "Ali"' }, { id: 'b', text: 'ism = "Ali"' }, { id: 'c', text: 'var ism = "Ali"' }, { id: 'd', text: 'String ism = "Ali"' }], correctId: 'b', explanation: 'Tilsiz (Typesiz) oson e\'lon qilinadi.' }, { id: 'q5', skill: 'variables', type: 'fill-blanks', prompt: 'Xotiraga raqamni saqlash qismini to\'ldiring:', codeBefore: 'yosh ', codeAfter: ' 25', correctAnswer: '=', smartHint: 'Ikkala tomonni biriga "tenglash" belgisi...', explanation: '= tenglashtirish operatori.' }, { id: 'q6', skill: 'variables', type: 'drag-reorder', prompt: 'Amaliyot: O\'zgaruvchini yarating va unga raqam biriktiring.', options: ['mening_yoshim', ' = ', '25', 'var '], correctAnswer: 'mening_yoshim = 25', terminalOutput: '> Process finished with exit code 0.', smartHint: 'Python da JS kabi yordamchi `var` so\'zi umuman ishlatilmaydi!', explanation: 'O\'zgaruvchi nomlarida bo\'sh joy o\'rniga (_) ishlatiladi va Pythonda var yozilmaydi.' }]
     },
     {
-        id: 3, title: 'Ro\'yxatlar - Lists (3-Modul)',
+        id: 3, title: 'Matnlar va input', desc: 'Matn qabul qilish va natijani chiqarish',
         theory: [
             "Bir nechta ma'lumotlarni qisqa kod orqali bitta qutida saqlash - bu Ro'yxat (List).",
             "Listlar kvadrat qavslar ichida yoziladi va minglab qiymatlarni qamrab oladi: `[1, 2, 3]`"
         ],
-        questions: [
-            { id: 'q7', skill: 'variables', type: 'multiple-choice', prompt: 'Pythonda to\'g\'ri yaratilgan ro\'yxatni toping:', options: [{ id: 'a', text: 'l = (1, 2, 3)' }, { id: 'b', text: 'l = {1, 2, 3}' }, { id: 'c', text: 'l = [1, 2, 3]' }, { id: 'd', text: 'l = <1, 2, 3>' }], correctId: 'c', explanation: 'List (Massivlar) Kvadrat qavs oladi.' },
-            { id: 'q8', skill: 'variables', type: 'fill-blanks', prompt: 'Bo\'sh ro\'yxatni yaratish:', codeBefore: 'mevalar = ', codeAfter: ']', correctAnswer: '[', smartHint: 'Massivlarni ochish qavsi har doim to`rtburchak shaklda bo`ladi.', explanation: 'Kvadrat qavs ochilishi kerak.' },
-            { id: 'q9', skill: 'variables', type: 'code-write', prompt: 'Amaliyot: Bo\'sh hisoblangan "raqamlar" nomli ro\'yxat yarating.', correctAnswer: 'raqamlar = []', placeholder: 'ro\'yxat nomini va ramzini yozing...', explanation: 'Bo\'sh ro\'yxat ochish uchun tenglikdan so\'ng ro\'yxat belgisi qoldiriladi.' }
-        ]
+        questions: [{ id: 'q7', skill: 'variables', type: 'multiple-choice', prompt: 'Pythonda to\'g\'ri yaratilgan ro\'yxatni toping:', options: [{ id: 'a', text: 'l = (1, 2, 3)' }, { id: 'b', text: 'l = {1, 2, 3}' }, { id: 'c', text: 'l = [1, 2, 3]' }, { id: 'd', text: 'l = <1, 2, 3>' }], correctId: 'c', explanation: 'List (Massivlar) Kvadrat qavs oladi.' }, { id: 'q8', skill: 'variables', type: 'fill-blanks', prompt: 'Bo\'sh ro\'yxatni yaratish:', codeBefore: 'mevalar = ', codeAfter: ']', correctAnswer: '[', smartHint: 'Massivlarni ochish qavsi har doim to`rtburchak shaklda bo`ladi.', explanation: 'Kvadrat qavs ochilishi kerak.' }, { id: 'q9', skill: 'variables', type: 'code-write', prompt: 'Amaliyot: Bo\'sh hisoblangan "raqamlar" nomli ro\'yxat yarating.', correctAnswer: 'raqamlar = []', placeholder: 'ro\'yxat nomini va ramzini yozing...', explanation: 'Bo\'sh ro\'yxat ochish uchun tenglikdan so\'ng ro\'yxat belgisi qoldiriladi.' }]
     },
     {
-        id: 4, title: 'Ro\'yxatlar Bilan Ishlash (4-Modul)',
+        id: 4, title: 'Shart operatorlari', desc: 'Qaror qabul qilish mantiqi',
         theory: [
             "Ro'yxat ichidagi malumotlarni bemalol o'chiring, o'zgartiring yoki samarali tahrirlang.",
             "Bu sizga yuzlab (millionlab) ma'lumotlar bilan bir necha qatorda oson ishlash imkonini beradi."
         ],
-        questions: [
-            { id: 'q10', skill: 'functions', type: 'multiple-choice', prompt: 'Ro\'yxat oxiriga yangi narsa qo\'shish uchun mo\'ljallangan metod:', options: [{ id: 'a', text: 'add()' }, { id: 'b', text: 'insert()' }, { id: 'c', text: 'append()' }, { id: 'd', text: 'push()' }], correctId: 'c', explanation: 'Append usuli doim oxiriga yozadi.' },
-            { id: 'q11', skill: 'functions', type: 'fill-blanks', prompt: 'Ro\'yxatdan malumot olib tashlash kodi:', codeBefore: 'mevalar.', codeAfter: '("Olma")', correctAnswer: 'remove', smartHint: 'Inglizchada o\'chirmoq (olib tashlamoq) degan ma\'noni beruvchi so\'zx.', explanation: 'Olib tashlash remove() orqali amalga oshadi.' },
-            { id: 'q12', skill: 'functions', type: 'code-fix', prompt: 'Amaliyot: Kodni to\'g\'irlang, massiv uzunligini (length) o\'lchash:', initialCode: 'uzunlik = count(ro\'yxat)', correctAnswer: 'uzunlik = len(ro\'yxat)', explanation: 'Pythonda uzunlikni topish len() funksiyasi orqali yoziladi.' }
-        ]
+        questions: [{ id: 'q10', skill: 'functions', type: 'multiple-choice', prompt: 'Ro\'yxat oxiriga yangi narsa qo\'shish uchun mo\'ljallangan metod:', options: [{ id: 'a', text: 'add()' }, { id: 'b', text: 'insert()' }, { id: 'c', text: 'append()' }, { id: 'd', text: 'push()' }], correctId: 'c', explanation: 'Append usuli doim oxiriga yozadi.' }, { id: 'q11', skill: 'functions', type: 'fill-blanks', prompt: 'Ro\'yxatdan malumot olib tashlash kodi:', codeBefore: 'mevalar.', codeAfter: '("Olma")', correctAnswer: 'remove', smartHint: 'Inglizchada o\'chirmoq (olib tashlamoq) degan ma\'noni beruvchi so\'zx.', explanation: 'Olib tashlash remove() orqali amalga oshadi.' }, { id: 'q12', skill: 'functions', type: 'code-fix', prompt: 'Amaliyot: Kodni to\'g\'irlang, massiv uzunligini (length) o\'lchash:', initialCode: 'uzunlik = count(ro\'yxat)', correctAnswer: 'uzunlik = len(ro\'yxat)', explanation: 'Pythonda uzunlikni topish len() funksiyasi orqali yoziladi.' }]
     },
     {
-        id: 5, title: 'If-Else Shartlari (5-Modul)',
+        id: 5, title: 'Takrorlash operatorlari', desc: 'Kod takrorlanishini boshqarish',
         theory: [
             "Shartlarni tekshirish va dastur yo'nalishini ob-havoga qarab o'zgartirish uchun `if` ishlatiladi.",
             "Agar shart xato (False) bo'lsa `else` yoki boshqa natijalar uchun javobgar bo`limga o'tadi."
         ],
-        questions: [
-            { id: 'q13', skill: 'logic', type: 'multiple-choice', prompt: 'Agar (If) sharti qanday qilib Pythonda standart yoziladi?', options: [{ id: 'a', text: 'if x > 5 {' }, { id: 'b', text: 'if x > 5:' }, { id: 'c', text: 'if (x > 5) then' }, { id: 'd', text: 'if x > 5 then' }], correctId: 'b', explanation: 'Shartdan keyin : (ikki nuqta) qoyiladi.' },
-            { id: 'q14', skill: 'logic', type: 'fill-blanks', prompt: 'Boshqa barcha shartlarsiz holatlar (aks holda) ni bildiruvchi buyruq:', codeBefore: 'if yosh >= 18: \n  print("Katta") \n', codeAfter: ': \n  print("Kichik")', correctAnswer: 'else', smartHint: 'If ni to\'ldiruvchisi, huddi qolgan hamma holatlar uchundek.', explanation: 'Else oxirgi va yagona burilishdir.' },
-            { id: 'q15', skill: 'logic', type: 'multiple-choice', prompt: 'Agar navbatdagi yana bitta shart kiritmoqchi bo\'lsak nimadan foydalanamiz?', options: [{ id: 'a', text: 'else if:' }, { id: 'b', text: 'elif:' }, { id: 'c', text: 'elseif:' }, { id: 'd', text: 'or if:' }], correctId: 'b', explanation: 'Pythonda u "elif" deb yoziladi.' }
-        ]
+        questions: [{ id: 'q13', skill: 'logic', type: 'multiple-choice', prompt: 'Agar (If) sharti qanday qilib Pythonda standart yoziladi?', options: [{ id: 'a', text: 'if x > 5 {' }, { id: 'b', text: 'if x > 5:' }, { id: 'c', text: 'if (x > 5) then' }, { id: 'd', text: 'if x > 5 then' }], correctId: 'b', explanation: 'Shartdan keyin : (ikki nuqta) qoyiladi.' }, { id: 'q14', skill: 'logic', type: 'fill-blanks', prompt: 'Boshqa barcha shartlarsiz holatlar (aks holda) ni bildiruvchi buyruq:', codeBefore: 'if yosh >= 18: \n  print("Katta") \n', codeAfter: ': \n  print("Kichik")', correctAnswer: 'else', smartHint: 'If ni to\'ldiruvchisi, huddi qolgan hamma holatlar uchundek.', explanation: 'Else oxirgi va yagona burilishdir.' }, { id: 'q15', skill: 'logic', type: 'multiple-choice', prompt: 'Agar navbatdagi yana bitta shart kiritmoqchi bo\'lsak nimadan foydalanamiz?', options: [{ id: 'a', text: 'else if:' }, { id: 'b', text: 'elif:' }, { id: 'c', text: 'elseif:' }, { id: 'd', text: 'or if:' }], correctId: 'b', explanation: 'Pythonda u "elif" deb yoziladi.' }]
     },
     {
-        id: 6, title: 'Lug\'atlar - Dictionaries (6-Modul)',
+        id: 6, title: 'Ro\'yxatlar', desc: 'Ma’lumotlarni guruhlash va boshqarish',
         theory: [
             "Lug'at yordamida o'zaro bog'liq ma'lumot qismlarini bitta to'plamga ulash mumkin (Key-Value).",
             "Ular ham listlar kabi istalgan hajmdagi obyekt ma'lumotlarini saqlay oladi."
         ],
-        questions: [
-            { id: 'q16', type: 'multiple-choice', prompt: 'Lug\'at yaratish ko\'rinishi qanaqa bo\'ladi?', options: [{ id: 'a', text: 'd = [1,2]' }, { id: 'b', text: 'd = {"kalit": "qiymat"}' }, { id: 'c', text: 'd = (1, 2)' }, { id: 'd', text: 'd = "kalit va qiymat"' }], correctId: 'b', explanation: 'Lug\'at jingalak qavsda `{}` yoziladi.' },
-            { id: 'q17', type: 'fill-blanks', prompt: 'Lug\'atdan "ism" ni chaqirib olish:', codeBefore: 'odam = {"ism": "Ali"} \nprint(odam[', codeAfter: '])', correctAnswer: '"ism"', explanation: 'Lug\'atlarni ichidagi Key (kalit) string orqali chaqiriladi.' },
-            { id: 'q18', type: 'code-write', prompt: 'Amaliyot: Bo\'sh "lugat" ismli Dictionary yarating.', correctAnswer: 'lugat = {}', placeholder: 'Dikt...', explanation: 'Bo\'sh lug\'atlar gulkosa qavs {} qoldirish bilan ochiladi.' }
-        ]
+        questions: [{ id: 'q16', type: 'multiple-choice', prompt: 'Lug\'at yaratish ko\'rinishi qanaqa bo\'ladi?', options: [{ id: 'a', text: 'd = [1,2]' }, { id: 'b', text: 'd = {"kalit": "qiymat"}' }, { id: 'c', text: 'd = (1, 2)' }, { id: 'd', text: 'd = "kalit va qiymat"' }], correctId: 'b', explanation: 'Lug\'at jingalak qavsda `{}` yoziladi.' }, { id: 'q17', type: 'fill-blanks', prompt: 'Lug\'atdan "ism" ni chaqirib olish:', codeBefore: 'odam = {"ism": "Ali"} \nprint(odam[', codeAfter: '])', correctAnswer: '"ism"', explanation: 'Lug\'atlarni ichidagi Key (kalit) string orqali chaqiriladi.' }, { id: 'q18', type: 'code-write', prompt: 'Amaliyot: Bo\'sh "lugat" ismli Dictionary yarating.', correctAnswer: 'lugat = {}', placeholder: 'Dikt...', explanation: 'Bo\'sh lug\'atlar gulkosa qavs {} qoldirish bilan ochiladi.' }]
     },
     {
-        id: 7, title: 'Input va While Loops (7-Modul)',
+        id: 7, title: 'Funksiyalar', desc: 'Kod bloklarini qayta ishlatish',
         theory: [
             "Foydalanuvchilar qaysidir qiymatni kiritishi uchun (Interaktiv interfeys) `input()` funksiyasi xizmat qiladi.",
             "Shartlar rost (True) bo'lib turgunicha kodni marta-va-marta aylantiruvchi dvigatel bu - `while` tsikli."
         ],
-        questions: [
-            { id: 'q19', type: 'multiple-choice', prompt: 'Terminal orqali savol berib, ma\'lumotni qayd qilib olish uchun qaysi modul keladi?', options: [{ id: 'a', text: 'read()' }, { id: 'b', text: 'scan()' }, { id: 'c', text: 'input()' }, { id: 'd', text: 'get()' }], correctId: 'c', explanation: 'Input foydalanuvchidan satr yig\'adi.' },
-            { id: 'q20', type: 'fill-blanks', prompt: 'To shart bajarilayotgan holida cheksiz davom eta oladigan tsikl komandasi:', codeBefore: '', codeAfter: ' x < 10: \n  x += 1', correctAnswer: 'while', explanation: 'While aylanma tsikl hisoblanadi.' },
-            { id: 'q21', type: 'code-fix', prompt: 'Amaliyot: While tsiklini kuch bilan yirtib (to\'xtatib) chiqib ketish buyrug\'i qanday:', initialCode: 'breyk', correctAnswer: 'break', explanation: 'Chiqib ketish kaliti - break (sindirish) deyiladi.' }
-        ]
+        questions: [{ id: 'q19', type: 'multiple-choice', prompt: 'Terminal orqali savol berib, ma\'lumotni qayd qilib olish uchun qaysi modul keladi?', options: [{ id: 'a', text: 'read()' }, { id: 'b', text: 'scan()' }, { id: 'c', text: 'input()' }, { id: 'd', text: 'get()' }], correctId: 'c', explanation: 'Input foydalanuvchidan satr yig\'adi.' }, { id: 'q20', type: 'fill-blanks', prompt: 'To shart bajarilayotgan holida cheksiz davom eta oladigan tsikl komandasi:', codeBefore: '', codeAfter: ' x < 10: \n  x += 1', correctAnswer: 'while', explanation: 'While aylanma tsikl hisoblanadi.' }, { id: 'q21', type: 'code-fix', prompt: 'Amaliyot: While tsiklini kuch bilan yirtib (to\'xtatib) chiqib ketish buyrug\'i qanday:', initialCode: 'breyk', correctAnswer: 'break', explanation: 'Chiqib ketish kaliti - break (sindirish) deyiladi.' }]
     },
     {
-        id: 8, title: 'Funksiyalar - Functions (8-Modul)',
+        id: 8, title: 'Lug\'atlar', desc: 'Kalit-qiymat juftliklari bilan ishlash',
         theory: [
             "Aniq bitta zo'r vazifani qilib beruvchi qolipli va xohlagan vaqtingiz chaqirish mumkin bo'lgan kod bloklari bu - Funksiyalar.",
             "Pthonda funksiya e'lon qilish uchun eng birinchi `def` kalit so'zi keltiriladi."
         ],
-        questions: [
-            { id: 'q22', type: 'multiple-choice', prompt: 'Funksiya yaratish maxsus so\'zi nimadan boshlanadi?', options: [{ id: 'a', text: 'function' }, { id: 'b', text: 'def' }, { id: 'c', text: 'func' }, { id: 'd', text: 'define' }], correctId: 'b', explanation: 'Def - definition (aniqlash) deganidir.' },
-            { id: 'q23', type: 'fill-blanks', prompt: 'Funksiya yaratish strukturasi boshini to\'ldiring:', codeBefore: '', codeAfter: ' salomBer(): \n  print("Salom")', correctAnswer: 'def', explanation: 'Funksiya strukturasi def harflaridan tuziladi.' },
-            { id: 'q24', type: 'code-write', prompt: 'Amaliyot: Ismsiz, "yugur" nomli o\'z ichiga xarxil argument olmasdan ishlovchi funksiyani yozib chaqiring.', correctAnswer: 'yugur()', placeholder: 'buyruq...', explanation: 'Ishlatishda shunchaki ustiga yozilgan nomi bilan qavs () beriladi.' }
-        ]
+        questions: [{ id: 'q22', type: 'multiple-choice', prompt: 'Funksiya yaratish maxsus so\'zi nimadan boshlanadi?', options: [{ id: 'a', text: 'function' }, { id: 'b', text: 'def' }, { id: 'c', text: 'func' }, { id: 'd', text: 'define' }], correctId: 'b', explanation: 'Def - definition (aniqlash) deganidir.' }, { id: 'q23', type: 'fill-blanks', prompt: 'Funksiya yaratish strukturasi boshini to\'ldiring:', codeBefore: '', codeAfter: ' salomBer(): \n  print("Salom")', correctAnswer: 'def', explanation: 'Funksiya strukturasi def harflaridan tuziladi.' }, { id: 'q24', type: 'code-write', prompt: 'Amaliyot: Ismsiz, "yugur" nomli o\'z ichiga xarxil argument olmasdan ishlovchi funksiyani yozib chaqiring.', correctAnswer: 'yugur()', placeholder: 'buyruq...', explanation: 'Ishlatishda shunchaki ustiga yozilgan nomi bilan qavs () beriladi.' }]
     },
     {
-        id: 9, title: 'Klasslar (OOP) (9-Modul)',
+        id: 9, title: 'Fayllar bilan ishlash', desc: 'Fayllarni o‘qish va yozish',
         theory: [
             "Dasturda real-hayotdagi ob'yektlarni (itlar, odamlar, mashinalar) yaratish uchun Klass (Class) metodikasi o'zgaradi.",
             "Klasslarning real iloji bo'lmagan abstrac elementlar shabloni."
         ],
-        questions: [
-            { id: 'q25', type: 'multiple-choice', prompt: 'Haqiqiy narsalar mantiqida obyekt yozish uchun nima ishlatiladi?', options: [{ id: 'a', text: 'database' }, { id: 'b', text: 'class' }, { id: 'c', text: 'function' }, { id: 'd', text: 'loop' }], correctId: 'b', explanation: 'Klass o\'zining nusxasini bera olaydigan shablondir.' },
-            { id: 'q26', type: 'fill-blanks', prompt: 'Klass nomini aniqlashtirish yozuvi:', codeBefore: '', codeAfter: ' Mashina:', correctAnswer: 'class', explanation: 'Yaratuvchi doimo class hisoblanadi.' },
-            { id: 'q27', type: 'code-fix', prompt: 'Amaliyot: Yaratilgan "Kompyuter" klasidan obyekt shakillantirilish jarayonini aniqlang:', initialCode: 'hp = new Kompyuter()', correctAnswer: 'hp = Kompyuter()', explanation: 'Javascript kabi Python new deb takrorlashga majburlamaydi!' }
-        ]
+        questions: [{ id: 'q25', type: 'multiple-choice', prompt: 'Haqiqiy narsalar mantiqida obyekt yozish uchun nima ishlatiladi?', options: [{ id: 'a', text: 'database' }, { id: 'b', text: 'class' }, { id: 'c', text: 'function' }, { id: 'd', text: 'loop' }], correctId: 'b', explanation: 'Klass o\'zining nusxasini bera olaydigan shablondir.' }, { id: 'q26', type: 'fill-blanks', prompt: 'Klass nomini aniqlashtirish yozuvi:', codeBefore: '', codeAfter: ' Mashina:', correctAnswer: 'class', explanation: 'Yaratuvchi doimo class hisoblanadi.' }, { id: 'q27', type: 'code-fix', prompt: 'Amaliyot: Yaratilgan "Kompyuter" klasidan obyekt shakillantirilish jarayonini aniqlang:', initialCode: 'hp = new Kompyuter()', correctAnswer: 'hp = Kompyuter()', explanation: 'Javascript kabi Python new deb takrorlashga majburlamaydi!' }]
     },
     {
-        id: 10, title: 'Fayllar va Xatolar (10-Modul)',
+        id: 10, title: 'Xatolarni boshqarish', desc: 'Xatolarni ushlash va tuzatish',
         theory: [
             "Fayllar bloki darslarida data saqlash tushintiriladi va dasturning uzilib qolmay umr-bot ma'lumot qoldirishi tekshiriladi.",
             "Exception (Istisno) tufayli tasodifiy kutilmagan hatoni chiroyli qabul qilib kod barbod o'qilishini to'xtatadi."
         ],
-        questions: [
-            { id: 'q28', type: 'multiple-choice', prompt: 'Pythonda xato sodir bo\'lishi va uzilib qolishini rad etib istisno yaratish:', options: [{ id: 'a', text: 'if / error' }, { id: 'b', text: 'try / except' }, { id: 'c', text: 'error / skip' }, { id: 'd', text: 'try / catch' }], correctId: 'b', explanation: 'Except - Pythondagi Try ning asosiy himoyaschisidir.' },
-            { id: 'q29', type: 'fill-blanks', prompt: 'Fayl bilan ma\'lumotlar ustida ishlash imkonini qaytaruvchi buyruq:', codeBefore: 'f = ', codeAfter: '("fayl.txt", "w")', correctAnswer: 'open', explanation: 'faylni doim open bilan charqidish darkort.' },
-            { id: 'q30', type: 'code-write', prompt: 'Amaliyot: Istisnolarni boshqaruvchi kod ramzlarini try va except yordamida to\'ldiring', correctAnswer: 'try:\n  pass\nexcept:\n  pass', placeholder: 'try:\\nexcept:', explanation: 'Eng sodda istisno formati qolipi try-except hisoblanadi.' }
-        ]
+        questions: [{ id: 'q28', type: 'multiple-choice', prompt: 'Pythonda xato sodir bo\'lishi va uzilib qolishini rad etib istisno yaratish:', options: [{ id: 'a', text: 'if / error' }, { id: 'b', text: 'try / except' }, { id: 'c', text: 'error / skip' }, { id: 'd', text: 'try / catch' }], correctId: 'b', explanation: 'Except - Pythondagi Try ning asosiy himoyaschisidir.' }, { id: 'q29', type: 'fill-blanks', prompt: 'Fayl bilan ma\'lumotlar ustida ishlash imkonini qaytaruvchi buyruq:', codeBefore: 'f = ', codeAfter: '("fayl.txt", "w")', correctAnswer: 'open', explanation: 'faylni doim open bilan charqidish darkort.' }, { id: 'q30', type: 'code-write', prompt: 'Amaliyot: Istisnolarni boshqaruvchi kod ramzlarini try va except yordamida to\'ldiring', correctAnswer: 'try:\n  pass\nexcept:\n  pass', placeholder: 'try:\\nexcept:', explanation: 'Eng sodda istisno formati qolipi try-except hisoblanadi.' }]
     },
     {
-        id: 11, title: 'Kodlarni Testlash (11-Modul)',
+        id: 11, title: 'Yakuniy amaliy loyiha', desc: 'O‘rgangan bilimlarni birlashtirish',
         theory: [
             "Kodlaringiz siz istagancha aynan mantiqiy ishlayotganiga amin bo'lish uchun doimo Test yoziladi.",
             "Testing qobiliyati orqali siz yangi xatolar chiqish qo'rquvisiz va bexavotirsiz erkin kod olasiz, bu sizni (intermediate) o'rta darajali dasturchi qiladi!"
         ],
-        questions: [
-            { id: 'q31', type: 'multiple-choice', prompt: 'Kodlarning kelajakda xatolarsiz va mutloq to\'g\'ri mos ishlashini garov orqali tekshirish bosqichi nima?', options: [{ id: 'a', text: 'Writing Comments' }, { id: 'b', text: 'Testing Code' }, { id: 'c', text: 'Try-catch handling' }, { id: 'd', text: 'Debugging tools' }], correctId: 'b', explanation: 'Testing eng asosiy mezon va sifati ko\'rsatgichdir!!' },
-            { id: 'q32', type: 'fill-blanks', prompt: 'Qobiliyat (skill) o\'laroq Intermediate (o\'rta) dasturchini Junior dan ajratuvchi omil ularning Kodlarini ___________ qilishidir.', codeBefore: '', codeAfter: '', correctAnswer: 'test', explanation: 'Yozilganlarni Test qilish qobiliati.' },
-            { id: 'q33', type: 'code-fix', prompt: 'Amaliyot: Pythonda kiritilgan narsalarning to\'griligini isbotlovchi hamda rost(True)likka majburlash operatorini to\'ldiring:', initialCode: 'check 5 == 5', correctAnswer: 'assert 5 == 5', explanation: 'Pythonda doimo assert bilan test belgilanadi.' }
-        ]
+        questions: [{ id: 'q31', type: 'multiple-choice', prompt: 'Kodlarning kelajakda xatolarsiz va mutloq to\'g\'ri mos ishlashini garov orqali tekshirish bosqichi nima?', options: [{ id: 'a', text: 'Writing Comments' }, { id: 'b', text: 'Testing Code' }, { id: 'c', text: 'Try-catch handling' }, { id: 'd', text: 'Debugging tools' }], correctId: 'b', explanation: 'Testing eng asosiy mezon va sifati ko\'rsatgichdir!!' }, { id: 'q32', type: 'fill-blanks', prompt: 'Qobiliyat (skill) o\'laroq Intermediate (o\'rta) dasturchini Junior dan ajratuvchi omil ularning Kodlarini ___________ qilishidir.', codeBefore: '', codeAfter: '', correctAnswer: 'test', explanation: 'Yozilganlarni Test qilish qobiliati.' }, { id: 'q33', type: 'code-fix', prompt: 'Amaliyot: Pythonda kiritilgan narsalarning to\'griligini isbotlovchi hamda rost(True)likka majburlash operatorini to\'ldiring:', initialCode: 'check 5 == 5', correctAnswer: 'assert 5 == 5', explanation: 'Pythonda doimo assert bilan test belgilanadi.' }]
     }
 ];
 

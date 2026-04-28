@@ -53,8 +53,43 @@ function AnimatedRobot({ state = 'idle', className = '' }) {
     if (state === 'happy') loopingAnimation = "happy_bounce";
     if (state === 'sad') loopingAnimation = "sad_sigh";
 
+    // Status particles
+    const renderParticles = () => {
+        if (state === 'happy') {
+            return (
+                <motion.div className="emotion-particles" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                    <motion.div animate={{ y: [-10, -30], opacity: [1, 0] }} transition={{ repeat: Infinity, duration: 1 }} style={{ position:'absolute', top: '10%', right: '10%', fontSize: '1.5rem', zIndex: 10 }}>✨</motion.div>
+                    <motion.div animate={{ y: [-10, -40], opacity: [1, 0] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0.2 }} style={{ position:'absolute', top: '20%', left: '5%', fontSize: '1.2rem', zIndex: 10 }}>⭐</motion.div>
+                </motion.div>
+            );
+        }
+        if (state === 'sad') {
+            return (
+                <motion.div className="emotion-particles" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                    <motion.div animate={{ y: [0, 20], opacity: [1, 0] }} transition={{ repeat: Infinity, duration: 1.5 }} style={{ position:'absolute', top: '40%', right: '20%', fontSize: '1.5rem', zIndex: 10 }}>💧</motion.div>
+                    <motion.div animate={{ y: [0, 15], opacity: [1, 0] }} transition={{ repeat: Infinity, duration: 1.3, delay: 0.5 }} style={{ position:'absolute', top: '50%', left: '20%', fontSize: '1.5rem', zIndex: 10 }}>💧</motion.div>
+                </motion.div>
+            );
+        }
+        if (state === 'greeting') {
+            return (
+                <motion.div className="emotion-particles" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                    <motion.div animate={{ rotate: [0, 20, -10, 20, 0] }} transition={{ repeat: Infinity, duration: 1.5 }} style={{ position:'absolute', top: '10%', right: '-10%', fontSize: '2rem', zIndex: 10, transformOrigin: 'bottom right' }}>👋</motion.div>
+                </motion.div>
+            );
+        }
+        if (state === 'invite') {
+            return (
+                <motion.div className="emotion-particles" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                    <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 1.5 }} style={{ position:'absolute', top: '40%', right: '-20%', fontSize: '2rem', zIndex: 10 }}>👉</motion.div>
+                </motion.div>
+            );
+        }
+        return null;
+    }
+
     return (
-        <div className={`robot-container state-${state} ${className}`}>
+        <div className={`robot-container state-${state} ${className}`} style={{ position: 'relative' }}>
             <AnimatePresence mode="wait">
                 <motion.div
                     key={state}
@@ -62,8 +97,9 @@ function AnimatedRobot({ state = 'idle', className = '' }) {
                     initial="initial"
                     animate="animate"
                     exit="exit"
-                    style={{ width: '100%', height: '100%' }}
+                    style={{ width: '100%', height: '100%', position: 'relative' }}
                 >
+                    {renderParticles()}
                     <motion.img 
                         src={currentImage} 
                         alt={`AI Mascot - ${state}`}
@@ -72,6 +108,7 @@ function AnimatedRobot({ state = 'idle', className = '' }) {
                         animate={loopingAnimation}
                         whileHover={{ scale: 1.05, filter: 'brightness(1.1) drop-shadow(0 0 25px rgba(0,255,204,0.6))' }}
                         whileTap={{ scale: 0.95 }}
+                        style={{ position: 'relative', zIndex: 5 }}
                     />
                 </motion.div>
             </AnimatePresence>
