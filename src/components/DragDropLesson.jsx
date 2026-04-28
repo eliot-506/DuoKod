@@ -69,7 +69,7 @@ function DragDropLesson({ blocks, correctAnswer, onChange, isChecked, isCorrect,
                     {isChecked && isCorrect && terminalOutput && (
                         <motion.div 
                             initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                            animate={{ height: 'auto', opacity: 1, marginTop: 20 }}
+                            animate={{ height: 'auto', opacity: 1, marginTop: 12 }}
                             exit={{ height: 0, opacity: 0, marginTop: 0 }}
                             transition={{ duration: 0.5, delay: 0.3 }}
                             className="mini-terminal"

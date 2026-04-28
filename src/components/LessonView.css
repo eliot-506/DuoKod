@@ -78,12 +78,11 @@ body.light-mode .lesson-header {
 
 .lesson-progress-bar {
     flex: 1;
-    height: 16px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--glass-border);
+    height: 12px;
+    background-color: rgba(148, 163, 184, 0.15);
     border-radius: var(--border-radius-full);
     overflow: hidden;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .lesson-progress-fill {
@@ -92,7 +91,7 @@ body.light-mode .lesson-header {
     border-radius: var(--border-radius-full);
     transition: width 0.4s ease;
     position: relative;
-    box-shadow: 0 0 10px currentColor;
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
 }
 
 .lesson-progress-fill::after {
@@ -108,18 +107,22 @@ body.light-mode .lesson-header {
 }
 
 .lesson-hearts {
-    font-weight: 800;
-    color: var(--accent-pink);
-    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-color);
+    opacity: 0.9;
+    font-size: 1.1rem;
     display: flex;
     align-items: center;
     gap: 4px;
-    text-shadow: 0 0 10px rgba(255, 75, 75, 0.5);
+}
+
+.lesson-hearts i {
+    color: #f59e0b;
 }
 
 .lesson-content {
     flex: 1;
-    padding: 30px 40px;
+    padding: 16px 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -130,7 +133,7 @@ body.light-mode .lesson-header {
 
 .task-header-container {
     text-align: center;
-    margin-bottom: 28px;
+    margin-bottom: 16px;
     animation: slideUp 0.4s ease-out;
 }
 
@@ -243,9 +246,9 @@ body.light-mode .lesson-header {
 
 /* Footer Section */
 .lesson-footer {
-    padding: 24px 32px;
+    padding: 16px 32px;
     border-top: 1px solid var(--border-color);
-    background-color: var(--surface);
+    background-color: transparent;
     transition: all 0.3s ease;
     position: relative;
     z-index: 10;
@@ -257,13 +260,23 @@ body.light-mode .lesson-footer {
 }
 
 .footer-correct {
-    background-color: rgba(0, 255, 204, 0.05);
-    border-top-color: var(--primary);
+    background-color: rgba(16, 185, 129, 0.05);
+    border-top-color: rgba(16, 185, 129, 0.15);
+}
+
+body.light-mode .footer-correct {
+    background-color: #f4fbf7;
+    border-top-color: #d1fae5;
 }
 
 .footer-incorrect {
-    background-color: rgba(255, 75, 75, 0.05);
-    border-top-color: var(--accent-pink);
+    background-color: rgba(244, 63, 94, 0.05);
+    border-top-color: rgba(244, 63, 94, 0.15);
+}
+
+body.light-mode .footer-incorrect {
+    background-color: #fff1f2;
+    border-top-color: #ffe4e6;
 }
 
 .footer-content {
@@ -297,9 +310,9 @@ body.light-mode .lesson-footer {
 .footer-incorrect p,
 .footer-correct p {
     color: var(--text-color);
-    opacity: 0.9;
-    font-size: 1.1rem;
-    font-weight: 600;
+    opacity: 0.7;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 .theory-container {
@@ -417,10 +430,10 @@ body.light-mode .theory-card p {
 .mascot-quiz-wrapper {
     display: flex;
     justify-content: center;
-    padding-top: 20px; /* Add padding so head is not cut off */
+    padding-top: 16px; /* Add padding so head is not cut off */
     position: relative;
     z-index: 10;
-    margin-bottom: -15px; /* Pull the next element (task header) closer */
+    margin-bottom: -10px; /* Pull the next element (task header) closer */
     transform: none; /* Remove translateY to stop clipping at top */
 }
 
