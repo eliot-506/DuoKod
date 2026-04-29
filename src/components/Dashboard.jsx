@@ -10,11 +10,15 @@ function Dashboard({ onNavigate }) {
     const tier = getStreakTier(stats?.streak || 0);
     const isAdmin = stats?.isAdmin || stats?.isSuperAdmin;
 
-    const dailyQuests = [
-        { id: 1, title: 'Bitta HTML darsini tugating', amount: 1, progress: 0, reward: 15, completed: false },
-        { id: 2, title: 'Xatosiz 3ta savolga javob bering', amount: 3, progress: 1, reward: 20, completed: false },
-        { id: 3, title: '1 ta quiz yakunlang', amount: 1, progress: 0, reward: 10, completed: false }
-    ];
+    const [dailyQuests, setDailyQuests] = useState([
+        { id: 1, title: "Bugungi adabiyotdan 1 bo'lim o'qing", completed: true },
+        { id: 2, title: "1 ta darsni yakunlang", completed: false },
+        { id: 3, title: "Natijangizni do'stlaringiz bilan ulashing", completed: true }
+    ]);
+
+    const toggleQuest = (id) => {
+        setDailyQuests(quests => quests.map(q => q.id === id ? { ...q, completed: !q.completed } : q));
+    };
 
     const currentCourseData = {
         'html': { title: 'HTML5 Asoslari', icon: '🧱', color: '#e34f26' },
@@ -210,29 +214,39 @@ function Dashboard({ onNavigate }) {
             </div>
 
             {/* ROW 3: Tasks & Current Course */}
-            <section className="col-8 card-tasks dashboard-card" style={{ alignSelf: 'start', paddingBottom: '20px' }}>
+            <section className="col-8 premium-tasks-section dashboard-card">
               <div className="tasks-header">
-                <h2>Kunlik vazifalar</h2>
-                <button>Barchasini ko'rish</button>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#111827', margin: 0 }}>Kunlik vazifalar</h2>
+                  <span style={{ fontSize: '0.85rem', color: '#6B7280', fontWeight: 500 }}>Bugungi vazifalar</span>
+                </div>
+                <button className="view-all-btn">Barchasini ko'rish</button>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div className="tasks-list">
                 {dailyQuests.map((quest) => (
-                  <label key={quest.id} className={`task-item ${quest.completed ? 'completed' : ''}`}>
-                    <div className="task-status-dot"></div>
-                    <div style={{ paddingTop: '1px' }}>
-                      <input type="checkbox" checked={quest.completed} readOnly className="goal-checkbox" style={{ width: '17px', height: '17px', cursor: 'pointer', accentColor: '#2563EB', margin: 0, display: 'block' }} />
+                  <div 
+                    key={quest.id} 
+                    className={`premium-task-card ${quest.completed ? 'completed' : 'uncompleted'}`}
+                    onClick={() => toggleQuest(quest.id)}
+                  >
+                    <div className="task-checkbox-wrap">
+                      <input 
+                        type="checkbox" 
+                        checked={quest.completed} 
+                        readOnly 
+                        className="premium-checkbox" 
+                      />
                     </div>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <p style={{ fontSize: '0.9rem', margin: 0, fontWeight: 600, color: '#0F172A' }}>{quest.title}</p>
-                        <span className="task-xp-badge">+{quest.reward} XP</span>
-                      </div>
-                      <div className="progress-track" style={{ height: '5px', marginTop: '10px' }}>
-                        <div className="progress-fill fill-blue" style={{ width: `${(quest.progress / quest.amount) * 100}%` }}></div>
-                      </div>
+                    <div className="task-content">
+                      <p className="task-title">{quest.title}</p>
                     </div>
-                  </label>
+                    <div className="task-badge-wrap">
+                      <span className={`status-badge ${quest.completed ? 'badge-done' : 'badge-pending'}`}>
+                        {quest.completed ? 'Bajarildi' : 'Bajarilmadi'}
+                      </span>
+                    </div>
+                  </div>
                 ))}
               </div>
             </section>
