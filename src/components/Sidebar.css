@@ -55,10 +55,9 @@
     padding: 14px 16px;
     border-radius: 16px;
     background: transparent;
-    border: none;
-    color: #475569 !important; /* Make inactive text darker and more visible */
+    color: #374151 !important;
     font-size: 1rem;
-    font-weight: 700; /* Increase weight for better visibility */
+    font-weight: 600;
     cursor: pointer;
     transition: color 180ms cubic-bezier(0.16, 1, 0.3, 1);
     text-align: left;
@@ -124,12 +123,19 @@
     transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.sidebar-nav-item:hover {
-    color: #0F172A !important;
-    background: rgba(241, 245, 249, 0.5); /* Subtle hover background */
+.sidebar-nav-item .nav-icon {
+    color: #6B7280;
 }
 
-.sidebar-nav-item:hover .nav-icon,
+.sidebar-nav-item:hover {
+    color: #111827 !important;
+    background: #F8FAFC;
+}
+
+.sidebar-nav-item:hover .nav-icon {
+    color: #374151;
+}
+
 .sidebar-nav-item:hover .nav-label {
     transform: translateX(2px);
 }
@@ -139,8 +145,8 @@
 }
 
 .sidebar-nav-item.active .nav-icon {
+    color: #DCE8FF !important;
     transform: translateX(3px);
-    filter: brightness(0) invert(1); /* Forces emojis/icons to be pure white */
 }
 
 .sidebar-nav-item.active .nav-label {

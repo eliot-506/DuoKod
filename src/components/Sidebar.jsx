@@ -31,12 +31,12 @@ function Sidebar({ currentTab, onNavigate }) {
     const toggleTheme = () => setIsLight(prev => !prev);
 
     const tabs = [
-        { id: 'dashboard', icon: '🏠', label: 'Asosiy' },
-        { id: 'map', icon: '📖', label: "O'rganish" },
-        { id: 'leaderboard', icon: '🛡️', label: 'Reyting' },
-        { id: 'arena', icon: '💻', label: 'Arena' },
-        { id: 'duel', icon: '⚔️', label: 'Bellashuv' },
-        { id: 'profile', icon: '👤', label: 'Profil' }
+        { id: 'dashboard', icon: <i className="fa-solid fa-house"></i>, label: 'Asosiy' },
+        { id: 'map', icon: <i className="fa-solid fa-book-open"></i>, label: "O'rganish" },
+        { id: 'leaderboard', icon: <i className="fa-solid fa-shield-halved"></i>, label: 'Reyting' },
+        { id: 'arena', icon: <i className="fa-solid fa-laptop-code"></i>, label: 'Arena' },
+        { id: 'duel', icon: <i className="fa-solid fa-bolt"></i>, label: 'Bellashuv' },
+        { id: 'profile', icon: <i className="fa-solid fa-user"></i>, label: 'Profil' }
     ];
 
     return (
