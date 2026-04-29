@@ -216,11 +216,7 @@ function Dashboard({ onNavigate }) {
             {/* ROW 3: Tasks & Current Course */}
             <section className="col-8 premium-tasks-section dashboard-card">
               <div className="tasks-header">
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                  <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#111827', margin: 0 }}>Kunlik vazifalar</h2>
-                  <span style={{ fontSize: '0.85rem', color: '#6B7280', fontWeight: 500 }}>Bugungi vazifalar</span>
-                </div>
-                <button className="view-all-btn">Barchasini ko'rish</button>
+                <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#111827', margin: 0 }}>Kunlik vazifalar</h2>
               </div>
 
               <div className="tasks-list">
