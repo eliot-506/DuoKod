@@ -97,8 +97,8 @@ function Auth({ onLoginSuccess }) {
                     <div className="auth-mascot-wrap">
                         <Mascot state={isLogin ? "greeting" : "happy"} />
                     </div>
-                    <h2>{isLogin ? 'Xush Kelibsiz!' : 'Yangi Akkaunt'}</h2>
-                    <p>{isLogin ? "Dasturlash sirlarini o'rganishni davom eting" : "DuoKod bilan dasturchiga aylaning"}</p>
+                    <h2>{isLogin ? 'Xush kelibsiz' : 'Yangi akkaunt'}</h2>
+                    <p>{isLogin ? "Platformaga kirish" : "DuoKod bilan dasturchiga aylaning"}</p>
                 </div>
 
                 {error && <div className="auth-error">⚠️ {error}</div>}
@@ -133,13 +133,13 @@ function Auth({ onLoginSuccess }) {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary auth-submit-btn" disabled={loading}>
-                        {loading ? '⏳ Kutilmoqda...' : (isLogin ? 'Tizimga Kirish' : "Ro'yxatdan O'tish")}
+                    <button type="submit" className="auth-submit-btn" disabled={loading}>
+                        {loading ? '⏳ Kutilmoqda...' : (isLogin ? 'Tizimga kirish' : "Ro'yxatdan o'tish")}
                     </button>
 
                     <div className="auth-divider">yoki</div>
 
-                    <button type="button" className="btn auth-google-btn" onClick={handleGoogleLogin} disabled={loading}>
+                    <button type="button" className="auth-google-btn" onClick={handleGoogleLogin} disabled={loading}>
                         <i className="fa-brands fa-google"></i> Google orqali {isLogin ? 'kirish' : "ro'yxatdan o'tish"}
                     </button>
                 </form>
