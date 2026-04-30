@@ -21,27 +21,28 @@ function Dashboard({ onNavigate }) {
     };
 
     const currentCourseData = {
-        'html': {
-            title: 'HTML5 Asoslari', icon: '🧱', color: '#E24C26',
-            desc: 'Web sahifalar qanday qurilishini o'rganing. Barcha dasturchilar boshlashi kerak bo'lgan joy.',
-            level: 'Boshlang'ich', lessons: 12
+        html: {
+            title: "HTML5 Asoslari", icon: "🧱", color: "#E24C26",
+            desc: "Web sahifalar qanday qurilishini o'rganing. Barcha dasturchilar boshlashi kerak bo'lgan joy.",
+            level: "Boshlang'ich", lessons: 12
         },
-        'css': {
-            title: 'CSS3 Dizayn', icon: '🎨', color: '#2563EB',
-            desc: 'Chiroyli interfeyslar yarating. Rang, animatsiya va flexbox bilan ishlashni o'rganing.',
-            level: 'O'rta', lessons: 10
+        css: {
+            title: "CSS3 Dizayn", icon: "🎨", color: "#2563EB",
+            desc: "Chiroyli interfeyslar yarating. Rang, animatsiya va flexbox bilan ishlashni o'rganing.",
+            level: "O'rta", lessons: 10
         },
-        'js': {
-            title: 'JavaScript', icon: '⚡', color: '#D97706',
-            desc: 'Saytlarni interaktiv qiling. Dunyoning eng mashhur dasturlash tili bilan tanishing.',
-            level: 'O'rta', lessons: 15
+        js: {
+            title: "JavaScript", icon: "⚡", color: "#D97706",
+            desc: "Saytlarni interaktiv qiling. Dunyoning eng mashhur dasturlash tili bilan tanishing.",
+            level: "O'rta", lessons: 15
         },
-        'python': {
-            title: 'Python Asoslari', icon: '🐍', color: '#2563EB',
-            desc: 'Eng qulay va kuchli til bilan kodlashni boshlang. AI, ma'lumotlar va web uchun ideal.',
-            level: 'Boshlang'ich', lessons: 11
+        python: {
+            title: "Python Asoslari", icon: "🐍", color: "#2563EB",
+            desc: "Eng qulay va kuchli til bilan kodlashni boshlang. AI, ma'lumotlar va web uchun ideal.",
+            level: "Boshlang'ich", lessons: 11
         }
     };
+
 
     const safeCourseId = stats?.currentCourse && currentCourseData[stats.currentCourse] ? stats.currentCourse : 'html';
     const courseInfo = currentCourseData[safeCourseId] || currentCourseData['html'];
