@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { useUser } from '../context/UserContext';
-import Mascot from './Mascot';
 import './Auth.css';
 
 function Auth({ onLoginSuccess }) {
@@ -11,11 +10,10 @@ function Auth({ onLoginSuccess }) {
     const [username, setUsername] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const { loginUser } = useUser();
 
-    // Google OAuth redirect natijasini tekshirish
     useEffect(() => {
-        // Agar URL da xatolik qaytgan bo'lsa (masalan: #error=unauthorized_client)
         const hash = window.location.hash;
         if (hash && hash.includes('error=')) {
             const urlParams = new URLSearchParams(hash.substring(1));
@@ -61,7 +59,6 @@ function Auth({ onLoginSuccess }) {
                 });
                 if (err) throw err;
                 if (data.user) {
-                    // Profil jadvaliga yozish
                     await supabase.from('profiles').upsert({
                         id: data.user.id,
                         username,
@@ -94,11 +91,11 @@ function Auth({ onLoginSuccess }) {
         <div className="auth-container">
             <div className="auth-card">
                 <div className="auth-header">
-                    <div className="auth-mascot-wrap">
-                        <Mascot state={isLogin ? "greeting" : "happy"} />
+                    <div className="auth-logo-badge">
+                        <i className="fa-solid fa-code" style={{ fontSize: '28px', color: '#4F46E5' }}></i>
                     </div>
                     <h2>{isLogin ? 'Xush kelibsiz' : 'Yangi akkaunt'}</h2>
-                    <p>{isLogin ? "Platformaga kirish" : "DuoKod bilan dasturchiga aylaning"}</p>
+                    <p>{isLogin ? "Platformaga kirish uchun emailingiz va parolingizni kiriting" : "Dasturlash sirlarini biz bilan o'rganing"}</p>
                 </div>
 
                 {error && <div className="auth-error">⚠️ {error}</div>}
@@ -109,7 +106,8 @@ function Auth({ onLoginSuccess }) {
                             <label>Foydalanuvchi nomi</label>
                             <input
                                 type="text"
-                                placeholder="Masalan: coder_uzb"
+                                className="auth-input"
+                                placeholder="coder_uzb"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
@@ -119,38 +117,52 @@ function Auth({ onLoginSuccess }) {
                         <label>Email manzil</label>
                         <input
                             type="email"
-                            placeholder="Sizning emailingiz"
+                            className="auth-input"
+                            placeholder="you@example.com"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <div className="auth-input-group">
                         <label>Parol</label>
-                        <input
-                            type="password"
-                            placeholder="Maxfiy parolingiz (min 6 belgi)"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
+                        <div style={{ position: 'relative', width: '100%' }}>
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                className="auth-input"
+                                placeholder="Parolingizni kiriting"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <button
+                                type="button"
+                                className="password-toggle"
+                                onClick={() => setShowPassword(!showPassword)}
+                                tabIndex="-1"
+                                style={{ top: '50%', transform: 'translateY(-50%)', right: '16px' }}
+                            >
+                                <i className={`fa-regular ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                            </button>
+                        </div>
                     </div>
-                    <button type="submit" className="auth-submit-btn" disabled={loading}>
-                        {loading ? '⏳ Kutilmoqda...' : (isLogin ? 'Tizimga kirish' : "Ro'yxatdan o'tish")}
-                    </button>
+                    
+                    <div className="auth-actions-group">
+                        <button type="submit" className="primary-btn" disabled={loading}>
+                            {loading ? '⏳ Kutilmoqda...' : (isLogin ? 'Tizimga kirish' : "Ro'yxatdan o'tish")}
+                        </button>
+                    </div>
 
                     <div className="auth-divider">yoki</div>
 
-                    <button type="button" className="auth-google-btn" onClick={handleGoogleLogin} disabled={loading}>
+                    <button type="button" className="secondary-btn" onClick={handleGoogleLogin} disabled={loading}>
                         <i className="fa-brands fa-google"></i> Google orqali {isLogin ? 'kirish' : "ro'yxatdan o'tish"}
                     </button>
                 </form>
 
                 <div className="auth-footer">
-                    <p>
-                        {isLogin ? "Akkauntingiz yo'qmi?" : "Akkauntingiz bormi?"}
-                        <span className="auth-switch" onClick={() => { setIsLogin(!isLogin); setError(''); }}>
-                            {isLogin ? " Ro'yxatdan o'tish" : " Tizimga kirish"}
-                        </span>
-                    </p>
+                    <span>{isLogin ? "Akkauntingiz yo'qmi?" : "Akkauntingiz bormi?"}</span>
+                    <span className="auth-switch" onClick={() => { setIsLogin(!isLogin); setError(''); }}>
+                        {isLogin ? "Ro'yxatdan o'tish" : "Tizimga kirish"}
+                    </span>
                 </div>
             </div>
         </div>
