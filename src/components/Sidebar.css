@@ -65,6 +65,50 @@ body:not(.light-mode) .logo-text {
   flex: 1;
 }
 
+/* Switch UI using button */
+.sidebar-theme-switch {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 56px;
+  height: 32px;
+  align-items: center;
+  border-radius: 34px;
+  background-color: #1E293B;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  outline: none;
+  z-index: 2;
+}
+
+.sidebar-theme-switch.is-light {
+  background-color: #DBEAFE;
+  border-color: transparent;
+}
+
+.slider-knob {
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+  background-color: #3B82F6;
+  border-radius: 50%;
+  transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transform: translateX(22px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.sidebar-theme-switch.is-light .slider-knob {
+  background-color: #2563EB;
+  transform: translateX(0);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.sidebar-theme-switch:focus-visible {
+  box-shadow: 0 0 0 2px #2563EB;
+}
+
 .sidebar-nav-item {
   position: relative;
   display: flex;
@@ -138,13 +182,47 @@ body:not(.light-mode) .sidebar-nav-item.active {
 }
 
 .sidebar-footer {
-    font-weight: 700;
-    color: #0F172A;
-    margin: 0 0 4px 0;
+  margin-top: auto;
+  padding-top: 16px;
 }
 
-.footer-desc {
-    font-size: 0.8rem;
-    color: #64748B;
-    margin: 0;
+.sidebar-theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: #F8FAFC;
+  border-radius: 16px;
+  border: 1px solid #E2E8F0;
+}
+
+body:not(.light-mode) .sidebar-theme-toggle {
+  background: rgba(15,23,42,0.5);
+  border-color: rgba(255,255,255,0.1);
+}
+
+.theme-toggle-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.theme-toggle-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0F172A;
+  margin: 0;
+}
+
+body:not(.light-mode) .theme-toggle-title {
+  color: #F8FAFC;
+}
+
+.theme-toggle-subtitle {
+  font-size: 12px;
+  color: #64748B;
+  margin: 0;
+}
+
+body:not(.light-mode) .theme-toggle-subtitle {
+  color: #94A3B8;
 }

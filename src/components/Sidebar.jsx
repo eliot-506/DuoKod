@@ -73,14 +73,18 @@ function Sidebar({ currentTab, onNavigate }) {
                         <p className="theme-toggle-title">{isLight ? 'Kunduzgi' : 'Tungi'}</p>
                         <p className="theme-toggle-subtitle">{isLight ? 'Yorug‘ ko‘rinish' : 'Qorong‘i ko‘rinish'}</p>
                     </div>
-                    <label className="sidebar-theme-switch" aria-label="Ko‘rinish rejimi">
-                        <input
-                            type="checkbox"
-                            checked={isLight}
-                            onChange={toggleTheme}
-                        />
-                        <span className="slider"></span>
-                    </label>
+                    <button 
+                        id="themeToggle"
+                        type="button"
+                        aria-label="Ko‘rinishni almashtirish"
+                        className={`sidebar-theme-switch ${isLight ? 'is-light' : 'is-dark'}`}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            toggleTheme();
+                        }}
+                    >
+                        <span className="slider-knob"></span>
+                    </button>
                 </div>
             </div>
         </aside>
