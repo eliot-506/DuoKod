@@ -140,98 +140,83 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                         <p className="lp-canvas-desc">Qayerda ekaningizni va keyingi darsni bir qarashda ko‘rish uchun vizual yo‘l xaritasi.</p>
                     </div>
 
-                    <div className="journey-map-container">
+                    <div className="journey-map-container timeline-view">
+                        <div className="timeline-trunk">
+                            <div className="timeline-trunk-progress" style={{height: `${progressPercent}%`}}></div>
+                        </div>
+
                         {MODULE_NODES.map((node, i) => {
                             const isLast = i === MODULE_NODES.length - 1;
                             
-                            // Distribute nodes using pure % values to fill the wide canvas
-                            const pattern = [75, 40, 15, 50, 85, 60, 25, 50];
-                            const xOffset = pattern[i % pattern.length];
-                            const nextXOffset = isLast ? xOffset : pattern[(i + 1) % pattern.length];
-                            
-                            // Label positioning logic
-                            const isLabelLeft = xOffset > 50; 
-                            const labelSide = isLabelLeft ? 'left' : 'right';
+                            // Alternate sides for cards, Boss nodes can be on random sides or fixed.
+                            const side = node.isBoss ? 'right' : (i % 2 === 0 ? 'left' : 'right');
 
-                            // Sizing constants
-                            let nodeSize = 88;
-                            if (node.status === 'current' || node.status === 'unlocked') nodeSize = 104;
-                            if (node.isBoss) nodeSize = 76;
-                            if (isLast) nodeSize = 96;
+                            let nodeSize = 48;
+                            if (node.status === 'current' || node.status === 'unlocked') nodeSize = 64;
+                            if (node.isBoss) nodeSize = 56;
+                            if (isLast) nodeSize = 64;
 
                             return (
-                                <div key={`node-${node.id}`} className={`journey-node-row status-${node.status} ${node.isBoss ? 'is-boss' : ''}`}>
+                                <div key={`node-${node.id}`} className={`timeline-row status-${node.status} ${node.isBoss ? 'is-boss' : ''} align-${side}`}>
                                     
-                                    {/* Curved SVG Line connecting to next node */}
-                                    {!isLast && (
-                                        <svg className="path-connector" viewBox="0 0 100 100" preserveAspectRatio="none">
-                                            <path 
-                                                d={`M ${xOffset} 0 C ${xOffset} 50, ${nextXOffset} 50, ${nextXOffset} 100`} 
-                                                stroke={node.status === 'completed' || node.status === 'current' || node.status === 'unlocked' ? '#93C5FD' : '#E2E8F0'} 
-                                                strokeWidth={node.status === 'completed' || node.status === 'current' || node.status === 'unlocked' ? "5" : "4"} 
-                                                vectorEffect="non-scaling-stroke"
-                                                fill="none" 
-                                                strokeLinecap="round"
-                                            />
-                                        </svg>
-                                    )}
-                                    
-                                    {/* Interactive Node Circle */}
-                                    <div 
-                                        className={`node-circle-btn size-variant-${nodeSize}`} 
-                                        style={{ left: `${xOffset}%` }}
-                                        onClick={() => {
-                                            if(node.status !== 'locked' && !node.isBoss) setPreviewNode(node);
-                                            if(node.status !== 'locked' && node.isBoss && onBossStart) onBossStart(node.bossData);
-                                        }}
-                                    >
-                                        {node.isBoss ? (
-                                             <span style={{fontSize:'1.3rem'}}>⚔️</span>
-                                        ) : node.status === 'completed' ? (
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="chk-icon">
-                                                <polyline points="20 6 9 17 4 12"></polyline>
-                                            </svg>
-                                        ) : node.status === 'locked' ? (
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="chk-icon">
-                                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                                            </svg>
-                                        ) : isLast ? (
-                                             <span style={{fontSize:'1.5rem'}}>🏅</span>
-                                        ) : (
-                                            <div className="inner-dot"></div>
+                                    <div className="timeline-center">
+                                        <div 
+                                            className={`node-circle-btn size-variant-${nodeSize}`} 
+                                            onClick={() => {
+                                                if(node.status !== 'locked' && !node.isBoss) setPreviewNode(node);
+                                                if(node.status !== 'locked' && node.isBoss && onBossStart) onBossStart(node.bossData);
+                                            }}
+                                        >
+                                            {node.isBoss ? (
+                                                 <span style={{fontSize:'1.5rem'}}>⚔️</span>
+                                            ) : node.status === 'completed' ? (
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="chk-icon">
+                                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                                </svg>
+                                            ) : node.status === 'locked' ? (
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="chk-icon">
+                                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                                </svg>
+                                            ) : isLast ? (
+                                                 <span style={{fontSize:'1.5rem'}}>🏅</span>
+                                            ) : (
+                                                <div className="inner-dot"></div>
+                                            )}
+                                        </div>
+
+                                        {/* Guide Mascot on Current Node */}
+                                        {node.status === 'current' && (
+                                            <div className="guide-mascot animate-bounce">
+                                                <span className="mascot-emoji">🤖</span>
+                                                <div className="mascot-tooltip">Siz shu yerdasiz!</div>
+                                            </div>
                                         )}
                                     </div>
 
-                                {/* Label Card block */}
-                                <div 
-                                    className={`node-label-card label-${labelSide}`} 
-                                    style={{ 
-                                        ...(isLabelLeft 
-                                            ? { right: `calc(100% - ${xOffset}% + ${nodeSize/2 + 24}px)` }
-                                            : { left: `calc(${xOffset}% + ${nodeSize/2 + 24}px)` })
-                                    }}
-                                >
-                                    <div className="j-meta-row">
-                                        <span className={`j-badge badge-${node.status}`}>
-                                            {node.status === 'challenge' ? 'Challenge' : (node.status === 'unlocked' ? 'Ochiq' : node.statusLabel)}
-                                        </span>
-                                        <span className="j-meta-text">• {node.meta}</span>
-                                    </div>
-                                    <h3 className="j-title">{node.title}</h3>
-                                    <p className="j-desc">{node.desc}</p>
-                                    
-                                    <div className="j-actions">
-                                        {node.status === 'completed' && <button className="j-btn j-btn-secondary" onClick={(e) => { e.stopPropagation(); setPreviewNode(node); }}>Qayta ko‘rish</button>}
-                                        {(node.status === 'current' || node.status === 'unlocked') && <button className="j-btn j-btn-primary" onClick={(e) => { e.stopPropagation(); onNodeClick(selectedCourse, node.id); }}>Davom etish</button>}
-                                        {node.status === 'challenge' && <button className="j-btn j-btn-primary" onClick={(e) => { e.stopPropagation(); if(onBossStart) onBossStart(node.bossData); }}>Jangni boshlash</button>}
-                                        {node.status === 'locked' && <span className="j-locked-text">Oldingi modul ochilishi kerak</span>}
+                                    {/* Label Card */}
+                                    <div className="timeline-card-wrapper">
+                                        <div className="node-label-card">
+                                            <div className="j-meta-row">
+                                                <span className={`j-badge badge-${node.status}`}>
+                                                    {node.status === 'challenge' ? 'Challenge' : (node.status === 'unlocked' ? 'Ochiq' : node.statusLabel)}
+                                                </span>
+                                                <span className="j-meta-text">• {node.meta}</span>
+                                            </div>
+                                            <h3 className="j-title">{node.title}</h3>
+                                            <p className="j-desc">{node.desc}</p>
+                                            
+                                            <div className="j-actions">
+                                                {node.status === 'completed' && <button className="j-btn j-btn-secondary" onClick={(e) => { e.stopPropagation(); setPreviewNode(node); }}>Qayta ko‘rish</button>}
+                                                {(node.status === 'current' || node.status === 'unlocked') && <button className="j-btn j-btn-primary" onClick={(e) => { e.stopPropagation(); onNodeClick(selectedCourse, node.id); }}>Davom etish</button>}
+                                                {node.status === 'challenge' && <button className="j-btn j-btn-primary" onClick={(e) => { e.stopPropagation(); if(onBossStart) onBossStart(node.bossData); }}>Jangni boshlash</button>}
+                                                {node.status === 'locked' && <span className="j-locked-text">Oldingi modul ochilishi kerak</span>}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
-                            </div>
-                        );
-                    })}
+                            );
+                        })}
                     </div>
 
                     {/* Completion Actions */}

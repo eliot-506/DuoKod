@@ -273,29 +273,82 @@ body:not(.light-mode) .lp-canvas-desc {
 }
 
 /* ==================================
-   MAP NODES & CARDS
+   TIMELINE MAP & CARDS
 ================================== */
-.journey-map-container {
+.timeline-view {
+  position: relative;
+  max-width: 800px;
   margin: 0 auto;
-  padding-top: 20px;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* Space between nodes */
 }
 
-.journey-node-row {
+.timeline-trunk {
+  position: absolute;
+  top: 40px;
+  bottom: 40px;
+  left: 50%;
+  width: 8px;
+  background: #E2E8F0;
+  transform: translateX(-50%);
+  border-radius: 4px;
+  z-index: 1;
+}
+
+body:not(.light-mode) .timeline-trunk {
+  background: rgba(255,255,255,0.05);
+}
+
+.timeline-trunk-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(180deg, #3B82F6 0%, #10B981 100%);
+  border-radius: 4px;
+  transition: height 1s ease;
+}
+
+.timeline-row {
   position: relative;
-  height: 240px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.timeline-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.path-connector {
-  pointer-events: none;
-  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.05));
+.timeline-card-wrapper {
+  width: 50%;
+  display: flex;
 }
 
-.path-connector path {
-  stroke-linecap: round;
-  transition: stroke 0.4s ease;
+.timeline-row.align-left .timeline-card-wrapper {
+  padding-right: 60px;
+  justify-content: flex-end;
+  margin-right: auto;
+}
+
+.timeline-row.align-right .timeline-card-wrapper {
+  padding-left: 60px;
+  justify-content: flex-start;
+  margin-left: auto;
+}
+
+/* Boss nodes branch further */
+.timeline-row.is-boss.align-right .timeline-card-wrapper {
+  padding-left: 100px;
 }
 
 /* ==================================
@@ -330,10 +383,53 @@ body:not(.light-mode) .node-circle-btn {
 }
 
 /* Base Node Sizes */
-.size-variant-88 { width: 28px; height: 28px; }
-.size-variant-104 { width: 32px; height: 32px; border-width: 5px; }
-.size-variant-76 { width: 44px; height: 44px; border-radius: 12px; } /* Boss */
-.size-variant-96 { width: 40px; height: 40px; }
+.size-variant-48 { width: 48px; height: 48px; }
+.size-variant-64 { width: 64px; height: 64px; border-width: 5px; }
+.size-variant-56 { width: 56px; height: 56px; border-radius: 12px; } /* Boss */
+
+/* Guide Mascot */
+.guide-mascot {
+  position: absolute;
+  right: -50px;
+  top: -20px;
+  font-size: 28px;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
+  cursor: help;
+  z-index: 20;
+}
+
+.mascot-tooltip {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0F172A;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+body:not(.light-mode) .mascot-tooltip {
+  background: #FFFFFF;
+  color: #0F172A;
+}
+
+.guide-mascot:hover .mascot-tooltip {
+  opacity: 1;
+}
+
+@keyframes bounceMascot {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.animate-bounce {
+  animation: bounceMascot 2s infinite ease-in-out;
+}
 
 /* Status: Completed (Green Check) */
 .status-completed .node-circle-btn {
@@ -419,10 +515,10 @@ body:not(.light-mode) .is-boss .node-circle-btn {
 ================================== */
 .node-label-card {
   background: #FFFFFF;
-  width: 270px;
+  width: 100%;
   min-height: 96px;
   border-radius: 24px;
-  padding: 20px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -443,7 +539,7 @@ body:not(.light-mode) .node-label-card {
 }
 
 .status-current .node-label-card {
-  width: 280px;
+  width: 100%;
   border: 2px solid #3B82F6;
   background: linear-gradient(180deg, #ffffff 0%, #EFF6FF 100%);
   box-shadow: 0 20px 48px rgba(37, 99, 235, 0.16);
