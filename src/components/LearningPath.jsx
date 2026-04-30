@@ -132,7 +132,7 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
 
                             // Sizing constants
                             let nodeSize = 88;
-                            if (node.status === 'current') nodeSize = 104;
+                            if (node.status === 'current' || node.status === 'unlocked') nodeSize = 104;
                             if (node.isBoss) nodeSize = 76;
                             if (isLast) nodeSize = 96;
 
@@ -144,13 +144,13 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                                         <svg className="path-connector" viewBox="0 0 100 100" preserveAspectRatio="none" style={{ position: 'absolute', top: '50%', left: 0, width: '100%', height: '240px', overflow: 'visible', zIndex: 0 }}>
                                             <path 
                                                 d={`M ${xOffset} 0 C ${xOffset} 50, ${nextXOffset} 50, ${nextXOffset} 100`} 
-                                                stroke={node.status === 'completed' || node.status === 'current' ? '#93C5FD' : '#D9E6F7'} 
-                                                strokeWidth={node.status === 'completed' || node.status === 'current' ? "5" : "4"} 
+                                                stroke={node.status === 'completed' || node.status === 'current' || node.status === 'unlocked' ? '#93C5FD' : '#D9E6F7'} 
+                                                strokeWidth={node.status === 'completed' || node.status === 'current' || node.status === 'unlocked' ? "5" : "4"} 
                                                 vectorEffect="non-scaling-stroke"
                                                 fill="none" 
                                                 strokeLinecap="round"
                                                 style={{
-                                                    filter: node.status === 'completed' || node.status === 'current' ? 'drop-shadow(0 0 8px rgba(59,130,246,0.22))' : 'none'
+                                                    filter: node.status === 'completed' || node.status === 'current' || node.status === 'unlocked' ? 'drop-shadow(0 0 8px rgba(59,130,246,0.22))' : 'none'
                                                 }}
                                             />
                                         </svg>
@@ -198,20 +198,21 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                                     <h4 className="j-title">{node.title}</h4>
                                     <div className="j-meta">
                                         <span className={`j-badge badge-${node.status}`}>
-                                            {node.status === 'challenge' ? 'Challenge' : node.statusLabel}
+                                            {node.status === 'challenge' ? 'Challenge' : (node.status === 'unlocked' ? 'Ochiq' : node.statusLabel)}
                                         </span>
                                         <span className="j-meta-text">• {node.meta}</span>
                                     </div>
                                     <p className="j-desc">{node.desc}</p>
                                     <div className="j-actions">
                                         {node.status === 'completed' && <button className="j-btn j-btn-secondary" onClick={(e) => { e.stopPropagation(); setPreviewNode(node); }}>Qayta ko‘rish</button>}
-                                        {node.status === 'current' && <button className="j-btn j-btn-primary" onClick={(e) => { e.stopPropagation(); onNodeClick(selectedCourse, node.id); }}>Davom etish</button>}
+                                        {(node.status === 'current' || node.status === 'unlocked') && <button className="j-btn j-btn-primary" onClick={(e) => { e.stopPropagation(); onNodeClick(selectedCourse, node.id); }}>Davom etish</button>}
                                         {node.status === 'challenge' && <button className="j-btn j-btn-primary" onClick={(e) => { e.stopPropagation(); if(onBossStart) onBossStart(node.bossData); }}>Jangni boshlash</button>}
                                         {node.status === 'locked' && <span className="j-locked-text">Oldingi modul tugagach ochiladi</span>}
                                     </div>
                                 </div>
 
                             </div>
+
                         );
                     })}
                 </div>
