@@ -78,6 +78,7 @@ function Dashboard({ onNavigate }) {
                             <div
                                 key={key}
                                 className={`course-select-card ${isLocked ? 'course-select-card--locked' : ''}`}
+                                style={{ '--card-accent': isLocked ? '#CBD5E1' : c.color }}
                                 onClick={() => {
                                     if (!isLocked) {
                                         switchCourse(key);
