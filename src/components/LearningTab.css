@@ -25,72 +25,11 @@
     margin-bottom: 40px;
 }
 
-.courses-grid,
-.modes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
-}
 
-.course-card {
-    background: var(--surface);
-    border: 2px solid var(--card-color, #fff);
-    border-radius: 20px;
-    padding: 40px 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
+/* Old .courses-grid, .course-card, .course-icon, .start-btn styles removed —
+   replaced by .course-select-grid / .course-select-card in Dashboard.css */
 
-.course-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.05);
-}
 
-.course-icon {
-    font-size: 5rem;
-    font-weight: 900;
-    color: var(--card-color);
-    margin-bottom: 15px;
-    font-family: 'Fira Code', monospace;
-    text-shadow: 0 0 20px var(--card-color);
-}
-
-.course-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-}
-
-.course-card-locked {
-    cursor: not-allowed;
-}
-
-.course-locked-badge {
-    display: inline-block;
-    padding: 8px 16px;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffd700;
-    font-weight: bold;
-    font-size: 0.9rem;
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
-}
-
-.start-btn {
-    padding: 12px 30px;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.start-btn:hover {
-    filter: brightness(1.2);
-}
 
 /* Modes */
 .back-btn-top {
