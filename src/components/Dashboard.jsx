@@ -185,33 +185,33 @@ function Dashboard({ onNavigate }) {
             </aside>
 
             {/* ROW 2: Compact Streak Card (unchanged) */}
-            <div className="col-3 card-kpi dashboard-card" style={{ background: 'linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%)', border: '1px solid #BFDBFE', overflow: 'hidden', padding: '22px', display: 'flex', flexDirection: 'column' }}>
+            <div className="col-3 card-kpi dashboard-card" style={{ background: 'linear-gradient(135deg, #FFF7ED 0%, #FFFFFF 100%)', border: '1px solid #FED7AA', overflow: 'hidden', padding: '22px', display: 'flex', flexDirection: 'column' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div>
-                  <div className="kpi-icon kpi-icon-blue" style={{ marginBottom: '8px' }}>🔥</div>
-                  <h4 style={{ margin: '0 0 4px 0', fontSize: '0.78rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Uchqundan eslatma</h4>
+                  <div className="kpi-icon kpi-icon-blue" style={{ marginBottom: '8px' }}>🕯️</div>
+                  <h4 style={{ margin: '0 0 4px 0', fontSize: '0.78rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Kunlik Davomiylik</h4>
                   <span style={{ fontSize: '0.68rem', padding: '3px 10px', background: '#DCFCE7', color: '#16A34A', borderRadius: '50px', fontWeight: 700 }}>Faol holat</span>
                 </div>
               </div>
               <p style={{ fontSize: '0.82rem', color: '#64748B', lineHeight: '1.5', margin: '14px 0', fontWeight: 500 }}>
-                Bugun kamida bitta topshiriqni bajaring va streak'ni davom ettiring.
+                Bugun kamida bitta topshiriqni bajaring va chiroqni o'chirmang.
               </p>
               <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ fontSize: '0.875rem', fontWeight: 800, color: '#1D4ED8' }}>{stats.streak}/7 kun</span>
+                  <span style={{ fontSize: '0.875rem', fontWeight: 800, color: '#C2410C' }}>{stats.streak}/7 kun</span>
                   <div className="progress-track" style={{ width: '44px', height: '6px', margin: 0 }}>
-                    <div className="progress-fill fill-blue" style={{ width: `${Math.min((stats.streak / 7) * 100, 100)}%` }}></div>
+                    <div className="progress-fill fill-blue" style={{ width: `${Math.min((stats.streak / 7) * 100, 100)}%`, background: 'linear-gradient(90deg, #F97316, #FBBF24)' }}></div>
                   </div>
                 </div>
                 <a href="#" style={{ fontSize: '0.78rem', fontWeight: 700, color: '#2563EB', textDecoration: 'none' }}>Batafsil</a>
               </div>
             </div>
 
-            {/* XP — Green */}
+            {/* XP — Sun Gold */}
             <div className="col-3 card-kpi kpi-xp dashboard-card">
               <div className="kpi-row">
                 <p className="kpi-label">Jami tajriba</p>
-                <div className="kpi-icon kpi-icon-green">⚡</div>
+                <div className="kpi-icon kpi-icon-green">☀️</div>
               </div>
               <div>
                 <div className="kpi-val" style={{ color: '#15803D' }}>{stats.xp}</div>
@@ -219,15 +219,15 @@ function Dashboard({ onNavigate }) {
               </div>
             </div>
 
-            {/* Hearts — Yellow */}
+            {/* Hearts — Shield / Qalqon */}
             <div className="col-3 card-kpi kpi-hearts dashboard-card">
               <div className="kpi-row">
-                <p className="kpi-label">Sog'liq (Imkon)</p>
-                <div className="kpi-icon kpi-icon-yellow">❤️</div>
+                <p className="kpi-label">Imkon (Qalqon)</p>
+                <div className="kpi-icon kpi-icon-yellow">🛡️</div>
               </div>
               <div>
                 <div className="kpi-val" style={{ color: '#B45309' }}>{stats.hearts}</div>
-                <span className="kpi-trend kpi-trend-yellow">Imkonlar</span>
+                <span className="kpi-trend kpi-trend-yellow">Himoya</span>
               </div>
             </div>
 
