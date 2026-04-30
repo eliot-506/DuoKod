@@ -42,37 +42,46 @@ function Sidebar({ currentTab, onNavigate }) {
     return (
         <aside className="global-sidebar">
             <div className="sidebar-logo">
-                <div className="logo-box">
+                <a href="#" className="logo-box" onClick={(e) => { e.preventDefault(); onNavigate('dashboard'); }}>
                     <span className="logo-text">DUOKOD</span>
-                </div>
+                </a>
             </div>
 
-            <nav className="sidebar-nav">
-                {tabs.map((tab) => {
-                    const isActive = currentTab === tab.id;
-                    return (
-                        <button
-                            key={tab.id}
-                            className={`sidebar-nav-item ${isActive ? 'active' : ''}`}
-                            onClick={() => onNavigate(tab.id)}
-                        >
-                            <span className="nav-icon">{tab.icon}</span>
-                            <span className="nav-label">{tab.label}</span>
-                        </button>
-                    )
-                })}
+            <nav aria-label="Asosiy navigatsiya" className="sidebar-nav">
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {tabs.map((tab) => {
+                        const isActive = currentTab === tab.id;
+                        return (
+                            <li key={tab.id}>
+                                <button
+                                    className={`sidebar-nav-item ${isActive ? 'active' : ''}`}
+                                    aria-current={isActive ? "page" : undefined}
+                                    onClick={() => onNavigate(tab.id)}
+                                >
+                                    <span className="nav-icon">{tab.icon}</span>
+                                    <span className="nav-label">{tab.label}</span>
+                                </button>
+                            </li>
+                        )
+                    })}
+                </ul>
             </nav>
 
-            <div className="sidebar-theme-toggle" style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px', background: 'var(--surface, #f8fafc)', borderRadius: '16px', border: '1px solid var(--border-color, #e2e8f0)' }}>
-                <span style={{ margin: 0, fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-dark, #172554)' }}>{isLight ? 'Kunduzgi ☀️' : 'Tungi rejim 🌙'}</span>
-                <label className="sidebar-theme-switch">
-                    <input
-                        type="checkbox"
-                        checked={isLight}
-                        onChange={toggleTheme}
-                    />
-                    <span className="slider round"></span>
-                </label>
+            <div className="sidebar-footer">
+                <div className="sidebar-theme-toggle">
+                    <div className="theme-toggle-text">
+                        <p className="theme-toggle-title">{isLight ? 'Kunduzgi' : 'Tungi'}</p>
+                        <p className="theme-toggle-subtitle">{isLight ? 'Yorug‘ ko‘rinish' : 'Qorong‘i ko‘rinish'}</p>
+                    </div>
+                    <label className="sidebar-theme-switch" aria-label="Ko‘rinish rejimi">
+                        <input
+                            type="checkbox"
+                            checked={isLight}
+                            onChange={toggleTheme}
+                        />
+                        <span className="slider"></span>
+                    </label>
+                </div>
             </div>
         </aside>
     );

@@ -53,7 +53,7 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
             let bLabel = 'Yopiq';
             
             if (s === 'completed') {
-                if (nextModStatus === 'completed' || nextModStatus === 'current') {
+                if (nextModStatus === 'completed' || nextModStatus === 'current' || nextModStatus === 'unlocked') {
                     bStatus = 'completed';
                     bLabel = 'Yakunlandi';
                 } else {
@@ -82,42 +82,65 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
     const completedCount = stats?.courses?.[selectedCourse]?.completedNodes?.length || 0;
     const progressPercent = Math.round((completedCount / courseData.length) * 100) || 0;
     const totalChallenges = courseBosses.length;
+    const currentModLabel = stats?.courses?.[selectedCourse]?.unlockedNodes?.[stats.courses[selectedCourse].unlockedNodes.length - 1] || 1;
 
     return (
         <div className="unified-learning-path">
-            <button className="back-btn" onClick={onBack}>
-                <i className="fa-solid fa-arrow-left"></i> Menyuga qaytish
-            </button>
-            
             <div className="learning-path-wrapper">
-                <div className="roadmap-section">
-                    
-                    {/* 1. Header Card (Integrated) */}
-                    <div className="course-overview-card">
-                        <div className="co-header">
-                            <h2 className="co-title">{currentCourseData.title}</h2>
-                            <span className="co-percent">{progressPercent}%</span>
-                        </div>
-                        <p className="co-subtitle">Muvaffaqiyatli darslar orqali darajangizni oshiring</p>
-                        <div className="co-meta">
-                            <span>{completedCount}/{courseData.length} modul tugallandi</span>
-                            <span>{totalChallenges} challenge</span>
-                            <span>Joriy: {stats?.courses?.[selectedCourse]?.unlockedNodes?.[stats.courses[selectedCourse].unlockedNodes.length - 1] || 1}-modul</span>
-                        </div>
-                        <div className="co-actions">
-                            <button className="co-btn co-btn-primary" onClick={() => {
-                                const lastUnlocked = stats?.courses?.[selectedCourse]?.unlockedNodes?.[stats.courses[selectedCourse].unlockedNodes.length - 1] || 1;
-                                onNodeClick(selectedCourse, lastUnlocked);
-                            }}>Davom etish</button>
-                            <button className="co-btn co-btn-outline">Kurs haqida</button>
-                        </div>
+                
+                {/* Back Button */}
+                <button className="back-btn" onClick={onBack}>
+                    <i className="fa-solid fa-arrow-left"></i> Menyuga qaytish
+                </button>
+
+                {/* 1. Header Block */}
+                <header className="lp-header-block">
+                    <div className="lp-header-content">
+                        <p className="lp-header-subtitle">{currentCourseData.title}</p>
+                        <h1 className="lp-header-title">Muvaffaqiyatli darslar orqali darajangizni oshiring</h1>
+                        <p className="lp-header-desc">
+                            Kursning asosiy modullari orqali bilimlarni shakllantiring. Keyingi challenge va davomiy darslar orqali tajribangizni mustahkamlang.
+                        </p>
                     </div>
 
-                    {/* 2. S-Shape Journey Map */}
-                    <div className="journey-map-container">
-                        
-                        <div className="co-starter-line"></div>
+                    <div className="lp-header-right">
+                        <div className="lp-stats-row">
+                            <div className="lp-stat-chip">
+                                <p className="lp-stat-label">Progress</p>
+                                <p className="lp-stat-value">{completedCount}/{courseData.length} modul</p>
+                            </div>
+                            <div className="lp-stat-chip">
+                                <p className="lp-stat-label">Challenge</p>
+                                <p className="lp-stat-value">{totalChallenges} ta</p>
+                            </div>
+                            <div className="lp-stat-chip">
+                                <p className="lp-stat-label">Joriy holat</p>
+                                <p className="lp-stat-value">{currentModLabel}-modul</p>
+                            </div>
+                        </div>
 
+                        <div className="lp-actions-row">
+                            <button className="lp-btn lp-btn-primary" onClick={() => {
+                                const lastUnlocked = stats?.courses?.[selectedCourse]?.unlockedNodes?.[stats.courses[selectedCourse].unlockedNodes.length - 1] || 1;
+                                onNodeClick(selectedCourse, lastUnlocked);
+                            }}>
+                                Davom etish
+                            </button>
+                            <button className="lp-btn lp-btn-secondary">
+                                Kurs haqida
+                            </button>
+                        </div>
+                    </div>
+                </header>
+
+                {/* 2. Path Canvas */}
+                <section aria-labelledby="learning-path-title" className="lp-canvas">
+                    <div className="lp-canvas-header">
+                        <h2 id="learning-path-title" className="lp-canvas-title">O‘quv yo‘li</h2>
+                        <p className="lp-canvas-desc">Qayerda ekaningizni va keyingi darsni bir qarashda ko‘rish uchun vizual yo‘l xaritasi.</p>
+                    </div>
+
+                    <div className="journey-map-container">
                         {MODULE_NODES.map((node, i) => {
                             const isLast = i === MODULE_NODES.length - 1;
                             
@@ -137,21 +160,18 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                             if (isLast) nodeSize = 96;
 
                             return (
-                                <div key={`node-${node.id}`} className={`journey-node-row status-${node.status} ${node.isBoss ? 'is-boss' : ''}`} style={{ position: 'relative', height: '240px', width: '100%', display: 'flex', alignItems: 'center' }}>
+                                <div key={`node-${node.id}`} className={`journey-node-row status-${node.status} ${node.isBoss ? 'is-boss' : ''}`}>
                                     
                                     {/* Curved SVG Line connecting to next node */}
                                     {!isLast && (
-                                        <svg className="path-connector" viewBox="0 0 100 100" preserveAspectRatio="none" style={{ position: 'absolute', top: '50%', left: 0, width: '100%', height: '240px', overflow: 'visible', zIndex: 0 }}>
+                                        <svg className="path-connector" viewBox="0 0 100 100" preserveAspectRatio="none">
                                             <path 
                                                 d={`M ${xOffset} 0 C ${xOffset} 50, ${nextXOffset} 50, ${nextXOffset} 100`} 
-                                                stroke={node.status === 'completed' || node.status === 'current' || node.status === 'unlocked' ? '#93C5FD' : '#D9E6F7'} 
+                                                stroke={node.status === 'completed' || node.status === 'current' || node.status === 'unlocked' ? '#93C5FD' : '#E2E8F0'} 
                                                 strokeWidth={node.status === 'completed' || node.status === 'current' || node.status === 'unlocked' ? "5" : "4"} 
                                                 vectorEffect="non-scaling-stroke"
                                                 fill="none" 
                                                 strokeLinecap="round"
-                                                style={{
-                                                    filter: node.status === 'completed' || node.status === 'current' || node.status === 'unlocked' ? 'drop-shadow(0 0 8px rgba(59,130,246,0.22))' : 'none'
-                                                }}
                                             />
                                         </svg>
                                     )}
@@ -159,7 +179,7 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                                     {/* Interactive Node Circle */}
                                     <div 
                                         className={`node-circle-btn size-variant-${nodeSize}`} 
-                                        style={{ position: 'absolute', left: `${xOffset}%`, transform: 'translateX(-50%)', zIndex: 2 }}
+                                        style={{ left: `${xOffset}%` }}
                                         onClick={() => {
                                             if(node.status !== 'locked' && !node.isBoss) setPreviewNode(node);
                                             if(node.status !== 'locked' && node.isBoss && onBossStart) onBossStart(node.bossData);
@@ -172,7 +192,7 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                                                 <polyline points="20 6 9 17 4 12"></polyline>
                                             </svg>
                                         ) : node.status === 'locked' ? (
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="#94A3B8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="lock-icon" style={{width: '12px', height: '12px'}}>
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="chk-icon">
                                                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                             </svg>
@@ -187,46 +207,43 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                                 <div 
                                     className={`node-label-card label-${labelSide}`} 
                                     style={{ 
-                                        position: 'absolute', 
-                                        top: '50%', 
-                                        transform: 'translateY(-50%)',
                                         ...(isLabelLeft 
                                             ? { right: `calc(100% - ${xOffset}% + ${nodeSize/2 + 24}px)` }
                                             : { left: `calc(${xOffset}% + ${nodeSize/2 + 24}px)` })
                                     }}
                                 >
-                                    <h4 className="j-title">{node.title}</h4>
-                                    <div className="j-meta">
+                                    <div className="j-meta-row">
                                         <span className={`j-badge badge-${node.status}`}>
                                             {node.status === 'challenge' ? 'Challenge' : (node.status === 'unlocked' ? 'Ochiq' : node.statusLabel)}
                                         </span>
                                         <span className="j-meta-text">• {node.meta}</span>
                                     </div>
+                                    <h3 className="j-title">{node.title}</h3>
                                     <p className="j-desc">{node.desc}</p>
+                                    
                                     <div className="j-actions">
                                         {node.status === 'completed' && <button className="j-btn j-btn-secondary" onClick={(e) => { e.stopPropagation(); setPreviewNode(node); }}>Qayta ko‘rish</button>}
                                         {(node.status === 'current' || node.status === 'unlocked') && <button className="j-btn j-btn-primary" onClick={(e) => { e.stopPropagation(); onNodeClick(selectedCourse, node.id); }}>Davom etish</button>}
                                         {node.status === 'challenge' && <button className="j-btn j-btn-primary" onClick={(e) => { e.stopPropagation(); if(onBossStart) onBossStart(node.bossData); }}>Jangni boshlash</button>}
-                                        {node.status === 'locked' && <span className="j-locked-text">Oldingi modul tugagach ochiladi</span>}
+                                        {node.status === 'locked' && <span className="j-locked-text">Oldingi modul ochilishi kerak</span>}
                                     </div>
                                 </div>
 
                             </div>
-
                         );
                     })}
-                </div>
-
-                {/* Completion Actions */}
-                {completedCount >= courseData.length && (
-                    <div className="completion-actions">
-                        <button className="btn-primary cert-btn" onClick={onClaimCertificate}>
-                            🏆 {currentCourseData.title.split(' ')[0]} Sertifikatni Olish
-                        </button>
                     </div>
-                )}
-                </div> {/* End roadmap-section */}
-            </div> {/* End learning-path-wrapper */}
+
+                    {/* Completion Actions */}
+                    {completedCount >= courseData.length && (
+                        <div className="completion-actions">
+                            <button className="lp-btn lp-btn-primary cert-btn" onClick={onClaimCertificate}>
+                                🏆 {currentCourseData.title.split(' ')[0]} Sertifikatni Olish
+                            </button>
+                        </div>
+                    )}
+                </section>
+            </div>
 
             {/* Preview Modal */}
             {previewNode && (
@@ -254,7 +271,7 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                             </div>
                         </div>
                         <div className="preview-footer">
-                            <button className="btn-primary preview-start-btn" onClick={() => {
+                            <button className="lp-btn lp-btn-primary preview-start-btn" onClick={() => {
                                 onNodeClick(selectedCourse, previewNode.id);
                                 setPreviewNode(null);
                             }}>
