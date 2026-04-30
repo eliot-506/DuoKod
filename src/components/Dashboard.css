@@ -1,5 +1,237 @@
 /* Dashboard.css — Premium Visual Hierarchy System */
 
+/* =========================================
+   COURSE SELECTION PAGE (New User)
+   ========================================= */
+.course-select-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 24px 80px;
+  background: #F8FAFC;
+  font-family: 'Inter', sans-serif;
+  animation: fadeIn 0.4s ease-out;
+}
+
+body:not(.light-mode) .course-select-page {
+  background: transparent;
+}
+
+.course-select-header {
+  text-align: center;
+  margin-bottom: 48px;
+  max-width: 560px;
+}
+
+.course-select-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #2563EB;
+  margin: 0 0 12px 0;
+}
+
+body:not(.light-mode) .course-select-eyebrow {
+  color: #60A5FA;
+}
+
+.course-select-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+body:not(.light-mode) .course-select-title {
+  color: #F1F5F9;
+}
+
+.course-select-subtitle {
+  font-size: 1.05rem;
+  color: #64748B;
+  margin: 0;
+  line-height: 1.6;
+}
+
+body:not(.light-mode) .course-select-subtitle {
+  color: #94A3B8;
+}
+
+/* 2-column grid on desktop */
+.course-select-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 840px;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .course-select-grid {
+    grid-template-columns: 1fr;
+  }
+  .course-select-title {
+    font-size: 1.8rem;
+  }
+}
+
+.course-select-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 24px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+body:not(.light-mode) .course-select-card {
+  background: rgba(30, 41, 59, 0.6);
+  border-color: rgba(255,255,255,0.08);
+}
+
+.course-select-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(37, 99, 235, 0.14);
+  border-color: #93C5FD;
+}
+
+.course-select-card--locked {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.course-select-card--locked:hover {
+  transform: none;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+  border-color: #E2E8F0;
+}
+
+/* Card top row: icon + badge */
+.csc-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.csc-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.csc-icon {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.csc-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 50px;
+  letter-spacing: 0.02em;
+}
+
+.csc-badge--level {
+  background: #EFF6FF;
+  color: #1D4ED8;
+}
+
+.csc-badge--locked {
+  background: #F1F5F9;
+  color: #94A3B8;
+}
+
+body:not(.light-mode) .csc-badge--level {
+  background: rgba(37,99,235,0.15);
+  color: #93C5FD;
+}
+body:not(.light-mode) .csc-badge--locked {
+  background: rgba(255,255,255,0.05);
+  color: #64748B;
+}
+
+/* Card text */
+.csc-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+  line-height: 1.3;
+}
+
+body:not(.light-mode) .csc-title {
+  color: #F1F5F9;
+}
+
+.csc-desc {
+  font-size: 0.9rem;
+  color: #475569;
+  margin: 0;
+  line-height: 1.6;
+  flex: 1;
+}
+
+body:not(.light-mode) .csc-desc {
+  color: #94A3B8;
+}
+
+/* Meta row: lessons count, time */
+.csc-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.csc-meta-item {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+body:not(.light-mode) .csc-meta-item {
+  color: #94A3B8;
+}
+
+/* CTA Button — unified blue */
+.csc-btn {
+  width: 100%;
+  height: 48px;
+  background: #2563EB;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.28);
+  margin-top: auto;
+}
+
+.csc-btn:hover {
+  background: #1D4ED8;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.38);
+}
+
+
 .dash-wrapper {
   background-color: #F5F7FB;
   color: #1E293B;

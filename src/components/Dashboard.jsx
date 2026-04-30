@@ -21,10 +21,26 @@ function Dashboard({ onNavigate }) {
     };
 
     const currentCourseData = {
-        'html': { title: 'HTML5 Asoslari', icon: '🧱', color: '#e34f26' },
-        'css': { title: 'Toza CSS3', icon: '🎨', color: '#264de4' },
-        'js': { title: 'JavaScript Dasturlash', icon: '⚡', color: '#f7df1e' },
-        'python': { title: 'Python Asoslari', icon: '🐍', color: '#3776AB' }
+        'html': {
+            title: 'HTML5 Asoslari', icon: '🧱', color: '#E24C26',
+            desc: 'Web sahifalar qanday qurilishini o'rganing. Barcha dasturchilar boshlashi kerak bo'lgan joy.',
+            level: 'Boshlang'ich', lessons: 12
+        },
+        'css': {
+            title: 'CSS3 Dizayn', icon: '🎨', color: '#2563EB',
+            desc: 'Chiroyli interfeyslar yarating. Rang, animatsiya va flexbox bilan ishlashni o'rganing.',
+            level: 'O'rta', lessons: 10
+        },
+        'js': {
+            title: 'JavaScript', icon: '⚡', color: '#D97706',
+            desc: 'Saytlarni interaktiv qiling. Dunyoning eng mashhur dasturlash tili bilan tanishing.',
+            level: 'O'rta', lessons: 15
+        },
+        'python': {
+            title: 'Python Asoslari', icon: '🐍', color: '#2563EB',
+            desc: 'Eng qulay va kuchli til bilan kodlashni boshlang. AI, ma'lumotlar va web uchun ideal.',
+            level: 'Boshlang'ich', lessons: 11
+        }
     };
 
     const safeCourseId = stats?.currentCourse && currentCourseData[stats.currentCourse] ? stats.currentCourse : 'html';
@@ -45,34 +61,50 @@ function Dashboard({ onNavigate }) {
     // Agar o'quvchi yangi bo'lsa (yoki birinchi marta kirdi), unga avval kurs tanlatamiz
     if (isNewUser) {
         return (
-            <div className="dash-wrapper" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', padding: '60px 24px' }}>
-                <div className="header-title text-center" style={{ marginBottom: '40px' }}>
-                    <h1 style={{ fontSize: '2.5rem', color: 'var(--text-dark)', fontWeight: '800' }}>Siz nima o'rganmoqchisiz?</h1>
-                    <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }}>O'zingiz qiziqqan yo'nalishni tanlang</p>
+            <div className="course-select-page">
+                <div className="course-select-header">
+                    <p className="course-select-eyebrow">DuoKod Platform</p>
+                    <h1 className="course-select-title">Siz nima o'rganmoqchisiz?</h1>
+                    <p className="course-select-subtitle">O'zingizga mos yo'nalishni tanlang va bugunoq boshlang</p>
                 </div>
-                <div className="courses-grid" style={{ maxWidth: '1000px', margin: '0 auto', width: '100%' }}>
+                <div className="course-select-grid">
                     {COURSE_KEYS.map(key => {
-                        const c = COURSES[key];
-                        if (!c) return null;
-                        const isLocked = !isAdmin && key !== 'python'; // Admins have all, others only Python
+                        const c = currentCourseData[key];
+                        const course = COURSES[key];
+                        if (!c || !course) return null;
+                        const isLocked = !isAdmin && key !== 'python';
                         return (
                             <div
                                 key={key}
-                                className={`course-card ${isLocked ? 'course-card-locked' : ''}`}
-                                style={{ '--card-color': isLocked ? '#444' : (c.color || '#fff') }}
+                                className={`course-select-card ${isLocked ? 'course-select-card--locked' : ''}`}
                                 onClick={() => {
                                     if (!isLocked) {
                                         switchCourse(key);
-                                        onNavigate('map'); // Avtomatik map sahifasiga o'tkazish
+                                        onNavigate('map');
                                     }
                                 }}
                             >
-                                <div className="course-icon" style={{ opacity: isLocked ? 0.4 : 1 }}>{c.title ? c.title.charAt(0) : 'C'}</div>
-                                <h3 style={{ opacity: isLocked ? 0.5 : 1 }}>{c.title || 'Kurs'}</h3>
-                                {isLocked ? (
-                                    <div className="course-locked-badge">🔒 Tez kunda</div>
-                                ) : (
-                                    <button className="start-btn" style={{ backgroundColor: c.color || '#fff', color: '#000' }}>Tanlash</button>
+                                <div className="csc-top">
+                                    <div className="csc-icon-wrap" style={{ background: isLocked ? '#F1F5F9' : `${c.color}18` }}>
+                                        <span className="csc-icon">{c.icon}</span>
+                                    </div>
+                                    {isLocked ? (
+                                        <span className="csc-badge csc-badge--locked">🔒 Tez kunda</span>
+                                    ) : (
+                                        <span className="csc-badge csc-badge--level">{c.level}</span>
+                                    )}
+                                </div>
+
+                                <h3 className="csc-title" style={{ opacity: isLocked ? 0.5 : 1 }}>{c.title}</h3>
+                                <p className="csc-desc" style={{ opacity: isLocked ? 0.4 : 1 }}>{c.desc}</p>
+
+                                <div className="csc-meta">
+                                    <span className="csc-meta-item">📚 {c.lessons} ta dars</span>
+                                    <span className="csc-meta-item">⏱ ~{c.lessons * 8} daqiqa</span>
+                                </div>
+
+                                {!isLocked && (
+                                    <button className="csc-btn">Boshlash →</button>
                                 )}
                             </div>
                         );
