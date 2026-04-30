@@ -9,75 +9,110 @@ function CodeArena() {
     const [python, setPython] = useState('print("Salom, Python!")');
     const [activeTab, setActiveTab] = useState('python');
     const [srcDoc, setSrcDoc] = useState('');
+    const [runStatus, setRunStatus] = useState('ready'); // ready, running, success, error
     const { triggerRobot } = useRobot();
 
     const handleRun = () => {
-        triggerRobot('happy', "Kod ishga tushdi! Natijani o‘ng panelda ko‘ring 🚀", 4000);
-        setSrcDoc(`
-            <html>
-                <head>
-                    <style>
-                        ${css}
-                        #custom-console {
-                            background: rgba(0, 0, 0, 0.85);
-                            color: #00ff00;
-                            font-family: 'Courier New', Courier, monospace;
-                            padding: 10px;
-                            margin-top: 20px;
-                            border-radius: 5px;
-                            border-left: 3px solid #00ffff;
-                            white-space: pre-wrap;
-                            display: none;
-                        }
-                        #custom-console:not(:empty) {
-                            display: block;
-                        }
-                    </style>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.11.0/brython.min.js"></script>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.11.0/brython_stdlib.min.js"></script>
-                </head>
-                <body onload="brython()">
-                    ${html}
-                    
-                    <div id="custom-console"></div>
-                    
-                    <script>
-                        // Intercept JS console.log
-                        const log = console.log;
-                        console.log = function(...args) {
-                            log.apply(console, args);
-                            const con = document.getElementById('custom-console');
-                            con.innerHTML += '> ' + args.join(' ') + '<br>';
-                        };
-                    </script>
+        if (runStatus === 'running') return;
+        setRunStatus('running');
+        
+        // Simulate execution time for better UX
+        setTimeout(() => {
+            try {
+                setSrcDoc(`
+                    <html>
+                        <head>
+                            <style>
+                                ${css}
+                                #custom-console {
+                                    background: rgba(0, 0, 0, 0.85);
+                                    color: #00ff00;
+                                    font-family: 'Courier New', Courier, monospace;
+                                    padding: 10px;
+                                    margin-top: 20px;
+                                    border-radius: 5px;
+                                    border-left: 3px solid #00ffff;
+                                    white-space: pre-wrap;
+                                    display: none;
+                                }
+                                #custom-console:not(:empty) {
+                                    display: block;
+                                }
+                            </style>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.11.0/brython.min.js"></script>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.11.0/brython_stdlib.min.js"></script>
+                        </head>
+                        <body onload="brython()">
+                            ${html}
+                            
+                            <div id="custom-console"></div>
+                            
+                            <script>
+                                // Intercept JS console.log
+                                const log = console.log;
+                                console.log = function(...args) {
+                                    log.apply(console, args);
+                                    const con = document.getElementById('custom-console');
+                                    con.innerHTML += '> ' + args.join(' ') + '<br>';
+                                };
+                            </script>
 
-                    <script type="text/python">
-import sys
-from browser import document
+                            <script type="text/python">
+        import sys
+        from browser import document
 
-class ConsoleOutput:
-    def write(self, data):
-        if data.strip():
-            document["custom-console"].innerHTML += f"> {data}<br>"
+        class ConsoleOutput:
+            def write(self, data):
+                if data.strip():
+                    document["custom-console"].innerHTML += f"> {data}<br>"
 
-sys.stdout = ConsoleOutput()
+        sys.stdout = ConsoleOutput()
 
-try:
-${python.split('\\n').map(line => '    ' + line).join('\\n')}
-except Exception as e:
-    document["custom-console"].innerHTML += f"<span style='color:red'>{e}</span><br>"
-                    </script>
+        try:
+        ${python.split('\n').map(line => '    ' + line).join('\n')}
+        except Exception as e:
+            document["custom-console"].innerHTML += f"<span style='color:red'>{e}</span><br>"
+                            </script>
 
-                    <script>${js}</script>
-                </body>
-            </html>
-        `);
+                            <script>${js}</script>
+                        </body>
+                    </html>
+                `);
+                setRunStatus('success');
+                triggerRobot('happy', "Kod ishga tushdi! Natijani o‘ng panelda ko‘ring 🚀", 4000);
+            } catch (err) {
+                setRunStatus('error');
+            }
+            
+            setTimeout(() => {
+                setRunStatus('ready');
+            }, 2500);
+        }, 600);
+    };
+
+    const handleReset = () => {
+        setHtml('<h1>Arena</h1>\n<p>DuoKod Playgrounga xush kelibsiz!</p>');
+        setCss('body {\n  font-family: sans-serif;\n  background-color: #f4f4f9;\n  color: #333;\n}\n\nh1 {\n  color: #e34c26;\n  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);\n}');
+        setJs('console.log("JavaScript ishlashga tayyor!");');
+        setPython('print("Salom, Python!")');
+        setSrcDoc('');
+        setRunStatus('ready');
+        triggerRobot('normal', "Kod tozalandi. Yangidan boshlaymiz!", 3000);
     };
 
     useEffect(() => {
         handleRun();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const getStatusContent = () => {
+        switch(runStatus) {
+            case 'running': return <><span className="status-dot-green" style={{background: '#F59E0B', boxShadow: '0 0 8px #F59E0B'}}></span> Running...</>;
+            case 'success': return <><span className="status-dot-green"></span> Success</>;
+            case 'error': return <><span className="status-dot-green" style={{background: '#EF4444', boxShadow: '0 0 8px #EF4444'}}></span> Error</>;
+            default: return <><span className="status-dot-green"></span> Ready</>;
+        }
+    };
 
     return (
         <div className="arena-wrapper">
@@ -86,7 +121,6 @@ except Exception as e:
                     <h2>💻 Code Arena</h2>
                     <p>Kodni yozing, RUN bosing va natijani shu yerning o‘zida ko‘ring.</p>
                 </div>
-                <div className="arena-badge">Practice Mode</div>
             </div>
 
             <div className="arena-section">
@@ -101,9 +135,39 @@ except Exception as e:
                                 <button className={`lang-tab ${activeTab === 'js' ? 'active' : ''}`} onClick={() => setActiveTab('js')}>JS</button>
                                 <button className={`lang-tab ${activeTab === 'python' ? 'active' : ''}`} onClick={() => setActiveTab('python')}>Python</button>
                             </div>
-                            <button className="run-btn" onClick={handleRun}>
-                                <i className="fa-solid fa-play"></i> RUN
-                            </button>
+                            
+                            <div className="editor-controls">
+                                <span className="editor-status">
+                                    {getStatusContent()}
+                                </span>
+                                
+                                <button className="reset-code-btn" onClick={handleReset} aria-label="Reset code" disabled={runStatus === 'running'}>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                                        <path d="M3 3v5h5"></path>
+                                    </svg>
+                                </button>
+                                
+                                <button className="run-code-btn" onClick={handleRun} disabled={runStatus === 'running'} style={{ opacity: runStatus === 'running' ? 0.7 : 1 }}>
+                                    {runStatus === 'running' ? (
+                                        <svg className="run-icon animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{animation: 'spin 1s linear infinite'}}>
+                                            <line x1="12" y1="2" x2="12" y2="6"></line>
+                                            <line x1="12" y1="18" x2="12" y2="22"></line>
+                                            <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+                                            <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+                                            <line x1="2" y1="12" x2="6" y2="12"></line>
+                                            <line x1="18" y1="12" x2="22" y2="12"></line>
+                                            <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+                                            <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+                                        </svg>
+                                    ) : (
+                                        <svg className="run-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M8 5v14l11-7z"/>
+                                        </svg>
+                                    )}
+                                    {runStatus === 'running' ? 'Running' : 'Run code'}
+                                </button>
+                            </div>
                         </div>
                         
                         <div className="editor-pane">

@@ -110,30 +110,94 @@
   color: #38BDF8;
 }
 
-.run-btn {
-  background: linear-gradient(135deg, #10B981, #059669);
-  color: white;
-  border-radius: 14px;
-  padding: 10px 20px;
-  font-weight: 700;
-  font-size: 0.85rem;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-  transition: all 0.2s ease;
+.editor-controls {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 12px;
 }
 
-.run-btn:hover {
-  background: linear-gradient(135deg, #34D399, #10B981);
+.editor-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 50px;
+  background: rgba(16, 185, 129, 0.1);
+  color: #34D399;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.status-dot-green {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px #10B981;
+}
+
+.reset-code-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94A3B8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reset-code-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.reset-code-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #F8FAFC;
+  transform: rotate(-15deg);
+}
+
+.run-code-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 12px;
+  background: #020617; /* Slate-950 */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.4);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.run-code-btn:hover {
+  background: #0F172A; /* Slate-900 */
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.6);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
-.run-btn:active {
+.run-code-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #3B82F6;
+}
+
+.run-code-btn:active {
   transform: translateY(0);
+}
+
+.run-icon {
+  width: 16px;
+  height: 16px;
 }
 
 .editor-pane {
