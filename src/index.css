@@ -31,9 +31,9 @@
 }
 
 html[data-theme="light"] {
-  /* Light Mode Tokens */
-  --background-base: #f8fbff;
-  --background-gradient: linear-gradient(135deg, #f6f9ff 0%, #eef4ff 45%, #f8fbff 100%);
+  /* Light Mode Tokens - Now Vibrant Blue Theme */
+  --background-base: #3abae0;
+  --background-gradient: linear-gradient(135deg, #3abae0 0%, #48c6ef 45%, #6fc9e0 100%);
   --surface: rgba(255, 255, 255, 0.82);
   --surface-hover: #F1F5F9;
   --text-primary: #0F172A;
