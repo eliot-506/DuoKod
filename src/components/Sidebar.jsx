@@ -12,9 +12,11 @@ function Sidebar({ currentTab, onNavigate }) {
     useEffect(() => {
         if (isLight) {
             document.body.classList.add('light-mode');
+            document.documentElement.setAttribute('data-theme', 'light');
             localStorage.setItem('duokod_theme', 'light');
         } else {
             document.body.classList.remove('light-mode');
+            document.documentElement.setAttribute('data-theme', 'dark');
             localStorage.setItem('duokod_theme', 'neon');
         }
     }, [isLight]);
@@ -25,6 +27,9 @@ function Sidebar({ currentTab, onNavigate }) {
         if (saved === 'light') {
             setIsLight(true);
             document.body.classList.add('light-mode');
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
         }
     }, []);
 
