@@ -64,22 +64,33 @@ body {
   box-sizing: border-box;
   background: var(--background);
   color: var(--text-color);
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
   overscroll-behavior-x: none !important;
   position: relative !important;
   touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
+  background-attachment: fixed;
 }
 
+/* Dark mode (default) background mesh */
+body {
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 90% 10%, rgba(139, 92, 246, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 40%),
+    #0f172a;
+}
+
+/* Light mode background mesh — Enhanced vibrancy */
 html[data-theme="light"] body {
   background: 
-    radial-gradient(circle at 0% 0%, #ffffff 0%, transparent 50%),
-    radial-gradient(circle at 100% 0%, #e0e7ff 0%, transparent 50%),
-    radial-gradient(circle at 50% 100%, #f3e8ff 0%, transparent 50%),
-    radial-gradient(circle at 80% 50%, rgba(168, 85, 247, 0.12), transparent 40%),
-    radial-gradient(circle at 20% 60%, rgba(59, 130, 246, 0.1), transparent 40%),
+    radial-gradient(circle at 5% 5%, #ffffff 0%, transparent 50%),
+    radial-gradient(circle at 95% 5%, #e0e7ff 0%, transparent 50%),
+    radial-gradient(circle at 50% 95%, #f3e8ff 0%, transparent 50%),
+    radial-gradient(circle at 85% 45%, rgba(168, 85, 247, 0.18), transparent 45%),
+    radial-gradient(circle at 15% 55%, rgba(59, 130, 246, 0.15), transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05), transparent 60%),
     #f8faff;
-  background-attachment: fixed;
 }
 
 body::before {
@@ -89,19 +100,19 @@ body::before {
   pointer-events: none;
   z-index: -1;
   background-image:
-    linear-gradient(rgba(37, 99, 235, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(37, 99, 235, 0.035) 1px, transparent 1px);
-  background-size: 42px 42px;
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.55), transparent);
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.55), transparent);
+    linear-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
 }
 
 body:not(.light-mode)::before {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
 }
 
 #root {
