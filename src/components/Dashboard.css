@@ -233,7 +233,7 @@ body:not(.light-mode) .csc-meta-item { color: #94A3B8; }
 
 
 .dash-wrapper {
-  background-color: transparent;
+  background: transparent !important;
   color: #1E293B;
   font-family: 'Inter', 'Outfit', sans-serif;
   animation: fadeIn 0.4s ease-out;
@@ -242,7 +242,7 @@ body:not(.light-mode) .csc-meta-item { color: #94A3B8; }
 
 /* Dark mode overrides */
 body.light-mode .dash-wrapper {
-  background-color: transparent;
+  background: transparent !important;
 }
 
 body:not(.light-mode) .dash-wrapper {
