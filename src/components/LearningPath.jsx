@@ -148,10 +148,11 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                         {MODULE_NODES.map((node, i) => {
                             const isLast = i === MODULE_NODES.length - 1;
                             
-                            // 🐍 Snake Trail Logic (Zig-Zag)
+                            // 🐍 Snake Trail Logic (Zig-Zag Cycle)
                             const snakeCycle = i % 4;
                             let snakePos = 'pos-center';
                             if (snakeCycle === 1) snakePos = 'pos-right';
+                            if (snakeCycle === 2) snakePos = 'pos-center-alt';
                             if (snakeCycle === 3) snakePos = 'pos-left';
 
                             let nodeSize = 48;
