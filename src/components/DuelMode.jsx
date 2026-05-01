@@ -13,7 +13,16 @@ const MOCK_OPPONENTS = [
 
 const CHALLENGE = {
     title: "Array Yig'indisi",
-    prompt: "Berilgan sonlar massividagi (array) barcha elementlar yig'indisini qaytaruvchi `sumArray(arr)` funksiyasini yozing.",
+    difficulty: "Oson",
+    prompt: "Berilgan sonlar massividagi (array) barcha elementlar yig'indisini qaytaruvchi `sumArray(arr)` funksiyasini yozing. Massiv faqat butun sonlardan iborat bo'lishi kafolatlanadi.",
+    examples: [
+        { input: "[1, 2, 3]", output: "6" },
+        { input: "[-1, 5, 10]", output: "14" }
+    ],
+    constraints: [
+        "Massiv uzunligi: 0 ≤ n ≤ 1000",
+        "Elementlar qiymati: -10^5 ≤ arr[i] ≤ 10^5"
+    ],
     initialCode: "function sumArray(arr) {\n  // kodingizni bu yerga yozing\n  \n}",
 };
 
@@ -192,41 +201,114 @@ function DuelMode({ onComplete }) {
         );
     }
 
-    // Fighting Phase
+    // Fighting Phase (Arena)
     return (
-        <div className="duel-container">
-            <div className="duel-header">
-                <div className="duel-player me">
-                    <span className="player-name">Siz</span>
-                    <div className="progress-bar-bg">
-                        <div className="progress-bar-fill me-fill" style={{ width: '0%' }}></div> {/* Since we just win immediately, we don't have dynamic sub-progress yet except 0 to 100 */}
+        <div className="duel-container arena-layout">
+            {/* Arena Header: Me vs Opponent */}
+            <header className="arena-header">
+                <div className="player-stats me">
+                    <div className="player-avatar-mini">
+                        <AnimatedRobot customState="idle" className="mini-bot" />
+                    </div>
+                    <div className="player-info">
+                        <span className="p-name">Siz</span>
+                        <div className="p-progress-track">
+                            <div className="p-progress-fill me" style={{ width: '15%' }}></div>
+                        </div>
                     </div>
                 </div>
-                <div className="timer-box">
-                    <span>⏳ {timeLeft}</span>
+
+                <div className="arena-timer-area">
+                    <div className="arena-vs-badge">VS</div>
+                    <div className="arena-timer">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        <span>00:{timeLeft < 10 ? `0${timeLeft}` : timeLeft}</span>
+                    </div>
+                    <div className="arena-round-label">1-savol • 1/5</div>
                 </div>
-                <div className="duel-player enemy">
-                    <span className="player-name">{opponent?.name} Lvl {opponent?.level}</span>
-                    <div className="progress-bar-bg">
-                        <div className="progress-bar-fill enemy-fill" style={{ width: `${enemyProgress}%` }}></div>
+
+                <div className="player-stats opponent">
+                    <div className="player-info">
+                        <span className="p-name">{opponent?.name}</span>
+                        <div className="p-progress-track">
+                            <div className="p-progress-fill enemy" style={{ width: `${enemyProgress}%` }}></div>
+                        </div>
+                    </div>
+                    <div className="player-avatar-mini enemy-avatar">
+                        {opponent?.avatar}
+                        <div className="enemy-level-badge">Lv.{opponent?.level}</div>
                     </div>
                 </div>
-            </div>
+            </header>
 
-            <div className="duel-challenge-card">
-                <h3>{CHALLENGE.title}</h3>
-                <p>{CHALLENGE.prompt}</p>
-            </div>
+            <main className="arena-main">
+                {/* Left Panel: Problem Statement */}
+                <section className="problem-panel">
+                    <div className="problem-header">
+                        <h1 className="problem-title">{CHALLENGE.title}</h1>
+                        <span className="difficulty-badge easy">{CHALLENGE.difficulty}</span>
+                    </div>
 
-            <div className="duel-editor">
-                <textarea
-                    value={code}
-                    onChange={e => setCode(e.target.value)}
-                    className="code-input JS"
-                    spellCheck="false"
-                />
-                <button className="btn btn-primary submit-code-btn" onClick={handleSubmit}>Javobni Yuborish 🚀</button>
-            </div>
+                    <div className="problem-content">
+                        <p className="problem-desc">{CHALLENGE.prompt}</p>
+
+                        <div className="problem-section">
+                            <h3 className="section-label">Misollar:</h3>
+                            {CHALLENGE.examples.map((ex, idx) => (
+                                <div key={idx} className="example-box">
+                                    <div className="ex-line"><strong>Kirish:</strong> <code>{ex.input}</code></div>
+                                    <div className="ex-line"><strong>Chiqish:</strong> <code>{ex.output}</code></div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="problem-section">
+                            <h3 className="section-label">Cheklovlar:</h3>
+                            <ul className="constraints-list">
+                                {CHALLENGE.constraints.map((c, idx) => <li key={idx}>{c}</li>)}
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Right Panel: Code Editor */}
+                <section className="editor-panel">
+                    <div className="editor-top-bar">
+                        <div className="lang-tabs">
+                            <button className="lang-tab active">JavaScript</button>
+                            <button className="lang-tab">Python</button>
+                            <button className="lang-tab">C++</button>
+                        </div>
+                        <div className="editor-actions-mini">
+                            <button className="icon-btn" title="Kodni tozalash">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="editor-body">
+                        <div className="line-numbers">
+                            {Array.from({ length: 10 }).map((_, i) => <span key={i}>{i + 1}</span>)}
+                        </div>
+                        <textarea
+                            value={code}
+                            onChange={e => setCode(e.target.value)}
+                            className="arena-code-input"
+                            spellCheck="false"
+                        />
+                    </div>
+
+                    <footer className="editor-footer">
+                        <div className="footer-left">
+                            <button className="btn-arena btn-ghost" onClick={() => window.history.back()}>Chiqish</button>
+                        </div>
+                        <div className="footer-right">
+                            <button className="btn-arena btn-secondary" onClick={() => alert('Kod tekshirilmoqda...')}>Sinab ko'rish</button>
+                            <button className="btn-arena btn-primary" onClick={handleSubmit}>Javobni yuborish</button>
+                        </div>
+                    </footer>
+                </section>
+            </main>
         </div>
     );
 }

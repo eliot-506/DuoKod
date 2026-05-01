@@ -1,12 +1,20 @@
 .duel-container {
-    padding: 20px;
-    min-height: calc(100vh - 80px);
+    padding: 24px;
+    min-height: calc(100vh - 84px);
     color: var(--text-color);
     display: flex;
     flex-direction: column;
     animation: fadeIn 0.5s ease;
-    max-width: 800px;
+    max-width: 1440px;
     margin: 0 auto;
+}
+
+.arena-layout {
+    background: #F8FAFC;
+}
+
+body:not(.light-mode) .arena-layout {
+    background: #0F172A;
 }
 
 /* ============================================
@@ -326,132 +334,395 @@ body:not(.light-mode) .mm-cancel-btn:hover {
     }
 }
 
-/* DUEL HEADER */
-.duel-header {
+/* ============================================
+   ARENA HEADER
+   ============================================ */
+.arena-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
-    background: var(--surface);
-    border-radius: 15px;
-    margin-bottom: 20px;
-    border: 2px solid var(--border-color);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    padding: 16px 24px;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
 }
 
-.duel-player {
-    flex: 1;
+body:not(.light-mode) .arena-header {
+    background: #1E293B;
+    border-color: #334155;
+}
+
+.player-stats {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
 }
 
-.duel-player.enemy {
+.player-stats.opponent {
+    justify-content: flex-end;
     text-align: right;
-    align-items: flex-end;
 }
 
-.player-name {
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-    font-family: 'Outfit', sans-serif;
-}
-
-.progress-bar-bg {
-    width: 100%;
-    max-width: 200px;
-    height: 15px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
+.player-avatar-mini {
+    width: 48px;
+    height: 48px;
+    background: #EFF6FF;
+    border: 2px solid #2563EB;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.progress-bar-fill {
+.enemy-avatar {
+    background: #FFF7ED;
+    border-color: #F59E0B;
+    font-size: 1.5rem;
+    position: relative;
+}
+
+.enemy-level-badge {
+    position: absolute;
+    bottom: -4px;
+    background: #F59E0B;
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 100px;
+    border: 2px solid #FFFFFF;
+}
+
+.p-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: #0F172A;
+    margin-bottom: 4px;
+    display: block;
+}
+
+body:not(.light-mode) .p-name { color: #F1F5F9; }
+
+.p-progress-track {
+    width: 120px;
+    height: 8px;
+    background: #F1F5F9;
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+body:not(.light-mode) .p-progress-track { background: #334155; }
+
+.p-progress-fill {
     height: 100%;
-    transition: width 0.3s ease;
+    border-radius: 100px;
 }
 
-.me-fill {
-    background: var(--accent);
-    box-shadow: 0 0 15px var(--accent-glow);
-}
+.p-progress-fill.me { background: #2563EB; }
+.p-progress-fill.enemy { background: #F59E0B; }
 
-.enemy-fill {
-    background: var(--accent-pink);
-    box-shadow: 0 0 15px var(--accent-pink);
-}
-
-.timer-box {
-    font-weight: 900;
-    font-size: 1.8rem;
-    color: #feca57;
-    padding: 0 20px;
-    font-family: 'Fira Code', monospace;
-}
-
-/* DUEL CHALLENGE & EDITOR */
-.duel-challenge-card {
-    background: var(--surface);
-    padding: 20px;
-    border-radius: 15px;
-    border-left: 5px solid var(--accent);
-    margin-bottom: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-.duel-challenge-card h3 {
-    color: var(--accent);
-    margin-bottom: 10px;
-    font-size: 1.4rem;
-}
-
-.duel-challenge-card p {
-    font-size: 1.1rem;
-    line-height: 1.5;
-    color: #e6edf3;
-}
-
-.duel-editor {
+/* Timer & VS */
+.arena-timer-area {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    flex: 1;
+    align-items: center;
+    gap: 4px;
 }
 
-.code-input.JS {
-    flex: 1;
-    min-height: 250px;
-    background: #0d1117;
-    color: #fbee92;
-    padding: 20px;
-    border-radius: 15px;
-    border: 2px solid var(--border-color);
+.arena-vs-badge {
+    font-size: 18px;
+    font-weight: 900;
+    color: #F59E0B;
+    font-style: italic;
+    background: #FFF7ED;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 3px solid #FFFFFF;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.1);
+    margin-top: -30px;
+}
+
+.arena-timer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-family: 'Fira Code', monospace;
-    font-size: 1rem;
-    resize: vertical;
+    font-weight: 700;
+    font-size: 20px;
+    color: #0F172A;
 }
 
-.code-input.JS:focus {
-    outline: none;
-    border-color: var(--accent-yellow);
-    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8), 0 0 10px rgba(254, 202, 87, 0.2);
+body:not(.light-mode) .arena-timer { color: #F1F5F9; }
+
+.arena-round-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748B;
+    background: #F8FAFC;
+    padding: 2px 10px;
+    border-radius: 100px;
+    border: 1px solid #E2E8F0;
 }
 
-.submit-code-btn {
-    width: 100%;
-    padding: 18px;
-    font-size: 1.3rem;
-    margin-bottom: 30px;
-    border-radius: 15px;
+/* ============================================
+   ARENA MAIN LAYOUT
+   ============================================ */
+.arena-main {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    gap: 24px;
+    flex: 1;
+}
+
+/* Problem Panel */
+.problem-panel {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+body:not(.light-mode) .problem-panel {
+    background: #1E293B;
+    border-color: #334155;
+}
+
+.problem-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #F1F5F9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+body:not(.light-mode) .problem-header { border-color: #334155; }
+
+.problem-title {
+    font-size: 20px;
     font-weight: 800;
-    background: var(--accent-blue);
-    color: #fff;
+    color: #0F172A;
+    margin: 0;
 }
 
-.submit-code-btn:hover {
-    background: #fff;
-    color: var(--accent-blue);
+body:not(.light-mode) .problem-title { color: #F1F5F9; }
+
+.difficulty-badge {
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.difficulty-badge.easy {
+    background: #ECFDF5;
+    color: #10B981;
+}
+
+.problem-content {
+    padding: 24px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.problem-desc {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #334155;
+    margin: 0 0 24px;
+    max-width: 100%;
+}
+
+body:not(.light-mode) .problem-desc { color: #CBD5E1; }
+
+.problem-section {
+    margin-bottom: 24px;
+}
+
+.section-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0F172A;
+    margin: 0 0 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+body:not(.light-mode) .section-label { color: #94A3B8; }
+
+.example-box {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    font-family: 'Fira Code', monospace;
+}
+
+body:not(.light-mode) .example-box {
+    background: #0F172A;
+    border-color: #334155;
+}
+
+.ex-line {
+    font-size: 13px;
+    margin-bottom: 4px;
+    color: #475569;
+}
+
+body:not(.light-mode) .ex-line { color: #94A3B8; }
+
+.ex-line code {
+    color: #2563EB;
+}
+
+.constraints-list {
+    margin: 0;
+    padding-left: 20px;
+    color: #64748B;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Editor Panel */
+.editor-panel {
+    background: #0F172A;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.15);
+}
+
+.editor-top-bar {
+    padding: 0 16px;
+    background: #1E293B;
+    height: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lang-tabs {
+    display: flex;
+    height: 100%;
+}
+
+.lang-tab {
+    padding: 0 20px;
+    background: transparent;
+    border: none;
+    color: #94A3B8;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.lang-tab.active {
+    color: #3B82F6;
+    border-bottom-color: #3B82F6;
+    background: rgba(59, 130, 246, 0.05);
+}
+
+.editor-body {
+    flex: 1;
+    display: flex;
+    background: #0F172A;
+    padding: 16px 0;
+}
+
+.line-numbers {
+    width: 48px;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    padding-right: 16px;
+    color: #334155;
+    font-family: 'Fira Code', monospace;
+    font-size: 13px;
+    user-select: none;
+}
+
+.arena-code-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #E2E8F0;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    resize: none;
+}
+
+.editor-footer {
+    padding: 16px 24px;
+    background: #1E293B;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-right {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-arena {
+    height: 44px;
+    padding: 0 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: #2563EB;
+    color: white;
+}
+
+.btn-primary:hover { background: #1D4ED8; }
+
+.btn-secondary {
+    background: #334155;
+    color: #F1F5F9;
+}
+
+.btn-secondary:hover { background: #475569; }
+
+.btn-ghost {
+    background: transparent;
+    color: #94A3B8;
+}
+
+.btn-ghost:hover { color: #F1F5F9; }
+
+/* Responsive Grid */
+@media (max-width: 1024px) {
+    .arena-main {
+        grid-template-columns: 1fr;
+    }
+    .problem-panel {
+        max-height: 400px;
+    }
 }
 
 /* RESULT SCREEN */
