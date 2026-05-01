@@ -4,7 +4,8 @@
 
 :root {
   /* Default: Dark/Neon Mode */
-  --background: #0f172a;
+  --background-base: #0f172a;
+  --background-gradient: none;
   --surface: #1e293b;
   --surface-hover: #263248;
   --text-primary: #ffffff;
@@ -31,7 +32,8 @@
 
 html[data-theme="light"] {
   /* Light Mode Tokens */
-  --background: linear-gradient(135deg, #f6f9ff 0%, #eef4ff 45%, #f8fbff 100%);
+  --background-base: #f8fbff;
+  --background-gradient: linear-gradient(135deg, #f6f9ff 0%, #eef4ff 45%, #f8fbff 100%);
   --surface: rgba(255, 255, 255, 0.82);
   --surface-hover: #F1F5F9;
   --text-primary: #0F172A;
@@ -72,8 +74,12 @@ body {
   width: 100%;
   min-height: 100vh;
   color: var(--text-primary);
+  
+  /* Stacking Context Isolation */
+  isolation: isolate;
+
   /* Unified Background Architecture */
-  background: var(--bg-mesh), var(--background);
+  background: var(--bg-mesh), var(--background-gradient), var(--background-base);
   background-attachment: fixed;
   transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
   position: relative;
@@ -98,7 +104,7 @@ body::before {
   width: 100%;
   max-width: 100%;
   position: relative;
-  z-index: 1; /* Above the grid/mesh */
+  z-index: 1; /* Above the grid/mesh within the body's isolation context */
 }
 
 /* ================================
@@ -113,7 +119,7 @@ a {
   font-weight: 500;
   color: var(--primary);
   text-decoration: inherit;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s ease;
 }
 
 a:hover {
@@ -128,7 +134,18 @@ button {
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  transition: all 0.25s;
+  
+  /* High Performance Transitions */
+  transition: 
+    background-color 0.25s ease, 
+    color 0.25s ease, 
+    border-color 0.25s ease, 
+    transform 0.2s ease, 
+    box-shadow 0.25s ease;
+}
+
+button:hover {
+  border-color: var(--primary);
 }
 
 button:focus-visible {
