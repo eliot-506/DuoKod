@@ -84,10 +84,10 @@ body {
 /* Light mode background mesh — Professional Vibrant Variant */
 html[data-theme="light"] body {
   background:
-    radial-gradient(circle at 8% 10%, rgba(59, 130, 246, 0.22), transparent 36%),
-    radial-gradient(circle at 92% 12%, rgba(168, 85, 247, 0.20), transparent 34%),
-    radial-gradient(circle at 55% 92%, rgba(16, 185, 129, 0.16), transparent 42%),
-    linear-gradient(135deg, #f6f9ff 0%, #eef4ff 45%, #f8fbff 100%) !important;
+    radial-gradient(circle at 5% 15%, rgba(255, 182, 193, 0.18), transparent 40%),
+    radial-gradient(circle at 95% 10%, rgba(59, 130, 246, 0.20), transparent 35%),
+    radial-gradient(circle at 50% 90%, rgba(16, 185, 129, 0.15), transparent 40%),
+    linear-gradient(135deg, #c9e9f2 0%, #e0f2f7 45%, #f0faff 100%) !important;
 }
 
 body::before {
