@@ -93,19 +93,47 @@ function DuelMode({ onComplete }) {
     if (phase === 'matchmaking') {
         return (
             <div className="duel-container matchmaking-wrapper">
-                <div className="radar-animation">
-                    <div className="radar-circle circle-1"></div>
-                    <div className="radar-circle circle-2"></div>
-                    <div className="radar-circle circle-3"></div>
-                    <div className="radar-scanner"></div>
-                    <div className="user-radar-avatar" style={{width: '100px', height: '100px', borderRadius: '50%', background: 'var(--surface)', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', border: '3px solid var(--border-color)', position: 'relative', zIndex: 5}}>
-                        <div style={{transform: 'scale(0.8)', width: '120px', height: '120px'}}>
-                            <AnimatedRobot customState="thinking" />
+                <div className="mm-status-card">
+                    {/* Animated radar avatar */}
+                    <div className="mm-avatar-area">
+                        <div className="mm-radar-ring mm-radar-ring--1"></div>
+                        <div className="mm-radar-ring mm-radar-ring--2"></div>
+                        <div className="mm-radar-ring mm-radar-ring--3"></div>
+                        <div className="mm-avatar-circle">
+                            <AnimatedRobot customState="thinking" className="mm-robot" />
+                        </div>
+                        <div className="mm-scan-line"></div>
+                    </div>
+
+                    {/* Title & subtitle */}
+                    <h2 className="mm-title">Munosib raqib qidirilmoqda</h2>
+                    <p className="mm-subtitle">Darajangiz va faoliyatingizga mos o'yinchi tanlanmoqda</p>
+
+                    {/* Progress bar */}
+                    <div className="mm-progress-track">
+                        <div className="mm-progress-fill"></div>
+                    </div>
+
+                    {/* Info chips */}
+                    <div className="mm-info-row">
+                        <div className="mm-info-chip">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            <span>Taxminan 5–15 soniya</span>
+                        </div>
+                        <div className="mm-info-chip">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            <span>Faol foydalanuvchilar tekshirilmoqda</span>
                         </div>
                     </div>
+
+                    <p className="mm-auto-text">Topilganida avtomatik boshlanadi</p>
+
+                    {/* Cancel action */}
+                    <button className="mm-cancel-btn" onClick={() => window.history.back()}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                        Bekor qilish
+                    </button>
                 </div>
-                <h2 className="matchmaking-text">Munosib raqib qidirilmoqda...</h2>
-                <p className="matchmaking-subtext">Tayyor turing, jang tez orada boshlanadi!</p>
             </div>
         );
     }
@@ -119,11 +147,11 @@ function DuelMode({ onComplete }) {
                     {matchResult === 'win' ? "Ajoyib G'alaba! 🎉" : "Bu safar biroz yetmay qoldi"}
                 </h1>
                 
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '32px' }}>
-                    <div style={{ transform: 'scale(1.15)', padding: '10px' }}>
+                <div className="result-mascot-wrapper">
+                    <div className="result-mascot-container">
                         <AnimatedRobot customState={matchResult === 'win' ? 'celebration' : 'sad'} />
                     </div>
-                    <p style={{ fontSize: '1.15rem', fontWeight: '600', color: 'var(--text-muted)', marginTop: '4px', textAlign: 'center', maxWidth: '400px' }}>
+                    <p className="result-mascot-text">
                         {matchResult === 'win' ? "+50 XP Olingiz! Siz ajoyib dasturchisiz!" : "Raqib tezroq bo'ldi, lekin keyingi urinishda natijani yaxshilashingiz mumkin."}
                     </p>
                 </div>
@@ -131,10 +159,8 @@ function DuelMode({ onComplete }) {
                 <div className="result-stats new-card">
                     <div className="stat-box">
                         <span className="stat-header">Sizning holatingiz</span>
-                        <div className="final-avatar" style={{ overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'var(--surface-variant)' }}>
-                            <div style={{ width: '80%', height: '80%' }}>
-                                <AnimatedRobot customState={matchResult === 'win' ? 'happy' : 'idle'} />
-                            </div>
+                        <div className="final-avatar result-avatar">
+                            <AnimatedRobot customState={matchResult === 'win' ? 'happy' : 'sad'} />
                         </div>
                         <h3 className="stat-value">{synthesizedPlayerProgress}</h3>
                     </div>

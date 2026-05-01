@@ -18,11 +18,11 @@ function AnimatedRobot({ isFloating = false, customState, className = '' }) {
         idle: '/assets/mascots/idle.png',
         happy: '/assets/mascots/happy.png',
         excited: '/assets/mascots/rizz.png',
-        thinking: '/assets/mascots/thinking.png',
+        thinking: '/assets/mascots/hint.png',
         confused: '/assets/mascots/hint.png',
         sad: '/assets/mascots/sad.png',
         wrong: '/assets/mascots/sad.png',
-        celebration: '/assets/mascots/happy.png',
+        celebration: '/assets/mascots/rizz.png',
         sleepy: '/assets/mascots/idle.png'
     };
 
