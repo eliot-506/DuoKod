@@ -148,8 +148,11 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                         {MODULE_NODES.map((node, i) => {
                             const isLast = i === MODULE_NODES.length - 1;
                             
-                            // Alternate sides for cards, Boss nodes can be on random sides or fixed.
-                            const side = node.isBoss ? 'right' : (i % 2 === 0 ? 'left' : 'right');
+                            // 🐍 Snake Trail Logic (Zig-Zag)
+                            const snakeCycle = i % 4;
+                            let snakePos = 'pos-center';
+                            if (snakeCycle === 1) snakePos = 'pos-right';
+                            if (snakeCycle === 3) snakePos = 'pos-left';
 
                             let nodeSize = 48;
                             if (node.status === 'current' || node.status === 'unlocked') nodeSize = 64;
@@ -157,7 +160,7 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                             if (isLast) nodeSize = 64;
 
                             return (
-                                <div key={`node-${node.id}`} className={`timeline-row status-${node.status} ${node.isBoss ? 'is-boss' : ''} align-${side}`}>
+                                <div key={`node-${node.id}`} className={`timeline-row status-${node.status} ${node.isBoss ? 'is-boss' : ''} ${snakePos}`}>
                                     
                                     <div className="timeline-center">
                                         <div 

@@ -287,14 +287,17 @@ body:not(.light-mode) .lp-canvas-desc {
 
 .timeline-trunk {
   position: absolute;
-  top: 40px;
-  bottom: 40px;
+  top: 60px;
+  bottom: 60px;
   left: 50%;
-  width: 8px;
+  width: 12px;
   background: #E2E8F0;
   transform: translateX(-50%);
-  border-radius: 4px;
+  border-radius: 12px;
   z-index: 1;
+  /* Very subtle wavy pattern */
+  background-image: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 80%);
+  background-size: 100% 200px;
 }
 
 body:not(.light-mode) .timeline-trunk {
@@ -311,6 +314,9 @@ body:not(.light-mode) .timeline-trunk {
   transition: height 1s ease;
 }
 
+/* ==================================
+   SNAKE POSITIONS (Zig-Zag)
+================================== */
 .timeline-row {
   position: relative;
   display: flex;
@@ -318,32 +324,43 @@ body:not(.light-mode) .timeline-trunk {
   justify-content: center;
   align-items: center;
   z-index: 2;
+  margin-bottom: 20px;
 }
+
+.timeline-row.pos-center .timeline-center { transform: translateX(-50%); }
+.timeline-row.pos-right .timeline-center { transform: translateX(calc(-50% + 100px)); }
+.timeline-row.pos-left .timeline-center  { transform: translateX(calc(-50% - 100px)); }
 
 .timeline-center {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .timeline-card-wrapper {
-  width: 50%;
-  display: flex;
+  position: absolute;
+  width: 240px;
+  z-index: 5;
+  transition: all 0.5s ease;
 }
 
-.timeline-row.align-left .timeline-card-wrapper {
-  padding-right: 60px;
-  justify-content: flex-end;
-  margin-right: auto;
+/* Card positioning relative to node */
+.pos-center .timeline-card-wrapper {
+  left: calc(50% + 50px);
+}
+.pos-right .timeline-card-wrapper {
+  left: calc(50% - 300px);
+}
+.pos-left .timeline-card-wrapper {
+  left: calc(50% + 150px);
 }
 
-.timeline-row.align-right .timeline-card-wrapper {
-  padding-left: 60px;
-  justify-content: flex-start;
-  margin-left: auto;
+/* On hover, cards slide slightly */
+.timeline-row:hover .timeline-card-wrapper {
+  transform: scale(1.02);
 }
 
 /* Boss nodes branch further */
