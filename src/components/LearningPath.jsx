@@ -134,93 +134,84 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                 </header>
 
                 {/* 2. Path Canvas */}
-                <section aria-labelledby="learning-path-title" className="lp-canvas">
+                <section aria-labelledby="learning-path-title" className="lp-canvas pristine-grid">
                     <div className="lp-canvas-header">
                         <h2 id="learning-path-title" className="lp-canvas-title">O‘quv yo‘li</h2>
-                        <p className="lp-canvas-desc">Qayerda ekaningizni va keyingi darsni bir qarashda ko‘rish uchun vizual yo‘l xaritasi.</p>
+                        <p className="lp-canvas-desc">Qayerda ekaningizni va keyingi darsni bir qarashda ko'rishingiz mumkin.</p>
                     </div>
 
-                    <div className="journey-map-container timeline-view">
-                        <div className="timeline-trunk">
-                            <div className="timeline-trunk-progress" style={{height: `${progressPercent}%`}}></div>
-                        </div>
-
+                    <div className="journey-map-container timeline-view z-flow">
                         {MODULE_NODES.map((node, i) => {
                             const isLast = i === MODULE_NODES.length - 1;
                             
-                            // 🐍 Snake Trail Logic (Zig-Zag Cycle)
-                            const snakeCycle = i % 4;
-                            let snakePos = 'pos-center';
-                            if (snakeCycle === 1) snakePos = 'pos-right';
-                            if (snakeCycle === 2) snakePos = 'pos-center-alt';
-                            if (snakeCycle === 3) snakePos = 'pos-left';
-
-                            let nodeSize = 48;
-                            if (node.status === 'current' || node.status === 'unlocked') nodeSize = 64;
-                            if (node.isBoss) nodeSize = 56;
-                            if (isLast) nodeSize = 64;
+                            // 🏁 Z-Flow Logic (Left -> Right -> Left)
+                            // i=0: Left, i=1: Right, i=2: Left, i=3: Right
+                            const sideClass = i % 2 === 0 ? 'side-left' : 'side-right';
 
                             return (
-                                <div key={`node-${node.id}`} className={`timeline-row status-${node.status} ${node.isBoss ? 'is-boss' : ''} ${snakePos}`}>
+                                <div key={`node-${node.id}`} className={`timeline-row status-${node.status} ${node.isBoss ? 'is-boss' : ''} ${sideClass}`}>
                                     
                                     <div className="timeline-center">
                                         <div 
-                                            className={`node-circle-btn size-variant-${nodeSize}`} 
+                                            className={`node-circle-btn`} 
                                             onClick={() => {
                                                 if(node.status !== 'locked' && !node.isBoss) setPreviewNode(node);
                                                 if(node.status !== 'locked' && node.isBoss && onBossStart) onBossStart(node.bossData);
                                             }}
                                         >
                                             {node.isBoss ? (
-                                                 <span style={{fontSize:'1.5rem'}}>⚔️</span>
+                                                 <span className="node-icon">⚔️</span>
                                             ) : node.status === 'completed' ? (
                                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="chk-icon">
                                                     <polyline points="20 6 9 17 4 12"></polyline>
                                                 </svg>
-                                            ) : node.status === 'locked' ? (
-                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="chk-icon">
-                                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                                                </svg>
                                             ) : isLast ? (
-                                                 <span style={{fontSize:'1.5rem'}}>🏅</span>
+                                                 <span className="node-icon">🏅</span>
                                             ) : (
                                                 <div className="inner-dot"></div>
                                             )}
                                         </div>
-
-                                        {/* Guide Mascot on Current Node */}
-                                        {node.status === 'current' && (
-                                            <div className="guide-mascot animate-bounce">
-                                                <span className="mascot-emoji">🤖</span>
-                                                <div className="mascot-tooltip">Siz shu yerdasiz!</div>
-                                            </div>
-                                        )}
                                     </div>
 
-                                    {/* Label Card */}
+                                    {/* Content Card - Pristine White */}
                                     <div className="timeline-card-wrapper">
-                                        <div className="node-label-card">
+                                        <div className="node-label-card pristine-card">
                                             <div className="j-meta-row">
-                                                <span className={`j-badge badge-${node.status}`}>
-                                                    {node.status === 'challenge' ? 'Challenge' : (node.status === 'unlocked' ? 'Ochiq' : node.statusLabel)}
+                                                <span className={`j-badge badge-${node.status} accent-tag`}>
+                                                    {node.status === 'challenge' ? 'CHALLENGE' : (node.status === 'unlocked' || node.status === 'current' ? 'OCHIQ' : 'Yopiq')} 
+                                                    &nbsp;• {node.meta}
                                                 </span>
-                                                <span className="j-meta-text">• {node.meta}</span>
                                             </div>
                                             <h3 className="j-title">{node.title}</h3>
                                             <p className="j-desc">{node.desc}</p>
                                             
                                             <div className="j-actions">
-                                                {node.status === 'completed' && <button className="j-btn j-btn-secondary" onClick={(e) => { e.stopPropagation(); setPreviewNode(node); }}>Qayta ko‘rish</button>}
-                                                {(node.status === 'current' || node.status === 'unlocked') && <button className="j-btn j-btn-primary" onClick={(e) => { e.stopPropagation(); onNodeClick(selectedCourse, node.id); }}>Davom etish</button>}
-                                                {node.status === 'challenge' && <button className="j-btn j-btn-primary" onClick={(e) => { e.stopPropagation(); if(onBossStart) onBossStart(node.bossData); }}>Jangni boshlash</button>}
-                                                {node.status === 'locked' && <span className="j-locked-text">Oldingi modul ochilishi kerak</span>}
+                                                {node.status === 'completed' && <button className="lp-btn lp-btn-secondary lp-btn-sm" onClick={(e) => { e.stopPropagation(); setPreviewNode(node); }}>Qayta ko‘rish</button>}
+                                                {(node.status === 'current' || node.status === 'unlocked') && <button className="lp-btn lp-btn-primary lp-btn-sm" onClick={(e) => { e.stopPropagation(); onNodeClick(selectedCourse, node.id); }}>Davom etish</button>}
+                                                {node.status === 'challenge' && <button className="lp-btn lp-btn-danger lp-btn-sm" onClick={(e) => { e.stopPropagation(); if(onBossStart) onBossStart(node.bossData); }}>Jangni boshlash</button>}
                                             </div>
+
+                                            {node.isBoss && (
+                                                <div className="card-footer-icons">
+                                                    <div className="green-dots"><span></span><span></span><span></span></div>
+                                                    <i className="fa-solid fa-crossed-swords sword-small"></i>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
                             );
                         })}
+                    </div>
+
+                    {/* Chatbot Assistant */}
+                    <div className="lp-chatbot-persistent">
+                        <div className="chatbot-bubble">
+                            Uzoq o'ylanib qoldingizmi? Yordam kerak bo'lsa ayting!
+                        </div>
+                        <div className="chatbot-avatar">
+                            <img src="/mascot-robot.png" alt="Robot" onError={(e) => e.target.src = 'https://cdn-icons-png.flaticon.com/512/4712/4712035.png'} />
+                        </div>
                     </div>
 
                     {/* Completion Actions */}
