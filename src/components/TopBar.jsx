@@ -13,14 +13,7 @@ function TopBar({ onLogoClick, onNavigate }) {
             </div>
 
             <div className="top-bar-stats">
-                {stats?.isAdmin && (
-                    <button 
-                        onClick={() => onNavigate && onNavigate('admin')}
-                        className="admin-badge-btn"
-                    >
-                        👑 <span className="admin-btn-text">Admin</span>
-                    </button>
-                )}
+
                 <div className="stat-item streak-stat" style={{ display: 'flex', alignItems: 'center', gap: '6px' }} title={`Pog'ona: ${tier.name}`}>
                     <span className="stat-icon" style={{ 
                         filter: `drop-shadow(0 0 ${tier.glow}px ${tier.color})`,

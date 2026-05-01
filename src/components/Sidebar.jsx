@@ -36,7 +36,8 @@ function Sidebar({ currentTab, onNavigate }) {
         { id: 'leaderboard', icon: <i className="fa-solid fa-shield-halved"></i>, label: 'Reyting' },
         { id: 'arena', icon: <i className="fa-solid fa-laptop-code"></i>, label: 'Arena' },
         { id: 'duel', icon: <i className="fa-solid fa-bolt"></i>, label: 'Bellashuv' },
-        { id: 'profile', icon: <i className="fa-solid fa-user"></i>, label: 'Profil' }
+        { id: 'profile', icon: <i className="fa-solid fa-user"></i>, label: 'Profil' },
+        ...(stats?.isAdmin ? [{ id: 'admin', icon: <i className="fa-solid fa-crown" style={{ color: '#F59E0B' }}></i>, label: 'Admin' }] : [])
     ];
 
     return (
