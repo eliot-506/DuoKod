@@ -204,6 +204,10 @@ function DuelMode({ onComplete }) {
     // Fighting Phase (Arena)
     return (
         <div className="duel-container arena-layout">
+            {/* Background Decorative Elements */}
+            <div className="arena-bg-glow glow-1"></div>
+            <div className="arena-bg-glow glow-2"></div>
+
             {/* Arena Header: Me vs Opponent */}
             <header className="arena-header">
                 <div className="player-stats me">
