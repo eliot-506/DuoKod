@@ -62,7 +62,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   box-sizing: border-box;
-  background: var(--background);
+  background: var(--background); /* Fallback */
   color: var(--text-color);
   transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
   overscroll-behavior-x: none !important;
@@ -72,25 +72,22 @@ body {
   background-attachment: fixed;
 }
 
-/* Dark mode (default) background mesh */
+/* Dark mode (default) background mesh — Enhanced vibrancy */
 body {
   background: 
-    radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at 90% 10%, rgba(139, 92, 246, 0.12) 0%, transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 40%),
-    #0f172a;
+    radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.18) 0%, transparent 40%),
+    radial-gradient(circle at 90% 10%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.12) 0%, transparent 40%),
+    #0f172a !important;
 }
 
-/* Light mode background mesh — Enhanced vibrancy */
+/* Light mode background mesh — Professional Vibrant Variant */
 html[data-theme="light"] body {
-  background: 
-    radial-gradient(circle at 5% 5%, #ffffff 0%, transparent 50%),
-    radial-gradient(circle at 95% 5%, #e0e7ff 0%, transparent 50%),
-    radial-gradient(circle at 50% 95%, #f3e8ff 0%, transparent 50%),
-    radial-gradient(circle at 85% 45%, rgba(168, 85, 247, 0.18), transparent 45%),
-    radial-gradient(circle at 15% 55%, rgba(59, 130, 246, 0.15), transparent 45%),
-    radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05), transparent 60%),
-    #f8faff;
+  background:
+    radial-gradient(circle at 8% 10%, rgba(59, 130, 246, 0.22), transparent 36%),
+    radial-gradient(circle at 92% 12%, rgba(168, 85, 247, 0.20), transparent 34%),
+    radial-gradient(circle at 55% 92%, rgba(16, 185, 129, 0.16), transparent 42%),
+    linear-gradient(135deg, #f6f9ff 0%, #eef4ff 45%, #f8fbff 100%) !important;
 }
 
 body::before {
@@ -98,19 +95,20 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
   background-image:
-    linear-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(rgba(37, 99, 235, 0.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.075) 1px, transparent 1px);
+  background-size: 44px 44px;
   mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
+  opacity: 1;
 }
 
 body:not(.light-mode)::before {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
 }
@@ -121,6 +119,7 @@ body:not(.light-mode)::before {
   overflow-x: hidden;
   box-sizing: border-box;
   position: relative;
+  z-index: 1;
 }
 
 h1 {
