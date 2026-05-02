@@ -3,29 +3,27 @@
 ================================ */
 
 :root {
-  /* Default: Dark/Neon Mode */
-  --background-base: #0f172a;
-  --background-gradient: none;
-  --surface: #1e293b;
-  --surface-hover: #263248;
-  --text-primary: #ffffff;
+  /* Default: Cyber Neon Mode */
+  --background-base: #020617;
+  --background-gradient: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+  --surface: rgba(30, 41, 59, 0.4);
+  --surface-hover: rgba(51, 65, 85, 0.5);
+  --text-primary: #f8fafc;
   --text-muted: #94a3b8;
-  --border-color: #334155;
-  --primary: #3B82F6;
-  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --primary: #22d3ee; /* Cyan Neon */
+  --primary-glow: rgba(34, 211, 238, 0.3);
+  --secondary: #a855f7; /* Violet Neon */
+  --secondary-glow: rgba(168, 85, 247, 0.3);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.5);
 
-  /* Background Mesh (Dark) */
-  --bg-mesh: 
-    radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.18) 0%, transparent 40%),
-    radial-gradient(circle at 90% 10%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.12) 0%, transparent 40%);
+  /* Background Elements */
+  --bg-mesh: none;
+  --grid-color: rgba(34, 211, 238, 0.03);
+  --grid-size: 64px;
+  --grid-mask: radial-gradient(circle at center, black, transparent 80%);
 
-  /* Grid Tokens (Dark) */
-  --grid-color: rgba(255, 255, 255, 0.04);
-  --grid-size: 48px;
-  --grid-mask: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
-
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Outfit', 'Inter', system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 }
@@ -78,9 +76,12 @@ body {
   /* Stacking Context Isolation */
   isolation: isolate;
 
-  /* Unified Background Architecture */
-  background: var(--bg-mesh), var(--background-gradient), var(--background-base);
+  /* Unified Background Architecture - Now handled by BackgroundSystem */
+  background: transparent;
   background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
   position: relative;
 }
@@ -90,14 +91,47 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
   background-image:
     linear-gradient(var(--grid-color) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: var(--grid-size) var(--grid-size);
   mask-image: var(--grid-mask);
   -webkit-mask-image: var(--grid-mask);
-  opacity: 1;
+  opacity: 0.5;
+}
+
+/* Animated Neon Glows */
+.neon-glow-1 {
+  position: fixed;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, var(--primary-glow), transparent 60%);
+  top: -200px;
+  left: -200px;
+  filter: blur(120px);
+  z-index: -2;
+  pointer-events: none;
+  animation: pulse-glow 15s infinite alternate ease-in-out;
+}
+
+.neon-glow-2 {
+  position: fixed;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, var(--secondary-glow), transparent 60%);
+  bottom: -200px;
+  right: -200px;
+  filter: blur(120px);
+  z-index: -2;
+  pointer-events: none;
+  animation: pulse-glow 18s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes pulse-glow {
+  0% { transform: scale(1) translate(0, 0); opacity: 0.5; }
+  50% { transform: scale(1.1) translate(50px, 30px); opacity: 0.8; }
+  100% { transform: scale(1) translate(-30px, 50px); opacity: 0.5; }
 }
 
 #root {
@@ -116,11 +150,12 @@ body::before {
   box-shadow: var(--shadow-card) !important;
 }
 
-body:not(.light-mode) .glass-panel {
-  background: rgba(15, 23, 42, 0.65) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+html:not([data-theme="light"]) .glass-panel {
+  background: var(--surface) !important;
+  backdrop-filter: var(--glass-blur) saturate(180%) !important;
+  -webkit-backdrop-filter: var(--glass-blur) saturate(180%) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important;
 }
 
 /* ================================
