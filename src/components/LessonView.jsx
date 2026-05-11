@@ -236,15 +236,24 @@ function LessonView({ onComplete, onExit, lessonId }) {
             message = "Ko'proq o'qish kerak! Hech qisi yo'q, qayta urinib ko'ramiz.";
         }
 
+        const scoreClass = score === 100 ? 'perfect' : score > 60 ? 'good' : 'bad';
+
         return (
             <div className="theory-container">
                 <div className="results-mascot">
                     <Mascot state={robotState} message={message} />
                 </div>
-                <div className="theory-card">
-                    <h3>Dars yakunlandi!</h3>
-                    <p>Sizning yakuniy natijangiz: <strong>{Math.round(score)}%</strong></p>
-                    <p>Yo'l qo'yilgan xatolar: {mistakes}</p>
+                <div className={`theory-card results-card ${scoreClass}`}>
+                    <h3 className="results-title">Dars yakunlandi!</h3>
+                    <p className="results-main-text">
+                        Sizning yakuniy natijangiz: <strong className="score-badge">{Math.round(score)}%</strong>
+                    </p>
+                    <div className="results-stats">
+                        <div className="stat-item">
+                            <span className="stat-label">Xatolar soni:</span>
+                            <span className="stat-value">{mistakes}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
