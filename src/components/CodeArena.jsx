@@ -3,8 +3,8 @@ import './CodeArena.css';
 import { useRobot } from '../context/RobotContext';
 
 function CodeArena() {
-    const [html, setHtml] = useState('<h1>Arena</h1>\n<p>DuoKod Playgrounga xush kelibsiz!</p>');
-    const [css, setCss] = useState('body {\n  font-family: sans-serif;\n  background-color: #f4f4f9;\n  color: #333;\n}\n\nh1 {\n  color: #e34c26;\n  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);\n}');
+    const [html, setHtml] = useState('<div class="hero">\n  <h1>Code Arena</h1>\n  <p>DuoKod Playgrounga xush kelibsiz!</p>\n  <div class="glow"></div>\n</div>');
+    const [css, setCss] = useState('body {\n  font-family: "Outfit", sans-serif;\n  background: #0f172a;\n  color: #f8fafc;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n  margin: 0;\n  overflow: hidden;\n}\n\n.hero {\n  text-align: center;\n  position: relative;\n  z-index: 10;\n}\n\nh1 {\n  font-size: 4rem;\n  margin: 0;\n  background: linear-gradient(90deg, #3b82f6, #8b5cf6);\n  -webkit-background-clip: text;\n  color: transparent;\n}\n\n.glow {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 200px;\n  height: 200px;\n  background: #6366f1;\n  filter: blur(100px);\n  opacity: 0.3;\n  transform: translate(-50%, -50%);\n  z-index: -1;\n}');
     const [js, setJs] = useState('console.log("JavaScript ishlashga tayyor!");');
     const [python, setPython] = useState('print("Salom, Python!")');
     const [activeTab, setActiveTab] = useState('python');
@@ -91,8 +91,8 @@ function CodeArena() {
     };
 
     const handleReset = () => {
-        setHtml('<h1>Arena</h1>\n<p>DuoKod Playgrounga xush kelibsiz!</p>');
-        setCss('body {\n  font-family: sans-serif;\n  background-color: #f4f4f9;\n  color: #333;\n}\n\nh1 {\n  color: #e34c26;\n  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);\n}');
+        setHtml('<div class="hero">\n  <h1>Code Arena</h1>\n  <p>DuoKod Playgrounga xush kelibsiz!</p>\n  <div class="glow"></div>\n</div>');
+        setCss('body {\n  font-family: "Outfit", sans-serif;\n  background: #0f172a;\n  color: #f8fafc;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n  margin: 0;\n  overflow: hidden;\n}\n\n.hero {\n  text-align: center;\n  position: relative;\n  z-index: 10;\n}\n\nh1 {\n  font-size: 4rem;\n  margin: 0;\n  background: linear-gradient(90deg, #3b82f6, #8b5cf6);\n  -webkit-background-clip: text;\n  color: transparent;\n}\n\n.glow {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 200px;\n  height: 200px;\n  background: #6366f1;\n  filter: blur(100px);\n  opacity: 0.3;\n  transform: translate(-50%, -50%);\n  z-index: -1;\n}');
         setJs('console.log("JavaScript ishlashga tayyor!");');
         setPython('print("Salom, Python!")');
         setSrcDoc('');

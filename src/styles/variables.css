@@ -1,76 +1,30 @@
 :root {
-  /* Cyberpunk Neon Aesthetics (Default Hacker Theme) */
-  --primary: #00ffcc;
-  --primary-transparent: rgba(0, 255, 204, 0.15);
-  --primary-glow: 0 0 15px rgba(0, 255, 204, 0.5), 0 0 30px rgba(0, 255, 204, 0.3);
+  /* Modern Airy Design Tokens */
+  --background: transparent;
+  
+  /* Surface colors with high clarity */
+  --surface: rgba(255, 255, 255, 0.92); 
+  --surface-hover: #ffffff;
+  
+  --glass-blur: blur(24px);
+  --glass-border: rgba(255, 255, 255, 1);
 
-  --secondary: #ff00ff;
-  --secondary-transparent: rgba(255, 0, 255, 0.15);
-  --secondary-glow: 0 0 15px rgba(255, 0, 255, 0.5), 0 0 30px rgba(255, 0, 255, 0.3);
-
-  --accent-pink: #ff4b4b;
-  --accent-pink-transparent: rgba(255, 75, 75, 0.15);
-  --accent-pink-glow: 0 0 15px rgba(255, 75, 75, 0.5);
-
-  --accent-yellow: #ffc800;
-  --accent-yellow-glow: 0 0 15px rgba(255, 200, 0, 0.5);
-
-  --background: #0a0a0f;
-  --surface: rgba(20, 20, 30, 0.85);
-  --surface-hover: rgba(30, 30, 45, 0.95);
-
-  /* Matn ranglari */
-  --text-dark: #ffffff;
-  --text-gray: #e2e8f0;
-  --text-light: #cbd5e1;
-  --text-muted: #94a3b8;
+  /* Typography */
+  --text-dark: #0F172A; 
+  --text-gray: #475569;
+  --text-muted: #94A3B8;
   --text-white: #ffffff;
-  --text-inverse: #0a0a0f;
-
-  /* Chegaralar */
-  --border-color: rgba(255, 255, 255, 0.1);
-  --border-width: 2px;
-  --border-radius-sm: 8px;
-  --border-radius-md: 14px;
-  --border-radius-lg: 20px;
-  --border-radius-full: 9999px;
-
-  --glass-border: rgba(255, 255, 255, 0.05);
-
-  /* Shriftlar */
-  --font-family: 'Outfit', system-ui, -apple-system, sans-serif;
-  --font-mono: 'Fira Code', 'Courier New', Courier, monospace;
-}
-
-/* Oq (Kunduzgi) Mavzu - Premium Tailwind UI Uslubi */
-body.light-mode {
-  --background: #f8fafc; /* Slate-50 fon */
-  --surface: #ffffff; /* Sof oq kartalar */
-  --surface-hover: #f1f5f9; /* Hover qilinganda sal ochroq */
-
-  --text-dark: #172554; /* Blue-900 (Quyuq matn) */
-  --text-gray: #475569; /* Slate-600 */
-  --text-light: #64748b; /* Slate-500 */
-  --text-muted: #94a3b8; /* Slate-400 */
-  --text-white: #ffffff;
-  --text-inverse: #ffffff;
-
-  --border-color: #e9eef5; /* Juda nozik chegara */
-  --glass-border: rgba(31, 41, 55, 0.04); /* Yumshoq ko'lankalar uchun */
-
-  /* Glow o'rniga soft-shadow (Yumshoq ko'lanka) effektlari */
-  --primary: #2563eb; /* Chuqurroq ko'k, tugmalar aniq ko'rinishi uchun */
-  --primary-glow: 0 4px 15px rgba(37, 99, 235, 0.15);
-  --primary-transparent: rgba(37, 99, 235, 0.12);
-
-  --secondary: #0284c7; /* Soft accent ko'k */
-  --secondary-glow: 0 4px 15px rgba(2, 132, 199, 0.15);
-  --secondary-transparent: rgba(2, 132, 199, 0.1);
-
-  --accent-pink: #f4b740; /* Issiq sariq/zarg'aldoq (Warm reward) */
-  --accent-pink-glow: 0 4px 12px rgba(244, 183, 64, 0.15);
-  --accent-pink-transparent: rgba(244, 183, 64, 0.15);
-
-  --accent-yellow: #22c55e; /* Success / Progress - tosh yashil */
-  --accent-yellow-glow: 0 4px 12px rgba(34, 197, 94, 0.15);
+  
+  /* Brand Colors - Vibrant & Harmonious */
+  --primary: #4F46E5;      /* Indigo */
+  --primary-light: #EEF2FF;
+  --secondary: #7C3AED;    /* Violet */
+  --accent: #F59E0B;       /* Amber */
+  --success: #10B981;      /* Emerald */
+  --danger: #F43F5E;       /* Rose */
+  
+  --border-color: rgba(226, 232, 240, 0.8);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }

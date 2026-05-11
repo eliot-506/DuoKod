@@ -1,0 +1,91 @@
+/* BackgroundSystem.css — Vibrant Premium Ambient */
+
+.app-bg {
+  position: fixed;
+  inset: 0;
+  /* More tinted base to make glass pop */
+  background: 
+    radial-gradient(circle at top left, rgba(99, 102, 241, 0.2), transparent 45%),
+    radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.15), transparent 45%),
+    linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
+  z-index: -1;
+  overflow: hidden;
+}
+
+.gradient-sphere {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(140px);
+  /* Increased opacity to 0.4 for better visibility through glass */
+  opacity: 0.4;
+  animation: floatAround 30s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+/* Indigo / Violet */
+.sphere-1 {
+  width: 900px;
+  height: 900px;
+  background: linear-gradient(135deg, #4F46E5, #8B5CF6);
+  top: -15%;
+  right: -10%;
+}
+
+/* Emerald / Teal */
+.sphere-2 {
+  width: 700px;
+  height: 700px;
+  background: linear-gradient(135deg, #10B981, #06B6D4);
+  bottom: 5%;
+  left: -5%;
+  animation-delay: -7s;
+}
+
+/* Rose / Pink */
+.sphere-3 {
+  width: 600px;
+  height: 600px;
+  background: linear-gradient(135deg, #F43F5E, #EC4899);
+  top: 20%;
+  left: 15%;
+  animation-delay: -15s;
+}
+
+/* Amber / Orange */
+.sphere-4 {
+  width: 550px;
+  height: 550px;
+  background: linear-gradient(135deg, #F59E0B, #F97316);
+  bottom: -10%;
+  right: 10%;
+  animation-delay: -22s;
+}
+
+/* Sky / Blue */
+.sphere-5 {
+  width: 800px;
+  height: 800px;
+  background: linear-gradient(135deg, #0EA5E9, #2563EB);
+  top: -10%;
+  left: -15%;
+  animation-delay: -3s;
+}
+
+.stars-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(79, 70, 229, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 70, 229, 0.1) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(circle at center, black, transparent 95%);
+  opacity: 0.5;
+  z-index: 1;
+}
+
+@keyframes floatAround {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  33% { transform: translate(100px, -80px) rotate(120deg) scale(1.15); }
+  66% { transform: translate(-60px, 90px) rotate(240deg) scale(0.9); }
+  100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+}

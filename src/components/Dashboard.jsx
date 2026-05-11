@@ -1,332 +1,114 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
-import './LearningTab.css';
 import { useUser } from '../context/UserContext';
-import { getStreakTier } from '../utils/streakUtils';
 import AnimatedRobot from './AnimatedRobot';
-import { COURSES } from '../data/lessons';
+
 function Dashboard({ onNavigate }) {
-    const { stats, currentLevel, currentLevelXp, nextLevelXp, switchCourse } = useUser();
-    const tier = getStreakTier(stats?.streak || 0);
-    const isAdmin = stats?.isAdmin || stats?.isSuperAdmin;
-
-    const [dailyQuests, setDailyQuests] = useState([
-        { id: 1, title: "Bugungi adabiyotdan 1 bo'lim o'qing", completed: true },
-        { id: 2, title: "1 ta darsni yakunlang", completed: false },
-        { id: 3, title: "Natijangizni do'stlaringiz bilan ulashing", completed: true }
-    ]);
-
-    const toggleQuest = (id) => {
-        setDailyQuests(quests => quests.map(q => q.id === id ? { ...q, completed: !q.completed } : q));
-    };
-
-    const currentCourseData = {
-        html: {
-            title: "HTML5 Asoslari", icon: "🧱", color: "#E24C26",
-            desc: "Web sahifalar qanday qurilishini o'rganing. Barcha dasturchilar boshlashi kerak bo'lgan joy.",
-            level: "Boshlang'ich", lessons: 12
-        },
-        css: {
-            title: "CSS3 Dizayn", icon: "🎨", color: "#2563EB",
-            desc: "Chiroyli interfeyslar yarating. Rang, animatsiya va flexbox bilan ishlashni o'rganing.",
-            level: "O'rta", lessons: 10
-        },
-        js: {
-            title: "JavaScript", icon: "⚡", color: "#D97706",
-            desc: "Saytlarni interaktiv qiling. Dunyoning eng mashhur dasturlash tili bilan tanishing.",
-            level: "O'rta", lessons: 15
-        },
-        python: {
-            title: "Python Asoslari", icon: "🐍", color: "#2563EB",
-            desc: "Eng qulay va kuchli til bilan kodlashni boshlang. AI, ma'lumotlar va web uchun ideal.",
-            level: "Boshlang'ich", lessons: 11
-        }
-    };
-
-
-    const safeCourseId = stats?.currentCourse && currentCourseData[stats.currentCourse] ? stats.currentCourse : 'html';
-    const courseInfo = currentCourseData[safeCourseId] || currentCourseData['html'];
-    const courseProgress = stats?.courses?.[safeCourseId] || { completedNodes: [] };
-    const completedNodes = courseProgress.completedNodes?.length || 0;
+    const { stats, dailyQuests, toggleQuest, completedNodes, totalModules, currentLevel, currentLevelXp, nextLevelXp, completedLevelPercent } = useUser();
     
-    // As per actual logic (Python uses 11)
-    const totalModules = safeCourseId === 'python' ? 11 : 5;
-    const progressPercent = Math.min((completedNodes / totalModules) * 100, 100).toFixed(0);
-    const completedLevelPercent = Math.min((currentLevelXp / nextLevelXp) * 100, 100);
-
-    // Barcha kurslar bo'yicha umumiy bitirgan nodelar soni (Yangi foydalanuvchini aniqlash)
-    const totalCompletedAcrossAll = Object.values(stats?.courses || {}).reduce((acc, course) => acc + (course.completedNodes?.length || 0), 0);
-    const isNewUser = totalCompletedAcrossAll === 0;
-    const COURSE_KEYS = ['html', 'css', 'js', 'python'];
-
-    // Agar o'quvchi yangi bo'lsa (yoki birinchi marta kirdi), unga avval kurs tanlatamiz
-    if (isNewUser) {
-        return (
-            <div className="course-select-page">
-                <div className="course-select-header">
-                    <p className="course-select-eyebrow">DuoKod Platform</p>
-                    <h1 className="course-select-title">Siz nima o'rganmoqchisiz?</h1>
-                    <p className="course-select-subtitle">O'zingizga mos yo'nalishni tanlang va bugunoq boshlang</p>
-                </div>
-                <div className="course-select-grid">
-                    {COURSE_KEYS.map(key => {
-                        const c = currentCourseData[key];
-                        const course = COURSES[key];
-                        if (!c || !course) return null;
-                        const isLocked = !isAdmin && key !== 'python';
-                        return (
-                            <div
-                                key={key}
-                                className={`course-select-card ${isLocked ? 'course-select-card--locked' : ''}`}
-                                style={{ '--card-accent': isLocked ? '#CBD5E1' : c.color }}
-                                onClick={() => {
-                                    if (!isLocked) {
-                                        switchCourse(key);
-                                        onNavigate('map');
-                                    }
-                                }}
-                            >
-                                <div className="csc-top">
-                                    <div className="csc-icon-wrap" style={{ background: isLocked ? '#F1F5F9' : `${c.color}18` }}>
-                                        <span className="csc-icon">{c.icon}</span>
-                                    </div>
-                                    {isLocked ? (
-                                        <span className="csc-badge csc-badge--locked">🔒 Tez kunda</span>
-                                    ) : (
-                                        <span className="csc-badge csc-badge--level">{c.level}</span>
-                                    )}
-                                </div>
-
-                                <h3 className="csc-title" style={{ opacity: isLocked ? 0.5 : 1 }}>{c.title}</h3>
-                                <p className="csc-desc" style={{ opacity: isLocked ? 0.4 : 1 }}>{c.desc}</p>
-
-                                <div className="csc-meta">
-                                    <span className="csc-meta-item">📚 {c.lessons} ta dars</span>
-                                    <span className="csc-meta-item">⏱ ~{c.lessons * 8} daqiqa</span>
-                                </div>
-
-                                {!isLocked && (
-                                    <button className="csc-btn">Boshlash →</button>
-                                )}
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
-        );
-    }
+    // Course information
+    const courseInfo = {
+        title: "Frontend Dasturlash (React.js)",
+        desc: "Zamonaviy veb-ilovalarni yaratishni o'rganing"
+    };
 
     return (
       <div className="dash-wrapper">
         <div className="dash-container">
           
-          <main className="dash-grid-12">
-            
-            {/* ROW 1: Hero & Goal */}
-            <div className="col-8 card-hero dashboard-card relative-container">
-              <div className="hero-mascot-wrapper">
-                <AnimatedRobot state="happy" />
-              </div>
-
-              <div className="hero-content">
-                <div className="hero-reveal hero-reveal-delay-1">
-                  <p className="hero-subtitle">Xush kelibsiz</p>
-                  <h1>{stats.username || 'Muhammad Matchonov'}, bugun yangi marralarni zabt etamizmi?</h1>
+          <div className="dash-top-section">
+            {/* HERO CARD */}
+            <div className="hero-card-premium">
+              <div className="hero-text-content">
+                <span className="hero-welcome">XUSH KELIBSIZ</span>
+                <h1 className="hero-main-title">
+                  {stats.username || 'Muhammad Matchonov'}, bugun yangi marralarni zabt etamizmi?
+                </h1>
+                <div className="hero-bg-blobs">
+                    <div className="hero-blob b1"></div>
+                    <div className="hero-blob b2"></div>
                 </div>
-
-                <div className="hero-reveal hero-reveal-delay-2">
-                  <div className="hero-level-row">
-                    <span className="lvl-name">{currentLevel}-daraja Dasturchi</span>
-                    <span className="lvl-xp">{currentLevelXp} / {nextLevelXp} Tajriba</span>
-                  </div>
-                  <div className="progress-track">
-                    <div className="progress-fill fill-emerald" style={{ width: `${completedLevelPercent}%` }}></div>
-                  </div>
-                  <div className="hero-actions hero-reveal hero-reveal-delay-3">
-                    <button className="dash-btn dash-btn-primary" onClick={() => onNavigate('map')}>Darsni davom ettirish</button>
-                    <button className="dash-btn dash-btn-outline" onClick={() => alert('Tez kunda!')}>Bugungi maqsadlarni ko'rish</button>
-                  </div>
+                <div className="hero-stats-row">
+                  <span>{currentLevel || '8'}-daraja Dasturchi</span>
+                  <span>{currentLevelXp || '0'} / {nextLevelXp || '100'} Tajriba</span>
                 </div>
-              </div>
-            </div>
-
-            <aside className="col-4 card-goal dashboard-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '32px 24px' }}>
-              <p className="hero-subtitle" style={{ alignSelf: 'flex-start', margin: 0 }}>Bugungi maqsad</p>
-              
-              <div style={{ marginTop: '24px', position: 'relative', width: '140px', height: '140px' }}>
-                <svg viewBox="0 0 36 36" style={{ width: '100%', height: '100%' }}>
-                  <path
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                    fill="none"
-                    stroke="#E2E8F0"
-                    strokeWidth="3"
-                  />
-                  <path
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                    fill="none"
-                    stroke="var(--primary)"
-                    strokeWidth="3"
-                    strokeDasharray="40, 100"
-                    strokeLinecap="round"
-                  />
-                </svg>
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                  <span className="goal-circle-num">20</span>
-                  <span className="goal-circle-sub">/ 50 XP</span>
+                <div className="hero-pb-container">
+                  <div className="hero-pb-fill" style={{ width: '20%' }}></div>
+                </div>
+                <div className="hero-actions">
+                  <button className="btn-hero-primary" onClick={() => onNavigate('map')}>Darsni davom ettirish</button>
+                  <button className="btn-hero-glass" onClick={() => onNavigate('map')}>Bugungi maqsadlarni ko'rish</button>
                 </div>
               </div>
 
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, margin: '24px 0 8px 0', color: 'var(--text-dark)' }}>Yana 30 Tajriba kerak</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '24px', lineHeight: 1.5, padding: '0 10px' }}>
-                Bugungi normani bajarish uchun darslarni davom ettiring.
-              </p>
-
-              <button className="dash-btn dash-btn-primary" style={{ width: '100%', padding: '12px' }} onClick={() => onNavigate('map')}>
-                Mashqni boshlash
-              </button>
-            </aside>
-
-            {/* ROW 2: Compact Streak Card (unchanged) */}
-            <div className="col-3 card-kpi dashboard-card" style={{ background: 'linear-gradient(135deg, #FFF7ED 0%, #FFFFFF 100%)', border: '1px solid #FED7AA', overflow: 'hidden', padding: '22px', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div>
-                  <div className="kpi-icon kpi-icon-blue" style={{ marginBottom: '8px' }}>🕯️</div>
-                  <h4 style={{ margin: '0 0 4px 0', fontSize: '0.78rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Kunlik Davomiylik</h4>
-                  <span style={{ fontSize: '0.68rem', padding: '3px 10px', background: '#DCFCE7', color: '#16A34A', borderRadius: '50px', fontWeight: 700 }}>Faol holat</span>
-                </div>
-              </div>
-              <p style={{ fontSize: '0.82rem', color: '#64748B', lineHeight: '1.5', margin: '14px 0', fontWeight: 500 }}>
-                Bugun kamida bitta topshiriqni bajaring va chiroqni o'chirmang.
-              </p>
-              <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ fontSize: '0.875rem', fontWeight: 800, color: '#C2410C' }}>{stats.streak}/7 kun</span>
-                  <div className="progress-track" style={{ width: '44px', height: '6px', margin: 0 }}>
-                    <div className="progress-fill fill-blue" style={{ width: `${Math.min((stats.streak / 7) * 100, 100)}%`, background: 'linear-gradient(90deg, #F97316, #FBBF24)' }}></div>
-                  </div>
-                </div>
-                <a href="#" style={{ fontSize: '0.78rem', fontWeight: 700, color: '#2563EB', textDecoration: 'none' }}>Batafsil</a>
-              </div>
-            </div>
-
-            {/* XP — Sun Gold */}
-            <div className="col-3 card-kpi kpi-xp dashboard-card">
-              <div className="kpi-row">
-                <p className="kpi-label">Jami tajriba</p>
-                <div className="kpi-icon kpi-icon-green">☀️</div>
-              </div>
-              <div>
-                <div className="kpi-val" style={{ color: '#15803D' }}>{stats.xp}</div>
-                <span className="kpi-trend">+35 bu hafta</span>
-              </div>
-            </div>
-
-            {/* Hearts — Shield / Qalqon */}
-            <div className="col-3 card-kpi kpi-hearts dashboard-card">
-              <div className="kpi-row">
-                <p className="kpi-label">Imkon (Qalqon)</p>
-                <div className="kpi-icon kpi-icon-yellow">🛡️</div>
-              </div>
-              <div>
-                <div className="kpi-val" style={{ color: '#B45309' }}>{stats.hearts}</div>
-                <span className="kpi-trend kpi-trend-yellow">Himoya</span>
-              </div>
-            </div>
-
-            {/* Lessons — Neutral white */}
-            <div className="col-3 card-kpi kpi-lessons dashboard-card">
-              <div className="kpi-row">
-                <p className="kpi-label">Tugallangan darslar</p>
-                <div className="kpi-icon kpi-icon-blue">📚</div>
-              </div>
-              <div>
-                <div className="kpi-val" style={{ color: '#1E3A5F' }}>{completedNodes} <span style={{ fontSize: '1.1rem', color: '#94A3B8' }}>/ {totalModules}</span></div>
-                <div className="progress-track kpi-mini-bar" style={{ height: '6px' }}>
-                  <div className="progress-fill fill-blue" style={{ width: `${Math.round((completedNodes / (totalModules || 1)) * 100)}%` }}></div>
+              <div className="hero-mascot-container">
+                <div className="hero-mascot-card">
+                  <AnimatedRobot state="happy" />
                 </div>
               </div>
             </div>
 
-            {/* ROW 3: Tasks & Current Course */}
-            <section className="col-8 premium-tasks-section dashboard-card">
-              <div className="tasks-header">
-                <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#111827', margin: 0 }}>Kunlik vazifalar</h2>
-              </div>
-
-              <div className="tasks-list">
-                {dailyQuests.map((quest) => (
-                  <div 
-                    key={quest.id} 
-                    className={`premium-task-card ${quest.completed ? 'completed' : 'uncompleted'}`}
-                    onClick={() => toggleQuest(quest.id)}
-                  >
-                    <div className="task-checkbox-wrap">
-                      <input 
-                        type="checkbox" 
-                        checked={quest.completed} 
-                        readOnly 
-                        className="premium-checkbox" 
-                      />
-                    </div>
-                    <div className="task-content">
-                      <p className="task-title">{quest.title}</p>
-                    </div>
-                    <div className="task-badge-wrap">
-                      <span className={`status-badge ${quest.completed ? 'badge-done' : 'badge-pending'}`}>
-                        {quest.completed ? 'Bajarildi' : 'Bajarilmadi'}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <aside className="col-4" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              <div className="card-course dashboard-card">
-                <p className="hero-subtitle">Hozirgi kurs</p>
-                <h3>{courseInfo.title}</h3>
-                
-                <div className="progress-track">
-                  <div className="progress-fill fill-blue" style={{ width: `${progressPercent}%` }}></div>
-                </div>
-                
-                <div className="course-stats-row">
-                  <span>{completedNodes} / {totalModules} dars tugatildi</span>
-                  <span>{progressPercent}%</span>
-                </div>
-                
-                <button className="dash-btn dash-btn-primary" style={{ width: '100%', marginTop: '16px' }} onClick={() => onNavigate('map')}>
-                  Davom etish
-                </button>
-              </div>
-
-              <div className="card-weekly-compact dashboard-card" style={{ background: '#FFFFFF', padding: '24px', borderRadius: 'var(--radius-xl)', border: 'var(--border-subtle)', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <p className="hero-subtitle">Haftalik progress</p>
-                
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '16px', flex: 1 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                    <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'var(--primary-light)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '1rem' }}>4/7</div>
-                    <span style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-dark)' }}>Faol kun</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                    <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: '#D1FAE5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '1rem' }}>3 ta</div>
-                    <span style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-dark)' }}>Dars tugatildi</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                    <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'var(--warning-light)', color: '#B45309', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '1rem' }}>2 ta</div>
-                    <span style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-dark)' }}>Quiz</span>
+            {/* GOAL CARD */}
+            <div className="goal-card-glass">
+              <h3 className="goal-card-title">BUGUNGI MAQSAD</h3>
+              <div className="goal-circle-container">
+                <div className="goal-circle-progress">
+                  <div className="goal-circle-inner">
+                    <span className="goal-num">20</span>
+                    <span className="goal-sub">/ 50 XP</span>
                   </div>
                 </div>
-
-                <button className="dash-btn dash-btn-outline" style={{ width: '100%', padding: '10px', borderColor: '#CBD5E1', fontWeight: 700, marginTop: '24px' }}
-                  onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--primary)'; e.currentTarget.style.color = 'var(--primary)'; e.currentTarget.style.background = 'var(--primary-light)'; }}
-                  onMouseOut={(e) => { e.currentTarget.style.borderColor = '#CBD5E1'; e.currentTarget.style.color = 'var(--text-base)'; e.currentTarget.style.background = 'white'; }}>
-                  Batafsil ko'rish
-                </button>
               </div>
-            </aside>
+              <div className="goal-text-footer">
+                <p><strong>Yana 30 Tajriba kerak</strong></p>
+                <p className="goal-hint">Bugungi normani bajarish uchun darslarni davom ettiring.</p>
+              </div>
+              <button className="btn-goal-start" onClick={() => onNavigate('map')}>Mashqni boshlash</button>
+            </div>
+          </div>
 
-          </main>
+          <div className="dash-bottom-grid">
+            <div className="kpi-card-glass streak-card">
+              <div className="kpi-icon-box orange"><i className="fa-solid fa-fire"></i></div>
+              <span className="kpi-label">KUNLIK DAVOMIYLIK</span>
+              <p className="kpi-desc">Faol holat. Bugun kamida bitta topshiriqni bajaring va chiroqni o'chirmang.</p>
+              <div className="kpi-footer">
+                <span className="kpi-status">1/7 kun <div className="dot-streak active"></div></span>
+                <span className="kpi-link">Batafsil</span>
+              </div>
+            </div>
+
+            <div className="kpi-card-glass xp-card">
+              <div className="kpi-icon-box gold"><i className="fa-solid fa-sun"></i></div>
+              <span className="kpi-label">JAMI TAJRIBA</span>
+              <div className="kpi-main-val">
+                <span className="val-num">{stats?.xp || 700}</span>
+                <span className="val-sub">+35 bu hafta</span>
+              </div>
+            </div>
+
+            <div className="kpi-card-glass hearts-card">
+              <div className="kpi-icon-box blue"><i className="fa-solid fa-shield"></i></div>
+              <span className="kpi-label">IMKON (QALQON)</span>
+              <div className="kpi-main-val">
+                <span className="val-num">{stats?.hearts || 50}</span>
+                <span className="val-sub">Himoya</span>
+              </div>
+            </div>
+
+            <div className="kpi-card-glass lessons-card">
+              <div className="kpi-icon-box green"><i className="fa-solid fa-book"></i></div>
+              <span className="kpi-label">TUGALLANGAN DARSLAR</span>
+              <div className="kpi-progress-row">
+                 <div className="kpi-pb-mini">
+                    <div className="kpi-pb-fill" style={{ width: '0%' }}></div>
+                 </div>
+                 <span className="kpi-pb-text">0 / 11</span>
+              </div>
+            </div>
+          </div>
+
+
 
         </div>
       </div>

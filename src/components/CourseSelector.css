@@ -1,4 +1,4 @@
-/* CourseSelector.css — Premium 2×2 card grid */
+/* CourseSelector.css — Modern 2×2 card grid */
 
 /* ── Page wrapper ─────────────────────────── */
 .csel-page {
@@ -219,14 +219,3 @@
 }
 
 /* ── Dark mode ────────────────────────────── */
-body:not(.light-mode) .csel-page     { background: transparent; }
-body:not(.light-mode) .csel-title    { color: #F1F5F9; }
-body:not(.light-mode) .csel-subtitle { color: #94A3B8; }
-body:not(.light-mode) .csel-card     { background: rgba(15,23,42,0.7); border-color: rgba(255,255,255,0.08); }
-body:not(.light-mode) .csel-card:hover { border-color: var(--accent, #2563EB); }
-body:not(.light-mode) .csel-name     { color: #F1F5F9; }
-body:not(.light-mode) .csel-desc     { color: #94A3B8; }
-body:not(.light-mode) .csel-meta     { border-color: rgba(255,255,255,0.07); }
-body:not(.light-mode) .csel-meta-item { color: #94A3B8; }
-body:not(.light-mode) .csel-badge--level { background: rgba(37,99,235,0.15); color: #93C5FD; }
-body:not(.light-mode) .csel-badge--locked { background: rgba(255,255,255,0.05); color: #64748B; }

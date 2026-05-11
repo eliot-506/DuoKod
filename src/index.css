@@ -1,204 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+
 /* ================================
-   GLOBAL THEME TOKENS
-================================ */
+   GLASSMORPHISM DESIGN SYSTEM
+   =============================== */
 
 :root {
-  /* Default: Cyber Neon Mode */
-  --background-base: #020617;
-  --background-gradient: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
-  --surface: rgba(30, 41, 59, 0.4);
-  --surface-hover: rgba(51, 65, 85, 0.5);
-  --text-primary: #f8fafc;
-  --text-muted: #94a3b8;
-  --border-color: rgba(255, 255, 255, 0.08);
-  --primary: #22d3ee; /* Cyan Neon */
-  --primary-glow: rgba(34, 211, 238, 0.3);
-  --secondary: #a855f7; /* Violet Neon */
-  --secondary-glow: rgba(168, 85, 247, 0.3);
-  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.5);
-
-  /* Background Elements */
-  --bg-mesh: none;
-  --grid-color: rgba(34, 211, 238, 0.03);
-  --grid-size: 64px;
-  --grid-mask: radial-gradient(circle at center, black, transparent 80%);
-
-  font-family: 'Outfit', 'Inter', system-ui, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  --background-base: #f0f2f9;
+  --primary: #6366f1;
+  --primary-glow: rgba(99, 102, 241, 0.15);
+  --secondary-glow: rgba(14, 165, 233, 0.15);
+  
+  --text-primary: #1e293b;
+  --text-muted: #64748b;
+  
+  font-family: var(--font-body);
 }
 
-html[data-theme="light"] {
-  /* Light Mode Tokens - Now Vibrant Blue Theme */
-  --background-base: #3abae0;
-  --background-gradient: linear-gradient(135deg, #3abae0 0%, #48c6ef 45%, #6fc9e0 100%);
-  --surface: rgba(255, 255, 255, 0.82);
-  --surface-hover: #F1F5F9;
-  --text-primary: #0F172A;
-  --text-muted: #64748B;
-  --border-color: rgba(148, 163, 184, 0.18);
-  --primary: #2563EB;
-  --shadow-card: 0 18px 45px rgba(15, 23, 42, 0.06);
-
-  /* Background Mesh (Light) - Vibrant Sky Blue Variant */
-  --bg-mesh:
-    radial-gradient(circle at 5% 10%, rgba(255, 255, 255, 0.45), transparent 45%),
-    radial-gradient(circle at 95% 5%, rgba(59, 130, 246, 0.3), transparent 40%),
-    radial-gradient(circle at 50% 90%, rgba(16, 185, 129, 0.25), transparent 45%),
-    radial-gradient(circle at 85% 45%, rgba(6, 182, 212, 0.3), transparent 40%);
-
-  /* Grid Tokens (Light) */
-  --grid-color: rgba(37, 99, 235, 0.075);
-  --grid-size: 44px;
-  --grid-mask: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
-}
-
-/* ================================
-   CORE LAYOUT
-================================ */
 * {
   box-sizing: border-box !important;
-}
-
-html {
-  overflow-x: hidden;
-  width: 100%;
 }
 
 body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
-  width: 100%;
   min-height: 100vh;
-  color: var(--text-primary);
-  
-  /* Stacking Context Isolation */
-  isolation: isolate;
-
-  /* Unified Background Architecture - Now handled by BackgroundSystem */
-  background: transparent;
+  background-color: var(--background-base);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(14, 165, 233, 0.1) 0px, transparent 50%);
   background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
-  position: relative;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  background-image:
-    linear-gradient(var(--grid-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-  background-size: var(--grid-size) var(--grid-size);
-  mask-image: var(--grid-mask);
-  -webkit-mask-image: var(--grid-mask);
-  opacity: 0.5;
-}
-
-/* Animated Neon Glows */
-.neon-glow-1 {
-  position: fixed;
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, var(--primary-glow), transparent 60%);
-  top: -200px;
-  left: -200px;
-  filter: blur(120px);
-  z-index: -2;
-  pointer-events: none;
-  animation: pulse-glow 15s infinite alternate ease-in-out;
-}
-
-.neon-glow-2 {
-  position: fixed;
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, var(--secondary-glow), transparent 60%);
-  bottom: -200px;
-  right: -200px;
-  filter: blur(120px);
-  z-index: -2;
-  pointer-events: none;
-  animation: pulse-glow 18s infinite alternate-reverse ease-in-out;
-}
-
-@keyframes pulse-glow {
-  0% { transform: scale(1) translate(0, 0); opacity: 0.5; }
-  50% { transform: scale(1.1) translate(50px, 30px); opacity: 0.8; }
-  100% { transform: scale(1) translate(-30px, 50px); opacity: 0.5; }
+  color: var(--text-primary);
 }
 
 #root {
   width: 100%;
-  max-width: 100%;
-  position: relative;
-  z-index: 1; /* Above the grid/mesh within the body's isolation context */
 }
 
-/* Glass System Helpers */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.65) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid var(--border-color) !important;
-  box-shadow: var(--shadow-card) !important;
-}
-
-html:not([data-theme="light"]) .glass-panel {
-  background: var(--surface) !important;
-  backdrop-filter: var(--glass-blur) saturate(180%) !important;
-  -webkit-backdrop-filter: var(--glass-blur) saturate(180%) !important;
-  border: 1px solid var(--border-color) !important;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important;
-}
-
-/* ================================
-   BASE ELEMENTS
-================================ */
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-a {
-  font-weight: 500;
-  color: var(--primary);
-  text-decoration: inherit;
-  transition: opacity 0.2s ease;
-}
-
-a:hover {
-  opacity: 0.8;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 button {
-  border-radius: 12px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
-  
-  /* High Performance Transitions */
-  transition: 
-    background-color 0.25s ease, 
-    color 0.25s ease, 
-    border-color 0.25s ease, 
-    transform 0.2s ease, 
-    box-shadow 0.25s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-button:hover {
-  border-color: var(--primary);
-}
-
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+button:active {
+  transform: scale(0.95);
 }

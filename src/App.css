@@ -7,6 +7,7 @@
   position: relative;
   overflow-x: hidden !important;
   padding-bottom: 0px;
+  background: transparent !important; /* Made transparent for background system */
 
   /* Animation variables */
   --ease-out-premium: cubic-bezier(0.22, 1, 0.36, 1);
@@ -24,31 +25,31 @@
 
 @media (min-width: 1025px) {
   .page-container {
-    padding-left: 280px; /* Sidebar kengligi + bo'sh joy */
+    padding-left: 0; /* Managed by internal components */
   }
 }
 
-/* AI Yordamchisining maslahatiga binoan: Unified Container */
+/* AI Yordamchisining maslahatiga binoan: Unified Container — Full Bleed */
 .global-wrapper {
   width: 100%;
   flex: 1; /* Qolgan bo'sh joyni egallash */
-  max-width: 1560px;
-  margin: 0 auto;
+  margin: 0;
   box-sizing: border-box;
-  padding: 0 20px;
+  padding: 0;
   display: flex;
   flex-direction: column;
+  background: transparent !important;
 }
 
 @media (max-width: 1024px) {
   .global-wrapper {
-    padding: 0 16px;
+    padding: 0;
   }
 }
 
 @media (max-width: 768px) {
   .global-wrapper {
-    max-width: 100%; /* Mobil uchun to'liq kenglik */
+    max-width: 100%;
   }
 }
 
@@ -56,8 +57,11 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  text-align: center;
-  margin-top: 40px;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  padding-left: 315px; /* Unified Sidebar Offset with gap */
 }
 
 .main-content h1 {

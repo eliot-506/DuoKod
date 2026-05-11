@@ -105,31 +105,21 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
 
                     <div className="lp-header-right">
                         <div className="lp-stats-row">
-                            <div className="lp-stat-chip">
+                            <div className="lp-stat-chip lp-stat-progress">
                                 <p className="lp-stat-label">Progress</p>
                                 <p className="lp-stat-value">{completedCount}/{courseData.length} modul</p>
                             </div>
-                            <div className="lp-stat-chip">
+                            <div className="lp-stat-chip lp-stat-challenge">
                                 <p className="lp-stat-label">Challenge</p>
                                 <p className="lp-stat-value">{totalChallenges} ta</p>
                             </div>
-                            <div className="lp-stat-chip">
+                            <div className="lp-stat-chip lp-stat-status">
                                 <p className="lp-stat-label">Joriy holat</p>
                                 <p className="lp-stat-value">{currentModLabel}-modul</p>
                             </div>
                         </div>
 
-                        <div className="lp-actions-row">
-                            <button className="lp-btn lp-btn-primary" onClick={() => {
-                                const lastUnlocked = stats?.courses?.[selectedCourse]?.unlockedNodes?.[stats.courses[selectedCourse].unlockedNodes.length - 1] || 1;
-                                onNodeClick(selectedCourse, lastUnlocked);
-                            }}>
-                                Davom etish
-                            </button>
-                            <button className="lp-btn lp-btn-secondary">
-                                Kurs haqida
-                            </button>
-                        </div>
+
                     </div>
                 </header>
 

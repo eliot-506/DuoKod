@@ -21,6 +21,8 @@ import { useUser } from './context/UserContext'
 import { useRobot } from './context/RobotContext'
 import AnimatedRobot from './components/AnimatedRobot'
 
+import BackgroundSystem from './components/BackgroundSystem'
+
 function App() {
   const { stats, addXp, completeNode, useHeart, switchCourse, updateStreak } = useUser()
   const { triggerRobot } = useRobot()
@@ -95,6 +97,9 @@ function App() {
 
   return (
     <div className="page-container">
+      {/* Core Background System */}
+      <BackgroundSystem />
+
       {!['lesson','certificate','project','library','boss'].includes(currentView) && (
           <Sidebar currentTab={currentView} onNavigate={setCurrentView} />
       )}
@@ -140,8 +145,7 @@ function App() {
         <BottomNav currentTab={currentView} onTabSwitch={setCurrentView} />
       )}
 
-      {/* Global AI Assistant Bot */}
-      <AnimatedRobot isFloating={true} />
+
     </div>
   )
 }

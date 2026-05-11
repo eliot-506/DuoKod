@@ -19,25 +19,7 @@ const BADGE_LIST = [
 
 function Profile() {
     const { stats, changeAvatar, buyPremiumAvatar, logoutUser, deleteAccount, currentLevel, currentLevelXp, nextLevelXp } = useUser()
-    const [isLightMode, setIsLightMode] = useState(() => document.body.classList.contains('light-mode'))
     const [selectedSkillTab, setSelectedSkillTab] = useState(stats.currentCourse || 'python');
-
-    useEffect(() => {
-        if (isLightMode) {
-            document.body.classList.add('light-mode')
-            localStorage.setItem('duokod_theme', 'light')
-        } else {
-            document.body.classList.remove('light-mode')
-            localStorage.setItem('duokod_theme', 'neon')
-        }
-    }, [isLightMode])
-
-    useEffect(() => {
-        const savedTheme = localStorage.getItem('duokod_theme')
-        if (savedTheme === 'light') setIsLightMode(true)
-    }, [])
-
-    const isLight = isLightMode;
 
     const handleBuyPremium = () => {
         if (buyPremiumAvatar(500)) {
@@ -68,38 +50,34 @@ function Profile() {
             </div>
 
             <div className="profile-stats-grid">
-                <div className="profile-stat-box">
-                    <span className="stat-icon">🔥</span>
-                    <div className="stat-info">
-                        <span className="stat-value">{stats.streak}</span>
-                        <span className="stat-label">Kunlik Streak</span>
-                    </div>
+                <div className="kpi-card-glass streak-card">
+                    <div className="kpi-icon-box orange"><i className="fa-solid fa-fire"></i></div>
+                    <span className="kpi-label">KUNLIK STREAK</span>
+                    <div className="val-num">{stats.streak}</div>
+                    <div className="val-sub">kunlik davomiylik</div>
                 </div>
 
-                <div className="profile-stat-box">
-                    <span className="stat-icon">⚡</span>
-                    <div className="stat-info">
-                        <span className="stat-value">{stats.xp}</span>
-                        <span className="stat-label">Jami XP</span>
-                    </div>
+                <div className="kpi-card-glass xp-card">
+                    <div className="kpi-icon-box gold"><i className="fa-solid fa-sun"></i></div>
+                    <span className="kpi-label">JAMI XP</span>
+                    <div className="val-num">{stats.xp}</div>
+                    <div className="val-sub">umumiy tajriba</div>
                 </div>
 
-                <div className="profile-stat-box">
-                    <span className="stat-icon">❤️</span>
-                    <div className="stat-info">
-                        <span className="stat-value">{stats.hearts}</span>
-                        <span className="stat-label">Yurakchalar</span>
-                    </div>
+                <div className="kpi-card-glass hearts-card">
+                    <div className="kpi-icon-box blue"><i className="fa-solid fa-shield-halved"></i></div>
+                    <span className="kpi-label">YURAKCHALAR</span>
+                    <div className="val-num">{stats.hearts}</div>
+                    <div className="val-sub">imkoniyatlar</div>
                 </div>
 
-                <div className="profile-stat-box">
-                    <span className="stat-icon">📚</span>
-                    <div className="stat-info">
-                        <span className="stat-value">
-                            {Object.values(stats.courses).reduce((acc, course) => acc + (course.completedNodes?.length || 0), 0)}
-                        </span>
-                        <span className="stat-label">Tugallangan Darslar</span>
+                <div className="kpi-card-glass lessons-card">
+                    <div className="kpi-icon-box green"><i className="fa-solid fa-book"></i></div>
+                    <span className="kpi-label">DARSLAR</span>
+                    <div className="val-num">
+                        {Object.values(stats.courses).reduce((acc, course) => acc + (course.completedNodes?.length || 0), 0)}
                     </div>
+                    <div className="val-sub">tugallangan darslar</div>
                 </div>
             </div>
 
@@ -187,20 +165,7 @@ function Profile() {
 
             <div className="settings-section">
                 <h3 className="settings-title">Sozlamalar</h3>
-                <div className="setting-item">
-                    <div className="setting-info">
-                        <span className="setting-name">Kunduzgi (Oq) Mavzu ☀️</span>
-                        <span className="setting-desc">Oq fonli, yorqin va jonli dasturlash dizayni</span>
-                    </div>
-                    <label className="theme-switch">
-                        <input
-                            type="checkbox"
-                            checked={isLightMode}
-                            onChange={() => setIsLightMode(!isLightMode)}
-                        />
-                        <span className="slider round"></span>
-                    </label>
-                </div>
+
 
                 <div className="setting-item logout-setting" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                     <button className="btn logout-btn" onClick={logoutUser}>

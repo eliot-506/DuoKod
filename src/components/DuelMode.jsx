@@ -23,7 +23,7 @@ const CHALLENGE = {
         "Massiv uzunligi: 0 ≤ n ≤ 1000",
         "Elementlar qiymati: -10^5 ≤ arr[i] ≤ 10^5"
     ],
-    initialCode: "function sumArray(arr) {\n  // kodingizni bu yerga yozing\n  \n}",
+    initialCode: "def sumArray(arr):\n    # kodingizni bu yerga yozing\n    pass",
 };
 
 function DuelMode({ onComplete }) {
@@ -91,8 +91,8 @@ function DuelMode({ onComplete }) {
     const handleSubmit = () => {
         // Simple heuristic validation for MVP
         const cleanCode = code.replace(/\s+/g, '');
-        if (cleanCode.includes('return') &&
-            (cleanCode.includes('+') || cleanCode.includes('reduce'))) {
+        if (cleanCode.includes('return') && 
+            (cleanCode.includes('+') || cleanCode.includes('sum('))) {
             endGame('win');
         } else {
             alert('Kodingizda xato bor yoki noto\'g\'ri yechim! Qayta urinib ko\'ring.');
@@ -152,25 +152,24 @@ function DuelMode({ onComplete }) {
         
         return (
             <div className="duel-container result-wrapper">
-                <h1 className={`result-title new-style ${matchResult}`}>
-                    {matchResult === 'win' ? "Ajoyib G'alaba! 🎉" : "Bu safar biroz yetmay qoldi"}
-                </h1>
-                
-                <div className="result-mascot-wrapper">
-                    <div className="result-mascot-container">
+                <div className="result-message">
+                    <div className="result-mascot-card">
                         <AnimatedRobot customState={matchResult === 'win' ? 'celebration' : 'sad'} />
                     </div>
-                    <p className="result-mascot-text">
-                        {matchResult === 'win' ? "+50 XP Olingiz! Siz ajoyib dasturchisiz!" : "Raqib tezroq bo'ldi, lekin keyingi urinishda natijani yaxshilashingiz mumkin."}
-                    </p>
+                    <div className="result-text-content">
+                        <h1 className={`result-title new-style ${matchResult}`}>
+                            {matchResult === 'win' ? "Ajoyib G'alaba! 🎉" : "Bu safar biroz yetmay qoldi"}
+                        </h1>
+                        <p className="result-mascot-text">
+                            {matchResult === 'win' ? "+50 XP Olingiz! Siz ajoyib dasturchisiz!" : "Yaqin keldingiz! Keyingi urinishda albatta yutasiz"}
+                        </p>
+                    </div>
                 </div>
 
-                <div className="result-stats new-card">
+                <div className="result-stats score-card">
                     <div className="stat-box">
                         <span className="stat-header">Sizning holatingiz</span>
-                        <div className="final-avatar result-avatar">
-                            <AnimatedRobot customState={matchResult === 'win' ? 'happy' : 'sad'} />
-                        </div>
+
                         <h3 className="stat-value">{synthesizedPlayerProgress}</h3>
                     </div>
                     <div className="vs-badge-decorative">VS</div>
@@ -189,7 +188,7 @@ function DuelMode({ onComplete }) {
                         setCode(CHALLENGE.initialCode);
                     }}>Yangi Jang ⚔️</button>
                     {matchResult === 'lose' && (
-                        <button className="btn btn-outline" onClick={() => {
+                        <button className="btn retry-btn" onClick={() => {
                             setPhase('matchmaking');
                             setEnemyProgress(0);
                             setTimeLeft(60);
@@ -279,8 +278,8 @@ function DuelMode({ onComplete }) {
                 <section className="editor-panel">
                     <div className="editor-top-bar">
                         <div className="lang-tabs">
-                            <button className="lang-tab active">JavaScript</button>
-                            <button className="lang-tab">Python</button>
+                            <button className="lang-tab">JavaScript</button>
+                            <button className="lang-tab active">Python</button>
                             <button className="lang-tab">C++</button>
                         </div>
                         <div className="editor-actions-mini">

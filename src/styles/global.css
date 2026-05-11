@@ -1,267 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap');
-@import './variables.css';
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: var(--font-family);
-    background-color: var(--background);
-    color: var(--text-dark);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.4s ease, color 0.4s ease;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: var(--font-family);
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.02em;
-}
-
-a {
-    text-decoration: none;
-    color: var(--secondary);
-    transition: color 0.2s;
-}
-
-a:hover {
-    text-shadow: var(--secondary-glow);
-}
-
-button {
-    font-family: var(--font-family);
-    cursor: pointer;
-    border: none;
-    outline: none;
-    font-weight: 600;
-    transition: all 0.2s ease-in-out;
-}
-
-/* Chiroyli 3D Tugma uslubi */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 14px 28px;
-    border-radius: var(--border-radius-md);
-    letter-spacing: 2px;
-    font-size: 16px;
-    font-weight: 700;
-    text-transform: uppercase;
-    position: relative;
-    text-decoration: none;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(10px);
-}
-
-.btn-primary {
-    background-color: var(--primary-transparent);
-    color: var(--primary);
-    border-color: var(--primary);
-    box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
-}
-
-.btn-primary:hover {
-    background-color: var(--primary);
-    color: var(--background);
-    box-shadow: var(--primary-glow);
-    transform: translateY(-2px);
-}
-
-.btn-primary:active {
-    transform: translateY(1px);
-    box-shadow: none;
-}
-
-.btn-secondary {
-    background-color: var(--surface);
-    color: var(--text-white);
-    border-color: var(--border-color);
-}
-
-.btn-secondary:hover {
-    border-color: var(--secondary);
-    color: var(--secondary);
-    box-shadow: var(--secondary-glow);
-    transform: translateY(-2px);
-}
-
-.btn-secondary:active {
-    transform: translateY(1px);
-    box-shadow: none;
-}
-
-.page-container {
-    max-width: 1024px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 20px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Hover qilinganda yaltirovchi animatsiya effekti */
-.glow-on-hover {
-    transition: all 0.3s ease;
-}
-
-.glow-on-hover:hover {
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3);
-}
-
-/* Xato/Ogohlantirish animatsiyasi */
-@keyframes glitch {
-    0% {
-        transform: translate(0)
-    }
-
-    20% {
-        transform: translate(-2px, 2px)
-    }
-
-    40% {
-        transform: translate(-2px, -2px)
-    }
-
-    60% {
-        transform: translate(2px, 2px)
-    }
-
-    80% {
-        transform: translate(2px, -2px)
-    }
-
-    100% {
-        transform: translate(0)
-    }
-}
-
-/* ========================================================
-   LIGHT MODE PROFESSOR TWEAKS (No-Glow, Soft Shadows)
-   ======================================================== */
-body.light-mode .btn-primary {
-    background: linear-gradient(180deg, #3B82F6 0%, #2563EB 100%) !important; /* Premium Blue Gradient */
-    color: #ffffff !important;
-    border: none !important; 
-    border-radius: 12px !important; /* Sal nafisroq */
-    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.1), 0 4px 14px rgba(37, 99, 235, 0.15) !important;
-    padding: 12px 28px !important; 
-    text-transform: none !important; /* Bosh harflar qotib qolmasligi uchun */
-    letter-spacing: 0.5px !important;
-}
-
-body.light-mode .btn-primary:hover {
-    background-color: #1D4ED8 !important; /* Deeper blue hover */
-    transform: translateY(-2px);
-    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.25) !important;
-}
-
-body.light-mode .mascot-bubble {
-    background-color: #ffffff !important; 
-    color: var(--text-dark) !important;
-    border: 1px solid var(--border-color) !important;
-    box-shadow: 0 8px 24px rgba(31, 41, 55, 0.06) !important;
-    font-weight: 500 !important; /* Kichikroq o'rta vazn */
-}
-
-body.light-mode .mascot-bubble::after {
-    border-top-color: #ffffff !important; 
-}
-
-/* Robot va heart glow 70% ga qisqartirildi (Deyarli sezilmaydi) */
-body.light-mode .robot-mascot-image {
-    filter: drop-shadow(0 4px 8px rgba(37, 99, 235, 0.1)) !important;
-    transform: scale(1.2); /* Sal kichikroq */
-}
-
-/* Progress-barnii gradient emas, bitta soft success/amber qoldiramiz */
-body.light-mode .xp-progress-fill,
-body.light-mode .course-progress-fill {
-    background: var(--accent-yellow) !important;
-    box-shadow: none !important;
-}
-
-/* PREMIUM TAILWIND UI KARTALARI (Floating Cards) */
-body.light-mode .dash-card, 
-body.light-mode .dashboard-header {
-    background-color: #ffffff !important;
-    border: 1px solid rgba(0, 0, 0, 0.04) !important;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03) !important;
-    border-radius: var(--border-radius-lg);
-    padding: 24px !important; /* 24px card padding per feedback */
-}
-
-/* Boxing syndrome'ni oldini olish: Ichki qutilar faqat fon bo'ladi (chegarasiz) */
-body.light-mode .stat-box, 
-body.light-mode .resume-box,
-body.light-mode .quest-item,
-body.light-mode .user-level-info {
-    background-color: var(--surface-hover) !important; /* #F1F5F9 (slate-100 kabi) */
-    border: none !important;
-    box-shadow: none !important;
-    border-radius: var(--border-radius-md) !important;
-}
-
-/* Topbardagi statistikalar dumaloq ramkalarsiz, mutlaqo ochiq/clean */
-body.light-mode .stat-item {
-    background-color: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 4px 8px !important;
-}
-
-body.light-mode .top-bar-logo {
-    border: none !important; 
-    box-shadow: none !important;
+/* Translucent core containers */
+.page-container,
+.global-wrapper,
+.main-content {
     background: transparent !important;
 }
 
-body.light-mode .top-bar {
-    border: 1px solid rgba(0, 0, 0, 0.05) !important; /* Barcha qismlarda hoshiyalar */
-    background-color: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(10px) !important;
-    border-radius: 20px !important; /* Mukammal dumaloqlik */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02) !important;
-    margin-bottom: 10px !important; /* Pastdagi elementlardan ozgina uzoqlashtirish */
+/* Base card styles across the app */
+.stat-box,
+.resume-box,
+.quest-item,
+.user-level-info,
+.dashboard-card {
+    background-color: var(--surface) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: var(--shadow-md) !important;
+    border-radius: 20px;
+    transition: all 0.2s ease;
 }
 
-body.light-mode .bottom-nav {
-    border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
-    background-color: rgba(255, 255, 255, 0.95) !important; /* Sof oq fon */
-    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.02) !important; /* Nozik tepadagi soya */
-    backdrop-filter: blur(10px) !important;
+/* Sidebar styling */
+.global-sidebar {
+    background: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(24px) !important;
+    border-right: 1px solid var(--border-color) !important;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.02) !important;
 }
 
-/* Premium Tailwind Navbar Active holati */
-body.light-mode .nav-item.active {
-    background-color: #EFF6FF !important; /* Soft blue tint */
-    border-color: transparent !important;
-    box-shadow: none !important;
+/* Navigation bars */
+.top-bar,
+.bottom-nav {
+    background: rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(15px) !important;
+    border-bottom: 1px solid var(--border-color) !important;
 }
-
-body.light-mode .nav-item.active .nav-label {
-    text-shadow: none !important;
-    color: #2563EB !important;
-}
-
-body.light-mode .nav-item.active .nav-icon {
-    filter: none !important; /* Hech qanday glow yoki drop shadow yo'q */
-    transform: translateY(-2px) !important;
-}
-
