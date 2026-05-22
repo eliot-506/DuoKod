@@ -135,28 +135,93 @@
 
 .boss-status-wrap {
     position: relative;
-    width: 120px;
-    height: 120px;
+    width: 200px;
+    height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.boss-image-container {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.boss-character-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.3));
+    animation: floatBoss 4s ease-in-out infinite;
+}
+
+.boss-character-fallback {
+    font-size: 5rem;
+    animation: floatBoss 4s ease-in-out infinite;
+}
+
+@keyframes floatBoss {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Boss Animations */
+.boss-laugh {
+    animation: shakeBoss 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+.boss-hit .boss-character-img, .boss-hit .boss-character-fallback {
+    animation: hitBoss 0.4s ease-out;
+    filter: brightness(1.5) sepia(1) hue-rotate(-50deg) saturate(3);
+}
+
+@keyframes shakeBoss {
+  10%, 90% { transform: translate3d(-2px, 0, 0); }
+  20%, 80% { transform: translate3d(4px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-8px, 0, 0); }
+  40%, 60% { transform: translate3d(8px, 0, 0); }
+}
+@keyframes hitBoss {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.8) translateY(15px) rotate(-10deg); }
+    100% { transform: scale(1); }
+}
+
 .boss-hp-ring {
-    width: 120px; height: 120px;
+    position: absolute;
+    width: 180px; height: 180px;
+    z-index: 1;
 }
 .hp-ring-bg { fill: none; stroke: rgba(239, 68, 68, 0.1); stroke-width: 8; }
 .hp-ring-fill { 
     fill: none; 
     stroke: #ef4444; 
     stroke-width: 8; 
-    stroke-linecap: square; 
+    stroke-linecap: round; 
     transform-origin: center; 
     transform: rotate(-90deg); 
-    transition: 0.3s;
+    transition: stroke-dashoffset 0.5s ease-out;
     filter: drop-shadow(0 0 10px #ef4444);
 }
-.hp-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Orbitron', sans-serif; font-size: 0.8rem; font-weight: 900; color: #ef4444; }
+.hp-text { 
+    position: absolute; 
+    top: -20px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    font-family: 'Orbitron', sans-serif; 
+    font-size: 1rem; 
+    font-weight: 900; 
+    color: #ef4444; 
+    background: #fff;
+    padding: 4px 12px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);
+    border: 2px solid #ef4444;
+}
 
 .boss-speech-bubble {
     background: #fff;

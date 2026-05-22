@@ -259,12 +259,28 @@ function BossFight({ bossData, courseColor, onWin, onLose, onExit }) {
         <div className="arena-center">
           
           <div className="arena-boss-row">
-            <div className="boss-status-wrap">
+            <div className={`boss-status-wrap ${bossAnim}`}>
+              <div className="boss-image-container">
+                <img 
+                  src={`/assets/boss_module${bossData.moduleId}.png`} 
+                  alt={bossData.title}
+                  className="boss-character-img"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    if (e.target.nextElementSibling) {
+                        e.target.nextElementSibling.style.display = 'flex';
+                    }
+                  }}
+                />
+                <div className="boss-character-fallback" style={{display: 'none'}}>
+                  {bossData.bossIcon || '👾'}
+                </div>
+              </div>
               <div className="boss-hp-ring">
-                <svg width="120" height="120">
-                  <circle className="hp-ring-bg" cx="60" cy="60" r="54" />
-                  <circle className="hp-ring-fill" cx="60" cy="60" r="54" 
-                    style={{ strokeDashoffset: 340 - (340 * bossHpPercent / 100) }}
+                <svg width="180" height="180">
+                  <circle className="hp-ring-bg" cx="90" cy="90" r="82" />
+                  <circle className="hp-ring-fill" cx="90" cy="90" r="82" 
+                    style={{ strokeDashoffset: 515 - (515 * bossHpPercent / 100) }}
                   />
                 </svg>
                 <div className="hp-text">{bossHp} HP</div>
