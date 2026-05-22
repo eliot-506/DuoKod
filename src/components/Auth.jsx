@@ -55,7 +55,7 @@ function Auth({ onLoginSuccess }) {
                 const { data, error: err } = await supabase.auth.signUp({
                     email,
                     password,
-                    options: { data: { username } }
+                    options: { data: { username, full_name: username } }
                 });
                 if (err) throw err;
                 if (data.user) {

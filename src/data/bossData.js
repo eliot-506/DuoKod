@@ -4,10 +4,10 @@
 
 export const BOSS_DATA = {
     python: {
-        bossName: 'Indentation Demon',
-        bossIcon: '🐍',
-        color: '#3776AB',
-        description: 'Python\'ning eng yovuz dushmani — har qadam xato qo\'yasan!',
+        bossName: 'CORRUPTED GUARDIAN',
+        bossIcon: '💀',
+        color: '#ef4444',
+        description: 'Tizim buzildi... Endi u sizni himoya qilmaydi!',
         bosses: [
             {
                 moduleId: 1,

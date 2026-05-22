@@ -184,7 +184,7 @@ export const UserProvider = ({ children }) => {
             syncProfileToSupabase(stats.supabaseId, stats);
         }, 2000); // 2 soniya debounce
         return () => clearTimeout(timer);
-    }, [stats.xp, stats.streak, stats.hearts, stats.unlockedBadges, stats.courses]);
+    }, [stats.xp, stats.streak, stats.hearts, stats.unlockedBadges, stats.courses, stats.supabaseId]);
 
     const loginUser = async (username, email, supabaseId = null) => {
         // Agar Supabase ID bo'lsa cloud dan o'qib olamiz

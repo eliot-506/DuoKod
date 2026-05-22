@@ -125,7 +125,7 @@ function AdminDashboard() {
   return (
     <div className="admin-dashboard-container">
       <div className="admin-header">
-        <h1><i className="fa-solid fa-crown" style={{ color: '#FFD700', marginRight: '15px' }}></i>Admin Dashboard</h1>
+        <h1><i className="fa-solid fa-crown" style={{ color: '#f59e0b', marginRight: '15px' }}></i>Admin Dashboard</h1>
         <p>Tizimning umumiy nazorat va tahliliy markazi</p>
       </div>
 
@@ -281,7 +281,7 @@ function AdminDashboard() {
 
                             return (
                                 <div key={category} className="category-section" style={{ marginBottom: '40px' }}>
-                                    <h4 style={{ color: '#00e5ff', fontSize: '1.2rem', marginBottom: '15px', borderBottom: '1px solid rgba(0,229,255,0.2)', paddingBottom: '10px' }}>
+                                    <h4>
                                         <i className="fa-solid fa-folder-open"></i> {category} ({catArticles.length} ta)
                                     </h4>
                                     <div className="articles-grid">

@@ -23,7 +23,7 @@ function Leaderboard() {
                     .from('profiles')
                     .select('username, xp, avatar, streak')
                     .order('xp', { ascending: false })
-                    .limit(10);
+                    .limit(100);
 
                 if (error || !data || data.length === 0) {
                     throw new Error('Supabase data yo\'q');
