@@ -159,7 +159,6 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    mix-blend-mode: multiply;
     filter: drop-shadow(0 40px 30px rgba(0,0,0,0.5)) drop-shadow(0 0 30px rgba(124, 58, 237, 0.6));
     animation: float3DBoss 4s ease-in-out infinite;
     transform-origin: bottom center;
