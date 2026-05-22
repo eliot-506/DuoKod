@@ -262,7 +262,7 @@ function BossFight({ bossData, courseColor, onWin, onLose, onExit }) {
             <div className={`boss-status-wrap ${bossAnim}`}>
               <div className="boss-image-container">
                 <img 
-                  src={`/assets/boss_module${bossData.moduleId}.png`} 
+                  src={`/assets/boss_module${bossData.moduleId}.png?v=${Date.now()}`} 
                   alt={bossData.title}
                   className="boss-character-img"
                   onError={(e) => {
