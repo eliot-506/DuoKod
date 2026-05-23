@@ -1,7 +1,7 @@
 import React from 'react';
 import './SkillRadarChart.css';
 
-const SkillRadarChart = ({ data, size = 300, color = '0, 255, 204' }) => {
+const SkillRadarChart = ({ data, size = 320, color = '0, 255, 204' }) => {
     // Agar dars hali ishlanmagan bo'lsa
     if (!data || Object.keys(data).length === 0) {
         return (
@@ -21,7 +21,7 @@ const SkillRadarChart = ({ data, size = 300, color = '0, 255, 204' }) => {
 
     // Baza matematikasi
     const center = size / 2;
-    const padding = 50; // Yozuvlar sig'ishi uchun
+    const padding = 70; // Yozuvlar sig'ishi uchun kattalashtirildi
     const radius = center - padding;
 
     // Har bir burchak uchun funksiya
