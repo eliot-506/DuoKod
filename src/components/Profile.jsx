@@ -133,14 +133,36 @@ function Profile() {
 
                         return (
                             <div key={avatar.id} className={`avatar-card ${isCurrent ? 'active' : ''} ${!isUnlocked && !isPremium ? 'locked' : ''} ${!isUnlocked && isPremium ? 'premium-locked' : ''}`}>
+                                {!isUnlocked && (
+                                    <div className="lock-badge">
+                                        <i className={`fa-solid ${isPremium ? 'fa-star' : 'fa-lock'}`}></i>
+                                    </div>
+                                )}
                                 {avatar.id === 'default' ? (
-                                    <div className="shop-avatar-img" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'transparent' }}>
-                                        <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                            <AnimatedRobot state="greeting" />
+                                    <div className="shop-avatar-wrapper">
+                                        <div className="shop-avatar-img" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'transparent' }}>
+                                            <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                <AnimatedRobot state="greeting" />
+                                            </div>
                                         </div>
                                     </div>
                                 ) : (
-                                    <img src={`/assets/mascots/mascot_${avatar.id}.png`} alt={avatar.name} className="shop-avatar-img" />
+                                    <div className="shop-avatar-wrapper">
+                                        <img 
+                                            src={`/assets/mascots/mascot_${avatar.id}.png`} 
+                                            alt={avatar.name} 
+                                            className="shop-avatar-img"
+                                            onError={(e) => {
+                                                e.target.style.display = 'none';
+                                                if (e.target.nextElementSibling) {
+                                                    e.target.nextElementSibling.style.display = 'flex';
+                                                }
+                                            }}
+                                        />
+                                        <div className="avatar-placeholder" style={{display: 'none'}}>
+                                            <i className={`fa-solid ${isPremium ? 'fa-crown' : 'fa-robot'}`}></i>
+                                        </div>
+                                    </div>
                                 )}
                                 <div className="avatar-details">
                                     <h4>{avatar.name}</h4>
