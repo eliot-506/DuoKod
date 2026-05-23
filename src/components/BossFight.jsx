@@ -259,33 +259,40 @@ function BossFight({ bossData, courseColor, onWin, onLose, onExit }) {
         <div className="arena-center">
           
           <div className="arena-boss-row">
-            <div className={`boss-status-wrap ${bossAnim}`}>
-              <div className="boss-image-container">
-                <img 
-                  src={`/assets/boss_module${bossData.moduleId}.png?v=${Date.now()}`} 
-                  alt={bossData.title}
-                  className="boss-character-img"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    if (e.target.nextElementSibling) {
-                        e.target.nextElementSibling.style.display = 'flex';
-                    }
-                  }}
-                />
-                <div className="boss-character-fallback" style={{display: 'none'}}>
-                  {bossData.bossIcon || '👾'}
+            <div className="boss-battle-wrap">
+              {/* Boss HP Bar — always visible above boss */}
+              <div className="boss-hp-bar-wrap">
+                <div className="boss-hp-bar-header">
+                  <span className="boss-hp-label">👾 {bossData.title || 'BOSS'}</span>
+                  <span className="boss-hp-num">{bossHp} / {bossData.hp} HP</span>
+                </div>
+                <div className="boss-hp-track">
+                  <div className="boss-hp-shadow" style={{ width: `${bossHpShadowPercent}%` }} />
+                  <div className="boss-hp-fill" style={{ width: `${bossHpPercent}%` }} />
                 </div>
               </div>
-              <div className="boss-hp-ring">
-                <svg width="180" height="180">
-                  <circle className="hp-ring-bg" cx="90" cy="90" r="82" />
-                  <circle className="hp-ring-fill" cx="90" cy="90" r="82" 
-                    style={{ strokeDashoffset: 515 - (515 * bossHpPercent / 100) }}
+
+              {/* Boss Image */}
+              <div className={`boss-status-wrap ${bossAnim}`}>
+                <div className="boss-image-container">
+                  <img 
+                    src={`/assets/boss_module${bossData.moduleId}.png?v=${Date.now()}`} 
+                    alt={bossData.title}
+                    className="boss-character-img"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      if (e.target.nextElementSibling) {
+                        e.target.nextElementSibling.style.display = 'flex';
+                      }
+                    }}
                   />
-                </svg>
-                <div className="hp-text">{bossHp} HP</div>
+                  <div className="boss-character-fallback" style={{display: 'none'}}>
+                    {bossData.bossIcon || '👾'}
+                  </div>
+                </div>
               </div>
             </div>
+
             <div className="boss-speech-bubble">
               {currentRound.bossMessage}
             </div>
