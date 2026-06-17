@@ -8,9 +8,19 @@ const premiumFeatures = [
     { icon: 'fa-book-open-reader', title: 'Premium kutubxona', text: 'Qoʻshimcha adabiyotlar va loyiha shablonlarini monetizatsiya qilishga tayyor blok.' }
 ];
 
+const paymentMethods = [
+    { id: 'payme', label: 'Payme', note: 'Merchant ID va callback sozlanganda ulanadi.' },
+    { id: 'click', label: 'Click', note: 'Service ID va secret key bilan ishga tushadi.' },
+    { id: 'manual', label: 'Manual', note: 'Admin tasdiqlaydigan tolovlar uchun.' }
+];
+
 function Premium({ onNavigate }) {
     const { stats, activatePremiumDemo } = useUser();
     const premiumUntil = stats.premiumUntil ? new Date(stats.premiumUntil).toLocaleDateString('uz-UZ') : null;
+
+    const handlePaymentSelect = (method) => {
+        alert(`${method.label} integratsiyasi uchun merchant sozlamalari kerak. Hozir demo premiumni yoqib test qilishingiz mumkin.`);
+    };
 
     return (
         <div className="premium-page">
@@ -48,7 +58,15 @@ function Premium({ onNavigate }) {
                         <li><i className="fa-solid fa-check"></i> Sertifikat imkoniyati</li>
                     </ul>
                     <button className="price-cta" onClick={activatePremiumDemo}>Obunani sinab ko'rish</button>
-                    <p className="payment-note">Keyingi bosqich: Payme, Click yoki Stripe integratsiyasi.</p>
+                    <div className="payment-methods">
+                        {paymentMethods.map((method) => (
+                            <button key={method.id} type="button" onClick={() => handlePaymentSelect(method)}>
+                                <span>{method.label}</span>
+                                <small>{method.note}</small>
+                            </button>
+                        ))}
+                    </div>
+                    <p className="payment-note">To'lov providerlari uchun backend callback va merchant kalitlari kerak.</p>
                 </div>
             </section>
 

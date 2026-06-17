@@ -175,6 +175,44 @@
   color: #fff;
 }
 
+.payment-methods {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.payment-methods button {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 14px;
+  background: rgba(248, 250, 252, 0.9);
+  color: #0f172a;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.payment-methods button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(79, 70, 229, 0.42);
+}
+
+.payment-methods span {
+  font-size: 14px;
+  font-weight: 950;
+}
+
+.payment-methods small {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
 .payment-note {
   margin: 16px 0 0;
   color: #64748b;

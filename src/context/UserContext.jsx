@@ -53,6 +53,18 @@ const syncProfileToSupabase = async (userId, data) => {
             skill_map: data.skillMap
         }, { onConflict: 'id' });
 
+        const { error: premiumError } = await supabase
+            .from('profiles')
+            .update({
+                is_premium: data.isPremium,
+                premium_until: data.premiumUntil
+            })
+            .eq('id', userId);
+
+        if (premiumError && !['42703', 'PGRST204'].includes(premiumError.code)) {
+            console.warn('Premium sync xatoligi:', premiumError.message);
+        }
+
         // Har bir kurs progressini saqlash
         for (const courseId of Object.keys(data.courses)) {
             await supabase.from('course_progress').upsert({
