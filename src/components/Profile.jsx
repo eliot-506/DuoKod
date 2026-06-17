@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './Profile.css'
 import { useUser } from '../context/UserContext'
 import AnimatedRobot from './AnimatedRobot'

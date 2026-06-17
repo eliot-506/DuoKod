@@ -26,16 +26,14 @@ const CHALLENGE = {
     initialCode: "def sumArray(arr):\n    # kodingizni bu yerga yozing\n    pass",
 };
 
-function DuelMode({ onComplete }) {
-    const { stats, addXp } = useUser();
+function DuelMode() {
+    const { addXp } = useUser();
     const [phase, setPhase] = useState('matchmaking'); // matchmaking, fighting, result
     const [opponent, setOpponent] = useState(null);
     const [enemyProgress, setEnemyProgress] = useState(0);
     const [timeLeft, setTimeLeft] = useState(60); // 60 seconds
     const [code, setCode] = useState(CHALLENGE.initialCode);
     const [matchResult, setMatchResult] = useState(''); // 'win', 'lose', 'draw'
-
-    const userAvatarSrc = stats.currentAvatar && stats.currentAvatar !== 'default' ? `/assets/mascots/mascot_${stats.currentAvatar}.png` : `/assets/mascots/idle.png`;
 
     // Matchmaking effect
     useEffect(() => {

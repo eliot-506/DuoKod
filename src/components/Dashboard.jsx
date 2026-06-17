@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
 import { useUser } from '../context/UserContext';
+import { COURSES } from '../data/lessons';
 import AnimatedRobot from './AnimatedRobot';
 
 function Dashboard({ onNavigate }) {
-    const { stats, dailyQuests, toggleQuest, completedNodes, totalModules, currentLevel, currentLevelXp, nextLevelXp, completedLevelPercent } = useUser();
-    
-    // Course information
-    const courseInfo = {
-        title: "Frontend Dasturlash (React.js)",
-        desc: "Zamonaviy veb-ilovalarni yaratishni o'rganing"
-    };
+    const { stats, currentLevel, currentLevelXp, nextLevelXp } = useUser();
+    const currentCourse = stats.currentCourse || 'python';
+    const courseProgress = stats.courses?.[currentCourse] || { completedNodes: [] };
+    const totalLessons = COURSES[currentCourse]?.data?.length || 0;
+    const completedLessons = courseProgress.completedNodes?.filter(nodeId => nodeId < 100).length || 0;
+    const lessonProgressPercent = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
+    const dailyGoalXp = 50;
+    const todayXp = Math.min(stats.xp || 0, dailyGoalXp);
+    const remainingDailyXp = Math.max(0, dailyGoalXp - todayXp);
+    const levelProgressPercent = Math.round(((currentLevelXp || 0) / (nextLevelXp || 100)) * 100);
+    const streakDays = stats.streak || 0;
 
     return (
       <div className="dash-wrapper">
@@ -29,11 +33,11 @@ function Dashboard({ onNavigate }) {
                     <div className="hero-blob b2"></div>
                 </div>
                 <div className="hero-stats-row">
-                  <span>{currentLevel || '8'}-daraja Dasturchi</span>
-                  <span>{currentLevelXp || '0'} / {nextLevelXp || '100'} Tajriba</span>
+                  <span>{currentLevel}-daraja Dasturchi</span>
+                  <span>{currentLevelXp} / {nextLevelXp} Tajriba</span>
                 </div>
                 <div className="hero-pb-container">
-                  <div className="hero-pb-fill" style={{ width: '20%' }}></div>
+                  <div className="hero-pb-fill" style={{ width: `${levelProgressPercent}%` }}></div>
                 </div>
                 <div className="hero-actions">
                   <button className="btn-hero-primary" onClick={() => onNavigate('map')}>Darsni davom ettirish</button>
@@ -54,13 +58,13 @@ function Dashboard({ onNavigate }) {
               <div className="goal-circle-container">
                 <div className="goal-circle-progress">
                   <div className="goal-circle-inner">
-                    <span className="goal-num">20</span>
-                    <span className="goal-sub">/ 50 XP</span>
+                    <span className="goal-num">{todayXp}</span>
+                    <span className="goal-sub">/ {dailyGoalXp} XP</span>
                   </div>
                 </div>
               </div>
               <div className="goal-text-footer">
-                <p><strong>Yana 30 Tajriba kerak</strong></p>
+                <p><strong>{remainingDailyXp > 0 ? `Yana ${remainingDailyXp} Tajriba kerak` : 'Bugungi maqsad bajarildi'}</strong></p>
                 <p className="goal-hint">Bugungi normani bajarish uchun darslarni davom ettiring.</p>
               </div>
               <button className="btn-goal-start" onClick={() => onNavigate('map')}>Mashqni boshlash</button>
@@ -73,7 +77,7 @@ function Dashboard({ onNavigate }) {
               <span className="kpi-label">KUNLIK DAVOMIYLIK</span>
               <p className="kpi-desc">Faol holat. Bugun kamida bitta topshiriqni bajaring va chiroqni o'chirmang.</p>
               <div className="kpi-footer">
-                <span className="kpi-status">1/7 kun <div className="dot-streak active"></div></span>
+                <span className="kpi-status">{streakDays}/7 kun <div className={`dot-streak ${streakDays > 0 ? 'active' : ''}`}></div></span>
                 <span className="kpi-link">Batafsil</span>
               </div>
             </div>
@@ -82,8 +86,8 @@ function Dashboard({ onNavigate }) {
               <div className="kpi-icon-box gold"><i className="fa-solid fa-sun"></i></div>
               <span className="kpi-label">JAMI TAJRIBA</span>
               <div className="kpi-main-val">
-                <span className="val-num">{stats?.xp || 700}</span>
-                <span className="val-sub">+35 bu hafta</span>
+                <span className="val-num">{stats?.xp || 0}</span>
+                <span className="val-sub">{currentLevel}-daraja</span>
               </div>
             </div>
 
@@ -101,9 +105,9 @@ function Dashboard({ onNavigate }) {
               <span className="kpi-label">TUGALLANGAN DARSLAR</span>
               <div className="kpi-progress-row">
                  <div className="kpi-pb-mini">
-                    <div className="kpi-pb-fill" style={{ width: '0%' }}></div>
+                    <div className="kpi-pb-fill" style={{ width: `${lessonProgressPercent}%` }}></div>
                  </div>
-                 <span className="kpi-pb-text">0 / 11</span>
+                 <span className="kpi-pb-text">{completedLessons} / {totalLessons}</span>
               </div>
             </div>
           </div>

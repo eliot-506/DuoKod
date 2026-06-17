@@ -1,6 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
 import fs from 'fs';
-import path from 'path';
 
 const supabaseUrl = 'https://zsmipfqgxgnnuniqtmkd.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpzbWlwZnFneGdubnVuaXF0bWtkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxODU4MTksImV4cCI6MjA4OTc2MTgxOX0.t-0tm39wUR4ZklpNasivOUYhkz7NkYB27pbsQNZLTwc';

@@ -19,12 +19,11 @@ import Library from './components/Library'
 import BossFight from './components/BossFight'
 import { useUser } from './context/UserContext'
 import { useRobot } from './context/RobotContext'
-import AnimatedRobot from './components/AnimatedRobot'
 
 import BackgroundSystem from './components/BackgroundSystem'
 
 function App() {
-  const { stats, addXp, completeNode, useHeart, switchCourse, updateStreak } = useUser()
+  const { stats, addXp, completeNode, spendHeart, switchCourse, updateStreak } = useUser()
   const { triggerRobot } = useRobot()
   const [currentView, setCurrentView] = useState('dashboard')
   const [activeLessonId, setActiveLessonId] = useState(null)
@@ -62,7 +61,7 @@ function App() {
       setShowXpAnim(true)
       triggerRobot('celebration', "Zo'r topdingiz! Yana bitta dars o'zlashtirildi 🎉", 5000)
     } else if (!wasCorrect) {
-      useHeart()
+      spendHeart()
       triggerRobot('wrong', "Xato chiqdi, lekin hech qisi yo'q, keyingi safar aniq o'xshaydi! 💪", 5000)
     }
     setActiveLessonId(null)

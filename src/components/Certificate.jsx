@@ -1,14 +1,21 @@
-import React from 'react';
 import './Certificate.css';
 import { useUser } from '../context/UserContext';
 import { COURSES } from '../data/lessons';
+
+const createCertificateId = (value) => {
+    let hash = 0;
+    for (let i = 0; i < value.length; i++) {
+        hash = ((hash << 5) - hash + value.charCodeAt(i)) | 0;
+    }
+    return `DK-${Math.abs(hash).toString(36).toUpperCase().padStart(7, '0')}`;
+};
 
 function Certificate({ onBack }) {
     const { stats } = useUser();
     const courseData = COURSES[stats.currentCourse];
     const currentDate = new Date().toLocaleDateString('uz-UZ');
-    const certificateId = Math.random().toString(36).substr(2, 9).toUpperCase();
     const userName = stats.username || 'Super Dasturchi';
+    const certificateId = createCertificateId(`${stats.supabaseId || userName}-${stats.currentCourse}-${currentDate}`);
 
     const handleDownload = () => {
         window.print();

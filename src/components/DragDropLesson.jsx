@@ -1,17 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './DragDropLesson.css';
 
-function DragDropLesson({ blocks, correctAnswer, onChange, isChecked, isCorrect, terminalOutput }) {
+function DragDropLesson({ blocks, onChange, isChecked, isCorrect, terminalOutput }) {
     const [available, setAvailable] = useState([]);
     const [selected, setSelected] = useState([]);
+    const onChangeRef = useRef(onChange);
 
     useEffect(() => {
-        // Bloklarni chalkashtirib yuklash
-        const shuffled = [...blocks].sort(() => Math.random() - 0.5);
-        setAvailable(shuffled);
-        setSelected([]);
-        onChange('');
+        onChangeRef.current = onChange;
+    }, [onChange]);
+
+    useEffect(() => {
+        const resetTimer = setTimeout(() => {
+            const shuffled = [...blocks].sort(() => Math.random() - 0.5);
+            setAvailable(shuffled);
+            setSelected([]);
+            onChangeRef.current('');
+        }, 0);
+        return () => clearTimeout(resetTimer);
     }, [blocks]);
 
     const handleSelect = (block, index) => {

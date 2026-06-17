@@ -4,7 +4,7 @@ import './LearningPath.css'
 import { COURSES } from '../data/lessons'
 import { BOSS_DATA } from '../data/bossData'
 
-function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertificate, onStartProject, onBack }) {
+function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertificate, onBack }) {
     const { stats } = useUser()
     const [previewNode, setPreviewNode] = useState(null)
     const isAdmin = stats?.isAdmin || stats?.isSuperAdmin
@@ -50,20 +50,15 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
         if (boss) {
             const nextModStatus = getNodeStatus(l.id + 1);
             let bStatus = 'locked';
-            let bLabel = 'Yopiq';
-            
             if (s === 'completed') {
                 if (nextModStatus === 'completed' || nextModStatus === 'current' || nextModStatus === 'unlocked') {
                     bStatus = 'completed';
-                    bLabel = 'Yakunlandi';
                 } else {
                     bStatus = 'challenge';
-                    bLabel = 'Faol';
                 }
             }
             if(isAdmin && bStatus === 'locked') {
                  bStatus = 'challenge';
-                 bLabel = 'Faol';
             }
 
             MODULE_NODES.push({
@@ -80,7 +75,6 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
     });
 
     const completedCount = stats?.courses?.[selectedCourse]?.completedNodes?.length || 0;
-    const progressPercent = Math.round((completedCount / courseData.length) * 100) || 0;
     const totalChallenges = courseBosses.length;
     const currentModLabel = stats?.courses?.[selectedCourse]?.unlockedNodes?.[stats.courses[selectedCourse].unlockedNodes.length - 1] || 1;
 

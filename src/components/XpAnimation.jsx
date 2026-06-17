@@ -14,8 +14,10 @@ function XpAnimation({ xpAmount, onComplete }) {
         // Sound effect (opsional/agar bo'lsa)
         try {
             const audio = new Audio('/assets/sounds/success.mp3');
-            audio.play().catch(e => console.log('Audio autoplay ignored', e));
-        } catch (e) { }
+            audio.play().catch(() => {});
+        } catch {
+            console.warn('Audio playback is unavailable');
+        }
 
         return () => clearTimeout(timer);
     }, [onComplete]);

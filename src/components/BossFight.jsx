@@ -16,7 +16,7 @@ function normalize(str) {
   return str.trim().replace(/\s+/g, ' ');
 }
 
-function BossFight({ bossData, courseColor, onWin, onLose, onExit }) {
+function BossFight({ bossData, onWin, onExit }) {
   const MAX_TIME = (round) => round.type === 'shield' ? 15 : 45;
 
   const [roundIdx, setRoundIdx]     = useState(0);
@@ -24,7 +24,7 @@ function BossFight({ bossData, courseColor, onWin, onLose, onExit }) {
   const [playerHearts, setPlayerHearts] = useState(3);
   const [answer, setAnswer]         = useState('');
   const [timeLeft, setTimeLeft]     = useState(MAX_TIME(bossData.rounds[0]));
-  const [timeMax, setTimeMax]       = useState(MAX_TIME(bossData.rounds[0]));
+  const [, setTimeMax]       = useState(MAX_TIME(bossData.rounds[0]));
   const [phase, setPhase]           = useState('playing'); // playing | stunned | weapon | result
   const [result, setResult]         = useState(null);      // 'win' | 'lose'
   const [inputState, setInputState] = useState(''); // 'correct' | 'wrong' | ''
@@ -41,10 +41,9 @@ function BossFight({ bossData, courseColor, onWin, onLose, onExit }) {
   const elapsed    = useRef(0);    // seconds spent on current round
 
   const currentRound = bossData.rounds[roundIdx];
-  const weapon        = getWeapon(elapsed.current);
 
   /* ── particles (background) ── */
-  const particles = Array.from({ length: 20 }, (_, i) => ({
+  /* const particles = Array.from({ length: 20 }, (_, i) => ({
     id: i,
     size: 4 + Math.random() * 10,
     left: Math.random() * 100,
@@ -52,7 +51,7 @@ function BossFight({ bossData, courseColor, onWin, onLose, onExit }) {
     delay: Math.random() * 5,
     dur: 15 + Math.random() * 20,
     color: ['#dbeafe', '#ede9fe', '#fae8ff', '#ffffff'][i % 4]
-  }));
+  })); */
 
   /* ── timer ── */
   const stopTimer = useCallback(() => {
@@ -198,19 +197,8 @@ function BossFight({ bossData, courseColor, onWin, onLose, onExit }) {
   };
 
   /* ── derived UI values ── */
-  const timerPercent  = ((timeLeft / timeMax) * 100).toFixed(1);
-  const circumference = 2 * Math.PI * 16;
-  const dashOffset    = circumference * (1 - timeLeft / timeMax);
-  const isUrgent      = timeLeft <= 5;
-
-  const currentWeapon = getWeapon(elapsed.current);
-  const timerColor = currentWeapon
-    ? { blade: '#00ffff', rifle: '#a78bfa', dagger: '#fb923c' }[currentWeapon.tier]
-    : '#ff4444';
-
   const bossHpPercent       = (bossHp / bossData.hp) * 100;
   const bossHpShadowPercent = (bossHpShadow / bossData.hp) * 100;
-  const playerHpPercent     = (playerHearts / 3) * 100;
 
   /* ─── RENDER ─── */
   return (

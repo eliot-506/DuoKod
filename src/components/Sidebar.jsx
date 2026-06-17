@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
 import { useUser } from '../context/UserContext';
-import { getStreakTier } from '../utils/streakUtils';
 
 function Sidebar({ currentTab, onNavigate }) {
     const { stats } = useUser();

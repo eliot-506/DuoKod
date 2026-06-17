@@ -129,7 +129,7 @@ export const UserProvider = ({ children }) => {
                 if (!parsed.currentAvatar) parsed.currentAvatar = 'default';
                 if (!parsed.unlockedBadges) parsed.unlockedBadges = [];
                 return parsed;
-            } catch (e) { return defaultUserStats; }
+            } catch { return defaultUserStats; }
         }
         return defaultUserStats;
     });
@@ -246,7 +246,7 @@ export const UserProvider = ({ children }) => {
     };
 
     const addXp = (amount) => setStats(prev => ({ ...prev, xp: prev.xp + amount }));
-    const useHeart = (amount = 1) => setStats(prev => ({ ...prev, hearts: Math.max(0, prev.hearts - amount) }));
+    const spendHeart = (amount = 1) => setStats(prev => ({ ...prev, hearts: Math.max(0, prev.hearts - amount) }));
     const addHeart = (amount) => setStats(prev => ({ ...prev, hearts: prev.hearts + amount }));
     const switchCourse = (courseId) => setStats(prev => ({ ...prev, currentCourse: courseId }));
 
@@ -360,7 +360,7 @@ export const UserProvider = ({ children }) => {
 
     return (
         <UserContext.Provider value={{
-            stats, setStats, addXp, useHeart, addHeart, completeNode, switchCourse,
+            stats, setStats, addXp, spendHeart, addHeart, completeNode, switchCourse,
             changeAvatar, unlockAvatar, buyPremiumAvatar, loginUser, logoutUser,
             deleteAccount, currentLevel, currentLevelXp, nextLevelXp, unlockBadge, updateStreak, updateSkill
         }}>

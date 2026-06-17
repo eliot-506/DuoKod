@@ -1,4 +1,3 @@
-import React from 'react';
 import './SkillRadarChart.css';
 
 const SkillRadarChart = ({ data, size = 320, color = '0, 255, 204' }) => {
@@ -134,17 +133,6 @@ const SkillRadarChart = ({ data, size = 320, color = '0, 255, 204' }) => {
             );
         });
     };
-
-    // XP raqami Hover uchun
-    const renderValueLabels = () => {
-        return labels.map((label, index) => {
-            const pt = getPointCoords(index, values[i], maxVal);
-            const labelX = center + (pt.x - center) * 1.0;
-            const labelY = center + (pt.y - center) * 1.0;
-            // Eslatma: values[index] emas i -> oops values[index] qilamiz
-            return null; // O'rniga circle ustiga tooltip qo'ydik (title tegida)
-        });
-    }
 
     return (
         <div className="radar-chart-container" style={{ width: size, height: size }}>

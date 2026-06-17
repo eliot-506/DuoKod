@@ -80,7 +80,7 @@ function CodeArena() {
                 `);
                 setRunStatus('success');
                 triggerRobot('happy', "Kod ishga tushdi! Natijani o‘ng panelda ko‘ring 🚀", 4000);
-            } catch (err) {
+            } catch {
                 setRunStatus('error');
             }
             

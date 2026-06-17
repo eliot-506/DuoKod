@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useUser } from '../context/UserContext';
 import Mascot from './Mascot';
-import { COURSES } from '../data/lessons';
 import './FastLearn.css';
 
 function FastLearn({ courseId, onBack }) {
     const { addXp, addHeart } = useUser();
-    const course = COURSES[courseId];
     const [phase, setPhase] = useState('reading'); // reading, quiz, result
     const [timeLeft, setTimeLeft] = useState(180);
     const [currentQuestion, setCurrentQuestion] = useState(0);

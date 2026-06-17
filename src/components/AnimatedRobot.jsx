@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRobot } from '../context/RobotContext';
 import './AnimatedRobot.css';
