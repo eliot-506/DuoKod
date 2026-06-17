@@ -15,6 +15,8 @@ const defaultUserStats = {
     role: 'user',
     isAdmin: false,
     isSuperAdmin: false,
+    isPremium: false,
+    premiumUntil: null,
     isActive: true,
     lastPlayed: null,
     currentCourse: 'python',
@@ -98,6 +100,8 @@ const loadProfileFromSupabase = async (userId) => {
             role: role,
             isAdmin: role === 'admin' || role === 'super_admin',
             isSuperAdmin: role === 'super_admin',
+            isPremium: Boolean(profile.is_premium) || role === 'admin' || role === 'super_admin',
+            premiumUntil: profile.premium_until || null,
             isActive: profile.is_active !== false,
             currentAvatar: profile.avatar || 'default',
             unlockedBadges: profile.badges || [],
@@ -128,6 +132,8 @@ export const UserProvider = ({ children }) => {
                 if (!parsed.unlockedAvatars) parsed.unlockedAvatars = ['default'];
                 if (!parsed.currentAvatar) parsed.currentAvatar = 'default';
                 if (!parsed.unlockedBadges) parsed.unlockedBadges = [];
+                if (typeof parsed.isPremium !== 'boolean') parsed.isPremium = false;
+                if (!parsed.premiumUntil) parsed.premiumUntil = null;
                 return parsed;
             } catch { return defaultUserStats; }
         }
@@ -308,6 +314,20 @@ export const UserProvider = ({ children }) => {
         });
     };
 
+    const activatePremiumDemo = () => {
+        const until = new Date();
+        until.setDate(until.getDate() + 30);
+        setStats(prev => ({
+            ...prev,
+            isPremium: true,
+            premiumUntil: until.toISOString(),
+            hearts: Math.max(prev.hearts, 150),
+            unlockedAvatars: prev.unlockedAvatars.includes('premium')
+                ? prev.unlockedAvatars
+                : [...prev.unlockedAvatars, 'premium']
+        }));
+    };
+
     const currentLevel = Math.floor(stats.xp / 100) + 1;
     const currentLevelXp = stats.xp % 100;
     const nextLevelXp = 100;
@@ -362,7 +382,7 @@ export const UserProvider = ({ children }) => {
         <UserContext.Provider value={{
             stats, setStats, addXp, spendHeart, addHeart, completeNode, switchCourse,
             changeAvatar, unlockAvatar, buyPremiumAvatar, loginUser, logoutUser,
-            deleteAccount, currentLevel, currentLevelXp, nextLevelXp, unlockBadge, updateStreak, updateSkill
+            deleteAccount, currentLevel, currentLevelXp, nextLevelXp, unlockBadge, updateStreak, updateSkill, activatePremiumDemo
         }}>
             {children}
         </UserContext.Provider>

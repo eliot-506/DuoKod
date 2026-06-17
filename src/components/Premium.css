@@ -1,0 +1,248 @@
+.premium-page {
+  min-height: 100vh;
+  padding: 40px;
+  color: #0f172a;
+}
+
+.premium-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) 380px;
+  gap: 30px;
+  align-items: stretch;
+  max-width: 1280px;
+}
+
+.premium-hero-content,
+.premium-price-card,
+.premium-feature-card {
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+}
+
+.premium-hero-content {
+  position: relative;
+  overflow: hidden;
+  border-radius: 34px;
+  padding: 56px;
+  background:
+    linear-gradient(135deg, rgba(15, 23, 42, 0.94), rgba(79, 70, 229, 0.86)),
+    radial-gradient(circle at 78% 20%, rgba(16, 185, 129, 0.55), transparent 28%);
+  color: #fff;
+}
+
+.premium-kicker {
+  display: inline-flex;
+  margin-bottom: 20px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #c7d2fe;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 1px;
+}
+
+.premium-hero h1 {
+  max-width: 720px;
+  margin: 0 0 20px;
+  font-size: 44px;
+  line-height: 1.1;
+  font-weight: 950;
+}
+
+.premium-hero p {
+  max-width: 640px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 17px;
+  line-height: 1.65;
+  font-weight: 650;
+}
+
+.premium-actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 34px;
+}
+
+.premium-primary-btn,
+.premium-secondary-btn,
+.price-cta {
+  min-height: 50px;
+  border: none;
+  border-radius: 16px;
+  padding: 0 22px;
+  font-size: 14px;
+  font-weight: 950;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.premium-primary-btn {
+  background: #fff;
+  color: #4f46e5;
+}
+
+.premium-secondary-btn {
+  background: rgba(255, 255, 255, 0.13);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.premium-primary-btn:hover,
+.premium-secondary-btn:hover,
+.price-cta:hover {
+  transform: translateY(-2px);
+}
+
+.premium-active-note {
+  width: fit-content;
+  margin-top: 20px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(16, 185, 129, 0.18);
+  color: #bbf7d0;
+  font-weight: 850;
+}
+
+.premium-price-card {
+  border-radius: 34px;
+  padding: 32px;
+}
+
+.price-badge {
+  width: fit-content;
+  margin-bottom: 24px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: rgba(245, 158, 11, 0.14);
+  color: #b45309;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.price-title {
+  color: #334155;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.price-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin: 10px 0 24px;
+}
+
+.price-row span {
+  font-size: 48px;
+  font-weight: 950;
+  letter-spacing: -1px;
+}
+
+.price-row small {
+  padding-bottom: 8px;
+  color: #64748b;
+  font-weight: 800;
+}
+
+.premium-price-card ul {
+  display: grid;
+  gap: 14px;
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.premium-price-card li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #334155;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.premium-price-card li i {
+  color: #10b981;
+}
+
+.price-cta {
+  width: 100%;
+  background: #0f172a;
+  color: #fff;
+}
+
+.payment-note {
+  margin: 16px 0 0;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.premium-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1280px;
+  margin-top: 26px;
+}
+
+.premium-feature-card {
+  border-radius: 26px;
+  padding: 26px;
+}
+
+.premium-feature-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  background: rgba(79, 70, 229, 0.11);
+  color: #4f46e5;
+}
+
+.premium-feature-card h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.premium-feature-card p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 650;
+}
+
+@media (max-width: 1100px) {
+  .premium-hero,
+  .premium-feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .premium-page {
+    padding: 20px;
+  }
+
+  .premium-hero-content,
+  .premium-price-card {
+    padding: 28px;
+  }
+
+  .premium-hero h1 {
+    font-size: 30px;
+  }
+
+  .premium-actions {
+    flex-direction: column;
+  }
+}

@@ -68,9 +68,10 @@ function Literature({ courseId, onBack }) {
     );
 }
 
-function LearningTab({ onNodeClick, onBossStart, onClaimCertificate, onStartProject }) {
+function LearningTab({ onNodeClick, onBossStart, onClaimCertificate, onStartProject, onPremiumClick }) {
     const { stats, switchCourse } = useUser();
     const isAdmin = stats?.isAdmin || stats?.isSuperAdmin;
+    const hasPremiumAccess = isAdmin || stats?.isPremium;
     
     // Ensure stats exists and fallback properly
     const initialCourse = stats?.currentCourse || null;
@@ -152,18 +153,18 @@ function LearningTab({ onNodeClick, onBossStart, onClaimCertificate, onStartProj
                 {COURSE_KEYS.map(key => {
                     const c = COURSES[key];
                     if (!c) return null;
-                    const isLocked = !isAdmin && key !== 'python'; // Admins have all, others only Python
+                    const isLocked = !hasPremiumAccess && key !== 'python';
                     return (
                         <div
                             key={key}
                             className={`course-card ${isLocked ? 'course-card-locked' : ''}`}
                             style={{ '--card-color': isLocked ? '#444' : (c.color || '#fff') }}
-                            onClick={() => !isLocked && handleCourseSelect(key)}
+                            onClick={() => isLocked ? onPremiumClick?.() : handleCourseSelect(key)}
                         >
                             <div className="course-icon" style={{ opacity: isLocked ? 0.4 : 1 }}>{c.title ? c.title.charAt(0) : 'C'}</div>
                             <h3 style={{ opacity: isLocked ? 0.5 : 1 }}>{c.title || 'Kurs'}</h3>
                             {isLocked ? (
-                                <div className="course-locked-badge">🔒 Tez kunda</div>
+                                <div className="course-locked-badge">Premium</div>
                             ) : (
                                 <button className="start-btn" style={{ backgroundColor: c.color || '#fff', color: '#000' }}>Tanlash</button>
                             )}

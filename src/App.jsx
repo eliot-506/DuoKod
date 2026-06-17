@@ -17,6 +17,7 @@ import ProjectMode from './components/ProjectMode'
 import XpAnimation from './components/XpAnimation'
 import Library from './components/Library'
 import BossFight from './components/BossFight'
+import Premium from './components/Premium'
 import { useUser } from './context/UserContext'
 import { useRobot } from './context/RobotContext'
 
@@ -109,11 +110,12 @@ function App() {
         <main className="main-content">
           {currentView === 'dashboard' && <Dashboard onNavigate={setCurrentView} />}
           {currentView === 'admin' && stats.isAdmin && <AdminDashboard />}
-          {currentView === 'map' && <LearningTab onNodeClick={handleStartLesson} onBossStart={handleStartBoss} onClaimCertificate={() => setCurrentView('certificate')} onStartProject={() => setCurrentView('project')} />}
+          {currentView === 'map' && <LearningTab onNodeClick={handleStartLesson} onBossStart={handleStartBoss} onClaimCertificate={() => setCurrentView('certificate')} onStartProject={() => setCurrentView('project')} onPremiumClick={() => setCurrentView('premium')} />}
           {currentView === 'leaderboard' && <Leaderboard />}
           {currentView === 'profile' && <Profile />}
           {currentView === 'arena' && <CodeArena />}
           {currentView === 'duel' && <DuelMode />}
+          {currentView === 'premium' && <Premium onNavigate={setCurrentView} />}
           {currentView === 'project' && <ProjectMode onExit={() => setCurrentView('map')} />}
           {currentView === 'certificate' && <Certificate onBack={() => setCurrentView('map')} />}
           {currentView === 'library' && <Library onBack={() => setCurrentView('dashboard')} />}

@@ -10,6 +10,7 @@ function Sidebar({ currentTab, onNavigate }) {
         { id: 'leaderboard', icon: <i className="fa-solid fa-shield-halved"></i>, label: 'Reyting', color: '#EAB308' },
         { id: 'arena', icon: <i className="fa-solid fa-laptop-code"></i>, label: 'Arena', color: '#8B5CF6' },
         { id: 'duel', icon: <i className="fa-solid fa-bolt"></i>, label: 'Bellashuv', color: '#F97316' },
+        { id: 'premium', icon: <i className="fa-solid fa-gem"></i>, label: 'Premium', color: '#4F46E5' },
         { id: 'profile', icon: <i className="fa-solid fa-user"></i>, label: 'Profil', color: '#64748B' },
         ...(stats?.isAdmin ? [{ id: 'admin', icon: <i className="fa-solid fa-crown"></i>, label: 'Admin', color: '#D97706' }] : [])
     ];

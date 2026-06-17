@@ -1,56 +1,28 @@
 import './BottomNav.css'
 
 function BottomNav({ currentTab, onTabSwitch }) {
+    const items = [
+        { id: 'dashboard', icon: 'AS', label: 'Asosiy' },
+        { id: 'map', icon: 'OR', label: "O'rganish" },
+        { id: 'leaderboard', icon: 'RT', label: 'Reyting' },
+        { id: 'arena', icon: 'AR', label: 'Arena' },
+        { id: 'duel', icon: 'DL', label: 'Duel' },
+        { id: 'premium', icon: 'PRO', label: 'Premium' },
+    ];
+
     return (
         <nav className="bottom-nav">
             <div className="nav-items-container">
-                <button
-                    className={`nav-item ${currentTab === 'dashboard' ? 'active' : ''}`}
-                    onClick={() => onTabSwitch('dashboard')}
-                >
-                    <span className="nav-icon">🏠</span>
-                    <span className="nav-label">Asosiy</span>
-                </button>
-
-                <button
-                    className={`nav-item ${currentTab === 'map' ? 'active' : ''}`}
-                    onClick={() => onTabSwitch('map')}
-                >
-                    <span className="nav-icon">🗺️</span>
-                    <span className="nav-label">O'rganish</span>
-                </button>
-
-                <button
-                    className={`nav-item ${currentTab === 'leaderboard' ? 'active' : ''}`}
-                    onClick={() => onTabSwitch('leaderboard')}
-                >
-                    <span className="nav-icon">🛡️</span>
-                    <span className="nav-label">Reyting</span>
-                </button>
-
-                <button
-                    className={`nav-item ${currentTab === 'arena' ? 'active' : ''}`}
-                    onClick={() => onTabSwitch('arena')}
-                >
-                    <span className="nav-icon">💻</span>
-                    <span className="nav-label">Arena</span>
-                </button>
-
-                <button
-                    className={`nav-item ${currentTab === 'duel' ? 'active' : ''}`}
-                    onClick={() => onTabSwitch('duel')}
-                >
-                    <span className="nav-icon">⚔️</span>
-                    <span className="nav-label">Duel</span>
-                </button>
-
-                <button
-                    className={`nav-item ${currentTab === 'profile' ? 'active' : ''}`}
-                    onClick={() => onTabSwitch('profile')}
-                >
-                    <span className="nav-icon">👤</span>
-                    <span className="nav-label">Profil</span>
-                </button>
+                {items.map((item) => (
+                    <button
+                        key={item.id}
+                        className={`nav-item ${currentTab === item.id ? 'active' : ''}`}
+                        onClick={() => onTabSwitch(item.id)}
+                    >
+                        <span className="nav-icon">{item.icon}</span>
+                        <span className="nav-label">{item.label}</span>
+                    </button>
+                ))}
             </div>
         </nav>
     )
