@@ -522,3 +522,208 @@
   border-left: 15px solid transparent;
   border-top: 15px solid #fff;
 }
+
+/* Learning Command Panel */
+.learning-command-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.8fr) 190px;
+  gap: 22px;
+  align-items: stretch;
+  margin-bottom: 30px;
+  padding: 22px;
+  border-radius: 32px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.48)),
+    linear-gradient(120deg, rgba(16, 185, 129, 0.12), rgba(99, 102, 241, 0.14));
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.command-main,
+.next-lesson-tile,
+.quick-action-btn {
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.76);
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+.command-main {
+  padding: 28px;
+}
+
+.command-eyebrow,
+.tile-label {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-bottom: 12px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: rgba(79, 70, 229, 0.1);
+  color: #4f46e5;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.command-main h2 {
+  margin: 0 0 10px;
+  color: #0f172a;
+  font-size: 30px;
+  font-weight: 950;
+}
+
+.command-main p,
+.next-lesson-tile p {
+  color: #475569;
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.55;
+}
+
+.command-progress {
+  margin-top: 22px;
+}
+
+.command-progress-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.command-progress-track {
+  height: 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.2);
+}
+
+.command-progress-fill {
+  height: 100%;
+  min-width: 8px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #10b981, #22c55e, #6366f1);
+  box-shadow: 0 0 18px rgba(16, 185, 129, 0.45);
+}
+
+.next-lesson-tile {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.next-lesson-tile h3 {
+  margin: 0 0 10px;
+  color: #0f172a;
+  font-size: 22px;
+  font-weight: 950;
+  line-height: 1.25;
+}
+
+.tile-primary-btn {
+  margin-top: auto;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 16px;
+  background: #0f172a;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tile-primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.18);
+}
+
+.quick-actions-rail {
+  display: grid;
+  gap: 14px;
+}
+
+.quick-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px;
+  color: #0f172a;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.quick-action-btn i {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  font-size: 18px;
+}
+
+.quick-action-btn span {
+  font-size: 15px;
+  font-weight: 950;
+}
+
+.quick-action-btn:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.arena-action i { background: rgba(99, 102, 241, 0.12); color: #4f46e5; }
+.library-action i { background: rgba(16, 185, 129, 0.13); color: #059669; }
+
+@media (max-width: 1180px) {
+  .dash-top-section,
+  .learning-command-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-actions-rail {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dash-bottom-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .dash-wrapper {
+    padding: 20px;
+  }
+
+  .hero-card-premium {
+    padding: 34px 24px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-main-title {
+    font-size: 28px;
+  }
+
+  .hero-actions,
+  .quick-actions-rail,
+  .dash-bottom-grid {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .btn-hero-primary,
+  .btn-hero-glass {
+    width: 100%;
+  }
+}

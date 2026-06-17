@@ -15,6 +15,10 @@ function Dashboard({ onNavigate }) {
     const remainingDailyXp = Math.max(0, dailyGoalXp - todayXp);
     const levelProgressPercent = Math.round(((currentLevelXp || 0) / (nextLevelXp || 100)) * 100);
     const streakDays = stats.streak || 0;
+    const activeCourse = COURSES[currentCourse];
+    const nextLessonId = courseProgress.unlockedNodes?.find(nodeId => !courseProgress.completedNodes?.includes(nodeId)) || 1;
+    const nextLesson = activeCourse?.data?.find(lesson => lesson.id === nextLessonId) || activeCourse?.data?.[0];
+    const completedPercentLabel = `${lessonProgressPercent}%`;
 
     return (
       <div className="dash-wrapper">
@@ -70,6 +74,41 @@ function Dashboard({ onNavigate }) {
               <button className="btn-goal-start" onClick={() => onNavigate('map')}>Mashqni boshlash</button>
             </div>
           </div>
+
+          <section className="learning-command-panel" aria-label="Davom ettirish paneli">
+            <div className="command-main">
+              <div className="command-eyebrow">Joriy kurs</div>
+              <h2>{activeCourse?.title || 'Python Asoslari'}</h2>
+              <p>{nextLesson?.title || 'Keyingi dars'} darsidan davom eting va bugungi maqsadga yaqinlashing.</p>
+              <div className="command-progress">
+                <div className="command-progress-top">
+                  <span>Kurs progressi</span>
+                  <strong>{completedPercentLabel}</strong>
+                </div>
+                <div className="command-progress-track">
+                  <div className="command-progress-fill" style={{ width: completedPercentLabel }}></div>
+                </div>
+              </div>
+            </div>
+
+            <div className="next-lesson-tile">
+              <span className="tile-label">Keyingi dars</span>
+              <h3>{nextLesson?.title || 'Darsni boshlash'}</h3>
+              <p>{nextLesson?.desc || 'Nazariya va amaliy savollar orqali XP yigʻing.'}</p>
+              <button className="tile-primary-btn" onClick={() => onNavigate('map')}>Darsga o'tish</button>
+            </div>
+
+            <div className="quick-actions-rail">
+              <button className="quick-action-btn arena-action" onClick={() => onNavigate('arena')}>
+                <i className="fa-solid fa-terminal"></i>
+                <span>Kod yozish</span>
+              </button>
+              <button className="quick-action-btn library-action" onClick={() => onNavigate('library')}>
+                <i className="fa-solid fa-book-open-reader"></i>
+                <span>Kutubxona</span>
+              </button>
+            </div>
+          </section>
 
           <div className="dash-bottom-grid">
             <div className="kpi-card-glass streak-card">
