@@ -7,6 +7,7 @@ import { BOSS_DATA } from '../data/bossData'
 function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertificate, onBack }) {
     const { stats } = useUser()
     const [previewNode, setPreviewNode] = useState(null)
+    const [selectedModuleNode, setSelectedModuleNode] = useState(null)
     const isAdmin = stats?.isAdmin || stats?.isSuperAdmin
 
     const getNodeStatus = (nodeId) => {
@@ -57,6 +58,12 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
         }));
 
         return [...theoryLessons, ...practiceLessons];
+    };
+
+    const openModuleMap = (node) => {
+        if (!node || node.isBoss || node.status === 'locked') return;
+        setPreviewNode(null);
+        setSelectedModuleNode(node);
     };
 
     const currentCourseData = COURSES[selectedCourse];
@@ -122,6 +129,73 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
     const totalChallenges = courseBosses.length;
     const currentModLabel = stats?.courses?.[selectedCourse]?.unlockedNodes?.[stats.courses[selectedCourse].unlockedNodes.length - 1] || 1;
 
+    if (selectedModuleNode) {
+        const moduleLessons = selectedModuleNode.moduleLessons || [];
+
+        return (
+            <div className="unified-learning-path">
+                <div className="learning-path-wrapper module-map-wrapper">
+                    <button className="back-btn" onClick={() => setSelectedModuleNode(null)}>
+                        <i className="fa-solid fa-arrow-left"></i> Kurs xaritasiga qaytish
+                    </button>
+
+                    <header className="module-map-header">
+                        <div>
+                            <p className="lp-header-subtitle">{currentCourseData.title} / {selectedModuleNode.meta}</p>
+                            <h1 className="lp-header-title">{selectedModuleNode.title}</h1>
+                            <p className="lp-header-desc">
+                                Modul ichidagi nazariya va amaliy darslar xaritasi. Darsni boshlash uchun ochiq bosqichni tanlang.
+                            </p>
+                        </div>
+                        <div className="module-map-rating">
+                            {renderStars(selectedModuleNode.score, selectedModuleNode.status)}
+                        </div>
+                    </header>
+
+                    <section className="module-lesson-map" aria-label={`${selectedModuleNode.title} darslari`}>
+                        {moduleLessons.map((lesson, index) => {
+                            const isCompleted = selectedModuleNode.status === 'completed';
+                            const isFirst = index === 0;
+                            const lessonStatus = isCompleted ? 'completed' : (isFirst ? 'current' : 'open');
+
+                            return (
+                                <div key={lesson.id} className={`module-map-step module-map-step-${lessonStatus}`}>
+                                    <div className="module-map-connector" aria-hidden="true"></div>
+                                    <button
+                                        type="button"
+                                        className="module-map-node"
+                                        onClick={() => onNodeClick(selectedCourse, selectedModuleNode.id)}
+                                    >
+                                        <span className="module-map-node-index">{index + 1}</span>
+                                        <i className={`fa-solid ${lesson.icon}`}></i>
+                                    </button>
+                                    <div className="module-map-card">
+                                        <span className="module-map-badge">
+                                            {lesson.id.startsWith('theory') ? 'Nazariya' : 'Amaliyot'}
+                                        </span>
+                                        <h3>{lesson.label}</h3>
+                                        <p>
+                                            {lesson.id.startsWith('theory')
+                                                ? 'Mavzuning asosiy qoidalarini o\'rganing.'
+                                                : 'Bilimingizni savol va kod topshiriqlari bilan mustahkamlang.'}
+                                        </p>
+                                        <button
+                                            type="button"
+                                            className="lp-btn lp-btn-primary lp-btn-sm"
+                                            onClick={() => onNodeClick(selectedCourse, selectedModuleNode.id)}
+                                        >
+                                            {isCompleted ? 'Qayta ko\'rish' : 'Darsni boshlash'}
+                                        </button>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </section>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="unified-learning-path">
             <div className="learning-path-wrapper">
@@ -183,7 +257,7 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                                         <div 
                                             className={`node-circle-btn`} 
                                             onClick={() => {
-                                                if(node.status !== 'locked' && !node.isBoss) setPreviewNode(node);
+                                                if(node.status !== 'locked' && !node.isBoss) openModuleMap(node);
                                                 if(node.status !== 'locked' && node.isBoss && onBossStart) onBossStart(node.bossData);
                                             }}
                                         >
@@ -225,7 +299,7 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                                                                 disabled={node.status === 'locked'}
                                                                 onClick={(e) => {
                                                                     e.stopPropagation();
-                                                                    if (node.status !== 'locked') setPreviewNode(node);
+                                                                    if (node.status !== 'locked') openModuleMap(node);
                                                                 }}
                                                             >
                                                                 <i className={`fa-solid ${lesson.icon}`}></i>
@@ -240,8 +314,8 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                                             )}
                                             
                                             <div className="j-actions">
-                                                {node.status === 'completed' && <button className="lp-btn lp-btn-secondary lp-btn-sm" onClick={(e) => { e.stopPropagation(); setPreviewNode(node); }}>Qayta ko‘rish</button>}
-                                                {(node.status === 'current' || node.status === 'unlocked') && <button className="lp-btn lp-btn-primary lp-btn-sm" onClick={(e) => { e.stopPropagation(); onNodeClick(selectedCourse, node.id); }}>Davom etish</button>}
+                                                {node.status === 'completed' && <button className="lp-btn lp-btn-secondary lp-btn-sm" onClick={(e) => { e.stopPropagation(); openModuleMap(node); }}>Qayta ko‘rish</button>}
+                                                {(node.status === 'current' || node.status === 'unlocked') && <button className="lp-btn lp-btn-primary lp-btn-sm" onClick={(e) => { e.stopPropagation(); openModuleMap(node); }}>Davom etish</button>}
                                                 {node.status === 'challenge' && <button className="lp-btn lp-btn-danger lp-btn-sm" onClick={(e) => { e.stopPropagation(); if(onBossStart) onBossStart(node.bossData); }}>Jangni boshlash</button>}
                                             </div>
 
@@ -306,8 +380,7 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                         </div>
                         <div className="preview-footer">
                             <button className="lp-btn lp-btn-primary preview-start-btn" onClick={() => {
-                                onNodeClick(selectedCourse, previewNode.id);
-                                setPreviewNode(null);
+                                openModuleMap(previewNode);
                             }}>
                                 Boshlash
                             </button>

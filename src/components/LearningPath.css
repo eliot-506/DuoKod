@@ -487,6 +487,159 @@
     color: #16a34a !important;
 }
 
+.module-map-wrapper {
+    max-width: 980px;
+}
+
+.module-map-header {
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid rgba(255, 255, 255, 0.86);
+    border-radius: 32px;
+    padding: 38px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 28px;
+    box-shadow: 0 30px 80px rgba(15, 23, 42, 0.12);
+    margin-bottom: 34px;
+}
+
+.module-map-rating {
+    flex: 0 0 auto;
+    min-width: 150px;
+    padding: 18px;
+    border-radius: 18px;
+    background: rgba(248, 250, 252, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.module-map-rating .module-stars {
+    margin: 0;
+    justify-content: center;
+}
+
+.module-lesson-map {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 28px 0 40px;
+}
+
+.module-map-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: 22px;
+    align-items: center;
+}
+
+.module-map-connector {
+    position: absolute;
+    left: 43px;
+    top: 50%;
+    bottom: -48px;
+    width: 8px;
+    border-radius: 999px;
+    background: rgba(37, 99, 235, 0.2);
+    z-index: 0;
+}
+
+.module-map-step:last-child .module-map-connector {
+    display: none;
+}
+
+.module-map-node {
+    position: relative;
+    z-index: 1;
+    width: 88px;
+    height: 88px;
+    border: 6px solid #bfdbfe;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #2563eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 18px 36px rgba(37, 99, 235, 0.18);
+    transition: all 0.25s ease;
+}
+
+.module-map-node:hover {
+    transform: translateY(-4px) scale(1.03);
+    border-color: #2563eb;
+}
+
+.module-map-node i {
+    font-size: 1.5rem;
+}
+
+.module-map-node-index {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 950;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.module-map-step-completed .module-map-node {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #93c5fd;
+}
+
+.module-map-step-current .module-map-node {
+    box-shadow: 0 0 0 12px rgba(37, 99, 235, 0.12), 0 18px 36px rgba(37, 99, 235, 0.18);
+}
+
+.module-map-card {
+    background: rgba(255, 255, 255, 0.84);
+    border: 1px solid rgba(255, 255, 255, 0.86);
+    border-left: 8px solid #2563eb;
+    border-radius: 22px;
+    padding: 24px;
+    color: #0f172a;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.1);
+}
+
+.module-map-badge {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+}
+
+.module-map-card h3 {
+    margin: 0 0 8px;
+    font-size: 1.35rem;
+    font-weight: 950;
+    color: #0f172a;
+}
+
+.module-map-card p {
+    margin: 0 0 18px;
+    color: #475569;
+    font-weight: 600;
+    line-height: 1.55;
+}
+
 .lp-btn-sm { padding: 10px 20px; font-size: 0.9rem; border-radius: 12px; width: auto !important; cursor: pointer; }
 .lp-btn-primary { 
     background: linear-gradient(135deg, #6366f1, #8b5cf6);
@@ -565,6 +718,8 @@
     .side-left .timeline-card-wrapper { left: 120px; }
     .side-right .timeline-card-wrapper { right: 120px; }
     .module-lesson-list { grid-template-columns: 1fr; }
+    .module-map-header { flex-direction: column; }
+    .module-map-rating { width: 100%; }
 }
 
 @media (max-width: 768px) {
@@ -573,4 +728,12 @@
     .timeline-row { flex-direction: column; }
     .timeline-row::after, .timeline-row::before { display: none; }
     .module-lesson-pill { font-size: 0.74rem; }
+    .module-map-header { padding: 26px; border-radius: 24px; }
+    .module-map-step { grid-template-columns: 64px minmax(0, 1fr); gap: 14px; }
+    .module-map-node { width: 64px; height: 64px; border-width: 5px; }
+    .module-map-node i { font-size: 1.1rem; }
+    .module-map-connector { left: 31px; bottom: -42px; }
+    .module-map-card { padding: 18px; border-radius: 18px; }
+    .module-map-card h3 { font-size: 1.05rem; }
+    .module-map-card p { font-size: 0.9rem; }
 }
