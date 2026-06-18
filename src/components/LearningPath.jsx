@@ -48,12 +48,12 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
     const getModuleLessons = (node) => {
         const theoryLessons = (node.theory || []).map((_, index) => ({
             id: `theory-${index}`,
-            label: `Nazariya ${index + 1}`,
+            label: `Kashfiyot ${index + 1}`,
             icon: 'fa-book-open'
         }));
         const practiceLessons = (node.questions || []).map((question, index) => ({
             id: question.id || `practice-${index}`,
-            label: `Dars ${index + 1}`,
+            label: `Sinov ${index + 1}`,
             icon: question.type === 'code-write' || question.type === 'code-fix' ? 'fa-code' : 'fa-circle-question'
         }));
 
@@ -171,7 +171,7 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                                     </button>
                                     <div className="module-map-card">
                                         <span className="module-map-badge">
-                                            {lesson.id.startsWith('theory') ? 'Nazariya' : 'Amaliyot'}
+                                            {lesson.id.startsWith('theory') ? 'Kashfiyot' : 'Sinov'}
                                         </span>
                                         <h3>{lesson.label}</h3>
                                         <p>
@@ -366,11 +366,11 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                             <div className="preview-stats-panel">
                                 <div className="p-stat">
                                     <span className="p-val">{previewNode.theory?.length || 0} ta</span>
-                                    <span className="p-key">Nazariya</span>
+                                    <span className="p-key">Kashfiyot</span>
                                 </div>
                                 <div className="p-stat">
                                     <span className="p-val">{previewNode.questions?.length || 0} ta</span>
-                                    <span className="p-key">Amaliyot</span>
+                                    <span className="p-key">Sinov</span>
                                 </div>
                                 <div className="p-stat target-xp">
                                     <span className="p-val">+{previewNode.questions?.length * 5 || 15} XP</span>

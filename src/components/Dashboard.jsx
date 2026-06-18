@@ -94,7 +94,7 @@ function Dashboard({ onNavigate }) {
             <div className="next-lesson-tile">
               <span className="tile-label">Keyingi dars</span>
               <h3>{nextLesson?.title || 'Darsni boshlash'}</h3>
-              <p>{nextLesson?.desc || 'Nazariya va amaliy savollar orqali XP yigʻing.'}</p>
+              <p>{nextLesson?.desc || 'Kashfiyot va sinovlar orqali XP yigʻing.'}</p>
               <button className="tile-primary-btn" onClick={() => onNavigate('map')}>Darsga o'tish</button>
             </div>
 
