@@ -48,12 +48,12 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
     const getModuleLessons = (node) => {
         const theoryLessons = (node.theory || []).map((_, index) => ({
             id: `theory-${index}`,
-            label: `Kashfiyot ${index + 1}`,
+            label: `${index + 1}-bosqich`,
             icon: 'fa-book-open'
         }));
         const practiceLessons = (node.questions || []).map((question, index) => ({
             id: question.id || `practice-${index}`,
-            label: `Sinov ${index + 1}`,
+            label: `${theoryLessons.length + index + 1}-bosqich`,
             icon: question.type === 'code-write' || question.type === 'code-fix' ? 'fa-code' : 'fa-circle-question'
         }));
 
@@ -76,8 +76,8 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
         if (boss.isFinalBoss || boss.title.includes('Final') || boss.title.includes('Terror')) return 'Yakuniy challenge';
         const fp = boss.title.split(' ')[0];
         if(fp === 'Conditional') return 'Mantiqiy challenge';
-        if(fp === 'Loop') return 'Takrorlash sinovi';
-        if(fp === 'Variable') return 'Sonlar sinovi';
+        if(fp === 'Loop') return 'Takrorlash challenge';
+        if(fp === 'Variable') return 'Sonlar challenge';
         return `${fp} challenge`;
     };
 
@@ -115,7 +115,7 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
             MODULE_NODES.push({
                 id: `boss_${l.id}`,
                 title: getBossDisplayName(boss),
-                desc: boss.isFinalBoss ? 'Kurs bo\'yicha barcha bilimlarni sinash' : 'Modul bo\'yicha amaliy mashqlar va sinovlar',
+                desc: boss.isFinalBoss ? 'Kurs bo\'yicha barcha bilimlarni tekshirish' : 'Modul bo\'yicha amaliy mashqlar',
                 isBoss: true,
                 status: bStatus,
                 meta: 'Challenge',
@@ -170,9 +170,6 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                                         <i className={`fa-solid ${lesson.icon}`}></i>
                                     </button>
                                     <div className="module-map-card">
-                                        <span className="module-map-badge">
-                                            {lesson.id.startsWith('theory') ? 'Kashfiyot' : 'Sinov'}
-                                        </span>
                                         <h3>{lesson.label}</h3>
                                         <p>
                                             {lesson.id.startsWith('theory')
@@ -290,25 +287,15 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                                             {!node.isBoss && (
                                                 <>
                                                     {renderStars(node.score, node.status)}
-                                                    <div className="module-lesson-list">
-                                                        {node.moduleLessons.map((lesson, lessonIndex) => (
-                                                            <button
-                                                                key={lesson.id}
-                                                                type="button"
-                                                                className="module-lesson-pill"
-                                                                disabled={node.status === 'locked'}
-                                                                onClick={(e) => {
-                                                                    e.stopPropagation();
-                                                                    if (node.status !== 'locked') openModuleMap(node);
-                                                                }}
-                                                            >
-                                                                <i className={`fa-solid ${lesson.icon}`}></i>
-                                                                <span>{lesson.label}</span>
-                                                                {node.status === 'completed' && lessonIndex === node.moduleLessons.length - 1 && (
-                                                                    <i className="fa-solid fa-check lesson-pill-check"></i>
-                                                                )}
-                                                            </button>
-                                                        ))}
+                                                    <div className="module-overview" aria-label={`${node.moduleLessons.length} ta bosqich`}>
+                                                        <span className="module-overview-icon">
+                                                            <i className="fa-solid fa-layer-group"></i>
+                                                        </span>
+                                                        <span className="module-overview-copy">
+                                                            <strong>{node.moduleLessons.length} ta bosqich</strong>
+                                                            <small>Nazariya va amaliy topshiriqlar</small>
+                                                        </span>
+                                                        <i className="fa-solid fa-arrow-right module-overview-arrow"></i>
                                                     </div>
                                                 </>
                                             )}
@@ -366,11 +353,11 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                             <div className="preview-stats-panel">
                                 <div className="p-stat">
                                     <span className="p-val">{previewNode.theory?.length || 0} ta</span>
-                                    <span className="p-key">Kashfiyot</span>
+                                    <span className="p-key">Nazariya</span>
                                 </div>
                                 <div className="p-stat">
                                     <span className="p-val">{previewNode.questions?.length || 0} ta</span>
-                                    <span className="p-key">Sinov</span>
+                                    <span className="p-key">Topshiriq</span>
                                 </div>
                                 <div className="p-stat target-xp">
                                     <span className="p-val">+{previewNode.questions?.length * 5 || 15} XP</span>
