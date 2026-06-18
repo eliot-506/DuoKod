@@ -30,10 +30,10 @@ const defaultUserStats = {
         css: { syntax: 0, styling: 0 }
     },
     courses: {
-        html: { completedNodes: [], unlockedNodes: [1] },
-        css: { completedNodes: [], unlockedNodes: [1] },
-        js: { completedNodes: [], unlockedNodes: [1] },
-        python: { completedNodes: [], unlockedNodes: [1] }
+        html: { completedNodes: [], unlockedNodes: [1], lessonScores: {} },
+        css: { completedNodes: [], unlockedNodes: [1], lessonScores: {} },
+        js: { completedNodes: [], unlockedNodes: [1], lessonScores: {} },
+        python: { completedNodes: [], unlockedNodes: [1], lessonScores: {} }
     }
 };
 
@@ -72,6 +72,7 @@ const syncProfileToSupabase = async (userId, data) => {
                 course_id: courseId,
                 completed_nodes: data.courses[courseId].completedNodes,
                 unlocked_nodes: data.courses[courseId].unlockedNodes,
+                lesson_scores: data.courses[courseId].lessonScores || {},
                 updated_at: new Date().toISOString()
             }, { onConflict: 'user_id,course_id' });
         }
@@ -93,7 +94,8 @@ const loadProfileFromSupabase = async (userId) => {
             courseData.forEach(cp => {
                 courses[cp.course_id] = {
                     completedNodes: cp.completed_nodes || [],
-                    unlockedNodes: cp.unlocked_nodes || [1]
+                    unlockedNodes: cp.unlocked_nodes || [1],
+                    lessonScores: cp.lesson_scores || {}
                 };
             });
         }
@@ -135,6 +137,13 @@ export const UserProvider = ({ children }) => {
                 if (parsed.hearts < 10) parsed.hearts = 50;
                 if (!parsed.courses) parsed.courses = defaultUserStats.courses;
                 if (!parsed.courses.python) parsed.courses.python = defaultUserStats.courses.python;
+                Object.keys(defaultUserStats.courses).forEach(courseId => {
+                    parsed.courses[courseId] = {
+                        ...defaultUserStats.courses[courseId],
+                        ...(parsed.courses[courseId] || {}),
+                        lessonScores: parsed.courses[courseId]?.lessonScores || {}
+                    };
+                });
                 // Faqat oddiy foydalanuvchilar uchun Pythonga majburan o'tkazamiz
                 // Admin va super_admin uchun hamma kurslar ochiq
                 const isAdmin = parsed.role === 'admin' || parsed.role === 'super_admin';
@@ -282,14 +291,22 @@ export const UserProvider = ({ children }) => {
         });
     };
 
-    const completeNode = (nodeId, nextNodeId) => {
+    const completeNode = (nodeId, nextNodeId, score = null) => {
         setStats(prev => {
             const newStats = { ...prev };
             const courseId = newStats.currentCourse;
-            const courseData = { ...newStats.courses[courseId] };
+            const courseData = {
+                ...newStats.courses[courseId],
+                lessonScores: { ...(newStats.courses[courseId]?.lessonScores || {}) }
+            };
 
             if (!courseData.completedNodes.includes(nodeId)) courseData.completedNodes.push(nodeId);
             if (nextNodeId && !courseData.unlockedNodes.includes(nextNodeId)) courseData.unlockedNodes.push(nextNodeId);
+            if (score !== null && Number.isFinite(score)) {
+                const roundedScore = Math.max(0, Math.min(100, Math.round(score)));
+                const previousBest = courseData.lessonScores[nodeId] || 0;
+                courseData.lessonScores[nodeId] = Math.max(previousBest, roundedScore);
+            }
 
             const totalCourseNodes = COURSES[courseId].data.length;
             if (courseData.completedNodes.length >= totalCourseNodes) {

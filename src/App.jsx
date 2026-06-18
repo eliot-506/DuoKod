@@ -53,10 +53,10 @@ function App() {
     setCurrentView('map')
   }
 
-  const handleCompleteLesson = (wasCorrect) => {
+  const handleCompleteLesson = (wasCorrect, score = 0) => {
     if (wasCorrect && activeLessonId) {
       addXp(15)
-      completeNode(activeLessonId, activeLessonId + 1)
+      completeNode(activeLessonId, activeLessonId + 1, score)
       updateStreak()
       setEarnedXp(15)
       setShowXpAnim(true)

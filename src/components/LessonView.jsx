@@ -128,9 +128,14 @@ function LessonView({ onComplete, onExit, lessonId }) {
                 setHintLevel(0);
             }
         } else if (phase === 'results') {
-            onComplete(true);
+            onComplete(true, getFinalScore());
         }
     }
+
+    const getFinalScore = () => {
+        const totalQuestions = activeQuestions.length || 1;
+        return Math.max(0, 100 - (mistakes * (100 / totalQuestions)));
+    };
 
     const renderTheory = () => (
         <div className="theory-container">
@@ -220,8 +225,7 @@ function LessonView({ onComplete, onExit, lessonId }) {
     }
 
     const renderResults = () => {
-        const totalQuestions = activeQuestions.length;
-        const score = Math.max(0, 100 - (mistakes * (100 / totalQuestions)));
+        const score = getFinalScore();
         
         let robotState = 'happy';
         let message = "Ajoyib natija! Barcha savollarga to'g'ri javob berdingiz!";

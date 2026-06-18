@@ -17,6 +17,48 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
         return 'locked';
     }
 
+    const getLessonScore = (nodeId, status) => {
+        const savedScore = stats?.courses?.[selectedCourse]?.lessonScores?.[nodeId];
+        if (Number.isFinite(savedScore)) return savedScore;
+        return status === 'completed' ? 100 : 0;
+    };
+
+    const getStarsByScore = (score) => {
+        if (score >= 85) return 3;
+        if (score >= 70) return 2;
+        if (score >= 60) return 1;
+        return 0;
+    };
+
+    const renderStars = (score, status) => {
+        const stars = getStarsByScore(score);
+        const label = status === 'completed' ? `${Math.round(score)}% natija` : 'Dars tugagach ochiladi';
+
+        return (
+            <div className={`module-stars stars-${stars}`} aria-label={label} title={label}>
+                {[1, 2, 3].map(star => (
+                    <span key={star} className={star <= stars ? 'star-filled' : 'star-empty'}>★</span>
+                ))}
+                <span className="module-score">{status === 'completed' ? `${Math.round(score)}%` : '0%'}</span>
+            </div>
+        );
+    };
+
+    const getModuleLessons = (node) => {
+        const theoryLessons = (node.theory || []).map((_, index) => ({
+            id: `theory-${index}`,
+            label: `Nazariya ${index + 1}`,
+            icon: 'fa-book-open'
+        }));
+        const practiceLessons = (node.questions || []).map((question, index) => ({
+            id: question.id || `practice-${index}`,
+            label: `Dars ${index + 1}`,
+            icon: question.type === 'code-write' || question.type === 'code-fix' ? 'fa-code' : 'fa-circle-question'
+        }));
+
+        return [...theoryLessons, ...practiceLessons];
+    };
+
     const currentCourseData = COURSES[selectedCourse];
     if (!currentCourseData) return null;
 
@@ -41,6 +83,8 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
             ...l,
             isBoss: false,
             status: s,
+            score: getLessonScore(l.id, s),
+            moduleLessons: getModuleLessons(l),
             meta: `${i + 1}-modul`,
             statusLabel: stLabel,
             desc: l.desc || 'Asosiy tushunchalar bilan tanishuv'
@@ -168,6 +212,32 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                                             </div>
                                             <h3 className="j-title">{node.title}</h3>
                                             <p className="j-desc">{node.desc}</p>
+
+                                            {!node.isBoss && (
+                                                <>
+                                                    {renderStars(node.score, node.status)}
+                                                    <div className="module-lesson-list">
+                                                        {node.moduleLessons.map((lesson, lessonIndex) => (
+                                                            <button
+                                                                key={lesson.id}
+                                                                type="button"
+                                                                className="module-lesson-pill"
+                                                                disabled={node.status === 'locked'}
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    if (node.status !== 'locked') setPreviewNode(node);
+                                                                }}
+                                                            >
+                                                                <i className={`fa-solid ${lesson.icon}`}></i>
+                                                                <span>{lesson.label}</span>
+                                                                {node.status === 'completed' && lessonIndex === node.moduleLessons.length - 1 && (
+                                                                    <i className="fa-solid fa-check lesson-pill-check"></i>
+                                                                )}
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </>
+                                            )}
                                             
                                             <div className="j-actions">
                                                 {node.status === 'completed' && <button className="lp-btn lp-btn-secondary lp-btn-sm" onClick={(e) => { e.stopPropagation(); setPreviewNode(node); }}>Qayta ko‘rish</button>}
