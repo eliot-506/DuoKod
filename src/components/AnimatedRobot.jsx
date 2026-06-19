@@ -2,11 +2,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useRobot } from '../context/RobotContext';
 import './AnimatedRobot.css';
 
-// state turlari: 'idle', 'happy', 'excited', 'thinking', 'confused', 'sad', 'wrong', 'celebration', 'sleepy'
-function AnimatedRobot({ isFloating = false, customState, className = '' }) {
+// state turlari: idle, walk, run, wave, happy, excited, thinking, sad, celebration, sleepy
+function AnimatedRobot({ isFloating = false, customState, state: stateProp, className = '' }) {
     const context = useRobot();
     
-    const state = isFloating && context ? context.robotState.mood : (customState || 'idle');
+    const state = isFloating && context ? context.robotState.mood : (customState || stateProp || 'idle');
     const message = isFloating && context ? context.robotState.message : null;
     const showBubble = isFloating && context ? context.robotState.showBubble : false;
     const isVisible = isFloating && context ? context.robotState.isVisible : true;
@@ -17,6 +17,11 @@ function AnimatedRobot({ isFloating = false, customState, className = '' }) {
         idle: '/assets/mascots/idle.png',
         happy: '/assets/mascots/happy.png',
         excited: '/assets/mascots/rizz.png',
+        run: '/assets/mascots/idle.png',
+        walk: '/assets/mascots/idle.png',
+        wave: '/assets/mascots/invite.png',
+        greeting: '/assets/mascots/invite.png',
+        invite: '/assets/mascots/invite.png',
         thinking: '/assets/mascots/hint.png',
         confused: '/assets/mascots/hint.png',
         sad: '/assets/mascots/sad.png',
@@ -77,6 +82,24 @@ function AnimatedRobot({ isFloating = false, customState, className = '' }) {
             y: [0, 10, 0],
             rotate: [0, 5, 0],
             transition: { duration: 4, repeat: Infinity, ease: 'easeInOut' }
+        },
+        walk_cycle: {
+            x: [0, -28, -56, -28, 0],
+            y: [0, -4, 0, -4, 0],
+            rotate: [0, -3, 2, -3, 0],
+            transition: { duration: 3.2, repeat: Infinity, ease: 'linear' }
+        },
+        run_cycle: {
+            x: [0, -75, 0],
+            y: [0, -12, 0],
+            rotate: [0, -7, 0],
+            scaleX: [1, 0.96, 1],
+            transition: { duration: 1.35, repeat: Infinity, ease: 'easeInOut' }
+        },
+        wave_motion: {
+            y: [0, -6, 0],
+            rotate: [0, -5, 4, -5, 0],
+            transition: { duration: 1.15, repeat: Infinity, ease: 'easeInOut' }
         }
     };
 
@@ -87,6 +110,9 @@ function AnimatedRobot({ isFloating = false, customState, className = '' }) {
     if (state === 'confused') loopingAnimation = "confused_tilt";
     if (state === 'celebration') loopingAnimation = "celebration_spin";
     if (state === 'sleepy') loopingAnimation = "sleepy_nod";
+    if (state === 'walk') loopingAnimation = "walk_cycle";
+    if (state === 'run' || state === 'excited') loopingAnimation = "run_cycle";
+    if (state === 'wave' || state === 'greeting' || state === 'invite') loopingAnimation = "wave_motion";
 
     // Status particles
     const renderParticles = () => {
@@ -160,7 +186,7 @@ function AnimatedRobot({ isFloating = false, customState, className = '' }) {
                         whileTap={{ scale: 0.95 }}
                         onClick={() => {
                             if (isFloating && context) {
-                                context.triggerRobot('happy', 'Qanday yordam bera olaman? 😊', 3000);
+                                context.triggerRobot('wave', 'Salom! Birgalikda kod yozamiz! 😊', 3200);
                             }
                         }}
                     />

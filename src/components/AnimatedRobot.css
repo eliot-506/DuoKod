@@ -29,10 +29,32 @@
 }
 
 .floating-robot-wrapper .robot-container {
-  width: 90px;
-  height: 90px;
+  width: 105px;
+  height: 140px;
   cursor: pointer;
   pointer-events: auto;
+}
+
+.robot-container.state-walk .robot-shadow-element,
+.robot-container.state-run .robot-shadow-element,
+.robot-container.state-excited .robot-shadow-element {
+  animation: robot-step-shadow 0.45s ease-in-out infinite alternate;
+}
+
+.robot-container.state-wave .robot-mascot-image,
+.robot-container.state-greeting .robot-mascot-image,
+.robot-container.state-invite .robot-mascot-image {
+  transform-origin: 55% 75%;
+}
+
+@keyframes robot-step-shadow {
+  from { transform: scaleX(1); opacity: 0.28; }
+  to { transform: scaleX(0.65); opacity: 0.12; }
+}
+
+@media (max-width: 700px) {
+  .floating-robot-wrapper { right: 10px; bottom: 76px; }
+  .floating-robot-wrapper .robot-container { width: 78px; height: 108px; }
 }
 
 /* Base Shadow */
