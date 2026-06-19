@@ -14,10 +14,11 @@ const LESSONS_COUNT = { html: 12, css: 10, js: 15, python: 11 };
 function CourseSelector({ onSelectCourse }) {
     const { stats, switchCourse, isAdmin } = useUser();
     const courseIds = Object.keys(COURSES);
+    const hasPremiumAccess = isAdmin || stats?.isPremium;
 
     const handleCourseClick = (courseId) => {
         switchCourse(courseId);
-        onSelectCourse();
+        onSelectCourse(courseId);
     };
 
     const getProgress = (courseId) => {
@@ -31,8 +32,8 @@ function CourseSelector({ onSelectCourse }) {
             {/* Header */}
             <div className="csel-header">
                 <p className="csel-eyebrow">DuoKod Platform</p>
-                <h1 className="csel-title">Siz nima o'rganmoqchisiz?</h1>
-                <p className="csel-subtitle">O'zingizga mos yo'nalishni tanlang va bugunoq boshlang</p>
+                <h1 className="csel-title">Qaysi dasturlash tilini o'rganasiz?</h1>
+                <p className="csel-subtitle">Tilni tanlang va o'quv xaritasi bo'ylab boshlang</p>
             </div>
 
             {/* 2×2 grid */}
@@ -40,7 +41,7 @@ function CourseSelector({ onSelectCourse }) {
                 {courseIds.map((id) => {
                     const course = COURSES[id];
                     const meta = COURSE_META[id] || {};
-                    const isLocked = !isAdmin && id !== 'python';
+                    const isLocked = !hasPremiumAccess && id !== 'python';
                     const isActive = stats?.currentCourse === id;
                     const progress = getProgress(id);
                     const lessons = LESSONS_COUNT[id] || 10;
