@@ -18,7 +18,6 @@ import XpAnimation from './components/XpAnimation'
 import Library from './components/Library'
 import BossFight from './components/BossFight'
 import Premium from './components/Premium'
-import AnimatedRobot from './components/AnimatedRobot'
 import { useUser } from './context/UserContext'
 import { useRobot } from './context/RobotContext'
 import { BOSS_DATA } from './data/bossData'
@@ -171,8 +170,6 @@ function App() {
       )}
 
       {showXpAnim && <XpAnimation xpAmount={earnedXp} onComplete={() => setShowXpAnim(false)} />}
-
-      {!['lesson', 'certificate', 'boss', 'duel', 'project'].includes(currentView) && <AnimatedRobot isFloating />}
 
       {!['lesson','courses','certificate','project','library','boss'].includes(currentView) && (
         <BottomNav currentTab={currentView} onTabSwitch={setCurrentView} />

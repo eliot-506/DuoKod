@@ -137,8 +137,3 @@
     50% { transform: translateX(5px) rotate(5deg); }
     75% { transform: translateX(-5px) rotate(-5deg); }
 }
-
-.mascot-avatar .robot-container {
-    width: 100%;
-    height: 100%;
-}

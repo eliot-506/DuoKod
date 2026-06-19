@@ -19,12 +19,7 @@ function Mascot({ state = 'default', message }) {
     else if (state === 'sad') robotState = 'sad';
     else if (state === 'greeting') robotState = 'greeting';
     else if (state === 'invite') robotState = 'invite';
-    else if (state === 'thinking') robotState = 'thinking';
-    else if (state === 'excited') robotState = 'run';
-    else if (state === 'celebration') robotState = 'celebration';
-    else if (state === 'walk') robotState = 'walk';
-    else if (state === 'run') robotState = 'run';
-    else if (state === 'wave') robotState = 'wave';
+    else if (state === 'thinking') robotState = 'idle'; // for now
 
     return (
         <div className={`mascot-container ${state}`}>

@@ -1,12 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 const RobotContext = createContext();
-const IDLE_ACTIONS = [
-    { mood: 'wave', message: 'Salom! Davom etishga tayyormisiz?' },
-    { mood: 'walk', message: 'Keyingi bosqichga birga yuramiz!' },
-    { mood: 'thinking', message: 'Qiyin savol bo‘lsa, maslahat beraman.' },
-    { mood: 'run', message: 'Bugun tezroq yangi natijaga erishamiz!' }
-];
 
 export function RobotProvider({ children }) {
     const [robotState, setRobotState] = useState({
@@ -19,7 +13,6 @@ export function RobotProvider({ children }) {
     // Timer refs
     const messageTimer = React.useRef(null);
     const idleTimer = React.useRef(null);
-    const idleActionIndex = React.useRef(0);
 
     const triggerRobot = useCallback((mood, message, duration = 4000) => {
         if (!robotState.isVisible) return;
@@ -46,11 +39,9 @@ export function RobotProvider({ children }) {
         clearTimeout(idleTimer.current);
         idleTimer.current = setTimeout(() => {
             if (robotState.isVisible && !robotState.showBubble) {
-                const action = IDLE_ACTIONS[idleActionIndex.current % IDLE_ACTIONS.length];
-                idleActionIndex.current += 1;
-                triggerRobot(action.mood, action.message, 4000);
+                triggerRobot('sleepy', "Uzoq o‘ylanib qoldingizmi? Yordam kerak bo'lsa ayting!", 5000);
             }
-        }, 18000);
+        }, 30000); // 30 seconds of inactivity triggers a hint
     }, [robotState.isVisible, robotState.showBubble, triggerRobot]);
 
     // Setup global listeners for idle detection

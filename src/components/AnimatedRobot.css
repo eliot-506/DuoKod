@@ -1,92 +1,94 @@
-.robot-container { position: relative; width: 140px; height: 155px; display: flex; align-items: center; justify-content: center; z-index: 100; }
-.robot-stage { position: relative; width: 100%; height: 100%; cursor: pointer; transform-origin: center bottom; }
-.robot-svg { width: 100%; height: 100%; overflow: visible; }
-.robot-head,.robot-body,.robot-arm,.robot-leg,.robot-antenna { transform-box: fill-box; }
-.robot-head { transform-origin: center bottom; }
-.robot-body { transform-origin: center center; }
-.robot-arm-left { transform-origin: 75% 16%; }
-.robot-arm-right { transform-origin: 25% 16%; }
-.robot-leg-left,.robot-leg-right { transform-origin: center 10%; }
-.robot-eye { transform-box: fill-box; transform-origin: center; animation: robotBlink 4.5s infinite; }
-.robot-mouth-sad { opacity: 0; }
-.robot-antenna-light { animation: antennaPulse 1.7s ease-in-out infinite; }
-.robot-shadow-element { position: absolute; bottom: -3px; width: 66%; height: 12px; border-radius: 50%; background: radial-gradient(ellipse,rgba(15,23,42,.28),transparent 70%); animation: shadowBreath 3s ease-in-out infinite; }
+.robot-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 100;
+  width: 120px;
+  height: 120px;
+}
 
-.state-idle .robot-stage { animation: robotFloat 3.2s ease-in-out infinite; }
-.state-idle .robot-arm-left { animation: armIdleLeft 3.2s ease-in-out infinite; }
-.state-idle .robot-arm-right { animation: armIdleRight 3.2s ease-in-out infinite; }
-.state-happy .robot-stage { animation: robotHappy .72s ease-in-out infinite; }
-.state-happy .robot-arm-left { animation: happyArmLeft .72s ease-in-out infinite; }
-.state-happy .robot-arm-right { animation: happyArmRight .72s ease-in-out infinite; }
-.state-wave .robot-stage { animation: robotFloat 2.5s ease-in-out infinite; }
-.state-wave .robot-arm-right { animation: robotWave .55s ease-in-out infinite alternate; }
-.state-wave .robot-arm-left { transform: rotate(8deg); }
-.state-walk .robot-stage { animation: walkTravel 3.8s linear infinite; }
-.state-walk .robot-leg-left { animation: walkLegLeft .52s ease-in-out infinite alternate; }
-.state-walk .robot-leg-right { animation: walkLegRight .52s ease-in-out infinite alternate; }
-.state-walk .robot-arm-left { animation: walkArmLeft .52s ease-in-out infinite alternate; }
-.state-walk .robot-arm-right { animation: walkArmRight .52s ease-in-out infinite alternate; }
-.state-run .robot-stage,.state-excited .robot-stage { animation: runTravel 1.7s ease-in-out infinite; }
-.state-run .robot-body,.state-excited .robot-body { transform: rotate(9deg); }
-.state-run .robot-leg-left,.state-excited .robot-leg-left { animation: runLegLeft .25s linear infinite alternate; }
-.state-run .robot-leg-right,.state-excited .robot-leg-right { animation: runLegRight .25s linear infinite alternate; }
-.state-run .robot-arm-left,.state-excited .robot-arm-left { animation: runArmLeft .25s linear infinite alternate; }
-.state-run .robot-arm-right,.state-excited .robot-arm-right { animation: runArmRight .25s linear infinite alternate; }
-.state-celebration .robot-stage { animation: celebrateJump .8s cubic-bezier(.2,.8,.4,1) infinite; }
-.state-celebration .robot-arm-left { animation: celebrateLeft .8s ease-in-out infinite; }
-.state-celebration .robot-arm-right { animation: celebrateRight .8s ease-in-out infinite; }
-.state-thinking .robot-head { transform: rotate(-8deg); animation: thinkingHead 2s ease-in-out infinite; }
-.state-thinking .robot-arm-right { transform: rotate(145deg) translate(-4px,2px); }
-.state-thinking .robot-eye-right { transform: scaleY(.35); }
-.state-sad .robot-head { transform: translateY(7px) rotate(5deg); }
-.state-sad .robot-arm-left { transform: rotate(18deg); }
-.state-sad .robot-arm-right { transform: rotate(-18deg); }
-.state-sad .robot-eye { transform: scaleY(.4); fill: #93c5fd; animation: none; }
-.state-sad .robot-mouth-happy { opacity: 0; }
-.state-sad .robot-mouth-sad { opacity: 1; }
-.state-sleepy .robot-head { animation: sleepyNod 2.8s ease-in-out infinite; }
-.state-sleepy .robot-eye { transform: scaleY(.12); animation: none; }
+.robot-mascot-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
+  will-change: transform, filter;
+  transition: filter 0.3s ease;
+}
 
-.robot-particles { position: absolute; inset: 0; pointer-events: none; z-index: 4; }
-.robot-particles span { position: absolute; color: #f59e0b; font-size: 20px; animation: particleRise 1.2s ease-out infinite; }
-.robot-particles span:nth-child(1) { left: 8%; top: 32%; }
-.robot-particles span:nth-child(2) { right: 4%; top: 20%; animation-delay: .25s; color: #ec4899; }
-.robot-particles span:nth-child(3) { left: 40%; top: 4%; animation-delay: .5s; color: #22d3ee; }
-.robot-thought,.robot-sleep { position: absolute; z-index: 5; right: 5px; top: 2px; font-weight: 950; color: #6366f1; font-size: 25px; animation: thoughtPop 1.5s ease-in-out infinite; }
-.robot-sleep { right: -2px; color: #64748b; font-size: 17px; }
+.floating-robot-wrapper {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: none;
+}
 
-.floating-robot-wrapper { position: fixed; right: 25px; bottom: 22px; z-index: 9999; pointer-events: none; overflow: visible; }
-.floating-robot-wrapper .robot-container { width: 110px; height: 122px; pointer-events: auto; }
-.robot-speech-bubble { position: absolute; right: 75%; bottom: 88%; width: max-content; max-width: 260px; min-width: 165px; padding: 12px 16px; border: 1px solid rgba(255,255,255,.8); border-radius: 18px 18px 4px 18px; background: rgba(255,255,255,.9); backdrop-filter: blur(18px); box-shadow: 0 15px 38px rgba(15,23,42,.14); z-index: 20; }
-.speech-text { margin: 0; color: #1e293b; font-size: .86rem; line-height: 1.4; font-weight: 700; text-align: center; }
+.floating-robot-wrapper .robot-container {
+  width: 90px;
+  height: 90px;
+  cursor: pointer;
+  pointer-events: auto;
+}
 
-@keyframes robotBlink { 0%,44%,48%,100%{transform:scaleY(1)} 46%{transform:scaleY(.08)} }
-@keyframes antennaPulse { 50%{filter:drop-shadow(0 0 8px #22d3ee);transform:scale(1.2)} }
-@keyframes shadowBreath { 50%{transform:scaleX(.78);opacity:.55} }
-@keyframes robotFloat { 50%{transform:translateY(-8px) rotate(1.5deg)} }
-@keyframes armIdleLeft { 50%{transform:rotate(8deg)} }
-@keyframes armIdleRight { 50%{transform:rotate(-8deg)} }
-@keyframes robotHappy { 50%{transform:translateY(-17px) scale(1.03)} }
-@keyframes happyArmLeft { 50%{transform:rotate(35deg)} }
-@keyframes happyArmRight { 50%{transform:rotate(-35deg)} }
-@keyframes robotWave { from{transform:rotate(-115deg)} to{transform:rotate(-155deg)} }
-@keyframes walkTravel { 0%,100%{transform:translateX(0) translateY(0)} 25%{transform:translateX(-30px) translateY(-3px)} 50%{transform:translateX(-60px)} 75%{transform:translateX(-30px) translateY(-3px)} }
-@keyframes walkLegLeft { from{transform:rotate(23deg)} to{transform:rotate(-23deg)} }
-@keyframes walkLegRight { from{transform:rotate(-23deg)} to{transform:rotate(23deg)} }
-@keyframes walkArmLeft { from{transform:rotate(-24deg)} to{transform:rotate(24deg)} }
-@keyframes walkArmRight { from{transform:rotate(24deg)} to{transform:rotate(-24deg)} }
-@keyframes runTravel { 0%,100%{transform:translateX(0) translateY(0) rotate(-4deg)} 50%{transform:translateX(-85px) translateY(-10px) rotate(4deg)} }
-@keyframes runLegLeft { from{transform:rotate(48deg)} to{transform:rotate(-48deg)} }
-@keyframes runLegRight { from{transform:rotate(-48deg)} to{transform:rotate(48deg)} }
-@keyframes runArmLeft { from{transform:rotate(-50deg)} to{transform:rotate(50deg)} }
-@keyframes runArmRight { from{transform:rotate(50deg)} to{transform:rotate(-50deg)} }
-@keyframes celebrateJump { 45%{transform:translateY(-28px) scale(1.06)} 65%{transform:translateY(-28px) rotate(5deg)} }
-@keyframes celebrateLeft { 50%{transform:rotate(145deg)} }
-@keyframes celebrateRight { 50%{transform:rotate(-145deg)} }
-@keyframes thinkingHead { 50%{transform:rotate(2deg) translateY(-3px)} }
-@keyframes sleepyNod { 45%,60%{transform:translateY(8px) rotate(7deg)} }
-@keyframes particleRise { 0%{opacity:0;transform:translateY(8px) scale(.6)} 40%{opacity:1} 100%{opacity:0;transform:translateY(-35px) scale(1.3)} }
-@keyframes thoughtPop { 50%{transform:translateY(-7px) scale(1.15);opacity:.7} }
+/* Base Shadow */
+.robot-shadow-element {
+  position: absolute;
+  bottom: -15px;
+  width: 60%;
+  height: 10px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.25) 0%, rgba(0,0,0,0) 70%);
+  border-radius: 50%;
+  z-index: 1;
+}
 
-@media (prefers-reduced-motion: reduce) { .robot-container * { animation-duration: .001ms !important; animation-iteration-count: 1 !important; } }
-@media (max-width: 700px) { .floating-robot-wrapper { right: 12px; bottom: 78px; } .floating-robot-wrapper .robot-container { width: 82px; height: 94px; } .robot-speech-bubble { right: 55%; min-width: 145px; max-width: 200px; } }
+/* ==================================
+   SPEECH BUBBLE
+   ================================== */
+.robot-speech-bubble {
+  position: absolute;
+  bottom: 110%;
+  right: 20px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  padding: 12px 18px;
+  border-radius: 20px 20px 0 20px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+  max-width: 260px;
+  min-width: 160px;
+  pointer-events: none;
+  transform-origin: bottom right;
+  z-index: 50;
+}
+
+.speech-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1E293B;
+  margin: 0;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* Special Mood Colors */
+.robot-container.state-happy .speech-text,
+.robot-container.state-celebration .speech-text {
+  color: #059669;
+}
+.robot-container.state-wrong .speech-text {
+  color: #B91C1C;
+}
+
+/* Status Particles */
+.emotion-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
