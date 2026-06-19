@@ -15,10 +15,12 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
         if (isAdmin) return 'unlocked';
         const courseProgress = stats.courses[selectedCourse] || { completedNodes: [], unlockedNodes: [1] };
         if (courseProgress?.completedNodes.includes(nodeId)) return 'completed';
+        const lessonIndex = courses[selectedCourse]?.data?.findIndex(lesson => lesson.id === nodeId) ?? -1;
+        const previousLessonId = courses[selectedCourse]?.data?.[lessonIndex - 1]?.id;
+        const previousHasBoss = BOSS_DATA[selectedCourse]?.bosses?.some(boss => boss.moduleId === previousLessonId);
+        if (previousHasBoss && !courseProgress.completedNodes.includes(previousLessonId * 100)) return 'locked';
         if (stats?.isSuperAdmin) {
-            const lessonIndex = courses[selectedCourse]?.data?.findIndex(lesson => lesson.id === nodeId) ?? -1;
             if (lessonIndex === 0) return 'current';
-            const previousLessonId = courses[selectedCourse]?.data?.[lessonIndex - 1]?.id;
             return courseProgress.completedNodes.includes(previousLessonId) ? 'current' : 'locked';
         }
         if (courseProgress?.unlockedNodes?.includes(nodeId) || nodeId === 1) return 'current';
@@ -106,18 +108,9 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
         
         const boss = courseBosses.find(b => b.moduleId === l.id);
         if (boss) {
-            const nextModStatus = getNodeStatus(l.id + 1);
-            let bStatus = 'locked';
-            if (s === 'completed') {
-                if (nextModStatus === 'completed' || nextModStatus === 'current' || nextModStatus === 'unlocked') {
-                    bStatus = 'completed';
-                } else {
-                    bStatus = 'challenge';
-                }
-            }
-            if(isAdmin && bStatus === 'locked') {
-                 bStatus = 'challenge';
-            }
+            const bossCompleted = stats?.courses?.[selectedCourse]?.completedNodes?.includes(l.id * 100);
+            let bStatus = bossCompleted ? 'completed' : (s === 'completed' ? 'challenge' : 'locked');
+            if (isAdmin) bStatus = 'challenge';
 
             MODULE_NODES.push({
                 id: `boss_${l.id}`,
@@ -132,7 +125,10 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
         }
     });
 
-    const completedCount = stats?.courses?.[selectedCourse]?.completedNodes?.length || 0;
+    const completedNodes = stats?.courses?.[selectedCourse]?.completedNodes || [];
+    const completedCount = completedNodes.filter(nodeId => Number(nodeId) < 100).length;
+    const completedBossCount = courseBosses.filter(boss => completedNodes.includes(boss.moduleId * 100)).length;
+    const courseIsComplete = completedCount >= courseData.length && completedBossCount >= courseBosses.length;
     const totalChallenges = courseBosses.length;
     const currentModLabel = stats?.courses?.[selectedCourse]?.unlockedNodes?.[stats.courses[selectedCourse].unlockedNodes.length - 1] || 1;
 
@@ -308,7 +304,15 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                                             )}
                                             
                                             <div className="j-actions">
-                                                {node.status === 'completed' && <button className="lp-btn lp-btn-secondary lp-btn-sm" onClick={(e) => { e.stopPropagation(); openModuleMap(node); }}>Qayta ko‘rish</button>}
+                                                {node.status === 'completed' && (
+                                                    <button className="lp-btn lp-btn-secondary lp-btn-sm" onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        if (node.isBoss) onBossStart?.(node.bossData);
+                                                        else openModuleMap(node);
+                                                    }}>
+                                                        {node.isBoss ? 'Qayta jang' : 'Qayta ko‘rish'}
+                                                    </button>
+                                                )}
                                                 {(node.status === 'current' || node.status === 'unlocked') && <button className="lp-btn lp-btn-primary lp-btn-sm" onClick={(e) => { e.stopPropagation(); openModuleMap(node); }}>Davom etish</button>}
                                                 {node.status === 'challenge' && <button className="lp-btn lp-btn-danger lp-btn-sm" onClick={(e) => { e.stopPropagation(); if(onBossStart) onBossStart(node.bossData); }}>Jangni boshlash</button>}
                                             </div>
@@ -337,7 +341,7 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                     </div>
 
                     {/* Completion Actions */}
-                    {completedCount >= courseData.length && (
+                    {courseIsComplete && (
                         <div className="completion-actions">
                             <button className="lp-btn lp-btn-primary cert-btn" onClick={onClaimCertificate}>
                                 🏆 {currentCourseData.title.split(' ')[0]} Sertifikatni Olish

@@ -20,6 +20,7 @@ import BossFight from './components/BossFight'
 import Premium from './components/Premium'
 import { useUser } from './context/UserContext'
 import { useRobot } from './context/RobotContext'
+import { BOSS_DATA } from './data/bossData'
 
 import BackgroundSystem from './components/BackgroundSystem'
 
@@ -40,9 +41,12 @@ function App() {
     if (!stats.isAdmin) {
       const courseProgress = stats.courses?.[courseId] || { completedNodes: [], unlockedNodes: [1] };
       const isPythonCourse = courseId === 'python';
+      const previousModuleId = nodeId - 1;
+      const previousHasBoss = BOSS_DATA[courseId]?.bosses?.some(boss => boss.moduleId === previousModuleId);
+      const previousBossPassed = !previousHasBoss || courseProgress.completedNodes?.includes(previousModuleId * 100);
       const isAvailable = stats.isSuperAdmin
-        ? nodeId === 1 || courseProgress.completedNodes?.includes(nodeId) || courseProgress.completedNodes?.includes(nodeId - 1)
-        : nodeId === 1 || courseProgress.completedNodes?.includes(nodeId) || courseProgress.unlockedNodes?.includes(nodeId);
+        ? nodeId === 1 || courseProgress.completedNodes?.includes(nodeId) || (courseProgress.completedNodes?.includes(previousModuleId) && previousBossPassed)
+        : nodeId === 1 || courseProgress.completedNodes?.includes(nodeId) || (courseProgress.unlockedNodes?.includes(nodeId) && previousBossPassed);
       if (!isPythonCourse || !isAvailable) return;
     }
     if (!stats.isAdmin && stats.hearts <= 0) {
@@ -69,8 +73,9 @@ function App() {
       return
     }
     if (wasCorrect && activeLessonId) {
+      const hasBoss = BOSS_DATA[stats.currentCourse]?.bosses?.some(boss => boss.moduleId === activeLessonId)
       addXp(15)
-      completeNode(activeLessonId, activeLessonId + 1, score)
+      completeNode(activeLessonId, hasBoss ? null : activeLessonId + 1, score)
       updateStreak()
       setEarnedXp(15)
       setShowXpAnim(true)
@@ -84,6 +89,10 @@ function App() {
   }
 
   const handleStartBoss = (bossData) => {
+    if (!stats.isAdmin) {
+      const completedNodes = stats.courses?.[stats.currentCourse]?.completedNodes || []
+      if (!completedNodes.includes(bossData?.moduleId)) return
+    }
     setActiveBossData(bossData)
     triggerRobot('excited', "Tayyormisiz? Challenge boshlanmoqda! ⚔️", 4000)
     setCurrentView('boss')

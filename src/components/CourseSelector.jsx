@@ -24,7 +24,7 @@ function CourseSelector({ onSelectCourse }) {
 
     const getProgress = (courseId) => {
         const total = courses[courseId]?.data?.length || 1;
-        const completed = stats?.courses?.[courseId]?.completedNodes?.length || 0;
+        const completed = stats?.courses?.[courseId]?.completedNodes?.filter(nodeId => Number(nodeId) < 100).length || 0;
         return Math.floor((completed / total) * 100);
     };
 

@@ -75,7 +75,7 @@ function Profile() {
                     <div className="kpi-icon-box green"><i className="fa-solid fa-book"></i></div>
                     <span className="kpi-label">DARSLAR</span>
                     <div className="val-num">
-                        {Object.values(stats.courses).reduce((acc, course) => acc + (course.completedNodes?.length || 0), 0)}
+                        {Object.values(stats.courses).reduce((acc, course) => acc + (course.completedNodes?.filter(nodeId => Number(nodeId) < 100).length || 0), 0)}
                     </div>
                     <div className="val-sub">tugallangan darslar</div>
                 </div>

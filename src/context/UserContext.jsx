@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { COURSES } from '../data/lessons';
+import { BOSS_DATA } from '../data/bossData';
 import { supabase } from '../lib/supabase';
 
 const UserContext = createContext();
@@ -324,7 +325,11 @@ export const UserProvider = ({ children }) => {
             }
 
             const totalCourseNodes = COURSES[courseId].data.length;
-            if (courseData.completedNodes.length >= totalCourseNodes) {
+            const completedLessonCount = courseData.completedNodes.filter(id => Number(id) < 100).length;
+            const requiredBosses = BOSS_DATA[courseId]?.bosses || [];
+            const completedBossCount = requiredBosses.filter(boss => courseData.completedNodes.includes(boss.moduleId * 100)).length;
+            const courseIsComplete = completedLessonCount >= totalCourseNodes && completedBossCount >= requiredBosses.length;
+            if (courseIsComplete) {
                 if (!newStats.unlockedAvatars.includes(courseId)) newStats.unlockedAvatars.push(courseId);
                 if (courseId === 'css' && !newStats.unlockedBadges.includes('css_master')) newStats.unlockedBadges.push('css_master');
             }
