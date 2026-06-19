@@ -16,6 +16,7 @@ const paymentMethods = [
 
 function Premium({ onNavigate }) {
     const { stats, activatePremiumDemo } = useUser();
+    const hasPremiumAccess = stats.isAdmin || (!stats.isSuperAdmin && stats.isPremium);
     const premiumUntil = stats.premiumUntil ? new Date(stats.premiumUntil).toLocaleDateString('uz-UZ') : null;
 
     const handlePaymentSelect = (method) => {
@@ -33,11 +34,11 @@ function Premium({ onNavigate }) {
                     </p>
                     <div className="premium-actions">
                         <button className="premium-primary-btn" onClick={activatePremiumDemo}>
-                            {stats.isPremium ? 'Premium faol' : 'Demo Premiumni yoqish'}
+                            {hasPremiumAccess ? 'Premium faol' : 'Demo Premiumni yoqish'}
                         </button>
                         <button className="premium-secondary-btn" onClick={() => onNavigate('map')}>Kurslarni ko'rish</button>
                     </div>
-                    {stats.isPremium && (
+                    {hasPremiumAccess && (
                         <div className="premium-active-note">
                             Premium faollashtirilgan{premiumUntil ? `: ${premiumUntil} gacha` : ''}.
                         </div>

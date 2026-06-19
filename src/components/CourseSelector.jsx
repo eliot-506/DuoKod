@@ -15,7 +15,7 @@ function CourseSelector({ onSelectCourse }) {
     const { stats, switchCourse } = useUser();
     const { courses } = useCourseContent();
     const courseIds = Object.keys(courses);
-    const hasPremiumAccess = stats?.isAdmin || stats?.isPremium;
+    const hasPremiumAccess = stats?.isAdmin || (!stats?.isSuperAdmin && stats?.isPremium);
 
     const handleCourseClick = (courseId) => {
         switchCourse(courseId);

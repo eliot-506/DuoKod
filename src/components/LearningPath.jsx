@@ -9,12 +9,18 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
     const { courses } = useCourseContent()
     const [previewNode, setPreviewNode] = useState(null)
     const [selectedModuleNode, setSelectedModuleNode] = useState(null)
-    const isAdmin = stats?.isAdmin || stats?.isSuperAdmin
+    const isAdmin = Boolean(stats?.isAdmin)
 
     const getNodeStatus = (nodeId) => {
         if (isAdmin) return 'unlocked';
         const courseProgress = stats.courses[selectedCourse] || { completedNodes: [], unlockedNodes: [1] };
         if (courseProgress?.completedNodes.includes(nodeId)) return 'completed';
+        if (stats?.isSuperAdmin) {
+            const lessonIndex = courses[selectedCourse]?.data?.findIndex(lesson => lesson.id === nodeId) ?? -1;
+            if (lessonIndex === 0) return 'current';
+            const previousLessonId = courses[selectedCourse]?.data?.[lessonIndex - 1]?.id;
+            return courseProgress.completedNodes.includes(previousLessonId) ? 'current' : 'locked';
+        }
         if (courseProgress?.unlockedNodes?.includes(nodeId) || nodeId === 1) return 'current';
         return 'locked';
     }

@@ -379,7 +379,8 @@ export const UserProvider = ({ children }) => {
             return {
                 ...prev,
                 adminModeEnabled,
-                isAdmin: adminModeEnabled
+                isAdmin: adminModeEnabled,
+                currentCourse: adminModeEnabled ? prev.currentCourse : 'python'
             };
         });
     };

@@ -37,7 +37,15 @@ function App() {
   }
 
   const handleStartLesson = (courseId, nodeId) => {
-    if (stats.hearts <= 0) {
+    if (!stats.isAdmin) {
+      const courseProgress = stats.courses?.[courseId] || { completedNodes: [], unlockedNodes: [1] };
+      const isPythonCourse = courseId === 'python';
+      const isAvailable = stats.isSuperAdmin
+        ? nodeId === 1 || courseProgress.completedNodes?.includes(nodeId) || courseProgress.completedNodes?.includes(nodeId - 1)
+        : nodeId === 1 || courseProgress.completedNodes?.includes(nodeId) || courseProgress.unlockedNodes?.includes(nodeId);
+      if (!isPythonCourse || !isAvailable) return;
+    }
+    if (!stats.isAdmin && stats.hearts <= 0) {
       alert("Yurakchalaringiz tugadi! Biroz kuting yoki ta'limni davom ettirish uchun to'ldiring.");
       return;
     }
@@ -54,6 +62,12 @@ function App() {
   }
 
   const handleCompleteLesson = (wasCorrect, score = 0) => {
+    if (stats.isAdmin) {
+      setActiveLessonId(null)
+      triggerRobot('happy', "Admin preview yakunlandi. Foydalanuvchi progressi o'zgarmadi.", 3500)
+      setCurrentView('map')
+      return
+    }
     if (wasCorrect && activeLessonId) {
       addXp(15)
       completeNode(activeLessonId, activeLessonId + 1, score)
@@ -76,6 +90,12 @@ function App() {
   }
 
   const handleBossWin = (xp) => {
+    if (stats.isAdmin) {
+      setActiveBossData(null)
+      triggerRobot('celebration', "Admin preview yakunlandi. Foydalanuvchi progressi o'zgarmadi.", 3500)
+      setCurrentView('map')
+      return
+    }
     if (xp > 0) { addXp(xp); setEarnedXp(xp); setShowXpAnim(true); }
     // Unlock next node after boss
     if (activeBossData?.moduleId) {
