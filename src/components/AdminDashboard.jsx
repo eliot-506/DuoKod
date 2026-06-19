@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
+import { useUser } from '../context/UserContext';
+import LessonContentEditor from './LessonContentEditor';
 import './AdminDashboard.css';
 
 function AdminDashboard() {
+  const { stats: userStats } = useUser();
   const [activeTab, setActiveTab] = useState('overview'); // 'overview' yoki 'articles'
   const [stats, setStats] = useState({
     totalUsers: 0,
@@ -136,6 +139,11 @@ function AdminDashboard() {
         <button className={`admin-tab-btn ${activeTab === 'articles' ? 'active' : ''}`} onClick={() => setActiveTab('articles')}>
           <i className="fa-solid fa-book"></i> Adabiyotlar Boshqaruvi
         </button>
+        {userStats.isSuperAdmin && (
+          <button className={`admin-tab-btn ${activeTab === 'lessons' ? 'active' : ''}`} onClick={() => setActiveTab('lessons')}>
+            <i className="fa-solid fa-wand-magic-sparkles"></i> Darslar Studio
+          </button>
+        )}
       </div>
 
       {activeTab === 'overview' && (
@@ -322,6 +330,8 @@ function AdminDashboard() {
             </div>
         </div>
       )}
+
+      {activeTab === 'lessons' && userStats.isSuperAdmin && <LessonContentEditor />}
 
     </div>
   );

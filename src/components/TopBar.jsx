@@ -1,8 +1,8 @@
 import './TopBar.css'
 import { useUser } from '../context/UserContext'
 
-function TopBar() {
-    const { stats } = useUser()
+function TopBar({ onNavigate }) {
+    const { stats, toggleAdminMode } = useUser()
     const dailyGoalXp = 50
     const todayXp = Math.min(stats?.xp || 0, dailyGoalXp)
     const remainingXp = Math.max(0, dailyGoalXp - todayXp)
@@ -21,6 +21,21 @@ function TopBar() {
                 </div>
 
                 <div className="top-stats-row">
+                    {stats?.isSuperAdmin && (
+                        <button
+                            type="button"
+                            className={`admin-mode-toggle ${stats.adminModeEnabled ? 'is-active' : ''}`}
+                            onClick={() => {
+                                if (stats.adminModeEnabled) onNavigate?.('dashboard');
+                                toggleAdminMode();
+                            }}
+                            aria-pressed={stats.adminModeEnabled}
+                            title={stats.adminModeEnabled ? 'Oddiy foydalanuvchi rejimiga o‘tish' : 'SuperAdmin rejimini yoqish'}
+                        >
+                            <i className={`fa-solid ${stats.adminModeEnabled ? 'fa-crown' : 'fa-user'}`}></i>
+                            <span>{stats.adminModeEnabled ? 'Admin' : 'User'}</span>
+                        </button>
+                    )}
                     <div className="top-stat-item">
                         <span className="stat-icon orange"><i className="fa-solid fa-fire"></i></span>
                         <span className="stat-val">{stats?.streak || 0}</span>

@@ -4,17 +4,20 @@ import './styles/global.css'
 import App from './App.jsx'
 import { UserProvider } from './context/UserContext.jsx'
 import { RobotProvider } from './context/RobotContext.jsx'
+import { CourseContentProvider } from './context/CourseContentContext.jsx'
 
 import ErrorBoundary from './ErrorBoundary.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <UserProvider>
-      <RobotProvider>
+      <CourseContentProvider>
+        <RobotProvider>
           <ErrorBoundary>
             <App />
           </ErrorBoundary>
-      </RobotProvider>
+        </RobotProvider>
+      </CourseContentProvider>
     </UserProvider>
   </StrictMode>,
 )

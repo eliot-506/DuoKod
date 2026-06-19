@@ -1,6 +1,6 @@
 import './CourseSelector.css'
-import { COURSES } from '../data/lessons'
 import { useUser } from '../context/UserContext'
+import { useCourseContent } from '../context/CourseContentContext'
 
 const COURSE_META = {
     html:   { icon: '🧱', desc: "Web sahifalar qanday qurilishini o'rganing. Barcha dasturchilar boshlashi kerak bo'lgan joy.", level: "Boshlang'ich", accent: '#E24C26' },
@@ -12,9 +12,10 @@ const COURSE_META = {
 const LESSONS_COUNT = { html: 12, css: 10, js: 15, python: 11 };
 
 function CourseSelector({ onSelectCourse }) {
-    const { stats, switchCourse, isAdmin } = useUser();
-    const courseIds = Object.keys(COURSES);
-    const hasPremiumAccess = isAdmin || stats?.isPremium;
+    const { stats, switchCourse } = useUser();
+    const { courses } = useCourseContent();
+    const courseIds = Object.keys(courses);
+    const hasPremiumAccess = stats?.isAdmin || stats?.isPremium;
 
     const handleCourseClick = (courseId) => {
         switchCourse(courseId);
@@ -22,7 +23,7 @@ function CourseSelector({ onSelectCourse }) {
     };
 
     const getProgress = (courseId) => {
-        const total = COURSES[courseId]?.data?.length || 1;
+        const total = courses[courseId]?.data?.length || 1;
         const completed = stats?.courses?.[courseId]?.completedNodes?.length || 0;
         return Math.floor((completed / total) * 100);
     };
@@ -39,7 +40,7 @@ function CourseSelector({ onSelectCourse }) {
             {/* 2×2 grid */}
             <div className="csel-grid">
                 {courseIds.map((id) => {
-                    const course = COURSES[id];
+                    const course = courses[id];
                     const meta = COURSE_META[id] || {};
                     const isLocked = !hasPremiumAccess && id !== 'python';
                     const isActive = stats?.currentCourse === id;

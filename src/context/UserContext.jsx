@@ -15,6 +15,7 @@ const defaultUserStats = {
     role: 'user',
     isAdmin: false,
     isSuperAdmin: false,
+    adminModeEnabled: false,
     isPremium: false,
     premiumUntil: null,
     isActive: true,
@@ -112,8 +113,9 @@ const loadProfileFromSupabase = async (userId) => {
             streak: profile.streak || 0,
             hearts: profile.hearts || 50,
             role: role,
-            isAdmin: role === 'admin' || role === 'super_admin',
+            isAdmin: role === 'admin',
             isSuperAdmin: role === 'super_admin',
+            adminModeEnabled: false,
             isPremium: Boolean(profile.is_premium) || role === 'admin' || role === 'super_admin',
             premiumUntil: profile.premium_until || null,
             isActive: profile.is_active !== false,
@@ -146,7 +148,11 @@ export const UserProvider = ({ children }) => {
                 });
                 // Faqat oddiy foydalanuvchilar uchun Pythonga majburan o'tkazamiz
                 // Admin va super_admin uchun hamma kurslar ochiq
-                const isAdmin = parsed.role === 'admin' || parsed.role === 'super_admin';
+                const adminModeEnabled = parsed.role === 'super_admin' && Boolean(parsed.adminModeEnabled);
+                parsed.adminModeEnabled = adminModeEnabled;
+                parsed.isSuperAdmin = parsed.role === 'super_admin';
+                parsed.isAdmin = parsed.role === 'admin' || adminModeEnabled;
+                const isAdmin = parsed.isAdmin;
                 if (!isAdmin) {
                     parsed.currentCourse = 'python';
                 }
@@ -172,7 +178,16 @@ export const UserProvider = ({ children }) => {
             if (!session?.user) return;
             const cloudData = await loadProfileFromSupabase(session.user.id);
             if (cloudData) {
-                setStats(prev => ({ ...prev, ...cloudData, email: session.user.email }));
+                setStats(prev => {
+                    const adminModeEnabled = cloudData.isSuperAdmin && Boolean(prev.adminModeEnabled);
+                    return {
+                        ...prev,
+                        ...cloudData,
+                        email: session.user.email,
+                        adminModeEnabled,
+                        isAdmin: cloudData.role === 'admin' || adminModeEnabled
+                    };
+                });
             } else {
                 const username = session.user.user_metadata?.full_name || session.user.email?.split('@')[0] || 'User';
                 setStats(prev => ({
@@ -357,6 +372,18 @@ export const UserProvider = ({ children }) => {
         }));
     };
 
+    const toggleAdminMode = () => {
+        setStats(prev => {
+            if (!prev.isSuperAdmin) return prev;
+            const adminModeEnabled = !prev.adminModeEnabled;
+            return {
+                ...prev,
+                adminModeEnabled,
+                isAdmin: adminModeEnabled
+            };
+        });
+    };
+
     const currentLevel = Math.floor(stats.xp / 100) + 1;
     const currentLevelXp = stats.xp % 100;
     const nextLevelXp = 100;
@@ -411,7 +438,8 @@ export const UserProvider = ({ children }) => {
         <UserContext.Provider value={{
             stats, setStats, addXp, spendHeart, addHeart, completeNode, switchCourse,
             changeAvatar, unlockAvatar, buyPremiumAvatar, loginUser, logoutUser,
-            deleteAccount, currentLevel, currentLevelXp, nextLevelXp, unlockBadge, updateStreak, updateSkill, activatePremiumDemo
+            deleteAccount, currentLevel, currentLevelXp, nextLevelXp, unlockBadge, updateStreak, updateSkill,
+            activatePremiumDemo, toggleAdminMode
         }}>
             {children}
         </UserContext.Provider>

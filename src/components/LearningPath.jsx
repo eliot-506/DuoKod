@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useUser } from '../context/UserContext'
 import './LearningPath.css'
-import { COURSES } from '../data/lessons'
+import { useCourseContent } from '../context/CourseContentContext'
 import { BOSS_DATA } from '../data/bossData'
 
 function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertificate, onBack }) {
     const { stats } = useUser()
+    const { courses } = useCourseContent()
     const [previewNode, setPreviewNode] = useState(null)
     const [selectedModuleNode, setSelectedModuleNode] = useState(null)
     const isAdmin = stats?.isAdmin || stats?.isSuperAdmin
@@ -66,7 +67,7 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
         setSelectedModuleNode(node);
     };
 
-    const currentCourseData = COURSES[selectedCourse];
+    const currentCourseData = courses[selectedCourse];
     if (!currentCourseData) return null;
 
     const courseData = currentCourseData.data;

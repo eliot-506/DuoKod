@@ -1,13 +1,14 @@
 import './Dashboard.css';
 import { useUser } from '../context/UserContext';
-import { COURSES } from '../data/lessons';
+import { useCourseContent } from '../context/CourseContentContext';
 import AnimatedRobot from './AnimatedRobot';
 
 function Dashboard({ onNavigate }) {
+    const { courses } = useCourseContent();
     const { stats, currentLevel, currentLevelXp, nextLevelXp } = useUser();
     const currentCourse = stats.currentCourse || 'python';
     const courseProgress = stats.courses?.[currentCourse] || { completedNodes: [] };
-    const totalLessons = COURSES[currentCourse]?.data?.length || 0;
+    const totalLessons = courses[currentCourse]?.data?.length || 0;
     const completedLessons = courseProgress.completedNodes?.filter(nodeId => nodeId < 100).length || 0;
     const lessonProgressPercent = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
     const dailyGoalXp = 50;
@@ -15,7 +16,7 @@ function Dashboard({ onNavigate }) {
     const remainingDailyXp = Math.max(0, dailyGoalXp - todayXp);
     const levelProgressPercent = Math.round(((currentLevelXp || 0) / (nextLevelXp || 100)) * 100);
     const streakDays = stats.streak || 0;
-    const activeCourse = COURSES[currentCourse];
+    const activeCourse = courses[currentCourse];
     const nextLessonId = courseProgress.unlockedNodes?.find(nodeId => !courseProgress.completedNodes?.includes(nodeId)) || 1;
     const nextLesson = activeCourse?.data?.find(lesson => lesson.id === nextLessonId) || activeCourse?.data?.[0];
     const completedPercentLabel = `${lessonProgressPercent}%`;

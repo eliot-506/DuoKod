@@ -1,6 +1,6 @@
 import './Certificate.css';
 import { useUser } from '../context/UserContext';
-import { COURSES } from '../data/lessons';
+import { useCourseContent } from '../context/CourseContentContext';
 
 const createCertificateId = (value) => {
     let hash = 0;
@@ -11,8 +11,9 @@ const createCertificateId = (value) => {
 };
 
 function Certificate({ onBack }) {
+    const { courses } = useCourseContent();
     const { stats } = useUser();
-    const courseData = COURSES[stats.currentCourse];
+    const courseData = courses[stats.currentCourse];
     const currentDate = new Date().toLocaleDateString('uz-UZ');
     const userName = stats.username || 'Super Dasturchi';
     const certificateId = createCertificateId(`${stats.supabaseId || userName}-${stats.currentCourse}-${currentDate}`);

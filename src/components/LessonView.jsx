@@ -5,7 +5,7 @@ import { useUser } from '../context/UserContext'
 import Mascot from './Mascot'
 import DragDropLesson from './DragDropLesson'
 
-import { COURSES } from '../data/lessons'
+import { useCourseContent } from '../context/CourseContentContext'
 import { playSuccessSound, playErrorSound } from '../utils/audio'
 import { getMentorHint } from '../utils/aiMentor'
 
@@ -22,7 +22,8 @@ function LessonView({ onComplete, onExit, lessonId }) {
     const [mistakes, setMistakes] = useState(0)
 
     const { stats, updateSkill } = useUser()
-    const activeCourseData = COURSES[stats.currentCourse].data;
+    const { courses } = useCourseContent()
+    const activeCourseData = courses[stats.currentCourse].data;
     const questionData = activeCourseData.find(l => l.id === lessonId) || activeCourseData[0];
 
     // Adaptive Boss Logic
