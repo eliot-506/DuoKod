@@ -9,7 +9,7 @@ import { useCourseContent } from '../context/CourseContentContext'
 import { playSuccessSound, playErrorSound } from '../utils/audio'
 import { getMentorHint } from '../utils/aiMentor'
 
-function LessonView({ onComplete, onExit, lessonId }) {
+function LessonView({ onComplete, onExit, onStepChange, lessonId, startStep = 0 }) {
     const [phase, setPhase] = useState('theory') // 'theory' or 'quiz'
     const [currentTheoryIndex, setCurrentTheoryIndex] = useState(0)
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
@@ -55,17 +55,31 @@ function LessonView({ onComplete, onExit, lessonId }) {
     const activeQuestions = isBossNode && bossQuestions ? bossQuestions : questionData.questions;
 
     useEffect(() => {
-        setPhase('theory');
-        setCurrentTheoryIndex(0);
-        setCurrentQuestionIndex(0);
+        const theoryCount = questionData.theory.length;
+        const totalCount = theoryCount + activeQuestions.length;
+        const safeStep = Math.max(0, Math.min(startStep, totalCount - 1));
+        const startsInTheory = safeStep < theoryCount;
+        const questionIndex = startsInTheory ? 0 : safeStep - theoryCount;
+
+        setPhase(startsInTheory ? 'theory' : 'quiz');
+        setCurrentTheoryIndex(startsInTheory ? safeStep : theoryCount - 1);
+        setCurrentQuestionIndex(questionIndex);
         setSelectedId(null);
-        setFillValue('');
+        setFillValue(activeQuestions[questionIndex]?.type === 'code-fix' ? activeQuestions[questionIndex].initialCode : '');
         setIsChecked(false);
         setIsCorrect(false);
         setHintLevel(0);
         setMistakes(0);
         setBossQuestions(null);
-    }, [lessonId]);
+    }, [activeQuestions, lessonId, questionData.theory.length, startStep]);
+
+    useEffect(() => {
+        if (!onStepChange || phase === 'results') return;
+        const stepIndex = phase === 'theory'
+            ? currentTheoryIndex
+            : questionData.theory.length + currentQuestionIndex;
+        onStepChange(stepIndex);
+    }, [currentQuestionIndex, currentTheoryIndex, onStepChange, phase, questionData.theory.length]);
 
     const handleCheck = () => {
         setIsChecked(true)

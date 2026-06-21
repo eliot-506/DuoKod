@@ -1,22 +1,24 @@
-import { useState } from 'react';
 import CourseSelector from './CourseSelector';
 import LearningPath from './LearningPath';
 
-function LearningTab({ onNodeClick, onBossStart, onClaimCertificate, onStartProject }) {
-    const [selectedCourse, setSelectedCourse] = useState(null);
+function LearningTab({ learningLocation, onLocationChange, onNodeClick, onBossStart, onClaimCertificate, onStartProject }) {
+    const selectedCourse = learningLocation.courseId;
 
     if (!selectedCourse) {
-        return <CourseSelector onSelectCourse={setSelectedCourse} />;
+        return <CourseSelector onSelectCourse={courseId => onLocationChange({ courseId, moduleId: null, stepIndex: 0 })} />;
     }
 
     return (
         <LearningPath
             selectedCourse={selectedCourse}
+            selectedModuleId={learningLocation.moduleId}
+            activeStepIndex={learningLocation.stepIndex}
+            onModuleChange={moduleId => onLocationChange(current => ({ ...current, moduleId, stepIndex: 0 }))}
             onNodeClick={onNodeClick}
             onBossStart={onBossStart}
             onClaimCertificate={onClaimCertificate}
             onStartProject={onStartProject}
-            onBack={() => setSelectedCourse(null)}
+            onBack={() => onLocationChange({ courseId: null, moduleId: null, stepIndex: 0 })}
         />
     );
 }

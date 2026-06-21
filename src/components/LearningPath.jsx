@@ -4,11 +4,10 @@ import './LearningPath.css'
 import { useCourseContent } from '../context/CourseContentContext'
 import { BOSS_DATA } from '../data/bossData'
 
-function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertificate, onBack }) {
+function LearningPath({ selectedCourse, selectedModuleId, activeStepIndex, onModuleChange, onNodeClick, onBossStart, onClaimCertificate, onBack }) {
     const { stats } = useUser()
     const { courses } = useCourseContent()
     const [previewNode, setPreviewNode] = useState(null)
-    const [selectedModuleNode, setSelectedModuleNode] = useState(null)
     const isAdmin = Boolean(stats?.isAdmin)
 
     const getNodeStatus = (nodeId) => {
@@ -55,15 +54,23 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
     };
 
     const getModuleLessons = (node) => {
-        const theoryLessons = (node.theory || []).map((_, index) => ({
+        const theoryLessons = (node.theory || []).map((theory, index) => ({
             id: `theory-${index}`,
-            label: `${index + 1}-bosqich`,
-            icon: 'fa-book-open'
+            label: `${index + 1}. ${theory.split('.')[0]}`,
+            description: theory,
+            typeLabel: 'Nazariya',
+            stepIndex: index,
+            icon: 'fa-book-open',
+            isTheory: true
         }));
         const practiceLessons = (node.questions || []).map((question, index) => ({
             id: question.id || `practice-${index}`,
-            label: `${theoryLessons.length + index + 1}-bosqich`,
-            icon: question.type === 'code-write' || question.type === 'code-fix' ? 'fa-code' : 'fa-circle-question'
+            label: `${theoryLessons.length + index + 1}. ${question.prompt}`,
+            description: question.explanation || 'Bilimingizni amaliy topshiriq bilan mustahkamlang.',
+            typeLabel: question.type === 'code-write' || question.type === 'code-fix' ? 'Kod amaliyoti' : 'Bilim sinovi',
+            stepIndex: theoryLessons.length + index,
+            icon: question.type === 'code-write' || question.type === 'code-fix' ? 'fa-code' : 'fa-circle-question',
+            isTheory: false
         }));
 
         return [...theoryLessons, ...practiceLessons];
@@ -72,7 +79,7 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
     const openModuleMap = (node) => {
         if (!node || node.isBoss || node.status === 'locked') return;
         setPreviewNode(null);
-        setSelectedModuleNode(node);
+        onModuleChange(node.id);
     };
 
     const currentCourseData = courses[selectedCourse];
@@ -131,6 +138,7 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
     const courseIsComplete = completedCount >= courseData.length && completedBossCount >= courseBosses.length;
     const totalChallenges = courseBosses.length;
     const currentModLabel = stats?.courses?.[selectedCourse]?.unlockedNodes?.[stats.courses[selectedCourse].unlockedNodes.length - 1] || 1;
+    const selectedModuleNode = MODULE_NODES.find(node => !node.isBoss && node.id === selectedModuleId) || null;
 
     if (selectedModuleNode) {
         const moduleLessons = selectedModuleNode.moduleLessons || [];
@@ -138,7 +146,7 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
         return (
             <div className="unified-learning-path">
                 <div className="learning-path-wrapper module-map-wrapper">
-                    <button className="back-btn" onClick={() => setSelectedModuleNode(null)}>
+                    <button className="back-btn" onClick={() => onModuleChange(null)}>
                         <i className="fa-solid fa-arrow-left"></i> Kurs xaritasiga qaytish
                     </button>
 
@@ -158,8 +166,8 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                     <section className="module-lesson-map" aria-label={`${selectedModuleNode.title} darslari`}>
                         {moduleLessons.map((lesson, index) => {
                             const isCompleted = selectedModuleNode.status === 'completed';
-                            const isFirst = index === 0;
-                            const lessonStatus = isCompleted ? 'completed' : (isFirst ? 'current' : 'open');
+                            const isCurrent = !isCompleted && index === activeStepIndex;
+                            const lessonStatus = isCompleted ? 'completed' : (isCurrent ? 'current' : 'open');
 
                             return (
                                 <div key={lesson.id} className={`module-map-step module-map-step-${lessonStatus}`}>
@@ -167,24 +175,21 @@ function LearningPath({ selectedCourse, onNodeClick, onBossStart, onClaimCertifi
                                     <button
                                         type="button"
                                         className="module-map-node"
-                                        onClick={() => onNodeClick(selectedCourse, selectedModuleNode.id)}
+                                        onClick={() => onNodeClick(selectedCourse, selectedModuleNode.id, lesson.stepIndex)}
                                     >
                                         <span className="module-map-node-index">{index + 1}</span>
                                         <i className={`fa-solid ${lesson.icon}`}></i>
                                     </button>
                                     <div className="module-map-card">
+                                        <span className={`module-step-type ${lesson.isTheory ? 'is-theory' : 'is-practice'}`}>{lesson.typeLabel}</span>
                                         <h3>{lesson.label}</h3>
-                                        <p>
-                                            {lesson.id.startsWith('theory')
-                                                ? 'Mavzuning asosiy qoidalarini o\'rganing.'
-                                                : 'Bilimingizni savol va kod topshiriqlari bilan mustahkamlang.'}
-                                        </p>
+                                        <p>{lesson.description}</p>
                                         <button
                                             type="button"
                                             className="lp-btn lp-btn-primary lp-btn-sm"
-                                            onClick={() => onNodeClick(selectedCourse, selectedModuleNode.id)}
+                                            onClick={() => onNodeClick(selectedCourse, selectedModuleNode.id, lesson.stepIndex)}
                                         >
-                                            {isCompleted ? 'Qayta ko\'rish' : 'Darsni boshlash'}
+                                            {isCompleted ? 'Qayta ko\'rish' : (isCurrent ? 'Davom etish' : 'Shu bosqichdan boshlash')}
                                         </button>
                                     </div>
                                 </div>

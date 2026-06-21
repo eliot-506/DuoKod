@@ -30,19 +30,31 @@ function App() {
   const { triggerRobot } = useRobot()
   const [currentView, setCurrentView] = useState('dashboard')
   const [activeLessonId, setActiveLessonId] = useState(null)
+  const [activeLessonStartStep, setActiveLessonStartStep] = useState(0)
   const [activeBossData, setActiveBossData] = useState(null)
   const [showXpAnim, setShowXpAnim] = useState(false)
   const [earnedXp, setEarnedXp] = useState(0)
+  const [learningLocation, setLearningLocation] = useState({
+    courseId: null,
+    moduleId: null,
+    stepIndex: 0
+  })
 
   const handleLoginSuccess = useCallback(() => {
     setCurrentView('dashboard')
+  }, [])
+
+  const handleLessonStepChange = useCallback((stepIndex) => {
+    setLearningLocation(current => (
+      current.stepIndex === stepIndex ? current : { ...current, stepIndex }
+    ))
   }, [])
 
   if (!stats.isLoggedIn) {
     return <Auth onLoginSuccess={handleLoginSuccess} />
   }
 
-  const handleStartLesson = (courseId, nodeId) => {
+  const handleStartLesson = (courseId, nodeId, stepIndex = 0) => {
     if (!stats.isAdmin) {
       const courseProgress = stats.courses?.[courseId] || { completedNodes: [], unlockedNodes: [1] };
       const isPythonCourse = courseId === 'python';
@@ -59,7 +71,9 @@ function App() {
       return;
     }
     switchCourse(courseId)
+    setLearningLocation({ courseId, moduleId: nodeId, stepIndex })
     setActiveLessonId(nodeId)
+    setActiveLessonStartStep(stepIndex)
     triggerRobot('happy', "Yangi dars boshladik! Muvaffaqiyatlar tilayman 🚀", 3000)
     setCurrentView('lesson')
   }
@@ -98,6 +112,11 @@ function App() {
       const completedNodes = stats.courses?.[stats.currentCourse]?.completedNodes || []
       if (!completedNodes.includes(bossData?.moduleId)) return
     }
+    setLearningLocation({
+      courseId: stats.currentCourse,
+      moduleId: bossData.moduleId,
+      stepIndex: 0
+    })
     setActiveBossData(bossData)
     triggerRobot('excited', "Tayyormisiz? Challenge boshlanmoqda! ⚔️", 4000)
     setCurrentView('boss')
@@ -144,7 +163,7 @@ function App() {
         <main className="main-content">
           {currentView === 'dashboard' && <Dashboard onNavigate={setCurrentView} />}
           {currentView === 'admin' && stats.isAdmin && <AdminDashboard />}
-          {currentView === 'map' && <LearningTab onNodeClick={handleStartLesson} onBossStart={handleStartBoss} onClaimCertificate={() => setCurrentView('certificate')} onStartProject={() => setCurrentView('project')} onPremiumClick={() => setCurrentView('premium')} />}
+          {currentView === 'map' && <LearningTab learningLocation={learningLocation} onLocationChange={setLearningLocation} onNodeClick={handleStartLesson} onBossStart={handleStartBoss} onClaimCertificate={() => setCurrentView('certificate')} onStartProject={() => setCurrentView('project')} onPremiumClick={() => setCurrentView('premium')} />}
           {currentView === 'leaderboard' && <Leaderboard />}
           {currentView === 'profile' && <Profile />}
           {currentView === 'arena' && <CodeArena />}
@@ -160,7 +179,9 @@ function App() {
         <LessonView
           onExit={handleExitLesson}
           onComplete={handleCompleteLesson}
+          onStepChange={handleLessonStepChange}
           lessonId={activeLessonId}
+          startStep={activeLessonStartStep}
         />
       )}
 

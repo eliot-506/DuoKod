@@ -618,6 +618,27 @@
     color: #0f172a;
 }
 
+.module-step-type {
+    display: inline-flex;
+    margin-bottom: 9px;
+    padding: 5px 9px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.module-step-type.is-theory {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.module-step-type.is-practice {
+    background: #ede9fe;
+    color: #6d28d9;
+}
+
 .module-map-card p {
     margin: 0 0 18px;
     color: #475569;
