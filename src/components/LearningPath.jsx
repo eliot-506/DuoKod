@@ -56,7 +56,7 @@ function LearningPath({ selectedCourse, selectedModuleId, activeStepIndex, onMod
     const getModuleLessons = (node) => {
         const theoryLessons = (node.theory || []).map((theory, index) => ({
             id: `theory-${index}`,
-            label: theory.split('.')[0],
+            label: node.theoryTitles?.[index] || `Nazariya ${index + 1}`,
             description: theory,
             typeLabel: 'Nazariya',
             icon: 'fa-book-open',

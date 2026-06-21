@@ -32,8 +32,10 @@ const drag = (id, skill, prompt, blocks, correctAnswer, terminalOutput, explanat
 export const PYTHON_CURRICULUM = [
     {
         id: 1,
-        title: 'Python bilan ilk qadam',
-        desc: 'Muhit, buyruqlar, print() va xatoni o‘qish',
+        title: 'Python asoslari',
+        desc: 'Dasturlash muhiti va birinchi Python dasturi',
+        source: { chapter: 1, pages: '41-51', title: 'Getting Started' },
+        theoryTitles: ['Python muhiti', 'Birinchi dastur', 'Registr qoidasi', 'Xato xabarlari', 'Dasturni ishga tushirish'],
         theory: [
             'Python dasturi buyruqlarni yuqoridan pastga bajaradi. Birinchi maqsad kodni ishga tushirish va natijani terminalda ko‘rishdir.',
             'print() funksiyasi matn yoki qiymatni ekranga chiqaradi: print("Salom, DuoKod!"). Matn qo‘shtirnoq ichida yoziladi.',
@@ -51,8 +53,10 @@ export const PYTHON_CURRICULUM = [
     },
     {
         id: 2,
-        title: 'O‘zgaruvchilar va sodda turlar',
-        desc: 'Matn, son, nomlash qoidalari va f-string',
+        title: 'O‘zgaruvchilar va ma’lumot turlari',
+        desc: 'Qiymatlar, matnlar va sonlar bilan ishlash',
+        source: { chapter: 2, pages: '53-70', title: 'Variables and Simple Data Types' },
+        theoryTitles: ['O‘zgaruvchilar', 'Nomlash qoidalari', 'Sodda ma’lumot turlari', 'Matnni formatlash', 'Matnni tozalash'],
         theory: [
             'O‘zgaruvchi qiymatga berilgan tushunarli nomdir: ism = "Aziza". Python qiymat turini o‘zi aniqlaydi.',
             'O‘zgaruvchi nomi harf yoki pastki chiziq bilan boshlanadi, bo‘sh joy bo‘lmaydi va Python kalit so‘zlaridan foydalanmaydi.',
@@ -70,8 +74,10 @@ export const PYTHON_CURRICULUM = [
     },
     {
         id: 3,
-        title: 'Ro‘yxatlar',
-        desc: 'Elementlar, indeks, append() va remove()',
+        title: 'Ro‘yxatlar asoslari',
+        desc: 'Tartibli ma’lumotlar to‘plamini boshqarish',
+        source: { chapter: 3, pages: '71-85', title: 'Introducing Lists' },
+        theoryTitles: ['Ro‘yxat yaratish', 'Indekslar', 'Elementlarni boshqarish', 'Tartiblash', 'Elementni yangilash'],
         theory: [
             'List bir nechta qiymatni tartibli saqlaydi: mevalar = ["olma", "anor"]. Elementlar vergul bilan ajratiladi.',
             'Indeks 0 dan boshlanadi. mevalar[0] birinchi elementni, mevalar[-1] esa oxirgi elementni beradi.',
@@ -89,8 +95,10 @@ export const PYTHON_CURRICULUM = [
     },
     {
         id: 4,
-        title: 'Ro‘yxatlar bilan ishlash',
-        desc: 'for, range(), kesmalar va tuple',
+        title: 'Sikllar va ro‘yxatlar',
+        desc: 'Takrorlash, sonli ketma-ketlik va kesmalar',
+        source: { chapter: 4, pages: '87-108', title: 'Working with Lists' },
+        theoryTitles: ['for sikli', 'range() funksiyasi', 'Ro‘yxat kesmalari', 'O‘zgarmas tuple', 'List comprehension'],
         theory: [
             'for sikli ro‘yxatdagi har bir element uchun bir xil amalni bajaradi. Sikldagi kod to‘rt bo‘sh joy bilan ichkariga suriladi.',
             'range(boshi, oxiri) sonlar ketma-ketligini beradi, lekin oxirgi chegara natijaga kirmaydi. list(range(1, 5)) natijasi [1, 2, 3, 4].',
@@ -108,8 +116,10 @@ export const PYTHON_CURRICULUM = [
     },
     {
         id: 5,
-        title: 'Shartlar va qarorlar',
-        desc: 'Taqqoslash, boolean, if, elif va else',
+        title: 'Shartli operatorlar',
+        desc: 'Shartlarni tekshirish va dastur yo‘nalishini boshqarish',
+        source: { chapter: 5, pages: '109-127', title: 'if Statements' },
+        theoryTitles: ['Boolean ifodalar', 'Mantiqiy operatorlar', 'if zanjiri', 'A’zolikni tekshirish', 'Bo‘sh to‘plam sharti'],
         theory: [
             'Shart natijasi True yoki False bo‘ladi. == tenglikni tekshiradi, = esa qiymat biriktiradi.',
             'Taqqoslash operatorlari: !=, >, <, >= va <=. and ikkala shartni, or esa kamida bittasini talab qiladi.',
@@ -128,7 +138,9 @@ export const PYTHON_CURRICULUM = [
     {
         id: 6,
         title: 'Lug‘atlar',
-        desc: 'Kalit-qiymat, get(), sikl va ichma-ich tuzilma',
+        desc: 'Kalit va qiymat asosidagi ma’lumot tuzilmalari',
+        source: { chapter: 6, pages: '129-149', title: 'Dictionaries' },
+        theoryTitles: ['Lug‘at tuzilishi', 'Qiymatni xavfsiz olish', 'Juftliklarni o‘zgartirish', 'Lug‘at bo‘ylab sikl', 'Ichma-ich tuzilmalar'],
         theory: [
             'Dictionary ma’lumotni kalit-qiymat juftligida saqlaydi: odam = {"ism": "Ali", "yosh": 20}.',
             'Qiymat odam["ism"] orqali olinadi. get("ism") esa kalit topilmaganda dasturni yiqitmasdan natija qaytaradi.',
@@ -146,8 +158,10 @@ export const PYTHON_CURRICULUM = [
     },
     {
         id: 7,
-        title: 'Foydalanuvchi kiritishi va while',
-        desc: 'input(), int(), while, break va continue',
+        title: 'Kiritish va while sikli',
+        desc: 'Interaktiv dastur va shartli takrorlash',
+        source: { chapter: 7, pages: '151-165', title: 'User Input and while Loops' },
+        theoryTitles: ['input() funksiyasi', 'Kiritmani songa aylantirish', 'while sikli', 'Siklni boshqarish', 'Qoldiq operatori'],
         theory: [
             'input() foydalanuvchidan ma’lumot oladi va natijani doim matn sifatida qaytaradi.',
             'Son bilan hisoblashdan oldin kiritilgan matn int() yoki float() orqali aylantiriladi.',
@@ -166,7 +180,9 @@ export const PYTHON_CURRICULUM = [
     {
         id: 8,
         title: 'Funksiyalar',
-        desc: 'Parametr, argument, return va modullar',
+        desc: 'Qayta ishlatiladigan kod bloklarini yaratish',
+        source: { chapter: 8, pages: '167-192', title: 'Functions' },
+        theoryTitles: ['Funksiya tuzilishi', 'Parametr va argument', 'Qiymat qaytarish', 'Modullar', 'Standart parametrlar'],
         theory: [
             'Funksiya nomlangan va qayta ishlatiladigan kod blokidir. U def kalit so‘zi bilan yaratiladi.',
             'Parametr funksiya ta’rifidagi nom, argument esa chaqirish paytida uzatilgan haqiqiy qiymatdir.',
@@ -184,8 +200,10 @@ export const PYTHON_CURRICULUM = [
     },
     {
         id: 9,
-        title: 'Klasslar va obyektlar',
-        desc: '__init__, self, metod va meros olish',
+        title: 'Obyektga yo‘naltirilgan dasturlash',
+        desc: 'Klass, obyekt, metod va meros olish',
+        source: { chapter: 9, pages: '195-219', title: 'Classes' },
+        theoryTitles: ['Klass va obyekt', 'Boshlang‘ich holat', 'Atribut va metod', 'Meros olish', 'Ota klass bilan bog‘lanish'],
         theory: [
             'Klass obyektlar uchun shablon, instance esa shu shablondan yaratilgan aniq obyekt hisoblanadi.',
             '__init__ yangi obyekt yaratilganda boshlang‘ich holatni o‘rnatadi. self aynan joriy obyektga murojaat qiladi.',
@@ -203,8 +221,10 @@ export const PYTHON_CURRICULUM = [
     },
     {
         id: 10,
-        title: 'Fayllar, JSON va istisnolar',
-        desc: 'O‘qish, yozish, saqlash va xatoni boshqarish',
+        title: 'Fayllar va xatolar',
+        desc: 'Doimiy ma’lumot saqlash va istisnolarni boshqarish',
+        source: { chapter: 10, pages: '221-245', title: 'Files and Exceptions' },
+        theoryTitles: ['Fayl bilan xavfsiz ishlash', 'Fayl rejimlari', 'Istisnolar', 'JSON formati', 'Path obyektlari'],
         theory: [
             'Fayl bilan with open(...) as f shaklida ishlash resursning avtomatik yopilishini ta’minlaydi.',
             'r o‘qish, w qayta yozish, a oxiriga qo‘shish rejimidir. Fayl yo‘li dastur joylashuviga nisbatan yoki to‘liq beriladi.',
@@ -222,8 +242,10 @@ export const PYTHON_CURRICULUM = [
     },
     {
         id: 11,
-        title: 'Kodlarni testlash',
-        desc: 'pytest, assert, test holatlari va regressiya',
+        title: 'Avtomatik testlash',
+        desc: 'Funksiya va klasslar natijasini ishonchli tekshirish',
+        source: { chapter: 11, pages: '247-261', title: 'Testing Your Code' },
+        theoryTitles: ['Test vazifasi', 'Test holatlari', 'assert tekshiruvi', 'Regressiya testi', 'pytest qoidalari'],
         theory: [
             'Avtomatik test funksiya yoki klass kutilgan natijani berishini tekshiradi. Testlar xatoni foydalanuvchidan oldin topadi.',
             'Test case bitta xatti-harakatni tekshiradi. Oddiy, chegara va noto‘g‘ri kirish holatlarini alohida sinash kerak.',

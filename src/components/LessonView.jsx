@@ -169,7 +169,7 @@ function LessonView({ onComplete, onExit, onStepChange, lessonId, startStep = 0 
         <div className="theory-container">
             <Mascot state="default" message="Yangi mavzuni o'rganamiz!" />
             <div className="theory-card">
-                <h3>{questionData.title}</h3>
+                <h3>{questionData.theoryTitles?.[currentTheoryIndex] || questionData.title}</h3>
                 <p>{questionData.theory[currentTheoryIndex]}</p>
                 <div className="theory-pagination">
                     {questionData.theory.map((_, idx) => (
