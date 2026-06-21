@@ -26,10 +26,11 @@ import { BOSS_DATA } from './data/bossData'
 import BackgroundSystem from './components/BackgroundSystem'
 
 function App() {
-  const { stats, addXp, completeNode, spendHeart, switchCourse, updateStreak } = useUser()
+  const { stats, addXp, completeNode, completeSection, spendHeart, switchCourse, updateStreak } = useUser()
   const { triggerRobot } = useRobot()
   const [currentView, setCurrentView] = useState('dashboard')
   const [activeLessonId, setActiveLessonId] = useState(null)
+  const [activeSectionId, setActiveSectionId] = useState(null)
   const [activeLessonStartStep, setActiveLessonStartStep] = useState(0)
   const [activeBossData, setActiveBossData] = useState(null)
   const [showXpAnim, setShowXpAnim] = useState(false)
@@ -37,6 +38,7 @@ function App() {
   const [learningLocation, setLearningLocation] = useState({
     courseId: null,
     moduleId: null,
+    sectionId: null,
     stepIndex: 0
   })
 
@@ -54,7 +56,7 @@ function App() {
     return <Auth onLoginSuccess={handleLoginSuccess} />
   }
 
-  const handleStartLesson = (courseId, nodeId, stepIndex = 0) => {
+  const handleStartLesson = (courseId, nodeId, sectionId = null, stepIndex = 0) => {
     if (!stats.isAdmin) {
       const courseProgress = stats.courses?.[courseId] || { completedNodes: [], unlockedNodes: [1] };
       const isPythonCourse = courseId === 'python';
@@ -71,8 +73,9 @@ function App() {
       return;
     }
     switchCourse(courseId)
-    setLearningLocation({ courseId, moduleId: nodeId, stepIndex })
+    setLearningLocation({ courseId, moduleId: nodeId, sectionId, stepIndex })
     setActiveLessonId(nodeId)
+    setActiveSectionId(sectionId)
     setActiveLessonStartStep(stepIndex)
     triggerRobot('happy', "Yangi dars boshladik! Muvaffaqiyatlar tilayman 🚀", 3000)
     setCurrentView('lesson')
@@ -80,6 +83,7 @@ function App() {
 
   const handleExitLesson = () => {
     setActiveLessonId(null)
+    setActiveSectionId(null)
     triggerRobot('idle', "Charchadingizmi? Hechqisi yo'q, keyinroq davom ettiramiz!", 4000)
     setCurrentView('map')
   }
@@ -87,6 +91,7 @@ function App() {
   const handleCompleteLesson = (wasCorrect, score = 0) => {
     if (stats.isAdmin) {
       setActiveLessonId(null)
+      setActiveSectionId(null)
       triggerRobot('happy', "Admin preview yakunlandi. Foydalanuvchi progressi o'zgarmadi.", 3500)
       setCurrentView('map')
       return
@@ -94,7 +99,11 @@ function App() {
     if (wasCorrect && activeLessonId) {
       const hasBoss = BOSS_DATA[stats.currentCourse]?.bosses?.some(boss => boss.moduleId === activeLessonId)
       addXp(15)
-      completeNode(activeLessonId, hasBoss ? null : activeLessonId + 1, score)
+      if (activeSectionId) {
+        completeSection(activeLessonId, activeSectionId, score)
+      } else {
+        completeNode(activeLessonId, hasBoss ? null : activeLessonId + 1, score)
+      }
       updateStreak()
       setEarnedXp(15)
       setShowXpAnim(true)
@@ -104,6 +113,7 @@ function App() {
       triggerRobot('wrong', "Xato chiqdi, lekin hech qisi yo'q, keyingi safar aniq o'xshaydi! 💪", 5000)
     }
     setActiveLessonId(null)
+    setActiveSectionId(null)
     setCurrentView('map')
   }
 
@@ -115,6 +125,7 @@ function App() {
     setLearningLocation({
       courseId: stats.currentCourse,
       moduleId: bossData.moduleId,
+      sectionId: null,
       stepIndex: 0
     })
     setActiveBossData(bossData)
@@ -181,6 +192,7 @@ function App() {
           onComplete={handleCompleteLesson}
           onStepChange={handleLessonStepChange}
           lessonId={activeLessonId}
+          sectionId={activeSectionId}
           startStep={activeLessonStartStep}
         />
       )}

@@ -29,7 +29,7 @@ const drag = (id, skill, prompt, blocks, correctAnswer, terminalOutput, explanat
 
 // Eric Matthes, Python Crash Course (3-nashr), I qism asosida moslashtirilgan.
 // Matnlar so'zma-so'z ko'chirilmagan: boshlovchilar uchun o'zbekcha qayta bayon qilingan.
-export const PYTHON_CURRICULUM = [
+const PYTHON_MODULES = [
     {
         id: 1,
         title: 'Python asoslari',
@@ -262,3 +262,15 @@ export const PYTHON_CURRICULUM = [
         ]
     }
 ];
+
+export const PYTHON_CURRICULUM = PYTHON_MODULES.map(module => {
+    const sections = PYTHON_SECTIONS[module.id] || [];
+    return {
+        ...module,
+        sections,
+        theoryTitles: sections.flatMap(section => section.theoryTitles),
+        theory: sections.flatMap(section => section.theory),
+        questions: sections.flatMap(section => section.questions)
+    };
+});
+import { PYTHON_SECTIONS } from './pythonSections.js';

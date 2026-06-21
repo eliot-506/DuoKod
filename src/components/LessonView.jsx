@@ -9,7 +9,7 @@ import { useCourseContent } from '../context/CourseContentContext'
 import { playSuccessSound, playErrorSound } from '../utils/audio'
 import { getMentorHint } from '../utils/aiMentor'
 
-function LessonView({ onComplete, onExit, onStepChange, lessonId, startStep = 0 }) {
+function LessonView({ onComplete, onExit, onStepChange, lessonId, sectionId, startStep = 0 }) {
     const [phase, setPhase] = useState('theory') // 'theory' or 'quiz'
     const [currentTheoryIndex, setCurrentTheoryIndex] = useState(0)
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
@@ -24,10 +24,11 @@ function LessonView({ onComplete, onExit, onStepChange, lessonId, startStep = 0 
     const { stats, updateSkill } = useUser()
     const { courses } = useCourseContent()
     const activeCourseData = courses[stats.currentCourse].data;
-    const questionData = activeCourseData.find(l => l.id === lessonId) || activeCourseData[0];
+    const moduleData = activeCourseData.find(l => l.id === lessonId) || activeCourseData[0];
+    const questionData = moduleData.sections?.find(section => section.id === sectionId) || moduleData;
 
     // Adaptive Boss Logic
-    const isBossNode = questionData.id === activeCourseData[activeCourseData.length - 1].id;
+    const isBossNode = !sectionId && moduleData.id === activeCourseData[activeCourseData.length - 1].id;
     const [bossQuestions, setBossQuestions] = useState(null);
 
     useEffect(() => {
@@ -104,7 +105,7 @@ function LessonView({ onComplete, onExit, onStepChange, lessonId, startStep = 0 
         setHintLevel(0);
         setMistakes(0);
         setBossQuestions(null);
-    }, [activeQuestions, lessonId, orderedSteps, startStep]);
+    }, [activeQuestions, lessonId, orderedSteps, sectionId, startStep]);
 
     useEffect(() => {
         if (!onStepChange || phase === 'results') return;

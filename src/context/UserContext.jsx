@@ -365,6 +365,45 @@ export const UserProvider = ({ children }) => {
         });
     };
 
+    const completeSection = (moduleId, sectionId, score = 0) => {
+        setStats(prev => {
+            const courseId = prev.currentCourse;
+            const module = COURSES[courseId]?.data?.find(item => item.id === moduleId);
+            if (!module?.sections?.length) return prev;
+
+            const courseData = {
+                ...prev.courses[courseId],
+                completedNodes: [...prev.courses[courseId].completedNodes],
+                unlockedNodes: [...prev.courses[courseId].unlockedNodes],
+                lessonScores: { ...(prev.courses[courseId].lessonScores || {}) }
+            };
+            const sectionKey = `${moduleId}:${sectionId}`;
+            const safeScore = Math.max(0, Math.min(100, Math.round(score)));
+            courseData.lessonScores[sectionKey] = Math.max(courseData.lessonScores[sectionKey] || 0, safeScore);
+
+            const allSectionsComplete = module.sections.every(section => (
+                Number.isFinite(courseData.lessonScores[`${moduleId}:${section.id}`])
+            ));
+
+            if (allSectionsComplete) {
+                if (!courseData.completedNodes.includes(moduleId)) courseData.completedNodes.push(moduleId);
+                const sectionScores = module.sections.map(section => courseData.lessonScores[`${moduleId}:${section.id}`]);
+                courseData.lessonScores[moduleId] = Math.round(
+                    sectionScores.reduce((total, value) => total + value, 0) / sectionScores.length
+                );
+                const hasBoss = BOSS_DATA[courseId]?.bosses?.some(boss => boss.moduleId === moduleId);
+                if (!hasBoss && !courseData.unlockedNodes.includes(moduleId + 1)) {
+                    courseData.unlockedNodes.push(moduleId + 1);
+                }
+            }
+
+            return {
+                ...prev,
+                courses: { ...prev.courses, [courseId]: courseData }
+            };
+        });
+    };
+
     const activatePremiumDemo = () => {
         const until = new Date();
         until.setDate(until.getDate() + 30);
@@ -444,7 +483,7 @@ export const UserProvider = ({ children }) => {
 
     return (
         <UserContext.Provider value={{
-            stats, setStats, addXp, spendHeart, addHeart, completeNode, switchCourse,
+            stats, setStats, addXp, spendHeart, addHeart, completeNode, completeSection, switchCourse,
             changeAvatar, unlockAvatar, buyPremiumAvatar, loginUser, logoutUser,
             deleteAccount, currentLevel, currentLevelXp, nextLevelXp, unlockBadge, updateStreak, updateSkill,
             activatePremiumDemo, toggleAdminMode

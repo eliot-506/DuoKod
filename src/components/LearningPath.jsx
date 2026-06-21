@@ -4,7 +4,7 @@ import './LearningPath.css'
 import { useCourseContent } from '../context/CourseContentContext'
 import { BOSS_DATA } from '../data/bossData'
 
-function LearningPath({ selectedCourse, selectedModuleId, activeStepIndex, onModuleChange, onNodeClick, onBossStart, onClaimCertificate, onBack }) {
+function LearningPath({ selectedCourse, selectedModuleId, activeSectionId, activeStepIndex, onModuleChange, onNodeClick, onBossStart, onClaimCertificate, onBack }) {
     const { stats } = useUser()
     const { courses } = useCourseContent()
     const [previewNode, setPreviewNode] = useState(null)
@@ -54,6 +54,20 @@ function LearningPath({ selectedCourse, selectedModuleId, activeStepIndex, onMod
     };
 
     const getModuleLessons = (node) => {
+        if (node.sections?.length) {
+            return node.sections.map((section, index) => ({
+                id: section.id,
+                label: section.title,
+                description: section.desc,
+                typeLabel: 'Bo‘lim',
+                icon: section.icon || 'fa-layer-group',
+                questionCount: section.questions.length,
+                stepIndex: 0,
+                order: index + 1,
+                isSection: true
+            }));
+        }
+
         const theoryLessons = (node.theory || []).map((theory, index) => ({
             id: `theory-${index}`,
             label: node.theoryTitles?.[index] || `Nazariya ${index + 1}`,
@@ -160,7 +174,7 @@ function LearningPath({ selectedCourse, selectedModuleId, activeStepIndex, onMod
                             <p className="lp-header-subtitle">{currentCourseData.title} / {selectedModuleNode.meta}</p>
                             <h1 className="lp-header-title">{selectedModuleNode.title}</h1>
                             <p className="lp-header-desc">
-                                Modul ichidagi nazariya va amaliy darslar xaritasi. Darsni boshlash uchun ochiq bosqichni tanlang.
+                                Modul ichidagi kitob bo‘limlari. Har bir bo‘limda nazariya va kamida 10 ta mashq mavjud.
                             </p>
                         </div>
                         <div className="module-map-rating">
@@ -168,10 +182,16 @@ function LearningPath({ selectedCourse, selectedModuleId, activeStepIndex, onMod
                         </div>
                     </header>
 
-                    <section className="module-lesson-map" aria-label={`${selectedModuleNode.title} darslari`}>
+                    <section className="module-lesson-map" aria-label={`${selectedModuleNode.title} bo‘limlari`}>
                         {moduleLessons.map((lesson, index) => {
-                            const isCompleted = selectedModuleNode.status === 'completed';
-                            const isCurrent = !isCompleted && index === activeStepIndex;
+                            const sectionScore = stats?.courses?.[selectedCourse]?.lessonScores?.[`${selectedModuleNode.id}:${lesson.id}`];
+                            const isCompleted = lesson.isSection ? Number.isFinite(sectionScore) : selectedModuleNode.status === 'completed';
+                            const firstIncompleteIndex = moduleLessons.findIndex(item => !Number.isFinite(
+                                stats?.courses?.[selectedCourse]?.lessonScores?.[`${selectedModuleNode.id}:${item.id}`]
+                            ));
+                            const isCurrent = lesson.isSection
+                                ? (!isCompleted && (lesson.id === activeSectionId || index === Math.max(0, firstIncompleteIndex)))
+                                : (!isCompleted && index === activeStepIndex);
                             const lessonStatus = isCompleted ? 'completed' : (isCurrent ? 'current' : 'open');
 
                             return (
@@ -180,19 +200,20 @@ function LearningPath({ selectedCourse, selectedModuleId, activeStepIndex, onMod
                                     <button
                                         type="button"
                                         className="module-map-node"
-                                        onClick={() => onNodeClick(selectedCourse, selectedModuleNode.id, lesson.stepIndex)}
+                                        onClick={() => onNodeClick(selectedCourse, selectedModuleNode.id, lesson.isSection ? lesson.id : null, lesson.stepIndex)}
                                     >
                                         <span className="module-map-node-index">{index + 1}</span>
                                         <i className={`fa-solid ${lesson.icon}`}></i>
                                     </button>
                                     <div className="module-map-card">
-                                        <span className={`module-step-type ${lesson.isTheory ? 'is-theory' : 'is-practice'}`}>{lesson.typeLabel}</span>
+                                        <span className={`module-step-type ${lesson.isSection ? 'is-section' : (lesson.isTheory ? 'is-theory' : 'is-practice')}`}>{lesson.typeLabel}</span>
                                         <h3>{index + 1}. {lesson.label}</h3>
                                         <p>{lesson.description}</p>
+                                        {lesson.isSection && <p className="module-section-count"><i className="fa-solid fa-list-check"></i> {lesson.questionCount} ta mashq</p>}
                                         <button
                                             type="button"
                                             className="lp-btn lp-btn-primary lp-btn-sm"
-                                            onClick={() => onNodeClick(selectedCourse, selectedModuleNode.id, lesson.stepIndex)}
+                                            onClick={() => onNodeClick(selectedCourse, selectedModuleNode.id, lesson.isSection ? lesson.id : null, lesson.stepIndex)}
                                         >
                                             {isCompleted ? 'Qayta ko\'rish' : (isCurrent ? 'Davom etish' : 'Shu bosqichdan boshlash')}
                                         </button>
@@ -305,8 +326,8 @@ function LearningPath({ selectedCourse, selectedModuleId, activeStepIndex, onMod
                                                             <i className="fa-solid fa-layer-group"></i>
                                                         </span>
                                                         <span className="module-overview-copy">
-                                                            <strong>{node.moduleLessons.length} ta bosqich</strong>
-                                                            <small>Nazariya va amaliy topshiriqlar</small>
+                                                    <strong>{node.moduleLessons.length} ta {node.sections?.length ? 'bo‘lim' : 'bosqich'}</strong>
+                                                    <small>{node.sections?.length ? 'Har birida kamida 10 ta mashq' : 'Nazariya va amaliy topshiriqlar'}</small>
                                                         </span>
                                                         <i className="fa-solid fa-arrow-right module-overview-arrow"></i>
                                                     </div>
