@@ -56,24 +56,29 @@ function LearningPath({ selectedCourse, selectedModuleId, activeStepIndex, onMod
     const getModuleLessons = (node) => {
         const theoryLessons = (node.theory || []).map((theory, index) => ({
             id: `theory-${index}`,
-            label: `${index + 1}. ${theory.split('.')[0]}`,
+            label: theory.split('.')[0],
             description: theory,
             typeLabel: 'Nazariya',
-            stepIndex: index,
             icon: 'fa-book-open',
             isTheory: true
         }));
         const practiceLessons = (node.questions || []).map((question, index) => ({
             id: question.id || `practice-${index}`,
-            label: `${theoryLessons.length + index + 1}. ${question.prompt}`,
+            label: question.prompt,
             description: question.explanation || 'Bilimingizni amaliy topshiriq bilan mustahkamlang.',
             typeLabel: question.type === 'code-write' || question.type === 'code-fix' ? 'Kod amaliyoti' : 'Bilim sinovi',
-            stepIndex: theoryLessons.length + index,
             icon: question.type === 'code-write' || question.type === 'code-fix' ? 'fa-code' : 'fa-circle-question',
             isTheory: false
         }));
 
-        return [...theoryLessons, ...practiceLessons];
+        const orderedLessons = [];
+        const pairCount = Math.max(theoryLessons.length, practiceLessons.length);
+        for (let index = 0; index < pairCount; index += 1) {
+            if (theoryLessons[index]) orderedLessons.push(theoryLessons[index]);
+            if (practiceLessons[index]) orderedLessons.push(practiceLessons[index]);
+        }
+
+        return orderedLessons.map((lesson, stepIndex) => ({ ...lesson, stepIndex }));
     };
 
     const openModuleMap = (node) => {
@@ -182,7 +187,7 @@ function LearningPath({ selectedCourse, selectedModuleId, activeStepIndex, onMod
                                     </button>
                                     <div className="module-map-card">
                                         <span className={`module-step-type ${lesson.isTheory ? 'is-theory' : 'is-practice'}`}>{lesson.typeLabel}</span>
-                                        <h3>{lesson.label}</h3>
+                                        <h3>{index + 1}. {lesson.label}</h3>
                                         <p>{lesson.description}</p>
                                         <button
                                             type="button"

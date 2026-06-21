@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import './LessonView.css'
 import './FillBlanksLesson.css'
 import { useUser } from '../context/UserContext'
@@ -53,16 +53,49 @@ function LessonView({ onComplete, onExit, onStepChange, lessonId, startStep = 0 
     }, [isBossNode, stats.currentCourse, stats.skillMap, activeCourseData, questionData.questions, bossQuestions]);
 
     const activeQuestions = isBossNode && bossQuestions ? bossQuestions : questionData.questions;
+    const orderedSteps = useMemo(() => {
+        const steps = [];
+        const pairCount = Math.max(questionData.theory.length, activeQuestions.length);
+        for (let index = 0; index < pairCount; index += 1) {
+            if (questionData.theory[index]) steps.push({ phase: 'theory', index });
+            if (activeQuestions[index]) steps.push({ phase: 'quiz', index });
+        }
+        return steps;
+    }, [activeQuestions, questionData.theory]);
+    const [currentStepIndex, setCurrentStepIndex] = useState(0);
+
+    const moveToStep = (stepIndex) => {
+        const nextStep = orderedSteps[stepIndex];
+        if (!nextStep) {
+            setPhase('results');
+            return;
+        }
+
+        setCurrentStepIndex(stepIndex);
+        setPhase(nextStep.phase);
+        setIsChecked(false);
+        setIsCorrect(false);
+        setSelectedId(null);
+        setHintLevel(0);
+
+        if (nextStep.phase === 'theory') {
+            setCurrentTheoryIndex(nextStep.index);
+            setFillValue('');
+        } else {
+            setCurrentQuestionIndex(nextStep.index);
+            const nextQuestion = activeQuestions[nextStep.index];
+            setFillValue(nextQuestion?.type === 'code-fix' ? nextQuestion.initialCode : '');
+        }
+    };
 
     useEffect(() => {
-        const theoryCount = questionData.theory.length;
-        const totalCount = theoryCount + activeQuestions.length;
-        const safeStep = Math.max(0, Math.min(startStep, totalCount - 1));
-        const startsInTheory = safeStep < theoryCount;
-        const questionIndex = startsInTheory ? 0 : safeStep - theoryCount;
+        const safeStep = Math.max(0, Math.min(startStep, orderedSteps.length - 1));
+        const initialStep = orderedSteps[safeStep];
+        const questionIndex = initialStep?.phase === 'quiz' ? initialStep.index : 0;
 
-        setPhase(startsInTheory ? 'theory' : 'quiz');
-        setCurrentTheoryIndex(startsInTheory ? safeStep : theoryCount - 1);
+        setCurrentStepIndex(safeStep);
+        setPhase(initialStep?.phase || 'theory');
+        setCurrentTheoryIndex(initialStep?.phase === 'theory' ? initialStep.index : 0);
         setCurrentQuestionIndex(questionIndex);
         setSelectedId(null);
         setFillValue(activeQuestions[questionIndex]?.type === 'code-fix' ? activeQuestions[questionIndex].initialCode : '');
@@ -71,15 +104,12 @@ function LessonView({ onComplete, onExit, onStepChange, lessonId, startStep = 0 
         setHintLevel(0);
         setMistakes(0);
         setBossQuestions(null);
-    }, [activeQuestions, lessonId, questionData.theory.length, startStep]);
+    }, [activeQuestions, lessonId, orderedSteps, startStep]);
 
     useEffect(() => {
         if (!onStepChange || phase === 'results') return;
-        const stepIndex = phase === 'theory'
-            ? currentTheoryIndex
-            : questionData.theory.length + currentQuestionIndex;
-        onStepChange(stepIndex);
-    }, [currentQuestionIndex, currentTheoryIndex, onStepChange, phase, questionData.theory.length]);
+        onStepChange(currentStepIndex);
+    }, [currentStepIndex, onStepChange, phase]);
 
     const handleCheck = () => {
         setIsChecked(true)
@@ -116,27 +146,10 @@ function LessonView({ onComplete, onExit, onStepChange, lessonId, startStep = 0 
 
     const handleNext = () => {
         if (phase === 'theory') {
-            if (currentTheoryIndex < questionData.theory.length - 1) {
-                setCurrentTheoryIndex(prev => prev + 1);
-            } else {
-                setPhase('quiz');
-                const firstQ = activeQuestions[0];
-                setFillValue(firstQ.type === 'code-fix' ? firstQ.initialCode : '');
-            }
+            moveToStep(currentStepIndex + 1);
         } else if (phase === 'quiz') {
-            if (isCorrect && currentQuestionIndex < activeQuestions.length - 1) {
-                // Keyingi savolga o'tish
-                const nextIndex = currentQuestionIndex + 1;
-                const nextQ = activeQuestions[nextIndex];
-                setCurrentQuestionIndex(nextIndex);
-                setIsChecked(false);
-                setIsCorrect(false);
-                setSelectedId(null);
-                setHintLevel(0);
-                setFillValue(nextQ.type === 'code-fix' ? nextQ.initialCode : '');
-            } else if (isCorrect && currentQuestionIndex === activeQuestions.length - 1) {
-                // Oxirgi savolda natijalarga o'tish
-                setPhase('results');
+            if (isCorrect) {
+                moveToStep(currentStepIndex + 1);
             } else {
                 setIsChecked(false);
                 setSelectedId(null);
@@ -335,9 +348,8 @@ function LessonView({ onComplete, onExit, onStepChange, lessonId, startStep = 0 
     ) : false;
 
     // Progress Bar: Umumiy savollar soni va ishlanganlariga qarab
-    const totalSteps = questionData.theory.length + activeQuestions.length;
-    const currentStep = phase === 'theory' ? currentTheoryIndex : questionData.theory.length + currentQuestionIndex;
-    const progressPercentage = (currentStep / totalSteps) * 100;
+    const totalSteps = orderedSteps.length;
+    const progressPercentage = (currentStepIndex / totalSteps) * 100;
 
     return (
         <div className="lesson-container new-layout">
