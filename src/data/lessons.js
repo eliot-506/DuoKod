@@ -275,5 +275,6 @@ export const COURSES = {
     html: { id: 'html', title: 'HTML Asoslari', data: HTML_LESSONS, color: 'var(--accent-pink)' },
     css: { id: 'css', title: 'CSS (Veb-Dizayn)', data: CSS_LESSONS, color: 'var(--secondary)' },
     js: { id: 'js', title: 'JavaScript (Mantiq)', data: JS_LESSONS, color: 'var(--accent-yellow)' },
-    python: { id: 'python', title: 'Python Asoslari', data: PYTHON_LESSONS, color: '#3776AB' }
+    python: { id: 'python', title: 'Python Asoslari', data: PYTHON_CURRICULUM, color: '#3776AB' }
 };
+import { PYTHON_CURRICULUM } from './pythonCurriculum';

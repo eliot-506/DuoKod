@@ -104,31 +104,31 @@ export const BOSS_DATA = {
             },
             {
                 moduleId: 4,
-                title: 'Method Menace',
+                title: 'Loop Leviathan',
                 subtitle: '4-Modul Bossi',
                 hp: 140,
                 rounds: [
                     {
                         type: 'bug',
-                        bossMessage: '🐍 Ro\'yxatga qo\'shishni bilmaysan!',
-                        code: 'mevalar.push("gilos")',
-                        correctAnswer: 'mevalar.append("gilos")',
-                        hint: 'Python da push emas, append ishlatiladi!',
+                        bossMessage: 'Sikl darvozasi yopildi. Sintaksisni tuzat!',
+                        code: 'for meva in mevalar\n  print(meva)',
+                        correctAnswer: 'for meva in mevalar:\n  print(meva)',
+                        hint: 'for qatori ikki nuqta bilan tugaydi!',
                         damage: { blade: 40, rifle: 25, dagger: 10 }
                     },
                     {
                         type: 'shield',
-                        bossMessage: '🐍 Ro\'yxat uzunligini yozib himoyalan!',
-                        code: 'uzunlik = len(mevalar)',
-                        shieldCode: 'uzunlik = len(mevalar)',
-                        hint: 'len() funksiyasidan foydalaning!',
+                        bossMessage: '1 dan 3 gacha sanab qalqon yarating!',
+                        code: 'for son in range(1, 4):',
+                        shieldCode: 'for son in range(1, 4):',
+                        hint: 'range ning oxirgi chegarasi natijaga kirmaydi!',
                     },
                     {
                         type: 'bug',
-                        bossMessage: '🐍 O\'chirish noto\'g\'ri!',
-                        code: 'mevalar.delete("olma")',
-                        correctAnswer: 'mevalar.remove("olma")',
-                        hint: 'O\'chirish uchun remove() ishlatiladi!',
+                        bossMessage: 'Sikl tanasi chekinishni yo\'qotdi!',
+                        code: 'for son in sonlar:\nprint(son)',
+                        correctAnswer: 'for son in sonlar:\n  print(son)',
+                        hint: 'Sikl ichidagi buyruqni ichkariga suring!',
                         damage: { blade: 40, rifle: 25, dagger: 10 }
                     }
                 ]
@@ -311,10 +311,10 @@ export const BOSS_DATA = {
                     },
                     {
                         type: 'bug',
-                        bossMessage: '🐍 Assert xato!',
-                        code: 'check 5 == 5',
-                        correctAnswer: 'assert 5 == 5',
-                        hint: 'Test uchun "assert" kalit so\'zi ishlatiladi!',
+                        bossMessage: 'JSON ma\'lumotini yuklash buyrug\'i buzildi!',
+                        code: 'data = json.read(f)',
+                        correctAnswer: 'data = json.load(f)',
+                        hint: 'Fayldagi JSON ma\'lumotini json.load() o\'qiydi!',
                         damage: { blade: 40, rifle: 25, dagger: 10 }
                     }
                 ]
