@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useCallback, useContext, useState, useEffect } from 'react';
 import { COURSES } from '../data/lessons';
 import { BOSS_DATA } from '../data/bossData';
 import { supabase } from '../lib/supabase';
@@ -227,9 +227,9 @@ export const UserProvider = ({ children }) => {
             syncProfileToSupabase(stats.supabaseId, stats);
         }, 2000); // 2 soniya debounce
         return () => clearTimeout(timer);
-    }, [stats.xp, stats.streak, stats.hearts, stats.unlockedBadges, stats.courses, stats.supabaseId]);
+    }, [stats]);
 
-    const loginUser = async (username, email, supabaseId = null) => {
+    const loginUser = useCallback(async (username, email, supabaseId = null) => {
         // Agar Supabase ID bo'lsa cloud dan o'qib olamiz
         if (supabaseId) {
             const cloudData = await loadProfileFromSupabase(supabaseId);
@@ -247,7 +247,7 @@ export const UserProvider = ({ children }) => {
             email,
             lastPlayed: new Date().toISOString()
         }));
-    };
+    }, []);
 
     const logoutUser = async () => {
         await supabase.auth.signOut();
@@ -288,7 +288,9 @@ export const UserProvider = ({ children }) => {
         });
     };
 
-    const addXp = (amount) => setStats(prev => ({ ...prev, xp: prev.xp + amount }));
+    const addXp = useCallback((amount) => {
+        setStats(prev => ({ ...prev, xp: prev.xp + amount }));
+    }, []);
     const spendHeart = (amount = 1) => setStats(prev => ({ ...prev, hearts: Math.max(0, prev.hearts - amount) }));
     const addHeart = (amount) => setStats(prev => ({ ...prev, hearts: prev.hearts + amount }));
     const switchCourse = (courseId) => setStats(prev => ({ ...prev, currentCourse: courseId }));

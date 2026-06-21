@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useUser } from '../context/UserContext';
 import './DuelMode.css';
 import Mascot from './Mascot';
@@ -34,6 +34,13 @@ function DuelMode() {
     const [timeLeft, setTimeLeft] = useState(60); // 60 seconds
     const [code, setCode] = useState(CHALLENGE.initialCode);
     const [matchResult, setMatchResult] = useState(''); // 'win', 'lose', 'draw'
+
+    const endGame = useCallback((result) => {
+        if (phase !== 'fighting') return;
+        setPhase('result');
+        setMatchResult(result);
+        addXp(result === 'win' ? 50 : 10);
+    }, [addXp, phase]);
 
     // Matchmaking effect
     useEffect(() => {
@@ -73,18 +80,7 @@ function DuelMode() {
             }, 1000);
             return () => clearInterval(timer);
         }
-    }, [phase]);
-
-    const endGame = (result) => {
-        if (phase !== 'fighting') return;
-        setPhase('result');
-        setMatchResult(result);
-        if (result === 'win') {
-            addXp(50); // Winner gets 50 XP!
-        } else {
-            addXp(10); // Participation
-        }
-    };
+    }, [endGame, phase]);
 
     const handleSubmit = () => {
         // Simple heuristic validation for MVP

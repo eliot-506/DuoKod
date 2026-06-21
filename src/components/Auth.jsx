@@ -33,7 +33,7 @@ function Auth({ onLoginSuccess }) {
                 if (onLoginSuccess) onLoginSuccess();
             }
         });
-    }, []);
+    }, [loginUser, onLoginSuccess]);
 
     const handleEmailAuth = async (e) => {
         e.preventDefault();

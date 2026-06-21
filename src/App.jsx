@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import './App.css'
 import TopBar from './components/TopBar'
 import LearningTab from './components/LearningTab'
@@ -34,8 +34,12 @@ function App() {
   const [showXpAnim, setShowXpAnim] = useState(false)
   const [earnedXp, setEarnedXp] = useState(0)
 
+  const handleLoginSuccess = useCallback(() => {
+    setCurrentView('dashboard')
+  }, [])
+
   if (!stats.isLoggedIn) {
-    return <Auth onLoginSuccess={() => setCurrentView('dashboard')} />
+    return <Auth onLoginSuccess={handleLoginSuccess} />
   }
 
   const handleStartLesson = (courseId, nodeId) => {

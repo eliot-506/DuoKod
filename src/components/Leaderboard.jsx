@@ -44,7 +44,7 @@ function Leaderboard() {
             setLoading(false);
         };
         fetchLeaders();
-    }, [activeFilter]);
+    }, [activeFilter, stats.currentAvatar, stats.streak, stats.username, stats.xp]);
 
     const getMedalIcon = (index) => {
         if (index === 0) return <span className="lb-medal lb-medal--gold">🥇</span>;
