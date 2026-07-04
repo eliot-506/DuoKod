@@ -50,3 +50,19 @@ export const getStreakTier = (streak) => {
         };
     }
 };
+
+export const getLocalDateKey = (date = new Date()) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+};
+
+export const getCalendarDayDifference = (fromDateKey, toDateKey) => {
+    if (!fromDateKey || !toDateKey) return null;
+    const [fromYear, fromMonth, fromDay] = fromDateKey.split('-').map(Number);
+    const [toYear, toMonth, toDay] = toDateKey.split('-').map(Number);
+    const fromUtc = Date.UTC(fromYear, fromMonth - 1, fromDay);
+    const toUtc = Date.UTC(toYear, toMonth - 1, toDay);
+    return Math.round((toUtc - fromUtc) / 86_400_000);
+};

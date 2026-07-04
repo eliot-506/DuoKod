@@ -1,16 +1,31 @@
-# React + Vite
+# DuoKod
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Python va web dasturlashni o‘rgatishga mo‘ljallangan React/Vite platformasi. Autentifikatsiya, progress va boshqaruv ma’lumotlari Supabase’da saqlanadi.
 
-Currently, two official plugins are available:
+## Ishga tushirish
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Talablar: Node.js 20+ va Supabase loyihasi.
 
-## React Compiler
+```bash
+npm install
+copy .env.example .env
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+`.env` ichida `VITE_SUPABASE_URL` va `VITE_SUPABASE_ANON_KEY` qiymatlarini kiriting. Anon kalitni frontendda ishlatish normal, lekin service-role kalitini hech qachon frontendga joylamang.
 
-## Expanding the ESLint configuration
+## Tekshiruv
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm run lint
+npm test
+npm run build
+```
+
+## Supabase
+
+`supabase/migrations` ichidagi migratsiyalarni vaqt tartibida qo‘llang. Production muhitida `profiles`, `course_progress`, `lesson_contents` va to‘lov jadvallarida RLS yoqilganini tekshiring. Admin roli faqat ishonchli server yoki Supabase boshqaruv paneli orqali berilishi kerak.
+
+## Production xavfsizligi
+
+Code Arena foydalanuvchi kodini origin huquqisiz sandboxlangan iframe ichida bajaradi. XP, premium va to‘lov kabi ishonch talab qiluvchi amallarni yakuniy production versiyada Supabase RPC yoki Edge Function orqali serverda tasdiqlash kerak.

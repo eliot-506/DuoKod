@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useState, useEffect } from 'rea
 import { COURSES } from '../data/lessons';
 import { BOSS_DATA } from '../data/bossData';
 import { supabase } from '../lib/supabase';
+import { getCalendarDayDifference, getLocalDateKey } from '../utils/streakUtils';
 
 const UserContext = createContext();
 
@@ -439,7 +440,7 @@ export const UserProvider = ({ children }) => {
         setStats(prev => {
             const now = new Date();
             // Vaqt zonasini hisobga olgan holda faqat "kun" ni solishtirish
-            const todayStr = now.toISOString().slice(0, 10); // "2026-04-19"
+            const todayStr = getLocalDateKey(now);
             const lastStr = prev.lastPlayed ? prev.lastPlayed.slice(0, 10) : null;
 
             // Bugun allaqachon o'ynagan — streak va lastPlayed o'zgarmaydi
@@ -448,8 +449,7 @@ export const UserProvider = ({ children }) => {
             let newStreak;
             if (lastStr) {
                 // Kecha o'ynagan bo'lsa → streak davom etadi
-                const lastDate = new Date(lastStr);
-                const diff = Math.round((now - lastDate) / (1000 * 60 * 60 * 24));
+                const diff = getCalendarDayDifference(lastStr, todayStr);
                 if (diff === 1) {
                     newStreak = prev.streak + 1; // Kecha o'ynagan → davom etadi
                 } else {

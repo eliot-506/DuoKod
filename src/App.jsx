@@ -1,29 +1,30 @@
-import { useCallback, useState } from 'react'
+import { lazy, Suspense, useCallback, useState } from 'react'
 import './App.css'
 import TopBar from './components/TopBar'
 import LearningTab from './components/LearningTab'
-import LessonView from './components/LessonView'
-import Leaderboard from './components/Leaderboard'
 import BottomNav from './components/BottomNav'
 import Sidebar from './components/Sidebar'
-import Profile from './components/Profile'
-import Certificate from './components/Certificate'
 import Auth from './components/Auth'
 import Dashboard from './components/Dashboard'
-import AdminDashboard from './components/AdminDashboard'
-import CodeArena from './components/CodeArena'
-import DuelMode from './components/DuelMode'
-import ProjectMode from './components/ProjectMode'
 import XpAnimation from './components/XpAnimation'
-import Library from './components/Library'
-import BossFight from './components/BossFight'
-import Premium from './components/Premium'
 import AnimatedRobot from './components/AnimatedRobot'
 import { useUser } from './context/UserContext'
 import { useRobot } from './context/RobotContext'
 import { BOSS_DATA } from './data/bossData'
 
 import BackgroundSystem from './components/BackgroundSystem'
+
+const LessonView = lazy(() => import('./components/LessonView'))
+const Leaderboard = lazy(() => import('./components/Leaderboard'))
+const Profile = lazy(() => import('./components/Profile'))
+const Certificate = lazy(() => import('./components/Certificate'))
+const AdminDashboard = lazy(() => import('./components/AdminDashboard'))
+const CodeArena = lazy(() => import('./components/CodeArena'))
+const DuelMode = lazy(() => import('./components/DuelMode'))
+const ProjectMode = lazy(() => import('./components/ProjectMode'))
+const Library = lazy(() => import('./components/Library'))
+const BossFight = lazy(() => import('./components/BossFight'))
+const Premium = lazy(() => import('./components/Premium'))
 
 function App() {
   const { stats, addXp, completeNode, completeSection, spendHeart, switchCourse, updateStreak } = useUser()
@@ -172,6 +173,7 @@ function App() {
         {!['lesson','certificate','project','library','boss'].includes(currentView) && <TopBar onLogoClick={() => setCurrentView('dashboard')} onNavigate={setCurrentView} />}
 
         <main className="main-content">
+          <Suspense fallback={<div className="view-loading" role="status">Yuklanmoqda...</div>}>
           {currentView === 'dashboard' && <Dashboard onNavigate={setCurrentView} />}
           {currentView === 'admin' && stats.isAdmin && <AdminDashboard />}
           {currentView === 'map' && <LearningTab learningLocation={learningLocation} onLocationChange={setLearningLocation} onNodeClick={handleStartLesson} onBossStart={handleStartBoss} onClaimCertificate={() => setCurrentView('certificate')} onStartProject={() => setCurrentView('project')} onPremiumClick={() => setCurrentView('premium')} />}
@@ -183,9 +185,11 @@ function App() {
           {currentView === 'project' && <ProjectMode onExit={() => setCurrentView('map')} />}
           {currentView === 'certificate' && <Certificate onBack={() => setCurrentView('map')} />}
           {currentView === 'library' && <Library onBack={() => setCurrentView('dashboard')} />}
+          </Suspense>
         </main>
       </div>
 
+      <Suspense fallback={<div className="view-loading" role="status">Dars yuklanmoqda...</div>}>
       {currentView === 'lesson' && (
         <LessonView
           onExit={handleExitLesson}
@@ -206,6 +210,7 @@ function App() {
           onExit={handleBossExit}
         />
       )}
+      </Suspense>
 
       {showXpAnim && <XpAnimation xpAmount={earnedXp} onComplete={() => setShowXpAnim(false)} />}
 

@@ -19,9 +19,12 @@ function CodeArena() {
         // Simulate execution time for better UX
         setTimeout(() => {
             try {
+                const safeJavaScript = JSON.stringify(js).replaceAll('<', '\\u003c');
+                const safePython = JSON.stringify(python).replaceAll('<', '\\u003c');
                 setSrcDoc(`
                     <html>
                         <head>
+                            <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com; style-src 'unsafe-inline'; img-src data:; font-src data:">
                             <style>
                                 ${css}
                                 #custom-console {
@@ -42,7 +45,7 @@ function CodeArena() {
                             <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.11.0/brython.min.js"></script>
                             <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.11.0/brython_stdlib.min.js"></script>
                         </head>
-                        <body onload="brython()">
+                        <body>
                             ${html}
                             
                             <div id="custom-console"></div>
@@ -53,11 +56,19 @@ function CodeArena() {
                                 console.log = function(...args) {
                                     log.apply(console, args);
                                     const con = document.getElementById('custom-console');
-                                    con.innerHTML += '> ' + args.join(' ') + '<br>';
+                                    con.textContent += '> ' + args.join(' ') + '\n';
                                 };
                             </script>
 
-                            <script type="text/python">
+                            <script>
+                                const pythonScript = document.createElement('script');
+                                pythonScript.type = 'text/plain';
+                                pythonScript.id = 'duokod-python-source';
+                                pythonScript.textContent = ` + safePython + `;
+                                document.body.appendChild(pythonScript);
+                            </script>
+
+                            <script type="text/python" id="duokod-python-runner">
         import sys
         from browser import document
 
@@ -69,12 +80,18 @@ function CodeArena() {
         sys.stdout = ConsoleOutput()
 
         try:
-        ${python.split('\n').map(line => '    ' + line).join('\n')}
+        exec(document["duokod-python-source"].text)
         except Exception as e:
-            document["custom-console"].innerHTML += f"<span style='color:red'>{e}</span><br>"
+            document["custom-console"].textContent += f"Xato: {e}\n"
                             </script>
 
-                            <script>${js}</script>
+                            <script>
+                                try { (0, eval)(` + safeJavaScript + `); }
+                                catch (error) {
+                                    document.getElementById('custom-console').textContent += 'Xato: ' + error.message + '\\n';
+                                }
+                                brython();
+                            </script>
                         </body>
                     </html>
                 `);
@@ -226,7 +243,8 @@ function CodeArena() {
                         <iframe
                             srcDoc={srcDoc}
                             title="Code Output"
-                            sandbox="allow-scripts allow-same-origin"
+                            sandbox="allow-scripts"
+                            referrerPolicy="no-referrer"
                             className="arena-iframe"
                         />
                     </div>
