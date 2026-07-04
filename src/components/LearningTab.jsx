@@ -17,7 +17,7 @@ function LearningTab({ learningLocation, onLocationChange, onNodeClick, onBossSt
             onModuleChange={moduleId => onLocationChange(current => ({ ...current, moduleId, sectionId: null, stepIndex: 0 }))}
             onNodeClick={onNodeClick}
             onBossStart={onBossStart}
-            onClaimCertificate={onClaimCertificate}
+            onClaimCertificate={() => onClaimCertificate(selectedCourse)}
             onStartProject={onStartProject}
             onBack={() => onLocationChange({ courseId: null, moduleId: null, sectionId: null, stepIndex: 0 })}
         />

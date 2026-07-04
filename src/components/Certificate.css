@@ -317,3 +317,17 @@
       justify-content: center;
     }
   }
+
+  .certificate-state {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 18px;
+    text-align: center;
+  }
+
+  .certificate-state p {
+    max-width: 560px;
+    color: var(--muted);
+    font-size: 18px;
+  }

@@ -176,7 +176,7 @@ function App() {
           <Suspense fallback={<div className="view-loading" role="status">Yuklanmoqda...</div>}>
           {currentView === 'dashboard' && <Dashboard onNavigate={setCurrentView} />}
           {currentView === 'admin' && stats.isAdmin && <AdminDashboard />}
-          {currentView === 'map' && <LearningTab learningLocation={learningLocation} onLocationChange={setLearningLocation} onNodeClick={handleStartLesson} onBossStart={handleStartBoss} onClaimCertificate={() => setCurrentView('certificate')} onStartProject={() => setCurrentView('project')} onPremiumClick={() => setCurrentView('premium')} />}
+          {currentView === 'map' && <LearningTab learningLocation={learningLocation} onLocationChange={setLearningLocation} onNodeClick={handleStartLesson} onBossStart={handleStartBoss} onClaimCertificate={(courseId) => { switchCourse(courseId); setCurrentView('certificate'); }} onStartProject={() => setCurrentView('project')} onPremiumClick={() => setCurrentView('premium')} />}
           {currentView === 'leaderboard' && <Leaderboard />}
           {currentView === 'profile' && <Profile />}
           {currentView === 'arena' && <CodeArena />}
