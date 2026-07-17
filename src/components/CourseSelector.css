@@ -129,10 +129,17 @@
     flex-shrink: 0;
 }
 
-.csel-icon { font-size: 2rem; line-height: 1; }
+.csel-icon {
+    color: var(--accent, #2563EB);
+    font-size: 1.7rem;
+    line-height: 1;
+}
 
 /* ── Badges ───────────────────────────────── */
 .csel-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-size: 0.68rem;
     font-weight: 800;
     padding: 5px 12px;
@@ -172,6 +179,9 @@
 }
 
 .csel-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-size: 0.78rem;
     font-weight: 600;
     color: #64748B;
@@ -201,6 +211,10 @@
 
 /* ── Button ───────────────────────────────── */
 .csel-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     width: 100%;
     height: 46px;
     background: #2563EB;

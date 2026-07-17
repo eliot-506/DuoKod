@@ -1,12 +1,13 @@
 import './TopBar.css'
 import { useUser } from '../context/UserContext'
+import { getDailyGoalProgress } from '../utils/progressUtils'
 
 function TopBar({ onNavigate }) {
     const { stats, toggleAdminMode } = useUser()
     const dailyGoalXp = 50
-    const todayXp = Math.min(stats?.xp || 0, dailyGoalXp)
-    const remainingXp = Math.max(0, dailyGoalXp - todayXp)
-    const missionPercent = Math.round((todayXp / dailyGoalXp) * 100)
+    const dailyProgress = getDailyGoalProgress(stats?.dailyXp, dailyGoalXp)
+    const remainingXp = dailyProgress.remainingXp
+    const missionPercent = dailyProgress.percent
 
     return (
         <header className="top-card-container">

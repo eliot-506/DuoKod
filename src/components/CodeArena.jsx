@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './CodeArena.css';
 import { useRobot } from '../context/RobotContext';
+import { useUser } from '../context/UserContext';
 
 function CodeArena() {
     const [html, setHtml] = useState('<div class="hero">\n  <h1>Code Arena</h1>\n  <p>DuoKod Playgrounga xush kelibsiz!</p>\n  <div class="glow"></div>\n</div>');
@@ -11,8 +12,9 @@ function CodeArena() {
     const [srcDoc, setSrcDoc] = useState('');
     const [runStatus, setRunStatus] = useState('ready'); // ready, running, success, error
     const { triggerRobot } = useRobot();
+    const { unlockBadge } = useUser();
 
-    const handleRun = () => {
+    const handleRun = (isAutoRun = false) => {
         if (runStatus === 'running') return;
         setRunStatus('running');
         
@@ -96,6 +98,7 @@ function CodeArena() {
                     </html>
                 `);
                 setRunStatus('success');
+                if (!isAutoRun) unlockBadge('arena_runner');
                 triggerRobot('happy', "Kod ishga tushdi! Natijani o‘ng panelda ko‘ring 🚀", 4000);
             } catch {
                 setRunStatus('error');
@@ -118,7 +121,7 @@ function CodeArena() {
     };
 
     useEffect(() => {
-        handleRun();
+        handleRun(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -165,7 +168,7 @@ function CodeArena() {
                                     </svg>
                                 </button>
                                 
-                                <button className="run-code-btn" onClick={handleRun} disabled={runStatus === 'running'} style={{ opacity: runStatus === 'running' ? 0.7 : 1 }}>
+                                <button className="run-code-btn" onClick={() => handleRun()} disabled={runStatus === 'running'} style={{ opacity: runStatus === 'running' ? 0.7 : 1 }}>
                                     {runStatus === 'running' ? (
                                         <svg className="run-icon animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{animation: 'spin 1s linear infinite'}}>
                                             <line x1="12" y1="2" x2="12" y2="6"></line>

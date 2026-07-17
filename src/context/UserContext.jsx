@@ -3,6 +3,8 @@ import { COURSES } from '../data/lessons';
 import { BOSS_DATA } from '../data/bossData';
 import { supabase } from '../lib/supabase';
 import { getCalendarDayDifference, getLocalDateKey } from '../utils/streakUtils';
+import { addDailyXp, createDailyXpState, normalizeDailyXp } from '../utils/progressUtils';
+import { addUniqueBadges, getLessonCompletionBadges, getStreakBadges } from '../utils/badgeUtils';
 
 const UserContext = createContext();
 
@@ -14,6 +16,7 @@ const defaultUserStats = {
     streak: 0,
     xp: 0,
     hearts: 50,
+    dailyXp: createDailyXpState(),
     role: 'user',
     isAdmin: false,
     isSuperAdmin: false,
@@ -114,6 +117,7 @@ const loadProfileFromSupabase = async (userId) => {
             level: profile.level || 1,
             streak: profile.streak || 0,
             hearts: profile.hearts || 50,
+            dailyXp: createDailyXpState(),
             role: role,
             isAdmin: role === 'admin',
             isSuperAdmin: role === 'super_admin',
@@ -163,6 +167,7 @@ export const UserProvider = ({ children }) => {
                 if (!parsed.unlockedBadges) parsed.unlockedBadges = [];
                 if (typeof parsed.isPremium !== 'boolean') parsed.isPremium = false;
                 if (!parsed.premiumUntil) parsed.premiumUntil = null;
+                parsed.dailyXp = normalizeDailyXp(parsed.dailyXp);
                 return parsed;
             } catch { return defaultUserStats; }
         }
@@ -290,7 +295,13 @@ export const UserProvider = ({ children }) => {
     };
 
     const addXp = useCallback((amount) => {
-        setStats(prev => ({ ...prev, xp: prev.xp + amount }));
+        const safeAmount = Math.max(0, Number(amount) || 0);
+        if (safeAmount <= 0) return;
+        setStats(prev => ({
+            ...prev,
+            xp: prev.xp + safeAmount,
+            dailyXp: addDailyXp(prev.dailyXp, safeAmount)
+        }));
     }, []);
     const spendHeart = (amount = 1) => setStats(prev => ({ ...prev, hearts: Math.max(0, prev.hearts - amount) }));
     const addHeart = (amount) => setStats(prev => ({ ...prev, hearts: prev.hearts + amount }));
@@ -334,15 +345,19 @@ export const UserProvider = ({ children }) => {
             const courseIsComplete = completedLessonCount >= totalCourseNodes && completedBossCount >= requiredBosses.length;
             if (courseIsComplete) {
                 if (!newStats.unlockedAvatars.includes(courseId)) newStats.unlockedAvatars.push(courseId);
-                if (courseId === 'css' && !newStats.unlockedBadges.includes('css_master')) newStats.unlockedBadges.push('css_master');
-            }
-            if (!newStats.unlockedBadges.includes('first_code') &&
-                (newStats.courses.html.completedNodes.length > 0 ||
-                    newStats.courses.css.completedNodes.length > 0 ||
-                    newStats.courses.js.completedNodes.length > 0)) {
-                newStats.unlockedBadges.push('first_code');
+                if (courseId === 'css') newStats.unlockedBadges = addUniqueBadges(newStats.unlockedBadges, ['css_master']);
             }
             newStats.courses[courseId] = courseData;
+            const completedAnyWebLesson = ['html', 'css', 'js'].some(id => (
+                newStats.courses[id].completedNodes.some(nodeId => Number(nodeId) < 100)
+            ));
+            if (completedAnyWebLesson) {
+                newStats.unlockedBadges = addUniqueBadges(newStats.unlockedBadges, ['first_code']);
+            }
+            newStats.unlockedBadges = addUniqueBadges(
+                newStats.unlockedBadges,
+                getLessonCompletionBadges({ courseId, completedLessonCount, score })
+            );
             return newStats;
         });
     };
@@ -398,8 +413,22 @@ export const UserProvider = ({ children }) => {
                 }
             }
 
+            const completedLessonCount = courseData.completedNodes.filter(id => Number(id) < 100).length;
+            const completedAnyWebLesson = ['html', 'css', 'js'].some(id => {
+                const progress = id === courseId ? courseData : prev.courses[id];
+                return progress.completedNodes.some(nodeId => Number(nodeId) < 100);
+            });
+            const newBadges = addUniqueBadges(
+                prev.unlockedBadges,
+                [
+                    ...(completedAnyWebLesson ? ['first_code'] : []),
+                    ...getLessonCompletionBadges({ courseId, completedLessonCount, score: safeScore })
+                ]
+            );
+
             return {
                 ...prev,
+                unlockedBadges: newBadges,
                 courses: { ...prev.courses, [courseId]: courseData }
             };
         });
@@ -467,9 +496,7 @@ export const UserProvider = ({ children }) => {
                 bonusXp = 50;
             }
 
-            if (newStreak >= 7 && !newBadges.includes('streak_7')) {
-                newBadges.push('streak_7');
-            }
+            newBadges = addUniqueBadges(newBadges, getStreakBadges(newStreak));
 
             return {
                 ...prev,

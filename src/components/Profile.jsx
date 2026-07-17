@@ -3,6 +3,7 @@ import './Profile.css'
 import { useUser } from '../context/UserContext'
 import AnimatedRobot from './AnimatedRobot'
 import SkillRadarChart from './SkillRadarChart'
+import { BADGE_LIST } from '../data/badges'
 
 const AVATAR_LIST = [
     { id: 'default', name: 'Boshlang\'ich Robot', desc: 'Bepul kiber robot' },
@@ -11,12 +12,6 @@ const AVATAR_LIST = [
     { id: 'js', name: 'JS Sehrgari', desc: 'Mantiq mutaxassisi' },
     { id: 'premium', name: 'Premium (PRO)', desc: 'Tilla toj egasi' }
 ];
-const BADGE_LIST = [
-    { id: 'first_code', icon: 'fa-code', title: 'First Code', desc: 'Birinchi kodni muvaffaqiyatli yozganingiz uchun' },
-    { id: 'streak_7', icon: 'fa-fire', title: '7 Day Streak', desc: 'Ketma-ket 7 kun dars qilganingiz uchun' },
-    { id: 'css_master', icon: 'fa-css3-alt', title: 'CSS Master', desc: 'Barcha CSS modullarini tugatganingiz uchun' }
-];
-
 function Profile() {
     const { stats, changeAvatar, buyPremiumAvatar, logoutUser, deleteAccount, currentLevel, currentLevelXp, nextLevelXp } = useUser()
     const [selectedSkillTab, setSelectedSkillTab] = useState(stats.currentCourse || 'python');

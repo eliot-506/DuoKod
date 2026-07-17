@@ -1,6 +1,7 @@
 import './Dashboard.css';
 import { useUser } from '../context/UserContext';
 import { useCourseContent } from '../context/CourseContentContext';
+import { getDailyGoalProgress } from '../utils/progressUtils';
 import AnimatedRobot from './AnimatedRobot';
 
 function Dashboard({ onNavigate }) {
@@ -12,8 +13,9 @@ function Dashboard({ onNavigate }) {
     const completedLessons = courseProgress.completedNodes?.filter(nodeId => nodeId < 100).length || 0;
     const lessonProgressPercent = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
     const dailyGoalXp = 50;
-    const todayXp = Math.min(stats.xp || 0, dailyGoalXp);
-    const remainingDailyXp = Math.max(0, dailyGoalXp - todayXp);
+    const dailyProgress = getDailyGoalProgress(stats.dailyXp, dailyGoalXp);
+    const todayXp = dailyProgress.cappedXp;
+    const remainingDailyXp = dailyProgress.remainingXp;
     const levelProgressPercent = Math.round(((currentLevelXp || 0) / (nextLevelXp || 100)) * 100);
     const streakDays = stats.streak || 0;
     const activeCourse = courses[currentCourse];
