@@ -1,178 +1,248 @@
 export const HTML_LESSONS = [
     {
         id: 1,
-        title: 'HTML Asoslari (1-Modul)',
+        title: 'HTML hujjat tuzilishi',
+        desc: 'DOCTYPE, html, head va body qismlari',
         theory: [
-            "HTML (HyperText Markup Language) web sahifalarning skeleti hisoblanadi. Har bir HTML hujjati brauzerga o\'zini tanitishi uchun eng yuqorisida <!DOCTYPE html> yozuvi bo\'lishi shart.",
-            "HTML sahifadagi har bir qismni belgilab beradi: sarlavha, matn, rasm, tugma va havolalar hammasi teglar orqali quriladi.",
-            "Teg odatda ochiladi va yopiladi: <p>Matn</p>. Ba'zi teglar esa yolg'iz ishlaydi, masalan <br> yoki <img>.",
-            "Teglar (tags) HTML ning qurilish g\'ishtlaridir. Matnni qalin qilish uchun <b> (bold) tegidan foydalanamiz.",
-            "Sarlavhalar muhim. <h1> eng katta sarlavha, <h6> esa eng kichik sarlavha hisoblanadi.",
-            "Birinchi bosqichdagi maqsad oddiy: brauzer tushunadigan kichik sahifa yaratish va ekranga aniq matn chiqarish."
+            'HTML sahifadagi maʼlumotlarning tuzilishini belgilaydi. Brauzer matn, sarlavha, rasm, havola va formalarni HTML teglar orqali tushunadi.',
+            '<!DOCTYPE html> brauzerga hujjat HTML5 standartida yozilganini bildiradi. Undan keyin butun sahifa <html> elementi ichida joylashadi.',
+            '<head> qismida sahifa sozlamalari turadi: sarlavha, kodlash turi, mobil moslashuv va CSS fayllar. Foydalanuvchi ko‘radigan kontent esa <body> ichida bo‘ladi.',
+            'Toza HTML yozishning birinchi talabi - elementlarni maqsadiga qarab tanlash va teglarni to‘g‘ri ochib-yopish.'
         ],
         questions: [
-            { id: 'q1', type: 'multiple-choice', prompt: 'HTML faylini yaratganda eng birinchi bo\'lib qaysi teg yozilishi shart?', options: [{ id: 'a', text: '<html>' }, { id: 'b', text: '<!DOCTYPE html>' }, { id: 'c', text: '<head>' }, { id: 'd', text: '<body>' }], correctId: 'b', explanation: '<!DOCTYPE html> brauzerga bu HTML5 hujjat ekanligini bildiradi.' },
-            { id: 'q2', type: 'fill-blanks', prompt: 'Matnni qalin qilish (bold) uchun kerakli tegni to\'ldiring:', codeBefore: '<p>Bu oddiy matn va bu ', codeAfter: ' qalin matn.</p>', correctAnswer: '<b>', explanation: '<b> tegi (bold) so\'zni qalin qilib ko\'rsatadi.' },
-            { id: 'q3', type: 'multiple-choice', prompt: 'Eng katta sarlavha (Heading) yaratish uchun qaysi teg ishlatiladi?', options: [{ id: 'a', text: '<heading>' }, { id: 'b', text: '<h6>' }, { id: 'c', text: '<h1>' }, { id: 'd', text: '<header>' }], correctId: 'c', explanation: '<h1> tegi eng katta sarlavha.' },
-            { id: 'q4', type: 'code-write', prompt: 'Topshiriq: Asosiy sarlavha tegidan foydalanib "Salom Dunyo" yozuvini ekranga chiqaring.', correctAnswer: '<h1>Salom Dunyo</h1>', placeholder: 'Kodingizni bu yerga yozing...', explanation: 'Eng katta sarlavha <h1> hisoblanadi.' }
+            { id: 'html1-q1', type: 'multiple-choice', prompt: 'HTML5 hujjati odatda qaysi satr bilan boshlanadi?', options: [{ id: 'a', text: '<html>' }, { id: 'b', text: '<!DOCTYPE html>' }, { id: 'c', text: '<head>' }, { id: 'd', text: '<body>' }], correctId: 'b', explanation: '<!DOCTYPE html> brauzerga hujjat HTML5 ekanini bildiradi.' },
+            { id: 'html1-q2', type: 'fill-blanks', prompt: 'Foydalanuvchi ko‘radigan asosiy kontent qaysi teg ichida yoziladi?', codeBefore: '<', codeAfter: '>Salom, DuoKod!</body>', correctAnswer: 'body', explanation: '<body> sahifada ko‘rinadigan kontent uchun ishlatiladi.' },
+            { id: 'html1-q3', type: 'code-write', prompt: 'Sahifaga "Salom, web!" matnli asosiy sarlavha yozing.', correctAnswer: '<h1>Salom, web!</h1>', placeholder: '<h1>...</h1>', explanation: '<h1> sahifadagi eng muhim sarlavhani bildiradi.' }
         ]
     },
     {
         id: 2,
-        title: 'Havolalar va Rasmlar (2-Modul)',
+        title: 'Matn, havola va rasm',
+        desc: 'Kontentni o‘qilishi va navigatsiya uchun tayyorlash',
         theory: [
-            "Havolalar (linklar) internetni bir-biriga bog\'laydi. Boshqa sahifaga o\'tish uchun <a> tegidan va href parametrlaidan foydalaniladi.",
-            "Sahifani jonlantirish uchun rasmlardan foydalanamiz. Buning uchun <img> tegi ishlatiladi (faqat bitishuvchi, yopilmaydi)."
+            'Matn kontenti sarlavha, paragraf va ro‘yxatlar orqali tartiblanadi. <h1> asosiy sarlavha, <p> esa oddiy matn uchun ishlatiladi.',
+            'Havola yaratish uchun <a> tegi va href atributi kerak. href foydalanuvchi bosganda qaysi manzil ochilishini belgilaydi.',
+            'Rasm qo‘shishda <img> tegi ishlatiladi. Rasm manzili src atributida, qisqa tavsifi esa alt atributida yoziladi.',
+            'alt atributi accessibility uchun muhim: rasm yuklanmasa yoki screen reader ishlatilsa, foydalanuvchiga mazmunni tushuntiradi.'
         ],
         questions: [
-            { id: 'q5', type: 'fill-blanks', prompt: 'Boshqa sahifaga o\'tish mumkin bo\'lgan havola (link) yaratuvchi tegni yozing:', codeBefore: '<', codeAfter: ' href="https://google.com">Google.com </a>', correctAnswer: 'a', explanation: '<a> (anchor) tegi web sahifada havolalar yaratadi.' },
-            { id: 'q6', type: 'code-fix', prompt: 'Topshiriq: Quyida yozilgan rasm elementida xatolik mavjud. Rasm ko\'rinishi uchun atrebutni to\'g\'irlang:', initialCode: '<img href="rasm.jpg">', correctAnswer: '<img src="rasm.jpg">', explanation: '<img> tegi uchun rasm manzili doim src atributi orqali ulanadi.' },
-            { id: 'q7', type: 'fill-blanks', prompt: 'Yangi qatorga o\'tish (line break) uchun qaysi yopilmaydigan teg ishlatiladi?', codeBefore: 'Birinchi qator <', codeAfter: '> Ikkinchi qator', correctAnswer: 'br', explanation: '<br> tegi matnni paska tushiradi.' }
+            { id: 'html2-q1', type: 'fill-blanks', prompt: 'Havola manzilini ko‘rsatuvchi atributni kiriting.', codeBefore: '<a ', codeAfter: '="https://duokod.uz">DuoKod</a>', correctAnswer: 'href', explanation: 'href atributi havolaning boradigan manzilini belgilaydi.' },
+            { id: 'html2-q2', type: 'code-fix', prompt: 'Rasm manzili noto‘g‘ri atributda yozilgan. Xatoni tuzating.', initialCode: '<img href="logo.png" alt="DuoKod logosi">', correctAnswer: '<img src="logo.png" alt="DuoKod logosi">', explanation: '<img> elementida fayl manzili src atributiga yoziladi.' },
+            { id: 'html2-q3', type: 'multiple-choice', prompt: 'Rasm mazmunini qisqa tushuntirish uchun qaysi atribut kerak?', options: [{ id: 'a', text: 'href' }, { id: 'b', text: 'alt' }, { id: 'c', text: 'target' }, { id: 'd', text: 'title-only' }], correctId: 'b', explanation: 'alt rasmga matnli tavsif beradi.' }
         ]
     },
     {
         id: 3,
-        title: 'Jadvallar va Shakllar (3-Modul)',
+        title: 'Ro‘yxatlar va jadvallar',
+        desc: 'Takroriy va jadval ko‘rinishidagi maʼlumotlar',
         theory: [
-            "Narsalarni sanab o\'tish uchun HTML li listlardan yordam olamiz. <ol> va <ul> dan foydalaning.",
-            "Ma\'lumotlarni qator va ustunlarga ajratib ko\'rsatish uchun jadvallar (tables) dan foydalanamiz. Jadval yaratish <table> tegi bilan boshlanadi."
+            'Ro‘yxatlar bir turdagi maʼlumotlarni tartibli ko‘rsatadi. <ul> belgili ro‘yxat, <ol> raqamlangan ro‘yxat uchun ishlatiladi.',
+            'Har bir ro‘yxat elementi <li> tegi bilan yoziladi. Ro‘yxat ichida havola yoki oddiy matn bo‘lishi mumkin.',
+            'Jadval qator va ustunlardan iborat maʼlumotlar uchun kerak. Asosiy teg <table>, qator <tr>, katak esa <td> bilan yoziladi.',
+            'Jadvalda sarlavha kataklari uchun <th> ishlatiladi; bu maʼlumotni o‘qish va tushunishni osonlashtiradi.'
         ],
         questions: [
-            { id: 'q7', type: 'multiple-choice', prompt: 'Tartiblangan raqamli ro\'yxat yaratish uchun qaysi teg ochilishi kerak?', options: [{ id: 'a', text: '<ul>' }, { id: 'b', text: '<ol>' }, { id: 'c', text: '<li>' }, { id: 'd', text: '<list>' }], correctId: 'b', explanation: '<ol> (ordered list) raqamlangan ro\'yxat uchun.' },
-            { id: 'q8', type: 'multiple-choice', prompt: 'Jadval tuzilishini eng avvalo qaysi teg boshlab beradi?', options: [{ id: 'a', text: '<tr>' }, { id: 'b', text: '<td>' }, { id: 'c', text: '<table>' }, { id: 'd', text: '<grid>' }], correctId: 'c', explanation: '<table> asosiy tegdir.' },
-            { id: 'q9', type: 'fill-blanks', prompt: 'Jadvalga yangi qator qo\'shish uchun tegni yozing:', codeBefore: '<table> <', codeAfter: '> <td>Ma\'lumot</td> </tr> </table>', correctAnswer: 'tr', explanation: '<tr> Table Row degani.' }
+            { id: 'html3-q1', type: 'multiple-choice', prompt: 'Raqamlangan ro‘yxat uchun qaysi teg ishlatiladi?', options: [{ id: 'a', text: '<ul>' }, { id: 'b', text: '<ol>' }, { id: 'c', text: '<li>' }, { id: 'd', text: '<list>' }], correctId: 'b', explanation: '<ol> ordered list, yaʼni tartiblangan ro‘yxat degani.' },
+            { id: 'html3-q2', type: 'fill-blanks', prompt: 'Ro‘yxat elementini bildiruvchi tegni kiriting.', codeBefore: '<ul><', codeAfter: '>HTML</li></ul>', correctAnswer: 'li', explanation: '<li> ro‘yxatdagi bitta elementni bildiradi.' },
+            { id: 'html3-q3', type: 'code-write', prompt: '"Ism" va "Ali" qiymatlari bilan bitta qatorli jadval yozing.', correctAnswer: '<table><tr><td>Ism</td><td>Ali</td></tr></table>', placeholder: '<table>...</table>', explanation: '<tr> qator, <td> esa qator ichidagi katak uchun ishlatiladi.' }
         ]
     },
     {
         id: 4,
-        title: 'Kiritish Maydoni (4-Modul)',
+        title: 'Formalar va inputlar',
+        desc: 'Foydalanuvchidan maʼlumot olish',
         theory: [
-            "Foydalanuvchidan ma\'lumot olinadigan yovvoyi (kiritish) maydonlari <form> da bo'ladi.",
-            "Matn kiritish uchun <input> hamda tugmalarni bosish uchun <button> xizmat qiladi."
+            'Forma foydalanuvchidan maʼlumot olish uchun ishlatiladi. Login, qidiruv, izoh va ro‘yxatdan o‘tish oynalari formaga misol bo‘ladi.',
+            '<form> elementining ichida inputlar, label va tugmalar bo‘ladi. <label> input nimaga xizmat qilishini tushuntiradi.',
+            '<input> turli maʼlumotlarni qabul qiladi: text, email, password, checkbox va boshqa turlar.',
+            'Tugma uchun <button> ishlatiladi. type="submit" forma maʼlumotini yuborish harakatini bildiradi.'
         ],
         questions: [
-            { id: 'q10', type: 'multiple-choice', prompt: 'Foydalanuvchidan ma\'lumotlarni yig\'ib uzatuvchi eng katta asosiy teg qaysi?', options: [{ id: 'a', text: '<input>' }, { id: 'b', text: '<button>' }, { id: 'c', text: '<form>' }, { id: 'd', text: '<data>' }], correctId: 'c', explanation: 'Form malumotni o\'raydi.' },
-            { id: 'q11', type: 'fill-blanks', prompt: 'Matn kiritish uchun yopilmaydigan tegni kiriting:', codeBefore: '<', codeAfter: ' type="text" placeholder="Ismingiz" />', correctAnswer: 'input', explanation: '<input> matn tashiydi.' },
-            { id: 'q12', type: 'multiple-choice', prompt: 'Tugma yaratuvchi html tegni toping:', options: [{ id: 'a', text: '<btn>' }, { id: 'b', text: '<submit>' }, { id: 'c', text: '<click>' }, { id: 'd', text: '<button>' }], correctId: 'd', explanation: 'Tugma <button> deyiladi.' }
+            { id: 'html4-q1', type: 'multiple-choice', prompt: 'Foydalanuvchidan maʼlumot yig‘ish uchun asosiy konteyner qaysi?', options: [{ id: 'a', text: '<form>' }, { id: 'b', text: '<data>' }, { id: 'c', text: '<section>' }, { id: 'd', text: '<table>' }], correctId: 'a', explanation: '<form> input va tugmalarni bitta maqsad atrofida birlashtiradi.' },
+            { id: 'html4-q2', type: 'fill-blanks', prompt: 'Email kiritish maydonini to‘ldiring.', codeBefore: '<input type="', codeAfter: '" name="email">', correctAnswer: 'email', explanation: 'type="email" brauzerga email formatidagi qiymat kutilayotganini bildiradi.' },
+            { id: 'html4-q3', type: 'code-fix', prompt: 'Tugma noto‘g‘ri teg bilan yozilgan. Uni HTML standartiga moslang.', initialCode: '<btn>Yuborish</btn>', correctAnswer: '<button>Yuborish</button>', explanation: 'HTMLda tugma uchun <button> elementi ishlatiladi.' }
         ]
     },
     {
         id: 5,
-        title: 'Semantika va Bosh Boshqaruv (5-Modul)',
+        title: 'Semantika va accessibility',
+        desc: 'Maʼnoli HTML yozish va mobil moslashuv',
         theory: [
-            "Brauzerlarga sahifani to\'g\'ri tushunishi uchun <header>, <main>, <footer> kabi semantika qo\'llaniladi.",
-            "Tab nomk (title) <head> ichida yoziladi va oyna kengligi <meta> bilan o'lchanadi."
+            'Semantik HTML elementlari sahifa qismlarining vazifasini aniq bildiradi. Masalan, <header>, <nav>, <main>, <section> va <footer>.',
+            'Semantika qidiruv tizimlari, screen readerlar va boshqa dasturlarga sahifani to‘g‘ri tushunishga yordam beradi.',
+            'Mobil qurilmalar uchun viewport meta tegi kerak: u sahifaning ekran kengligiga mos chizilishini taʼminlaydi.',
+            'Yaxshi HTML faqat ko‘rinish emas; u mazmun, tartib va accessibility uchun ham masʼul.'
         ],
         questions: [
-            { id: 'q13', type: 'fill-blanks', prompt: 'Saytning vizual pastki qismini (podval) qaysi tegda saqlash standart qabul qilingan?', codeBefore: '<', codeAfter: '> Sayt huquqlari himoyalangan. </footer>', correctAnswer: 'footer', explanation: 'Podval bu footer.' },
-            { id: 'q14', type: 'multiple-choice', prompt: 'Mobile uskunalarida sahifa masshtabi o\'zgarib qolishini to\'xtatish tegi:', options: [{ id: 'a', text: '<meta viewport>' }, { id: 'b', text: '<view>' }, { id: 'c', text: '<scale>' }, { id: 'd', text: '<mobile>' }], correctId: 'a', explanation: '<meta> o\'lcham qat\'iyligini nazorat qiladi.' },
-            { id: 'q15', type: 'multiple-choice', prompt: 'Tashqi fayllarni hujjatga (masofaviy ko\'rinish) qaysi ko\'rinmas qisimga yozamiz?', options: [{ id: 'a', text: '<body> ichiga' }, { id: 'b', text: 'Fayl oxiriga' }, { id: 'c', text: '<head> ichiga' }, { id: 'd', text: '<nav> ichiga' }], correctId: 'c', explanation: '<head> bosh miya sozlamalari joyi.' }
+            { id: 'html5-q1', type: 'multiple-choice', prompt: 'Sahifaning asosiy takrorlanmas kontenti qaysi semantik tegda yozilgani maʼqul?', options: [{ id: 'a', text: '<main>' }, { id: 'b', text: '<footer>' }, { id: 'c', text: '<span>' }, { id: 'd', text: '<b>' }], correctId: 'a', explanation: '<main> sahifadagi asosiy kontentni bildiradi.' },
+            { id: 'html5-q2', type: 'fill-blanks', prompt: 'Pastki sahifa qismi uchun semantik tegni kiriting.', codeBefore: '<', codeAfter: '>2026 DuoKod</footer>', correctAnswer: 'footer', explanation: '<footer> odatda mualliflik, aloqa yoki qo‘shimcha havolalar joylashadigan pastki qism.' },
+            { id: 'html5-q3', type: 'multiple-choice', prompt: 'Mobil ekranga moslashuv uchun qaysi meta sozlama ishlatiladi?', options: [{ id: 'a', text: '<meta name="viewport" content="width=device-width, initial-scale=1.0">' }, { id: 'b', text: '<mobile scale="true">' }, { id: 'c', text: '<screen responsive>' }, { id: 'd', text: '<meta name="desktop">' }], correctId: 'a', explanation: 'viewport meta tegi responsive sahifalar uchun asosiy sozlamalardan biri.' }
         ]
     }
 ];
 
 export const CSS_LESSONS = [
     {
-        id: 1, title: 'Asoslar va Ranglar (1-Modul)',
+        id: 1,
+        title: 'CSS ulash va ranglar',
+        desc: 'Style qoidalari, selector va ranglar',
         theory: [
-            "CSS sahifaning tashqi ko'rinishini boshqaradi: rang, masofa, shrift, fon va joylashuv shu yerda sozlanadi.",
-            "CSS fayl HTMLga <link rel='stylesheet' href='style.css'> orqali ulanadi. rel atributi brauzerga bu fayl uslub ekanini bildiradi.",
-            "Matn rangini o'zgartirish uchun color, fon rangini o'zgartirish uchun background-color ishlatiladi.",
-            "Qoida odatda tanlovchi va xususiyatdan iborat bo'ladi: p { color: green; }. Bu barcha p matnlarini yashil qiladi."
+            'CSS HTML elementlarining ko‘rinishini boshqaradi: rang, shrift, masofa, o‘lcham va joylashuv.',
+            'CSS qoidasi selector va deklaratsiyalardan iborat: p { color: green; }. Selector qaysi element o‘zgarishini tanlaydi.',
+            'Tashqi CSS fayl HTMLga <link rel="stylesheet" href="style.css"> orqali ulanadi. Bu usul kodni tartibli saqlaydi.',
+            'color matn rangini, background-color esa element fonini belgilaydi.'
         ],
         questions: [
-            { id: 'q1', type: 'fill-blanks', prompt: 'CSS HTML faylga rel xossasida nima bilan ulanish kerak?', codeBefore: '<link ', codeAfter: '="stylesheet" href="style.css">', correctAnswer: 'rel', explanation: 'rel css kiyim boglosi.' },
-            { id: 'q2', type: 'multiple-choice', prompt: 'Matn rangini o\'zgartirish (masalan yashil qilish) qoidasi qanday?', options: [{ id: 'a', text: 'color:' }, { id: 'b', text: 'text-color:' }, { id: 'c', text: 'font-color:' }, { id: 'd', text: 'background:' }], correctId: 'a', explanation: 'Textlarga color: qo\'llaniladi.' },
-            { id: 'q3', type: 'fill-blanks', prompt: 'Elementning fon rangini (orqasini) o\'zgartirish:', codeBefore: '', codeAfter: '-color: green;', correctAnswer: 'background', explanation: 'background orqa ufq.' }
+            { id: 'css1-q1', type: 'fill-blanks', prompt: 'CSS faylni ulashda rel qiymatini kiriting.', codeBefore: '<link rel="', codeAfter: '" href="style.css">', correctAnswer: 'stylesheet', explanation: 'rel="stylesheet" ulangan fayl uslub jadvali ekanini bildiradi.' },
+            { id: 'css1-q2', type: 'multiple-choice', prompt: 'Matn rangini o‘zgartirish uchun qaysi property ishlatiladi?', options: [{ id: 'a', text: 'color' }, { id: 'b', text: 'text-color' }, { id: 'c', text: 'font-color' }, { id: 'd', text: 'paint' }], correctId: 'a', explanation: 'CSSda matn rangi color bilan belgilanadi.' },
+            { id: 'css1-q3', type: 'code-write', prompt: 'Barcha paragraf matnlarini ko‘k rangga o‘tkazing.', correctAnswer: 'p { color: blue; }', placeholder: 'p { ... }', explanation: 'p selector barcha <p> elementlarini tanlaydi.' }
         ]
     },
     {
-        id: 2, title: 'O\'lcham va Masofalar (2-Modul)',
-        theory: ["O\'lchov eng ko\'p piksel (px) asosida.", "Tashqi masofa Margin, Ichki masofa esa Padding deb yuritiladi."],
+        id: 2,
+        title: 'Box model',
+        desc: 'Content, padding, border va margin',
+        theory: [
+            'CSS box model har bir elementni quti sifatida tushuntiradi: content, padding, border va margin.',
+            'padding kontent bilan chegara orasidagi ichki masofa. margin esa element tashqarisidagi masofa.',
+            'border element atrofidagi chiziqni belgilaydi. Masalan: border: 1px solid #ddd.',
+            'box-sizing: border-box yozilsa, width ichiga padding va border ham qo‘shib hisoblanadi; layout boshqarish osonlashadi.'
+        ],
         questions: [
-            { id: 'q4', type: 'multiple-choice', prompt: 'CSS da biror qutining kengligini nimada o\'lchash eng qabul qilingan hisoblanadi?', options: [{ id: 'a', text: 'Kg' }, { id: 'b', text: 'Px (Pixel)' }, { id: 'c', text: 'Cm' }, { id: 'd', text: 'Hz' }], correctId: 'b', explanation: 'Pixels o\'lchovi.' },
-            { id: 'q5', type: 'fill-blanks', prompt: 'Qutilar orasidan (tashqaridan) masofa qoldirish komandasi:', codeBefore: '', codeAfter: ': 20px;', correctAnswer: 'margin', explanation: 'Tashqi zona Margin.' },
-            { id: 'q6', type: 'multiple-choice', prompt: 'Qutining ichidan masofa qoldirish nimaga deyiladi?', options: [{ id: 'a', text: 'Margin' }, { id: 'b', text: 'Spacing' }, { id: 'c', text: 'Border' }, { id: 'd', text: 'Padding' }], correctId: 'd', explanation: 'Padding haqiqiy ichki xavo qatlami.' }
+            { id: 'css2-q1', type: 'multiple-choice', prompt: 'Element ichidagi masofa qaysi property bilan beriladi?', options: [{ id: 'a', text: 'margin' }, { id: 'b', text: 'padding' }, { id: 'c', text: 'gap' }, { id: 'd', text: 'outline' }], correctId: 'b', explanation: 'padding element ichidagi masofani boshqaradi.' },
+            { id: 'css2-q2', type: 'fill-blanks', prompt: 'Element tashqarisidan 20px joy qoldiruvchi propertyni kiriting.', codeBefore: '', codeAfter: ': 20px;', correctAnswer: 'margin', explanation: 'margin element tashqarisidagi masofani belgilaydi.' },
+            { id: 'css2-q3', type: 'code-fix', prompt: 'Chegara yozuvidagi property nomini to‘g‘rilang.', initialCode: 'line: 1px solid black;', correctAnswer: 'border: 1px solid black;', explanation: 'CSSda element chegarasi border property orqali yoziladi.' }
         ]
     },
     {
-        id: 3, title: 'Tanlovchilar (Selectlar) (3-Modul)',
-        theory: ["Obyektlarni tanlash CSSda .klass va # id orqali amalga oshadiki bu orqali to\'g\'ri aniq manzil egasi topiladi.", "Hammasi klass nomiga tayansa, u . belgisidan foydalanadi."],
+        id: 3,
+        title: 'Selectorlar va specificity',
+        desc: 'Element, class va id orqali tanlash',
+        theory: [
+            'Selector CSS qoidasi qaysi HTML elementga qo‘llanishini belgilaydi. Masalan, h1 selector barcha <h1> elementlarini tanlaydi.',
+            'Class selector nuqta bilan yoziladi: .card. Bitta class ko‘p elementga berilishi mumkin.',
+            'ID selector # belgisi bilan yoziladi: #hero. ID sahifada odatda bitta noyob element uchun ishlatiladi.',
+            'Amaliy loyihalarda class selectorlar ko‘proq ishlatiladi, chunki ularni qayta ishlatish va boshqarish oson.'
+        ],
         questions: [
-            { id: 'q7', type: 'fill-blanks', prompt: 'Htmldagi <div bo\'shligiga class ismini yo\'llang?', codeBefore: 'Htmldagi <div ', codeAfter: '="btn"> class deymiz.', correctAnswer: 'class', explanation: 'Class guruh.' },
-            { id: 'q8', type: 'multiple-choice', prompt: '1ta elementda "#"(hash) belgisi nimani anglatadi?', options: [{ id: 'a', text: 'ID bo\'yicha murojaat' }, { id: 'b', text: 'Class bo\'yicha murojaat' }, { id: 'c', text: 'Tag' }, { id: 'd', text: 'Mevmura' }], correctId: 'a', explanation: 'ID faqat birdonadir.' },
-            { id: 'q9', type: 'fill-blanks', prompt: 'Atrofdan qora uzluksiz chiziq o\'tkazish (chegara belgilash):', codeBefore: '', codeAfter: ': 2px solid red;', correctAnswer: 'border', explanation: 'Chegara yaratit borderdan o\'tadi.' }
+            { id: 'css3-q1', type: 'fill-blanks', prompt: 'HTML elementga class atributini qo‘shing.', codeBefore: '<div ', codeAfter: '="card">...</div>', correctAnswer: 'class', explanation: 'class atributi elementga qayta ishlatiladigan nom beradi.' },
+            { id: 'css3-q2', type: 'multiple-choice', prompt: '.card selector nimani tanlaydi?', options: [{ id: 'a', text: 'card nomli tegni' }, { id: 'b', text: 'card classiga ega elementlarni' }, { id: 'c', text: 'card idli elementni' }, { id: 'd', text: 'barcha divlarni' }], correctId: 'b', explanation: 'Nuqta class selector ekanini bildiradi.' },
+            { id: 'css3-q3', type: 'code-write', prompt: 'hero idli element fonini oq rang qiling.', correctAnswer: '#hero { background-color: white; }', placeholder: '#hero { ... }', explanation: '#hero id selector orqali aniq element tanlanadi.' }
         ]
     },
     {
-        id: 4, title: 'Matn va Burchaklar (4-Modul)',
-        theory: ["Element burchaklarini radius berib dumaloqlash uni ko\'z teshilishidan asraydi.", "Shriftlarni font-family dan matn o\'rtalashtirishni align-center deb ishlating."],
+        id: 4,
+        title: 'Matn va vizual uslub',
+        desc: 'Typography, radius va shadow',
+        theory: [
+            'Typography matnning o‘qilishi va hissiyotini boshqaradi. font-family, font-size, font-weight va line-height asosiy propertylar.',
+            'text-align matnni chap, markaz yoki o‘ng tomonga tekislaydi. Markazlash uchun text-align: center yoziladi.',
+            'border-radius element burchaklarini yumaloqlaydi. Tugma va cardlarda ko‘p ishlatiladi.',
+            'box-shadow elementga chuqurlik beradi, lekin ko‘p ishlatilsa interfeys og‘irlashadi.'
+        ],
         questions: [
-            { id: 'q10', type: 'multiple-choice', prompt: 'Elementning burchaklarini yumaloqlash qaysi xususiyat orqali bajariladi?', options: [{ id: 'a', text: 'corner-radius' }, { id: 'b', text: 'border-round' }, { id: 'c', text: 'border-radius' }, { id: 'd', text: 'padding-radius' }], correctId: 'c', explanation: 'Radius bu egrilik.' },
-            { id: 'q11', type: 'fill-blanks', prompt: 'Matnning xarflarini boshqa turga o\'zgartirish:', codeBefore: 'font-', codeAfter: ': Arial, sans-serif;', correctAnswer: 'family', explanation: 'Oila xususiyatni beradi.' },
-            { id: 'q12', type: 'multiple-choice', prompt: 'Matnni to\'liq o\'rtaga (markazga) joylashtirish kodi?', options: [{ id: 'a', text: 'align-item: center;' }, { id: 'b', text: 'text-align: middle;' }, { id: 'c', text: 'text-center' }, { id: 'd', text: 'text-align: center;' }], correctId: 'd', explanation: 'Tekslangan qadam.' }
+            { id: 'css4-q1', type: 'multiple-choice', prompt: 'Matnni markazga tekislash qaysi kod bilan yoziladi?', options: [{ id: 'a', text: 'align-items: center;' }, { id: 'b', text: 'text-align: center;' }, { id: 'c', text: 'font-align: middle;' }, { id: 'd', text: 'center: text;' }], correctId: 'b', explanation: 'text-align inline matnni gorizontal tekislaydi.' },
+            { id: 'css4-q2', type: 'fill-blanks', prompt: 'Element burchaklarini yumaloqlovchi propertyni kiriting.', codeBefore: '', codeAfter: ': 12px;', correctAnswer: 'border-radius', explanation: 'border-radius burchak radiusini belgilaydi.' },
+            { id: 'css4-q3', type: 'code-write', prompt: 'Sarlavhani 32px va qalin qilib yozing.', correctAnswer: 'h1 { font-size: 32px; font-weight: 700; }', placeholder: 'h1 { ... }', explanation: 'font-size o‘lchamni, font-weight qalinlikni boshqaradi.' }
         ]
     },
     {
-        id: 5, title: 'Joylashuv (Flex & Shadow) (5-Modul)',
-        theory: ["Soya tashlash va animatsiyalarni joylash CSS maxsus hususiyatidir.", "Box-shadow hamda display Flex saytlarning silliq ko\'rinishda mosalashishi qoidasidek tanilgan."],
+        id: 5,
+        title: 'Flexbox va responsive',
+        desc: 'Elementlarni qator va ustunlarda joylashtirish',
+        theory: [
+            'Flexbox elementlarni bir o‘q bo‘ylab joylashtirish uchun ishlatiladi. Parent elementga display: flex yoziladi.',
+            'justify-content asosiy o‘qdagi joylashuvni, align-items esa kesishuvchi o‘qdagi tekislanishni boshqaradi.',
+            'gap flex itemlar orasidagi masofani belgilaydi. Bu margin bilan qo‘lda masofa berishdan tozaroq.',
+            'Responsive dizaynda media querylar ekran kengligiga qarab uslubni o‘zgartiradi.'
+        ],
         questions: [
-            { id: 'q13', type: 'fill-blanks', prompt: 'Flexbox tizimini faollashtirish buyrug\'i markaziga yo\'llang:', codeBefore: 'display: ', codeAfter: ';', correctAnswer: 'flex', explanation: 'Flex mo\'jiza tizimidir.' },
-            { id: 'q14', type: 'multiple-choice', prompt: 'Qutiga ortqi tomondan (yoki ostidan) soya berish qanday yoziladi?', options: [{ id: 'a', text: 'box-shadow' }, { id: 'b', text: 'text-shadow' }, { id: 'c', text: 'shadow-box' }, { id: 'd', text: 'drop-shadow' }], correctId: 'a', explanation: 'Box-shadow u orqa xavo!' },
-            { id: 'q15', type: 'fill-blanks', prompt: 'Animatsiyani sekin, yumshoq (silliq) bo\'lishini ta\'minlovchi kod:', codeBefore: '', codeAfter: ': all 0.3s ease;', correctAnswer: 'transition', explanation: 'Transition o\'tishlar darajasi!' }
+            { id: 'css5-q1', type: 'fill-blanks', prompt: 'Flexboxni yoqish uchun qiymatni kiriting.', codeBefore: 'display: ', codeAfter: ';', correctAnswer: 'flex', explanation: 'display: flex parent ichidagi elementlarni flex itemga aylantiradi.' },
+            { id: 'css5-q2', type: 'multiple-choice', prompt: 'Flex itemlar orasidagi masofani qaysi property boshqaradi?', options: [{ id: 'a', text: 'gap' }, { id: 'b', text: 'space' }, { id: 'c', text: 'between' }, { id: 'd', text: 'distance' }], correctId: 'a', explanation: 'gap elementlar orasida barqaror masofa beradi.' },
+            { id: 'css5-q3', type: 'code-write', prompt: '600px dan kichik ekranda .grid ni bitta ustun qiling.', correctAnswer: '@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }', placeholder: '@media (...) { ... }', explanation: 'Media query kichik ekranlar uchun alohida uslub berishga yordam beradi.' }
         ]
     }
 ];
 
 export const JS_LESSONS = [
     {
-        id: 1, title: 'Mantiq va Print (1-Modul)',
+        id: 1,
+        title: 'JavaScript asoslari',
+        desc: 'Script ulash, console va qiymatlar',
         theory: [
-            "JavaScript sahifaga harakat beradi: tugma bosilishi, hisob-kitob, xabar chiqarish va foydalanuvchi bilan muloqot shu til orqali qilinadi.",
-            "HTML ichida JavaScript ulash uchun <script> tegi ishlatiladi. Kichik kodlarni shu teg ichida sinab ko'rish mumkin.",
-            "console.log() dasturchining kuzatuv oynasiga xabar chiqaradi. Bu kod ishlayotganini tekshirishning eng oson usuli.",
-            "const o'zgarmas qiymat uchun ishlatiladi. Bir marta berilgan qiymatni keyin almashtirib bo'lmaydi."
+            'JavaScript web sahifaga interaktivlik qo‘shadi: tugma bosish, maʼlumot tekshirish, hisob-kitob va DOM o‘zgartirish.',
+            'HTML ichida JavaScript <script> tegi orqali ulanadi. Katta loyihalarda kod alohida .js faylda saqlanadi.',
+            'console.log() dasturchiga qiymatlarni tekshirish va kod ishlayotganini ko‘rish imkonini beradi.',
+            'Qiymatlar string, number, boolean, array va object kabi turlarda bo‘lishi mumkin.'
         ],
         questions: [
-            { id: 'q1', type: 'multiple-choice', prompt: 'JavaScript HTML ichida qaysi teg yordamida ulanish mumkin?', options: [{ id: 'a', text: '<javascript>' }, { id: 'b', text: '<script>' }, { id: 'c', text: '<js>' }, { id: 'd', text: '<code>' }], correctId: 'b', explanation: 'Script tegsiz qabul yoq.' },
-            { id: 'q2', type: 'fill-blanks', prompt: 'Brauzer qora konsoliga ma\'lumot chiqarish komandasi:', codeBefore: 'console.', codeAfter: '("Salom");', correctAnswer: 'log', explanation: 'log qaydnomaga saqlaydi.' },
-            { id: 'q3', type: 'multiple-choice', prompt: 'Zamonaviy JS da doimiy o\'zgarmas idishni e\'lon qilish uchun...?', options: [{ id: 'a', text: 'var' }, { id: 'b', text: 'let' }, { id: 'c', text: 'const' }, { id: 'd', text: 'int' }], correctId: 'c', explanation: 'const harakatsiz tiqilgan yozuv.' }
+            { id: 'js1-q1', type: 'multiple-choice', prompt: 'JavaScript faylini HTMLga ulash uchun qaysi teg ishlatiladi?', options: [{ id: 'a', text: '<script>' }, { id: 'b', text: '<javascript>' }, { id: 'c', text: '<style>' }, { id: 'd', text: '<code>' }], correctId: 'a', explanation: '<script> JavaScript kodini sahifaga ulaydi yoki ichida bajaradi.' },
+            { id: 'js1-q2', type: 'fill-blanks', prompt: 'Konsolga xabar chiqaruvchi metodni kiriting.', codeBefore: 'console.', codeAfter: '("Salom");', correctAnswer: 'log', explanation: 'console.log() debug qilish uchun eng oddiy vosita.' },
+            { id: 'js1-q3', type: 'multiple-choice', prompt: '"DuoKod" qiymati qaysi turga kiradi?', options: [{ id: 'a', text: 'number' }, { id: 'b', text: 'string' }, { id: 'c', text: 'boolean' }, { id: 'd', text: 'array' }], correctId: 'b', explanation: 'Qo‘shtirnoq ichidagi matn string hisoblanadi.' }
         ]
     },
     {
-        id: 2, title: 'Turlar (Types) (2-Modul)',
-        theory: ["Let kabi o\'zgaruvchan tur hamda String Number lar ma\'lumotni saqlaydi.", "JS asosi funksiaylar va tiplarga asirlangan!"],
+        id: 2,
+        title: 'O‘zgaruvchilar va funksiyalar',
+        desc: 'let, const va qayta ishlatiladigan kod',
+        theory: [
+            'O‘zgaruvchi qiymatni nom bilan saqlaydi. JavaScriptda ko‘p hollarda const va let ishlatiladi.',
+            'const qayta qiymat berilmaydigan bog‘lanish uchun, let esa keyin o‘zgarishi mumkin bo‘lgan qiymat uchun ishlatiladi.',
+            'Funksiya nomlangan kod blokidir. U bir vazifani qayta-qayta bajarish uchun kerak.',
+            'Parametr funksiya ichiga tashqaridan qiymat uzatishga yordam beradi.'
+        ],
         questions: [
-            { id: 'q4', type: 'fill-blanks', prompt: 'Yoshi o\'zgarib turadigan o\'zgaruvchi (Variable) qanday nomlanadi?', codeBefore: '', codeAfter: ' age = 22;', correctAnswer: 'let', explanation: 'Keyin o\'zgarishga sabab let!' },
-            { id: 'q5', type: 'multiple-choice', prompt: 'JS da `"Salom"` (qo\'shtirnoq ichida kelgan) qanday ma\'lumot turiga kiradi?', options: [{ id: 'a', text: 'Number' }, { id: 'b', text: 'String' }, { id: 'c', text: 'Boolean' }, { id: 'd', text: 'Array' }], correctId: 'b', explanation: 'Stringlar ma\'suliyatli jumladir.' },
-            { id: 'q6', type: 'fill-blanks', prompt: 'Bitta vazifani ko\'p marta ishlatish imkonini (qolipini) yaratadigan kalit so\'z:', codeBefore: '', codeAfter: ' salomBer() { console.log("Salom"); }', correctAnswer: 'function', explanation: 'Fuksiyachalar oson ish qurollar!' }
+            { id: 'js2-q1', type: 'fill-blanks', prompt: 'Keyin qiymati o‘zgarishi mumkin bo‘lgan age o‘zgaruvchisini eʼlon qiling.', codeBefore: '', codeAfter: ' age = 22;', correctAnswer: 'let', explanation: 'let qiymati keyin o‘zgaradigan o‘zgaruvchilar uchun ishlatiladi.' },
+            { id: 'js2-q2', type: 'multiple-choice', prompt: 'Qayta qiymat berilmaydigan o‘zgaruvchi uchun qaysi kalit so‘z mos?', options: [{ id: 'a', text: 'var' }, { id: 'b', text: 'let' }, { id: 'c', text: 'const' }, { id: 'd', text: 'fixed' }], correctId: 'c', explanation: 'const bog‘lanishni qayta tayinlashdan himoya qiladi.' },
+            { id: 'js2-q3', type: 'code-write', prompt: 'name parametrini qabul qilib konsolga chiqaradigan greet funksiyasini yozing.', correctAnswer: 'function greet(name) { console.log(name); }', placeholder: 'function greet(...) { ... }', explanation: 'function nomi, parametrlar va tana blokidan iborat bo‘ladi.' }
         ]
     },
     {
-        id: 3, title: 'If Else Mantiqi (3-Modul)',
-        theory: ["To\'gri xolida if ichi ochiladi. false bulsa oxtariladi", "Massiv va boshqa Arraylar orqali tartibli yigish imkoniga etgan"],
+        id: 3,
+        title: 'Shartlar, array va object',
+        desc: 'Qaror qabul qilish va maʼlumot tuzilmalari',
+        theory: [
+            'if/else kodni shartga qarab turli yo‘nalishda bajaradi. Shart true bo‘lsa if bloki ishlaydi.',
+            'Array tartiblangan ro‘yxatdir: qiymatlar kvadrat qavs ichida yoziladi va indeks orqali olinadi.',
+            'Object kalit-qiymat juftliklarini saqlaydi. Masalan: { name: "Ali", age: 18 }.',
+            'Array bir turdagi ko‘p qiymat uchun, object esa bitta obyektning xususiyatlari uchun qulay.'
+        ],
         questions: [
-            { id: 'q7', type: 'multiple-choice', prompt: 'JS da shartni qaysi kalit so\'z operatori tekshiradi?', options: [{ id: 'a', text: 'when / do' }, { id: 'b', text: 'if / else' }, { id: 'c', text: 'check' }, { id: 'd', text: 'while' }], correctId: 'b', explanation: 'if eshik yo\'l ko\'rsatgichidek' },
-            { id: 'q8', type: 'fill-blanks', prompt: 'Massiv (Array) turidagi qutilarni yaratish uchun qaysi maxsus belgi foydalaniladi?', codeBefore: 'let mevalar = ', codeAfter: '"Olma", "Anor", "Kivi"];', correctAnswer: '[', explanation: 'Brasket qavsi doim Arraydir' },
-            { id: 'q9', type: 'multiple-choice', prompt: 'JS da Obyektlar asosan qanday qavs dizayni orqali ulanadi va belgilinadi?', options: [{ id: 'a', text: '{ } (Jingalak)' }, { id: 'b', text: '[ ] (Kvadrat)' }, { id: 'c', text: '( ) (Oddiy)' }, { id: 'd', text: '< >' }], correctId: 'a', explanation: 'Obyektlar qiymati klyuchlikdir!' }
+            { id: 'js3-q1', type: 'multiple-choice', prompt: 'JavaScriptda shart tekshirish uchun qaysi kalit so‘z ishlatiladi?', options: [{ id: 'a', text: 'if' }, { id: 'b', text: 'check' }, { id: 'c', text: 'when' }, { id: 'd', text: 'select' }], correctId: 'a', explanation: 'if shartli bajarishni boshlaydi.' },
+            { id: 'js3-q2', type: 'fill-blanks', prompt: 'Array ochuvchi belgini kiriting.', codeBefore: 'const fruits = ', codeAfter: '"Olma", "Anor"];', correctAnswer: '[', explanation: 'Array kvadrat qavs bilan boshlanadi.' },
+            { id: 'js3-q3', type: 'code-write', prompt: 'Ali ismli user obyektini yarating.', correctAnswer: 'const user = { name: "Ali" };', placeholder: 'const user = ...', explanation: 'Object jingalak qavs ichida kalit-qiymat juftliklarini saqlaydi.' }
         ]
     },
     {
-        id: 4, title: 'Tsiklar aylanuvchanlik (4-Modul)',
-        theory: ["100 bor takror ish qilmang looplarni ishlating For() ulardan asosiysi", "While tokidan ishni tugatmagunicha aylanib turaveradi"],
+        id: 4,
+        title: 'Looplar va hodisalar',
+        desc: 'Takrorlash va foydalanuvchi harakati',
+        theory: [
+            'Loop takrorlanadigan ishni avtomatlashtiradi. for loopi sanash kerak bo‘lgan holatlarda ko‘p ishlatiladi.',
+            'while loopi shart true bo‘lib turgan vaqt davomida ishlaydi. Shart hech qachon false bo‘lmasa, cheksiz loop yuzaga keladi.',
+            'Event foydalanuvchi harakatini bildiradi: click, input, submit kabi hodisalar bor.',
+            'DOM elementiga addEventListener orqali hodisa tinglovchi funksiya ulanadi.'
+        ],
         questions: [
-            { id: 'q10', type: 'fill-blanks', prompt: 'Kompyuterga qayta-qayta loopli takror vazifa tuzish operatorining asosi:', codeBefore: '', codeAfter: ' (let i=0; i<10; i++) { console.log(i) }', correctAnswer: 'for', explanation: 'For sanoq loopini olib qoladi!' },
-            { id: 'q11', type: 'multiple-choice', prompt: 'Raqamlamasdan faqatgina toki shart True holdaligida aylanadigan loop turi?', options: [{ id: 'a', text: 'for ()' }, { id: 'b', text: 'loop' }, { id: 'c', text: 'repeat' }, { id: 'd', text: 'while ()' }], correctId: 'd', explanation: 'while cheksiz loopga kiritubchidir!' },
-            { id: 'q12', type: 'fill-blanks', prompt: 'Qaysi atribut tugma bossangiz reaksiya hosil etishi uchun kutadi?', codeBefore: '<button on', codeAfter: '="saqla()">Qabul</button>', correctAnswer: 'click', explanation: 'Click foydalaniluvchidan teginish kutar' }
+            { id: 'js4-q1', type: 'fill-blanks', prompt: 'Sanash uchun ishlatiladigan loop kalit so‘zini kiriting.', codeBefore: '', codeAfter: ' (let i = 0; i < 3; i++) { console.log(i); }', correctAnswer: 'for', explanation: 'for loopi boshlanish, shart va o‘zgarish qismlaridan iborat.' },
+            { id: 'js4-q2', type: 'multiple-choice', prompt: 'Tugma bosilishi qaysi event bilan ifodalanadi?', options: [{ id: 'a', text: 'click' }, { id: 'b', text: 'hover-only' }, { id: 'c', text: 'pressing' }, { id: 'd', text: 'submit-text' }], correctId: 'a', explanation: 'click foydalanuvchi bosganini bildiradi.' },
+            { id: 'js4-q3', type: 'code-fix', prompt: 'Event nomi noto‘g‘ri yozilgan. Uni to‘g‘rilang.', initialCode: 'button.addEventListener("pressed", run);', correctAnswer: 'button.addEventListener("click", run);', explanation: 'Tugma bosilishi uchun standart event nomi click.' }
         ]
     },
     {
-        id: 5, title: 'Chuqur JS Darrichasi (5-Modul)',
-        theory: ["Shunchaki tenglash = yoki ikki bor qilish bu turkda noto'qrilik oib kelishi mumkin === ushuni manq qiladigan qollanilma.", "Bular ustidan Boolean rosti true o'rnatadi."],
+        id: 5,
+        title: 'Qatʼiy solishtirish va DOM',
+        desc: '===, querySelector va matnni o‘zgartirish',
+        theory: [
+            'JavaScriptda === qiymat va tur bir xil bo‘lishini tekshiradi. == esa tur konvertatsiyasi qilishi mumkin.',
+            'DOM brauzerdagi HTML hujjatning JavaScript orqali boshqariladigan daraxt ko‘rinishidir.',
+            'document.querySelector() CSS selector orqali birinchi mos elementni topadi.',
+            'Element matnini o‘zgartirish uchun textContent ishlatiladi. Bu foydalanuvchiga ko‘rinadigan matnni yangilaydi.'
+        ],
         questions: [
-            { id: 'q13', type: 'multiple-choice', prompt: 'Xatto Son va Yozuv formati (Tipini ham) mos solishtiruviga olib bora oladigan ideal belgini kiriting:', options: [{ id: 'a', text: '=' }, { id: 'b', text: '==' }, { id: 'c', text: '===' }, { id: 'd', text: '!=' }], correctId: 'c', explanation: 'Qat\'iy tekshiruv 3 ustuniga bo\'ysunadi' },
-            { id: 'q14', type: 'fill-blanks', prompt: 'Tegni maxsus ID dan bilib foydalanish uchun funksiya nomini to\'ldiring:', codeBefore: 'document.getElementBy', codeAfter: '("id_nomi");', correctAnswer: 'Id', explanation: 'IDni topish id nomzoddidr.' },
-            { id: 'q15', type: 'multiple-choice', prompt: 'Matnlar string, Sonlar number xisoblansa false/true ligini javoblantiruvchi qism?', options: [{ id: 'a', text: 'String' }, { id: 'b', text: 'Boolean' }, { id: 'c', text: 'Null' }, { id: 'd', text: 'Array' }], correctId: 'b', explanation: 'Mantiq True va False dir' }
+            { id: 'js5-q1', type: 'multiple-choice', prompt: 'Tur va qiymatni qatʼiy solishtiruvchi operator qaysi?', options: [{ id: 'a', text: '=' }, { id: 'b', text: '==' }, { id: 'c', text: '===' }, { id: 'd', text: '=>' }], correctId: 'c', explanation: '=== tur konvertatsiyasiz qatʼiy solishtiradi.' },
+            { id: 'js5-q2', type: 'fill-blanks', prompt: 'CSS selector orqali element topuvchi metodni kiriting.', codeBefore: 'document.', codeAfter: '(".title");', correctAnswer: 'querySelector', explanation: 'querySelector birinchi mos elementni qaytaradi.' },
+            { id: 'js5-q3', type: 'code-write', prompt: '.message element matnini "Tayyor" ga o‘zgartiring.', correctAnswer: 'document.querySelector(".message").textContent = "Tayyor";', placeholder: 'document...', explanation: 'textContent element ichidagi matnni yangilaydi.' }
         ]
     }
 ];
@@ -277,4 +347,4 @@ export const COURSES = {
     js: { id: 'js', title: 'JavaScript (Mantiq)', data: JS_LESSONS, color: 'var(--accent-yellow)' },
     python: { id: 'python', title: 'Python Asoslari', data: PYTHON_CURRICULUM, color: '#3776AB' }
 };
-import { PYTHON_CURRICULUM } from './pythonCurriculum';
+import { PYTHON_CURRICULUM } from './pythonCurriculum.js';

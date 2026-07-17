@@ -9,8 +9,6 @@ const COURSE_META = {
     python: { icon: 'fa-terminal', desc: "Eng qulay va kuchli til bilan kodlashni boshlang. AI, ma'lumotlar va web uchun ideal.", level: "Boshlang'ich", accent: '#2563EB' },
 }
 
-const LESSONS_COUNT = { html: 12, css: 10, js: 15, python: 11 }
-
 function CourseSelector({ onSelectCourse }) {
     const { stats, switchCourse } = useUser()
     const { courses } = useCourseContent()
@@ -51,7 +49,7 @@ function CourseSelector({ onSelectCourse }) {
                     const isLocked = !hasPremiumAccess && id !== 'python'
                     const isActive = stats?.currentCourse === id
                     const progress = getProgress(id)
-                    const lessons = LESSONS_COUNT[id] || 10
+                    const lessons = course?.data?.length || 0
 
                     return (
                         <div
