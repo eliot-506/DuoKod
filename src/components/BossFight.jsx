@@ -312,11 +312,11 @@ function BossFight({ bossData, onWin, onExit }) {
           <div className="panel-header">🛡️ HOLATINGIZ</div>
           <div className="status-grid">
             <div className="stat-item">
-              <div className="stat-label">IMKONIYAT</div>
+              <div className="stat-label">HIMOYA</div>
               <div className="hearts-row">
                 {Array.from({ length: 3 }).map((_, i) => (
                   <span key={i} className={`heart ${i < playerHearts ? 'full' : 'empty'}`}>
-                    {i < playerHearts ? '❤️' : '🤍'}
+                    <i className={`fa-solid ${i < playerHearts ? 'fa-shield-halved' : 'fa-shield'}`}></i>
                   </span>
                 ))}
               </div>

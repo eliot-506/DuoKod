@@ -135,10 +135,10 @@ function Dashboard({ onNavigate }) {
 
             <div className="kpi-card-glass hearts-card">
               <div className="kpi-icon-box blue"><i className="fa-solid fa-shield"></i></div>
-              <span className="kpi-label">IMKON (QALQON)</span>
+              <span className="kpi-label">HIMOYA</span>
               <div className="kpi-main-val">
                 <span className="val-num">{stats?.hearts || 50}</span>
-                <span className="val-sub">Himoya</span>
+                <span className="val-sub">yordam va xatolar uchun zaxira</span>
               </div>
             </div>
 

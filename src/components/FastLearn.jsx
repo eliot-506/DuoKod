@@ -143,7 +143,7 @@ function FastLearn({ courseId, onBack }) {
                 </div>
                 <Mascot 
                     state={score === questions.length ? "happy" : score > 0 ? "idle" : "sad"} 
-                    message={score === questions.length ? "Ajoyib xotira! +30 XP va +5 Tanga yutdingiz!" : score > 0 ? `Yomon emas! +${score * 10} XP yutdingiz.` : "Afsus, umuman to'g'ri topolmadingiz! Ko'proq o'qib yana urining."} 
+                    message={score === questions.length ? "Ajoyib xotira! +30 XP va +5 himoya yutdingiz!" : score > 0 ? `Yomon emas! +${score * 10} XP yutdingiz.` : "Afsus, umuman to'g'ri topolmadingiz! Ko'proq o'qib yana urining."} 
                 />
                 <button className="btn btn-primary" onClick={onBack} style={{ marginTop: '40px', padding: '15px 40px', fontSize: '1.2rem' }}>Menyuga Qaytish</button>
             </div>

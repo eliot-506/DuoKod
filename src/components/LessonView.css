@@ -86,14 +86,22 @@
 .lesson-hearts {
     font-weight: 700;
     color: #1E293B;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid rgba(37, 99, 235, 0.16);
+    border-radius: 999px;
+    background: rgba(239, 246, 255, 0.78);
 }
 
 .lesson-hearts i {
-    color: #F59E0B;
+    color: #2563EB;
+}
+
+.lesson-hearts strong {
+    color: #0F172A;
 }
 
 .lesson-content {

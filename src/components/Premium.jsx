@@ -4,7 +4,7 @@ import './Premium.css';
 const premiumFeatures = [
     { icon: 'fa-lock-open', title: 'Barcha kurslar', text: 'HTML, CSS va JavaScript kurslari premium foydalanuvchilar uchun ochiladi.' },
     { icon: 'fa-certificate', title: 'Sertifikat', text: 'Kurs yakunida premium sertifikat olish imkoniyati tayyor turadi.' },
-    { icon: 'fa-heart-circle-bolt', title: '150 hearts', text: 'Darslarda xato qilishdan qoʻrqmay mashq qilish uchun kengroq limit.' },
+    { icon: 'fa-shield-halved', title: '150 himoya', text: 'Darslarda yordam soʻrash va xatolarni yengilroq oʻtkazish uchun kengroq limit.' },
     { icon: 'fa-book-open-reader', title: 'Premium kutubxona', text: 'Qoʻshimcha adabiyotlar va loyiha shablonlarini monetizatsiya qilishga tayyor blok.' }
 ];
 
@@ -30,7 +30,7 @@ function Premium({ onNavigate }) {
                     <span className="premium-kicker">DUOKOD PREMIUM</span>
                     <h1>Dasturlashni tezroq oching, platformani daromad modeliga tayyorlang</h1>
                     <p>
-                        Premium orqali kurslar, sertifikat, ko'proq hearts va qo'shimcha resurslarni pullik paketga jamlash mumkin.
+                        Premium orqali kurslar, sertifikat, ko'proq himoya va qo'shimcha resurslarni pullik paketga jamlash mumkin.
                     </p>
                     <div className="premium-actions">
                         <button className="premium-primary-btn" onClick={activatePremiumDemo}>
@@ -54,7 +54,7 @@ function Premium({ onNavigate }) {
                     </div>
                     <ul>
                         <li><i className="fa-solid fa-check"></i> Barcha kurslar ochiq</li>
-                        <li><i className="fa-solid fa-check"></i> 150 hearts paketi</li>
+                        <li><i className="fa-solid fa-check"></i> 150 himoya paketi</li>
                         <li><i className="fa-solid fa-check"></i> Premium avatar</li>
                         <li><i className="fa-solid fa-check"></i> Sertifikat imkoniyati</li>
                     </ul>

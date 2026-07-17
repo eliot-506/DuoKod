@@ -121,7 +121,7 @@ function Leaderboard() {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
                     </div>
-                    <span className="lb-stat-card__label">Imkon</span>
+                    <span className="lb-stat-card__label">Himoya</span>
                     <span className="lb-stat-card__value">{stats?.hearts || 0}</span>
                 </div>
             </div>

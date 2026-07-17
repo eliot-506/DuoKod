@@ -118,7 +118,7 @@ export const BOSS_DATA = {
                     },
                     {
                         type: 'shield',
-                        bossMessage: '1 dan 3 gacha sanab qalqon yarating!',
+                        bossMessage: '1 dan 3 gacha sanab himoya yarating!',
                         code: 'for son in range(1, 4):',
                         shieldCode: 'for son in range(1, 4):',
                         hint: 'range ning oxirgi chegarasi natijaga kirmaydi!',

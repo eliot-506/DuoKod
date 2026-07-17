@@ -356,7 +356,8 @@
     border: 1px solid rgba(255, 255, 255, 0.6);
 }
 .stat-label { font-size: 0.8rem; color: #64748b; font-weight: 900; margin-bottom: 12px; letter-spacing: 1px; }
-.hearts-row { font-size: 2rem; display: flex; gap: 10px; }
+.hearts-row { font-size: 1.45rem; display: flex; gap: 10px; color: #2563eb; }
+.hearts-row .heart.empty { color: #cbd5e1; }
 .rounds-track { display: flex; gap: 12px; }
 .round-node { width: 16px; height: 16px; border-radius: 6px; background: rgba(0,0,0,0.05); border: 1px solid rgba(255,255,255,0.8); }
 .round-node.done { background: #10b981; border-color: #10b981; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }

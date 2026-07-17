@@ -20,7 +20,7 @@ function Profile() {
         if (buyPremiumAvatar(500)) {
             alert("Muvaffaqiyatli sotib olindi! Premium avatar faollashdi.");
         } else {
-            alert("Sotib olish uchun yetarli ❤️ yurakchalar mavjud emas (Kamida 500 ta kerak).");
+            alert("Sotib olish uchun yetarli himoya mavjud emas (Kamida 500 ta kerak).");
         }
     };
 
@@ -61,9 +61,9 @@ function Profile() {
 
                 <div className="kpi-card-glass hearts-card">
                     <div className="kpi-icon-box blue"><i className="fa-solid fa-shield-halved"></i></div>
-                    <span className="kpi-label">YURAKCHALAR</span>
+                    <span className="kpi-label">HIMOYA</span>
                     <div className="val-num">{stats.hearts}</div>
-                    <div className="val-sub">imkoniyatlar</div>
+                    <div className="val-sub">yordam va xatolar uchun zaxira</div>
                 </div>
 
                 <div className="kpi-card-glass lessons-card">
@@ -169,7 +169,7 @@ function Profile() {
                                     ) : isUnlocked ? (
                                         <button className="btn btn-secondary" onClick={() => changeAvatar(avatar.id)}>Tanlash</button>
                                     ) : isPremium ? (
-                                        <button className="btn btn-premium" onClick={handleBuyPremium}>Sotib olish (500 ❤️)</button>
+                                        <button className="btn btn-premium" onClick={handleBuyPremium}>Sotib olish (500 himoya)</button>
                                     ) : (
                                         <button className="btn btn-locked" disabled>Qulflangan 🔒</button>
                                     )}

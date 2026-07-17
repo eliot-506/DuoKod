@@ -70,7 +70,7 @@ function App() {
       if (!isPythonCourse || !isAvailable) return;
     }
     if (!stats.isAdmin && stats.hearts <= 0) {
-      alert("Yurakchalaringiz tugadi! Biroz kuting yoki ta'limni davom ettirish uchun to'ldiring.");
+      alert("Himoyangiz tugadi! Biroz kuting yoki ta'limni davom ettirish uchun to'ldiring.");
       return;
     }
     switchCourse(courseId)

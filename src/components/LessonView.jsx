@@ -21,7 +21,7 @@ function LessonView({ onComplete, onExit, onStepChange, lessonId, sectionId, sta
 
     const [mistakes, setMistakes] = useState(0)
 
-    const { stats, updateSkill } = useUser()
+    const { stats, updateSkill, spendHeart } = useUser()
     const { courses } = useCourseContent()
     const activeCourseData = courses[stats.currentCourse].data;
     const moduleData = activeCourseData.find(l => l.id === lessonId) || activeCourseData[0];
@@ -164,6 +164,12 @@ function LessonView({ onComplete, onExit, onStepChange, lessonId, sectionId, sta
     const getFinalScore = () => {
         const totalQuestions = activeQuestions.length || 1;
         return Math.max(0, 100 - (mistakes * (100 / totalQuestions)));
+    };
+
+    const handleRequestHint = () => {
+        if (stats.hearts <= 0 || hintLevel >= 3) return;
+        spendHeart(1);
+        setHintLevel(prev => prev + 1);
     };
 
     const renderTheory = () => (
@@ -360,8 +366,10 @@ function LessonView({ onComplete, onExit, onStepChange, lessonId, sectionId, sta
                     <div className="lesson-progress-bar">
                         <div className="lesson-progress-fill" style={{ width: `${progressPercentage}%` }}></div>
                     </div>
-                    <div className="lesson-hearts">
-                        <i className="fa-solid fa-heart"></i> {stats.hearts}
+                    <div className="lesson-hearts" title="Himoya">
+                        <i className="fa-solid fa-shield-halved"></i>
+                        <span>Himoya</span>
+                        <strong>{stats.hearts}</strong>
                     </div>
                 </div>
 
@@ -394,10 +402,11 @@ function LessonView({ onComplete, onExit, onStepChange, lessonId, sectionId, sta
                             {isChecked && phase === 'quiz' && !isCorrect && hintLevel < 3 && (
                                 <button
                                     className="btn btn-secondary"
-                                    onClick={() => setHintLevel(prev => prev + 1)}
+                                    onClick={handleRequestHint}
+                                    disabled={stats.hearts <= 0}
                                     style={{ background: 'var(--surface)', color: 'var(--accent-pink)', borderColor: 'var(--accent-pink)' }}
                                 >
-                                    💡 Yordam So'rash ({3 - hintLevel})
+                                    <i className="fa-solid fa-lightbulb"></i> {stats.hearts > 0 ? `Yordam so'rash -1 himoya (${3 - hintLevel})` : 'Himoya yetarli emas'}
                                 </button>
                             )}
                             <button
